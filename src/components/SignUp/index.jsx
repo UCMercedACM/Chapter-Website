@@ -6,12 +6,12 @@ import { compose } from "recompose";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
-const SignUpPage = () => {
+const SignUpPage = () => (
   <div>
     <h1>SignUp</h1>
     <SignUpForm />
-  </div>;
-};
+  </div>
+);
 
 const INITIAL_STATE = {
   username: "",
@@ -102,11 +102,11 @@ class SignUpFormBase extends Component {
   }
 }
 
-const SignUpLink = () => {
+const SignUpLink = () => (
   <p>
     Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-  </p>;
-};
+  </p>
+);
 
 const SignUpForm = compose(
   withRouter,

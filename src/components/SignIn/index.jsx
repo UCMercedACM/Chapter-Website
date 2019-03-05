@@ -8,14 +8,14 @@ import {PasswordForgetLink} from '../PasswordForget';
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
-const SignInPage = () => {
+const SignInPage = () => (
   <div>
     <h1>SignIn</h1>
     <SignInForm />
     <PasswordForgetLink />
     <SignUpLink />
-  </div>;
-};
+  </div>
+);
 
 const INITIAL_STATE = {
   email: "",

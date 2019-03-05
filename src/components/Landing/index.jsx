@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 
-const Landing = () => {
+const Landing = () => (
   <div>
     <h1>Landing</h1>
   </div>
-};
+);
 
 export default Landing;

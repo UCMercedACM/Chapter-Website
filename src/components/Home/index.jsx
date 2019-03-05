@@ -2,12 +2,12 @@
 import React from "react";
 import { withAuthorization } from "../Session";
 
-const HomePage = () => {
+const HomePage = () => (
   <div>
     <h1>Home</h1>
     <p>The Home Page is accessible by every signed in user.</p>
-  </div>;
-};
+  </div>
+);
 
 const condition = authUser => !!authUser;
 

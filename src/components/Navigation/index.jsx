@@ -14,7 +14,7 @@ const Navigation = () => (
   </div>
 );
 
-const NavigationAuth = () => {
+const NavigationAuth = () => (
   <div>
     <ul>
       <li>
@@ -33,10 +33,10 @@ const NavigationAuth = () => {
         <SignOutButton />
       </li>
     </ul>
-  </div>;
-};
+  </div>
+);
 
-const NavigationNonAuth = () => {
+const NavigationNonAuth = () => (
   <div>
     <ul>
       <li>
@@ -46,7 +46,7 @@ const NavigationNonAuth = () => {
         <Link to={ROUTES.SIGN_IN}>Sign In</Link>
       </li>
     </ul>
-  </div>;
-};
+  </div>
+);
 
 export default Navigation;

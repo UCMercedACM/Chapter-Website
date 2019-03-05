@@ -5,7 +5,7 @@ import { AuthUserContext, withAuthorization } from "../Session";
 import { PasswordForgetForm } from "../PasswordForget";
 import PasswordChangeForm from "../PasswordChange";
 
-const AccountPage = () => {
+const AccountPage = () => (
   <AuthUserContext.Consumer>
     {authUser => (
       <div>
@@ -14,8 +14,8 @@ const AccountPage = () => {
         <PasswordChangeForm />
       </div>
     )}
-  </AuthUserContext.Consumer>;
-};
+  </AuthUserContext.Consumer>
+);
 
 const condition = authUser => !!authUser;
 

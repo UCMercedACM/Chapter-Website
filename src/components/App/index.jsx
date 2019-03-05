@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.auth.onAuthStateChanged(authUser => {
+    this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
         : this.setState({ authUser: null });
@@ -54,4 +54,5 @@ class App extends Component {
   }
 }
 
-export default withAuthentication(App);
+ export default withAuthentication(App);
+// export default App;
