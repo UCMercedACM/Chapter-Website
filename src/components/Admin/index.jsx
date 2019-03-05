@@ -1,10 +1,15 @@
 /* eslint-disable no-unused-expressions */
-import React from 'react';
+import React from "react";
 
-const Admin = () => {
+import * as ROLES from "../../constants/roles";
+import { withAuthorization } from "../Session";
+
+const AdminPage = () => {
   <div>
     <h1>Admin</h1>
-  </div>
+    <p>Restricted area! Only users with the admin role are authorized.</p>
+  </div>;
 };
 
-export default Admin;
+const condition = authUser => authUser && authUser.roles.includes(ROLES.ADMIN);
+export default withAuthorization(condition)(AdminPage);
