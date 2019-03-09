@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
@@ -45,6 +44,7 @@ class PasswordForgetFormBase extends Component {
 
   render() {
     const { email, error } = this.state;
+
     const isInvalid = email === "";
 
     return (
@@ -76,4 +76,4 @@ export default PasswordForgetPage;
 
 const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
 
-export {PasswordForgetForm, PasswordForgetLink};
+export { PasswordForgetForm, PasswordForgetLink };

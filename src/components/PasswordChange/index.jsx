@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-expressions */
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import { withFirebase } from "../Firebase";
 
@@ -37,6 +36,7 @@ class PasswordChangeForm extends Component {
 
   render() {
     const { passwordOne, passwordTwo, error } = this.state;
+
     const isInvalid = passwordOne !== passwordTwo || passwordOne === "";
 
     return (

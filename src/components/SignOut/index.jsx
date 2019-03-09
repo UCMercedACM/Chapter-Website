@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-expressions */
-import React from 'react';
+import React from "react";
 
-import {withFirebase} from '../Firebase';
+import { withFirebase } from "../Firebase";
 
-const SignOutButton = ({firebase}) => (
+const SignOutButton = ({ firebase }) => (
   <button type="button" onClick={firebase.doSignOut}>
     Sign Out
   </button>
