@@ -1,0 +1,23 @@
+{
+  "projectName": "ACM",
+  "projectOwner": "UCMercedACM",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "adriandarian",
+      "name": "Adrian Darian",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/23567187?v=4",
+      "profile": "http://linkedin.com/in/adriandarian/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
