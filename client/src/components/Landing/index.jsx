@@ -38,8 +38,8 @@ const Landing = () => (
               </a>
             </li>
             {/*<li>
-                        <a className="page-scroll" href="#three">Showcase</a>
-                    </li>*/}
+              <a className="page-scroll" href="#three">Showcase</a>
+            </li>*/}
             <li>
               <a className="page-scroll" href="#last">
                 Contact
@@ -55,8 +55,8 @@ const Landing = () => (
           <h1>Association for Computing Machinery</h1>
           <h4>University of California, Merced</h4>
           <hr />
-          <a href="#one" className="btn btn-primary btn-xl page-scroll">
-            Get Started
+          <a href="ucm-acm.slack.com" className="btn btn-primary btn-xl page-scroll">
+            24/7 Coding Help
           </a>
         </div>
       </div>
