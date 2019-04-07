@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app); // eslint-disable-line
 const path = require('path');
 
+const mailer = require("./mailer");
+
 const SERVER_PORT = 60000;
 
 // MetaData
@@ -12,22 +14,38 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-//Static file declaration
+// Static file declaration
 app.use(express.static(path.join(__dirname, '/../client/build')));
 
-//production mode
-if(process.env.NODE_ENV === 'production') {
+// Production Mode
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/../client/build')));
-  //
-  app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
-  })
+
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname = 'client/build/index.html'));
+  });
 }
 
-//build mode
-app.get('*', (req, res) => {
+// Build Mode
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/../client/public/index.html'));
-})
+});
+
+// Feedback response
+app.get("/api/feedback", function(req, res) {
+  res.set("Content-Type", "application/json");
+
+  /* Send email here */
+  const locals = { userName: req.body.userName };
+  const messageInfo = {
+    email: req.body.email, fromEmail: "info@ingsw.com",
+    fromName: "Star Wars", subject: "Checkout this awesome droids"
+  };
+  mailer.sendOne("droids", messageInfo, locals);
+
+
+  res.send('{"message":"Email sent."}');
+});
 
 // 404 error handling
 app.use((req, res) => {
