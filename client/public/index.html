@@ -69,10 +69,14 @@
     })(jQuery);
 
     $(function () {
+      var $nav = $(".navbar-fixed-top");
       $(document).scroll(function () {
-        var $nav = $(".navbar-fixed-top");
         $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height() + 700);
       });
+      if ($(document).scrollTop() > $nav.height + 700) {
+        console.log($(".navbar-brand"))
+        $(".navbar-brand").css('display', 'inline-block');
+      }
     });
   </script>
 </head>
@@ -84,7 +88,7 @@
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
+      You can add web fonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
 
       To begin the development, run `npm start` or `yarn start`.
