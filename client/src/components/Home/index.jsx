@@ -238,7 +238,6 @@ class Home extends Component {
                       onChange={ev => {
                         this.setState({ category: ev.target.value });
                       }}
-                      value="Workshops"
                     >
                       <option value="Workshops">Workshops</option>
                       <option value="Projects">Projects</option>
