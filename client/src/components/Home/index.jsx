@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 
 const sendEmail = (name, email, category, message) => {
-  return fetch("/api/send_email", {
+  console.log(name + "\n" + email + "\n" + category + "\n" + message);
+
+  return fetch("/api/feedback", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, category, message })
@@ -15,6 +17,8 @@ class Home extends Component {
     category: "",
     message: ""
   }
+
+  
 
   render() {
     return (

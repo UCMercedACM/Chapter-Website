@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 const http = require('http').Server(app); // eslint-disable-line
 const path = require('path');
 
-const mailer = require("./mailer");
-
 const SERVER_PORT = 60000;
 
 // MetaData
@@ -32,17 +30,12 @@ app.get('/', (req, res) => {
 });
 
 // Feedback response
-app.get("/api/feedback", function(req, res) {
+app.get('/api/feedback', function(req, res) {
   res.set("Content-Type", "application/json");
 
-  /* Send email here */
-  const locals = { userName: req.body.userName };
-  const messageInfo = {
-    email: req.body.email, fromEmail: "info@ingsw.com",
-    fromName: "Star Wars", subject: "Checkout this awesome droids"
-  };
-  mailer.sendOne("droids", messageInfo, locals);
+  console.log(req);
 
+  /* Send email here */
 
   res.send('{"message":"Email sent."}');
 });

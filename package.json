@@ -1,0 +1,12 @@
+{
+  "name": "ACM",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/UCMercedACM/ACM.git",
+  "author": "Adrian Darian <adarian@ucmerced.edu>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "cd client && yarn install && yarn build && cd ../server && yarn install && yarn start"
+  }
+}
