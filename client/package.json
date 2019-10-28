@@ -1,26 +1,47 @@
 {
-  "name": "ACM",
-  "version": "0.1.0",
+  "name": "client",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
   "private": true,
   "dependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+    "@angular/animations": "~8.2.11",
+    "@angular/common": "~8.2.11",
+    "@angular/compiler": "~8.2.11",
+    "@angular/core": "~8.2.11",
+    "@angular/forms": "~8.2.11",
+    "@angular/platform-browser": "~8.2.11",
+    "@angular/platform-browser-dynamic": "~8.2.11",
+    "@angular/router": "~8.2.11",
+    "rxjs": "~6.4.0",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.803.14",
+    "@angular/cli": "~8.3.14",
+    "@angular/compiler-cli": "~8.2.11",
+    "@angular/language-service": "~8.2.11",
+    "@types/node": "~8.9.4",
+    "@types/jasmine": "~3.3.8",
+    "@types/jasminewd2": "~2.0.3",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.15.0",
+    "typescript": "~3.5.3"
+  }
 }
