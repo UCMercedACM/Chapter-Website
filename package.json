@@ -7,11 +7,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cd client && yarn install && yarn build && cd ../server && yarn install && yarn start"
+    "dev": "nodemon server.js",
+    "start": "nodemon index.js"
   },
   "dependencies": {
+    "@nguniversal/express-engine": "^8.1.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "http": "^0.0.0"
+    "http": "^0.0.0",
+    "nodemon": "^1.19.4",
+    "zone.js": "^0.10.2"
   }
 }
