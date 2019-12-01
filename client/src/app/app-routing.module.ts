@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CoffeeNCodeComponent } from './pages/coffee-n-code/coffee-n-code.component';
+import { CoffeeNCodeComponent } from './containers/coffee-n-code/coffee-n-code.component';
 
 const routes: Routes = [
   {
