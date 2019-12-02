@@ -1,12 +1,11 @@
 import { Url } from 'url';
 
 export interface Member {
-  id: string;
+  id: number;
   firstName: string;
-  lastname: string;
+  lastName: string;
   email: string;
   year: string;
-  studentID: number;
   github: Url;
   linkedin: Url;
   portfolium?: Url;

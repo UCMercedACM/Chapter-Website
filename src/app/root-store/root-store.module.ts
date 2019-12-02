@@ -1,36 +1,16 @@
-import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { StoreModule } from "@ngrx/store";
+import { NgModule } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
-
-import * as fromWorkshopStore from "./workshop-store/workshop-store.reducer";
-import { WorkshopStoreEffects } from "./workshop-store/workshop-store.effects";
-import * as fromProjectStore from "./project-store/project-store.reducer";
-import { ProjectStoreEffects } from "./project-store/project-store.effects";
-import * as fromMemberStore from "./member-store/member-store.reducer";
-import { MemberStoreEffects } from "./member-store/member-store.effects";
+import { StoreModule } from "@ngrx/store";
+import { MyFeatureStoreModule } from "./member";
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
-    EffectsModule.forFeature([
-      WorkshopStoreEffects,
-      ProjectStoreEffects,
-      MemberStoreEffects
-    ]),
-    StoreModule.forFeature(
-      fromWorkshopStore.workshopStoreFeatureKey,
-      fromWorkshopStore.reducer
-    ),
-    StoreModule.forFeature(
-      fromProjectStore.projectStoreFeatureKey,
-      fromProjectStore.reducer
-    ),
-    StoreModule.forFeature(
-      fromMemberStore.memberStoreFeatureKey,
-      fromMemberStore.reducer
-    )
-  ]
+    MyFeatureStoreModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([])
+  ],
+  declarations: []
 })
 export class RootStoreModule {}

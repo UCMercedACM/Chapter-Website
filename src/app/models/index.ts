@@ -1,2 +1,2 @@
-import { Member } from "./member";
-import { Workshops } from "./workshops";
+export * from "./member";
+export * from "./workshops";
