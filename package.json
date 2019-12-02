@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
     "store": "ng g feature --flat false --creators true --module root-store/root-store.module.ts"
   },
   "private": true,
