@@ -1,31 +1,30 @@
-import { Actions, ActionTypes } from "./actions";
-import { memberAdapter, initialState, State } from "./state";
+import { Action, createReducer, on } from "@ngrx/store";
 
-export function memberReducer(state = initialState, action: Actions): State {
-  switch (action.type) {
-    case ActionTypes.LOAD_REQUEST: {
-      return {
-        ...state,
-        isLoading: true,
-        error: null
-      };
-    }
-    case ActionTypes.LOAD_SUCCESS: {
-      return memberAdapter.addAll(action.payload.items, {
-        ...state,
-        isLoading: false,
-        error: null
-      });
-    }
-    case ActionTypes.LOAD_FAILURE: {
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload.error
-      };
-    }
-    default: {
-      return state;
-    }
-  }
+import { initialState, memberAdapter, MemberState } from "./state";
+import * as MemberActions from "./actions";
+
+const memberReducer = createReducer(
+  initialState,
+
+  on(MemberActions.loadMembers, state => {
+    return { ...state, isLoading: true, error: null };
+  }),
+  on(MemberActions.loadMembersSuccess, (state, action) => {
+    return memberAdapter.addAll(action.data, {
+      ...state,
+      isLoading: false,
+      error: null
+    });
+  }),
+  on(MemberActions.loadMembersFailure, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error
+    };
+  })
+);
+
+export function reducer(state: MemberState | undefined, action: Action) {
+  return memberReducer(state, action);
 }

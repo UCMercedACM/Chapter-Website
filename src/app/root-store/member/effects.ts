@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Actions, Effect, ofType } from "@ngrx/effects";
-import { Action } from "@ngrx/store";
-import { Observable, of as observableOf } from "rxjs";
-import { catchError, map, startWith, switchMap } from "rxjs/operators";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { of } from "rxjs";
+import { catchError, map, concatMap } from "rxjs/operators";
+
 import { DataService } from "../../services/data.service";
 import * as memberActions from "./actions";
 
@@ -10,24 +10,16 @@ import * as memberActions from "./actions";
 export class MemberStoreEffects {
   constructor(private dataService: DataService, private actions$: Actions) {}
 
-  @Effect()
-  loadRequestEffect$: Observable<Action> = this.actions$.pipe(
-    ofType<memberActions.LoadRequestAction>(
-      memberActions.ActionTypes.LOAD_REQUEST
-    ),
-    startWith(new memberActions.LoadRequestAction()),
-    switchMap(action =>
-      this.dataService.getItems().pipe(
-        map(
-          items =>
-            new memberActions.LoadSuccessAction({
-              items
-            })
-        ),
-        catchError(error =>
-          observableOf(new memberActions.LoadFailureAction({ error }))
+  loadMemberStores$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(memberActions.loadMembers),
+      concatMap(() =>
+        /** An EMPTY observable only emits completion. Replace with your own observable API request */
+        this.dataService.getItems().pipe(
+          map(data => memberActions.loadMembersSuccess({ data })),
+          catchError(error => of(memberActions.loadMembersFailure({ error })))
         )
       )
-    )
-  );
+    );
+  });
 }

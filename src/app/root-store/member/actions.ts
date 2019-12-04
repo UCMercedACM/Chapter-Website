@@ -1,24 +1,14 @@
-import { Action } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
 import { Member } from "../../models";
 
-export enum ActionTypes {
-  LOAD_REQUEST = "[My Feature] Load Request",
-  LOAD_FAILURE = "[My Feature] Load Failure",
-  LOAD_SUCCESS = "[My Feature] Load Success"
-}
+export const loadMembers = createAction("[Member] Load Members");
 
-export class LoadRequestAction implements Action {
-  readonly type = ActionTypes.LOAD_REQUEST;
-}
+export const loadMembersSuccess = createAction(
+  "[Member] Load Members Success",
+  props<{ data: Member[] }>()
+);
 
-export class LoadFailureAction implements Action {
-  readonly type = ActionTypes.LOAD_FAILURE;
-  constructor(public payload: { error: string }) {}
-}
-
-export class LoadSuccessAction implements Action {
-  readonly type = ActionTypes.LOAD_SUCCESS;
-  constructor(public payload: { items: Member[] }) {}
-}
-
-export type Actions = LoadRequestAction | LoadFailureAction | LoadSuccessAction;
+export const loadMembersFailure = createAction(
+  "[Member] Load Members Failure",
+  props<{ error: any }>()
+);

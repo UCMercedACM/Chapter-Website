@@ -5,17 +5,16 @@ import {
 } from "@ngrx/store";
 
 import { Member } from "../../models";
+import { memberAdapter, MemberState, memberFeatureKey } from "./state";
 
-import { memberAdapter, State } from "./state";
+export const getError = (state: MemberState): any => state.error;
 
-export const getError = (state: State): any => state.error;
-
-export const getIsLoading = (state: State): boolean => state.isLoading;
+export const getIsLoading = (state: MemberState): boolean => state.isLoading;
 
 export const selectMemberState: MemoizedSelector<
   object,
-  State
-> = createFeatureSelector<State>("member");
+  MemberState
+> = createFeatureSelector<MemberState>(memberFeatureKey);
 
 export const selectAllMemberItems: (
   state: object
