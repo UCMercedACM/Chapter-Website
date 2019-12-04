@@ -1,5 +1,5 @@
-import { MyFeatureStoreState } from "./member";
+import { MemberStoreState } from "./member";
 
 export interface State {
-  myFeature: MyFeatureStoreState.State;
+  member: MemberStoreState.State;
 }

@@ -1,7 +1,7 @@
 import { Actions, ActionTypes } from "./actions";
-import { featureAdapter, initialState, State } from "./state";
+import { memberAdapter, initialState, State } from "./state";
 
-export function featureReducer(state = initialState, action: Actions): State {
+export function memberReducer(state = initialState, action: Actions): State {
   switch (action.type) {
     case ActionTypes.LOAD_REQUEST: {
       return {
@@ -11,7 +11,7 @@ export function featureReducer(state = initialState, action: Actions): State {
       };
     }
     case ActionTypes.LOAD_SUCCESS: {
-      return featureAdapter.addAll(action.payload.items, {
+      return memberAdapter.addAll(action.payload.items, {
         ...state,
         isLoading: false,
         error: null

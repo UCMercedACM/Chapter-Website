@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Member } from "../../models";
 
-export const featureAdapter: EntityAdapter<Member> = createEntityAdapter<
+export const memberAdapter: EntityAdapter<Member> = createEntityAdapter<
   Member
 >({
   selectId: model => model.id,
@@ -14,7 +14,7 @@ export interface State extends EntityState<Member> {
   error?: any;
 }
 
-export const initialState: State = featureAdapter.getInitialState({
+export const initialState: State = memberAdapter.getInitialState({
   isLoading: false,
   error: null
 });

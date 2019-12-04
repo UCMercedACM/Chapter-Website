@@ -6,36 +6,36 @@ import {
 
 import { Member } from "../../models";
 
-import { featureAdapter, State } from "./state";
+import { memberAdapter, State } from "./state";
 
 export const getError = (state: State): any => state.error;
 
 export const getIsLoading = (state: State): boolean => state.isLoading;
 
-export const selectMyFeatureState: MemoizedSelector<
+export const selectMemberState: MemoizedSelector<
   object,
   State
-> = createFeatureSelector<State>("myFeature");
+> = createFeatureSelector<State>("member");
 
-export const selectAllMyFeatureItems: (
+export const selectAllMemberItems: (
   state: object
-) => Member[] = featureAdapter.getSelectors(selectMyFeatureState).selectAll;
+) => Member[] = memberAdapter.getSelectors(selectMemberState).selectAll;
 
-export const selectMyFeatureById = (id: number) =>
-  createSelector(this.selectAllMyFeatureItems, (allMyFeatures: Member[]) => {
-    if (allMyFeatures) {
-      return allMyFeatures.find(p => p.id === id);
+export const selectMemberById = (id: number) =>
+  createSelector(this.selectAllMemberItems, (allMembers: Member[]) => {
+    if (allMembers) {
+      return allMembers.find(p => p.id === id);
     } else {
       return null;
     }
   });
 
-export const selectMyFeatureError: MemoizedSelector<
+export const selectMemberError: MemoizedSelector<
   object,
   any
-> = createSelector(selectMyFeatureState, getError);
+> = createSelector(selectMemberState, getError);
 
-export const selectMyFeatureIsLoading: MemoizedSelector<
+export const selectMemberIsLoading: MemoizedSelector<
   object,
   boolean
-> = createSelector(selectMyFeatureState, getIsLoading);
+> = createSelector(selectMemberState, getIsLoading);

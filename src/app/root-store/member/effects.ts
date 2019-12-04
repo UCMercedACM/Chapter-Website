@@ -4,28 +4,28 @@ import { Action } from "@ngrx/store";
 import { Observable, of as observableOf } from "rxjs";
 import { catchError, map, startWith, switchMap } from "rxjs/operators";
 import { DataService } from "../../services/data.service";
-import * as featureActions from "./actions";
+import * as memberActions from "./actions";
 
 @Injectable()
-export class MyFeatureStoreEffects {
+export class MemberStoreEffects {
   constructor(private dataService: DataService, private actions$: Actions) {}
 
   @Effect()
   loadRequestEffect$: Observable<Action> = this.actions$.pipe(
-    ofType<featureActions.LoadRequestAction>(
-      featureActions.ActionTypes.LOAD_REQUEST
+    ofType<memberActions.LoadRequestAction>(
+      memberActions.ActionTypes.LOAD_REQUEST
     ),
-    startWith(new featureActions.LoadRequestAction()),
+    startWith(new memberActions.LoadRequestAction()),
     switchMap(action =>
       this.dataService.getItems().pipe(
         map(
           items =>
-            new featureActions.LoadSuccessAction({
+            new memberActions.LoadSuccessAction({
               items
             })
         ),
         catchError(error =>
-          observableOf(new featureActions.LoadFailureAction({ error }))
+          observableOf(new memberActions.LoadFailureAction({ error }))
         )
       )
     )

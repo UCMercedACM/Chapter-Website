@@ -1,7 +1,7 @@
-import * as MyFeatureStoreActions from "./actions";
-import * as MyFeatureStoreSelectors from "./selectors";
-import * as MyFeatureStoreState from "./state";
+import * as MemberStoreActions from "./actions";
+import * as MemberStoreSelectors from "./selectors";
+import * as MemberStoreState from "./state";
 
-export { MyFeatureStoreModule } from "./member.module";
+export { MemberStoreModule } from "./member.module";
 
-export { MyFeatureStoreActions, MyFeatureStoreSelectors, MyFeatureStoreState };
+export { MemberStoreActions, MemberStoreSelectors, MemberStoreState };

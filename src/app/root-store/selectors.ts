@@ -1,10 +1,10 @@
 import { createSelector, MemoizedSelector } from "@ngrx/store";
-import { MyFeatureStoreSelectors } from "./member";
+import { MemberStoreSelectors } from "./member";
 
 export const selectError: MemoizedSelector<object, string> = createSelector(
-  MyFeatureStoreSelectors.selectMyFeatureError,
-  (myFeatureError: string) => {
-    return myFeatureError;
+  MemberStoreSelectors.selectMemberError,
+  (memberError: string) => {
+    return memberError;
   }
 );
 
@@ -12,8 +12,8 @@ export const selectIsLoading: MemoizedSelector<
   object,
   boolean
 > = createSelector(
-  MyFeatureStoreSelectors.selectMyFeatureIsLoading,
-  (myFeature: boolean) => {
-    return myFeature;
+  MemberStoreSelectors.selectMemberIsLoading,
+  (member: boolean) => {
+    return member;
   }
 );
