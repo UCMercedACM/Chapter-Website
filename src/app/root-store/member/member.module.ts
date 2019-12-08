@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { MemberStoreEffects } from "./effects";
-import { memberReducer } from "./reducer";
+import { reducer } from "./reducer";
 
 @NgModule({
   imports: [

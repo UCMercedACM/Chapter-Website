@@ -1,17 +1,17 @@
 {
   "name": "client",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
+    "build": "ng build",
+    "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
-    "store": "ng g module --flat false --module root-store/root-store.module.ts"
+    "store": "ng g module --flat false --module root-store/root-store.module.ts",
+    "test": "ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.11",
     "@angular/common": "~8.2.11",
