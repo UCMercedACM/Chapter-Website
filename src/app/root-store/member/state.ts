@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Member } from "../../models";
 
 export const memberFeatureKey = "member";

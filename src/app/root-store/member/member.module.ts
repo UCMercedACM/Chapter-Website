@@ -8,7 +8,7 @@ import { reducer } from "./reducer";
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature("member", memberReducer),
+    StoreModule.forFeature("member", reducer),
     EffectsModule.forFeature([MemberStoreEffects])
   ],
   providers: [MemberStoreEffects]
