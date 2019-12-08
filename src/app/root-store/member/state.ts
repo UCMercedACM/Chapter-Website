@@ -15,14 +15,14 @@ export function selectedMemberId(a: Member): number {
   return a.id;
 }
 
-export function sortByName(a: Member, b: Member): number {
+export function sortByEmail(a: Member, b: Member): number {
   return a.email.localeCompare(b.email);
 }
 
 export const memberAdapter: EntityAdapter<Member> = createEntityAdapter<Member>(
   {
     selectId: selectedMemberId,
-    sortComparer: sortByName
+    sortComparer: sortByEmail
   }
 );
 
