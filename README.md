@@ -39,4 +39,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 <!-- prettier-ignore -->
 <table><tr><td align="center"><a href="http://linkedin.com/in/adriandarian/"><img src="https://avatars0.githubusercontent.com/u/23567187?v=4" width="100px;" alt="Adrian Darian"/><br /><sub><b>Adrian Darian</b></sub></a><br /><a href="https://github.com/UCMercedACM/ACM/commits?author=adriandarian" title="Code">💻</a> <a href="#business-adriandarian" title="Business development">💼</a></td><td align="center"><a href="https://www.linkedin.com/in/dan-tran-553b89160/"><img src="https://avatars1.githubusercontent.com/u/20609480?v=4" width="100px;" alt="Dan"/><br /><sub><b>Dan</b></sub></a><br /><a href="https://github.com/UCMercedACM/ACM/commits?author=GateauXD" title="Code">💻</a></td></tr></table>
 
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- ALL-CONTRIBUTORS-LIST: END -->
