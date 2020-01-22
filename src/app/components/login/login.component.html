@@ -1,7 +1,14 @@
-<form>
-    <p>Username:</p>
-    <input type="text"><br>
-    <p>Password:</p>
-    <input type="text"><br>
-    <div id = "errorField"></div>
+<form #userForm="ngForm">
+    {{ userForm.value | json }}
+
+    <div class="form-group">
+        <p>Username:</p>
+        <input type="text" required #username="ngModel" ngModel name="username" [class.is-invalid]="username.invalid && username.touched" class="form-control"><br>
+    </div>
+    
+    <div class="form-group">
+        <p>Password:</p>
+        <input type="text" ngModel name="password" class="form-control"><br>
+    </div>
 </form>
+{{ username.valid }}`
