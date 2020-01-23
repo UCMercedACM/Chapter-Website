@@ -1,10 +1,11 @@
 import { Url } from 'url';
 
-export interface Member {
+export class Member {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   year: string;
   github: Url;
   linkedin: Url;
