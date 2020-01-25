@@ -8,6 +8,7 @@ export interface MemberState extends EntityState<Member> {
   selectedMemberId: number;
   isLoading?: boolean;
   error?: any;
+  isAuthenticated?: boolean;
 }
 
 export function selectedMemberId(a: Member): number {
@@ -29,5 +30,6 @@ export const memberAdapter: EntityAdapter<Member> = createEntityAdapter<Member>(
 export const initialState: MemberState = memberAdapter.getInitialState({
   selectedMemberId: null,
   isLoading: false,
-  error: null
+  error: null,
+  isAuthenticated: false
 });

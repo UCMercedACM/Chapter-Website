@@ -14,11 +14,12 @@ export class LoginComponent implements OnInit {
   member:Member = new Member();
 
   constructor(
-    private store: Store<MemberState>
+    private MemberStore: Store<MemberState>
   ) {}
 
   ngOnInit() {
   }
+  
   OnSubmit(): void{
     const payload = {
       email:this.member.email,

@@ -19,6 +19,9 @@ export enum AuthActionTypes{
   LOGIN_SUCCESS = '[Auth] Login Success',
 }
 
-export class LogIn implements CreateAction
+export const logIn = createAction(
+  "[Member] Load Members Failure",
+  props<{ payload: any }>()
+);
 
 
