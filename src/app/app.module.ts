@@ -19,6 +19,7 @@ import { InterviewsComponent } from "./containers/interviews/interviews.componen
 import { CalendarComponent } from "./containers/calendar/calendar.component";
 import { RootStoreModule } from "./root-store";
 import { LoginComponent } from './components/login/login.component';
+import { DataService } from './services/data.service'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { LoginComponent } from './components/login/login.component';
     LoginComponent
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, RootStoreModule, FormsModule],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -8,6 +8,8 @@ import { Member } from "../models";
   providedIn: "root"
 })
 export class DataService {
+  private BASE_URL = 'http://localhost:4200'
+
   constructor(private http: HttpClient) {}
   getItems(): Observable<Member[]> {
     return Object.assign({
@@ -28,4 +30,19 @@ export class DataService {
       createdDate: new Date(),
     });
   }
+  getToken(): string{
+    return localStorage.getItem('token');
+  }
+
+  logIn(email: string, password:string): Observable<any> {
+    const url = `${this.BASE_URL}/login`;
+    return this.http.post<Member>(url, {email, password});
+  }
+
+  signUp(email: string, password:string): Observable<Member> {
+    const url = `${this.BASE_URL}/register`;
+    return this.http.post<Member>(url, {email, password});
+  }
+  
+  
 }

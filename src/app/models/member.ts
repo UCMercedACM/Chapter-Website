@@ -6,6 +6,7 @@ export class Member {
   lastName: string;
   email: string;
   password: string;
+  token: string
   year: string;
   github: Url;
   linkedin: Url;

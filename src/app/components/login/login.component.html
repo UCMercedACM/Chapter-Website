@@ -1,14 +1,36 @@
-<form #userForm="ngForm">
-    {{ userForm.value | json }}
-
-    <div class="form-group">
-        <p>Username:</p>
-        <input type="text" required #username="ngModel" ngModel name="username" [class.is-invalid]="username.invalid && username.touched" class="form-control"><br>
+<div class="row">
+    <div class="col-md-4">
+      <h1>Log in</h1>
+      <hr><br>
+      <form (ngSubmit)="onSubmit()" ngNativeValidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            [(ngModel)]="member.email"
+            name="email"
+            type="email"
+            required
+            class="form-control"
+            id="email"
+            placeholder="enter your email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            [(ngModel)]="member.password"
+            name="password"
+            type="password"
+            required
+            class="form-control"
+            id="password"
+            placeholder="enter a password">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a [routerLink]="['/']" class="btn btn-success">Cancel</a>
+      </form>
+      <p>
+        <span>Don't have an account?&nbsp;</span>
+        <a [routerLink]="['/sign-up']">Sign up!</a>
+      </p>
     </div>
-    
-    <div class="form-group">
-        <p>Password:</p>
-        <input type="text" ngModel name="password" class="form-control"><br>
-    </div>
-</form>
-{{ username.valid }}`
+  </div>
