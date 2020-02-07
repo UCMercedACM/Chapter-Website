@@ -1,24 +1,33 @@
-import { BrowserModule } from "@angular/platform-browser";
+// Core Utility Imports
 import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { TitleComponent } from "./components/title/title.component";
-import { CoffeeComponent } from "./components/coffee/coffee.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { CoffeeNCodeComponent } from "./containers/coffee-n-code/coffee-n-code.component";
-import { HomeComponent } from "./containers/home/home.component";
-import { ProjectsComponent } from "./containers/projects/projects.component";
-import { WorkshopsComponent } from "./containers/workshops/workshops.component";
-import { DashboardsComponent } from "./containers/dashboards/dashboards.component";
-import { LanComponent } from "./containers/lan/lan.component";
-import { CodeEditorComponent } from "./containers/code-editor/code-editor.component";
-import { InterviewsComponent } from "./containers/interviews/interviews.component";
-import { CalendarComponent } from "./containers/calendar/calendar.component";
+import { AppRoutingModule } from "./app-routing.module"; // Routing Import
+import { AppComponent } from "./app.component"; // Main app import
+
+// Component Imports
+import { TitleComponent, CoffeeComponent, NavbarComponent } from "./components";
+
+// Container Imports
+import {
+  CoffeeNCodeComponent,
+  HomeComponent,
+  ProjectsComponent,
+  WorkshopsComponent,
+  DashboardsComponent,
+  LanComponent,
+  CodeEditorComponent,
+  InterviewsComponent,
+  CalendarComponent
+} from "./containers";
+
+// NgRx Store Imports
 import { RootStoreModule } from "./root-store";
-import { environment } from "../environments/environment"; // Angular CLI environment
+
+// Environment Imports: Angular CLI environment
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -38,11 +47,28 @@ import { environment } from "../environments/environment"; // Angular CLI enviro
   ],
   imports: [
     HttpClientModule,
+
+    // Angular
     BrowserModule,
+
+    // Application
     AppRoutingModule,
+
+    // NgRx
     RootStoreModule,
-    // Instrumentation must be imported after importing StoreModule (config is optional)
+
+    /**
+     * Store devtools instrument the store retaining past versions of state
+     * and recalculating new states. This enables powerful time-travel
+     * debugging.
+     *
+     * To use the debugger, install the Redux Devtools extension for either
+     * Chrome or Firefox
+     *
+     * See: https://github.com/zalmoxisus/redux-devtools-extension
+     */
     StoreDevtoolsModule.instrument({
+      name: "NgRx ACM App",
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
     })
