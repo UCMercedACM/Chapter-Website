@@ -1,31 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import {Member} from '../../models/member'
-import { MemberStoreActions } from 'src/app/root-store';
-import{Store} from '@ngrx/store';
-import{MemberState} from '../../root-store/member/state'
+import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+
+import { Member } from "../../models";
+import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-  
-  member:Member = new Member();
+  member: Member;
 
-  constructor(
-    private MemberStore: Store<MemberState>
-  ) {}
+  constructor(private store: Store<RootStoreState.State>) {}
 
-  ngOnInit() {
-  }
-  
-  OnSubmit(): void{
+  ngOnInit() {}
+
+  onSubmit() {
     const payload = {
-      email:this.member.email,
-      password:this.member.password 
+      email: this.member.email,
+      password: this.member.password
     };
-    this.MemberStore.dispatch(new LoginComponent(payload));
-  }
 
+    this.store.dispatch(MemberStoreActions.logIn(payload));
+  }
 }

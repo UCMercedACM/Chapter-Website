@@ -1,12 +1,11 @@
-import { Url } from 'url';
+import { Url } from "url";
 
-export class Member {
+export interface Member {
   id: number;
-  firstName: string;
-  lastName: string;
+  name: FullName;
   email: string;
   password: string;
-  token: string
+  token: string;
   year: string;
   github: Url;
   linkedin: Url;
@@ -18,4 +17,9 @@ export class Member {
   active: boolean;
   banned: boolean;
   createdDate: Date;
+}
+
+export interface FullName {
+  firstName: string;
+  lastName: string;
 }

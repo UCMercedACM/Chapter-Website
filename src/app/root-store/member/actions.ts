@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { Member } from "../../models";
-import { defaultThrottleConfig } from 'rxjs/internal/operators/throttle';
 
 export const loadMembers = createAction("[Member] Load Members");
 
@@ -14,14 +13,9 @@ export const loadMembersFailure = createAction(
   props<{ error: any }>()
 );
 
-export enum AuthActionTypes{
-  LOGIN = '[Auth] Login',
-  LOGIN_SUCCESS = '[Auth] Login Success',
-}
-
 export const logIn = createAction(
-  "[Member] Load Members Failure",
-  props<{ payload: any }>()
+  "[Member] Check if User is in the Database",
+  props<{ email: string, password: string }>()
 );
 
 
