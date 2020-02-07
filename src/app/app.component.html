@@ -1,2 +1,39 @@
+<!-- <app-navbar>
+<nav>
+  <a routerLink="/home" routerLinkActive="active">home</a>
+  <a routerLink="/coffee-n-code" routerLinkActive="active">Coffee and Code</a>
+</nav> -->
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="">Angular Routing</a>
+  <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="coffee-n-code" routerLinkActive="active">Coffee and Code</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="privacy" routerLinkActive="active">Privacy Policy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="terms" routerLinkActive="active">Terms and Conditions</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+
+
+
 <router-outlet></router-outlet>
-<app-navbar>

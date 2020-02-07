@@ -1,13 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { AppComponent } from "./app.component";
-import { CoffeeNCodeComponent } from "./containers/coffee-n-code/coffee-n-code.component";
+import { HomeComponent, CoffeeNCodeComponent } from "./containers";
 
 const routes: Routes = [
   {
     path: "home",
-    component: AppComponent
+    component: HomeComponent
   },
   {
     path: "coffee-n-code",
