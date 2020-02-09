@@ -18,6 +18,8 @@ import { CodeEditorComponent } from "./containers/code-editor/code-editor.compon
 import { InterviewsComponent } from "./containers/interviews/interviews.component";
 import { CalendarComponent } from "./containers/calendar/calendar.component";
 import { RootStoreModule } from "./root-store";
+import { MembersComponent } from './containers/members/members.component';
+import { AccountComponent } from './containers/account/account.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { RootStoreModule } from "./root-store";
     LanComponent,
     CodeEditorComponent,
     InterviewsComponent,
-    CalendarComponent
+    CalendarComponent,
+    MembersComponent,
+    AccountComponent
   ],
   imports: [HttpClientModule, BrowserModule, AppRoutingModule, RootStoreModule, NgbModule],
   providers: [],

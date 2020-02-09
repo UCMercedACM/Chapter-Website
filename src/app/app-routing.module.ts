@@ -1,12 +1,16 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { HomeComponent, CoffeeNCodeComponent, ProjectsComponent, WorkshopsComponent, InterviewsComponent } from "./containers";
+import { HomeComponent, CoffeeNCodeComponent, ProjectsComponent, WorkshopsComponent, InterviewsComponent, MembersComponent, AccountComponent, CalendarComponent } from "./containers";
 
 const routes: Routes = [
   {
     path: "home",
     component: HomeComponent
+  },
+  {
+    path: "calendar",
+    component: CalendarComponent
   },
   {
     path: "coffee-n-code",
@@ -23,6 +27,14 @@ const routes: Routes = [
   {
     path: "interview",
     component: InterviewsComponent
+  },
+  {
+    path: "members",
+    component: MembersComponent
+  },
+  {
+    path: "account",
+    component: AccountComponent
   },
   {
     path: "",
