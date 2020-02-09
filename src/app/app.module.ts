@@ -48,7 +48,7 @@ import { AccountComponent } from './containers/account/account.component';
     AccountComponent
   ],
   imports: [
-    NgbModule
+    NgbModule,
 
     // Angular
     BrowserModule,
