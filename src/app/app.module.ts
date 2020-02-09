@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from "./app-routing.module"; // Routing Import
 import { AppComponent } from "./app.component"; // Main app import
@@ -25,6 +26,8 @@ import {
 
 // NgRx Store Imports
 import { RootStoreModule } from "./root-store";
+import { MembersComponent } from './containers/members/members.component';
+import { AccountComponent } from './containers/account/account.component';
 
 @NgModule({
   declarations: [
@@ -40,10 +43,12 @@ import { RootStoreModule } from "./root-store";
     LanComponent,
     CodeEditorComponent,
     InterviewsComponent,
-    CalendarComponent
+    CalendarComponent,
+    MembersComponent,
+    AccountComponent
   ],
   imports: [
-    HttpClientModule,
+    NgbModule
 
     // Angular
     BrowserModule,
@@ -69,6 +74,7 @@ import { RootStoreModule } from "./root-store";
       maxAge: 25, // Retains last 25 states
     })
   ],
+    HttpClientModule,
   providers: [],
   bootstrap: [AppComponent]
 })

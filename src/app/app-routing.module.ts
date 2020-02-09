@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { HomeComponent, CoffeeNCodeComponent } from "./containers";
+import { HomeComponent, CoffeeNCodeComponent, ProjectsComponent, WorkshopsComponent, InterviewsComponent, MembersComponent, AccountComponent, CalendarComponent } from "./containers";
 
 const routes: Routes = [
   {
@@ -9,8 +9,32 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: "calendar",
+    component: CalendarComponent
+  },
+  {
     path: "coffee-n-code",
     component: CoffeeNCodeComponent
+  },
+  {
+    path: "projects",
+    component: ProjectsComponent
+  },
+  {
+    path: "workshops",
+    component: WorkshopsComponent
+  },
+  {
+    path: "interview",
+    component: InterviewsComponent
+  },
+  {
+    path: "members",
+    component: MembersComponent
+  },
+  {
+    path: "account",
+    component: AccountComponent
   },
   {
     path: "",
@@ -24,3 +48,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+``
