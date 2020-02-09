@@ -26,9 +26,6 @@ import {
 // NgRx Store Imports
 import { RootStoreModule } from "./root-store";
 
-// Environment Imports: Angular CLI environment
-import { environment } from "../environments/environment";
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +67,6 @@ import { environment } from "../environments/environment";
     StoreDevtoolsModule.instrument({
       name: "NgRx ACM App",
       maxAge: 25, // Retains last 25 states
-      logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
   providers: [],
