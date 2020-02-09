@@ -7,7 +7,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="">Angular Routing</a>
+  <a class="navbar-brand" routerLink="">ACM @ UCM</a>
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -18,13 +18,28 @@
         <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="coffee-n-code" routerLinkActive="active">Coffee and Code</a>
+        <a class="nav-link" routerLink="projects" routerLinkActive="active">Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="workshops" routerLinkActive="active">Workshops</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Professional
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="coffee-n-code">Coffee and Code</a>
+          <a class="dropdown-item" href="interview">Interview</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="privacy" routerLinkActive="active">Privacy Policy</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="terms" routerLinkActive="active">Terms and Conditions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="account" routerLinkActive="active">Account</a>
       </li>
     </ul>
   </div>
