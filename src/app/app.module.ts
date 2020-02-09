@@ -49,6 +49,7 @@ import { AccountComponent } from './containers/account/account.component';
   ],
   imports: [
     NgbModule,
+    HttpClientModule,
 
     // Angular
     BrowserModule,
@@ -74,7 +75,6 @@ import { AccountComponent } from './containers/account/account.component';
       maxAge: 25, // Retains last 25 states
     })
   ],
-    HttpClientModule,
   providers: [],
   bootstrap: [AppComponent]
 })
