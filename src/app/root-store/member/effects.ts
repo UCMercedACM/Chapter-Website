@@ -8,13 +8,12 @@ import * as memberActions from "./actions";
 
 @Injectable()
 export class MemberStoreEffects {
-  constructor(private dataService: DataService, private actions$: Actions) {}
+  constructor(private dataService: DataService, private actions: Actions) {}
 
   loadMemberStores$ = createEffect(() => {
-    return this.actions$.pipe(
+    return this.actions.pipe(
       ofType(memberActions.loadMembers),
       concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
         this.dataService.getItems().pipe(
           map(data => memberActions.loadMembersSuccess({ data })),
           catchError(error => of(memberActions.loadMembersFailure({ error })))

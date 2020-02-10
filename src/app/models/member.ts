@@ -1,5 +1,9 @@
 import { Url } from 'url';
 
+export interface Members {
+  members: Member[];
+}
+
 export interface Member {
   id: number;
   firstName: string;
