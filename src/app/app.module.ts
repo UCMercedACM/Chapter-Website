@@ -28,6 +28,7 @@ import {
 import { RootStoreModule } from "./root-store";
 import { MembersComponent } from './containers/members/members.component';
 import { AccountComponent } from './containers/account/account.component';
+import { WorkshopCardComponent } from './components/workshop-card/workshop-card.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AccountComponent } from './containers/account/account.component';
     InterviewsComponent,
     CalendarComponent,
     MembersComponent,
-    AccountComponent
+    AccountComponent,
+    WorkshopCardComponent
   ],
   imports: [
     NgbModule,
