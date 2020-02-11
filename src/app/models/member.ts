@@ -8,7 +8,7 @@ export interface Member {
   id: number;
   name: FullName;
   email: string;
-  password: string;
+  password?: string;
   token: string;
   year: string;
   github: Url;

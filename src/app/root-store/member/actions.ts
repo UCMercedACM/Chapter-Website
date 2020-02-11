@@ -13,9 +13,19 @@ export const loadMembersFailure = createAction(
   props<{ error: any }>()
 );
 
-export const logIn = createAction(
+export const loadAuth = createAction(
   "[Member] Check if User is in the Database",
   props<{ email: string, password: string }>()
+);
+
+export const loadAuthSuccess = createAction(
+  "[Member] Log In Success",
+  props<{ data: Member[] }>()
+);
+
+export const loadAuthFailure = createAction(
+  "[Member] Log In Failure",
+  props<{ error: any}>()
 );
 
 

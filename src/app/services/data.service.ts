@@ -8,7 +8,7 @@ import { Member, Members } from "../models";
   providedIn: "root"
 })
 export class DataService {
-  private BASE_URL = 'http://localhost:4200'
+  private BASE_URL = 'http://localhost:3000'
 
   constructor(private http: HttpClient) {}
 
@@ -21,9 +21,10 @@ export class DataService {
     return localStorage.getItem('token');
   }
 
-  logIn(email: string, password:string): Observable<any> {
-    const url = `${this.BASE_URL}/login`;
-    return this.http.post<Member>(url, {email, password});
+  login(email: string, password:string): Observable<any> {
+    const url = `${this.BASE_URL}/token`; //Change to backend endpoint for auth and token generation
+    return this.http.post<Member>(url, {email, password}); // return all member for user
+    // need to write query in backend to check email
   }
 
   signUp(email: string, password:string): Observable<Member> {

@@ -1,5 +1,8 @@
-<p>Account data dynamically displaying all personal data contained in member.ts model</p>
+<div *ngIf="true; else elseBlock"><app-login></app-login></div>
+<ng-template #elseBlock>
+    <p>Account data dynamically displaying all personal data contained in member.ts model</p>
 <p>Data will be obtained from NgRx framework once a successful login attempt occurs</p>
 <p>Allows photo upload</p>
 <p>Allows editing of all data contained in members.ts</p>
 <p>Has form submission requesting change for their personal webpage (must be approved by officers)</p>
+</ng-template>

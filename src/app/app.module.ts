@@ -48,7 +48,7 @@ import { AccountComponent } from './containers/account/account.component';
     InterviewsComponent,
     CalendarComponent,
     MembersComponent,
-    AccountComponent
+    AccountComponent,
     LoginComponent
   ],
   imports: [
@@ -63,6 +63,8 @@ import { AccountComponent } from './containers/account/account.component';
 
     // NgRx
     RootStoreModule,
+
+    FormsModule,
 
     /**
      * Store devtools instrument the store retaining past versions of state

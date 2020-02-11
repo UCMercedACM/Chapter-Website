@@ -11,6 +11,7 @@ import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 })
 export class LoginComponent implements OnInit {
   member: Member;
+  active: true;
 
   constructor(private store: Store<RootStoreState.State>) {}
 
@@ -22,6 +23,6 @@ export class LoginComponent implements OnInit {
       password: this.member.password
     };
 
-    this.store.dispatch(MemberStoreActions.logIn(payload));
+    this.store.dispatch(MemberStoreActions.loadAuth(payload));
   }
 }
