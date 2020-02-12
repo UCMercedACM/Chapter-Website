@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Member } from "../../models";
-import { RootStoreState, MemberStoreActions } from "src/app/root-store";
+import { RootStoreState, MemberStoreActions, MemberStoreSelectors } from "src/app/root-store";
 
 @Component({
   selector: "app-login",
@@ -11,9 +11,17 @@ import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 })
 export class LoginComponent implements OnInit {
   member: Member;
-  active: true;
+  active = 'Bob';
+  store: Store<RootStoreState.State>;
 
-  constructor(private store: Store<RootStoreState.State>) {}
+  constructor(private theStore: Store<RootStoreState.State>) {
+    this.store = theStore;
+    this.store.select(MemberStoreSelectors.selectMemberById(0)).subscribe({
+      next(x) { this.member = x;},
+      error(err) { console.error('something wrong occurred: ' + err);},
+      complete() { console.log('done'); }
+    });
+  }
 
   ngOnInit() {}
 
