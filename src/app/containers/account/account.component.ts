@@ -10,7 +10,6 @@ import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 })
 export class AccountComponent implements OnInit {
   member: Member;
-  
 
   constructor(private store: Store<RootStoreState.State>) {}
 

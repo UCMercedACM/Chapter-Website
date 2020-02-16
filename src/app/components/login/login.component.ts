@@ -12,12 +12,13 @@ import { RootStoreState, MemberStoreActions, MemberStoreSelectors } from "src/ap
 export class LoginComponent implements OnInit {
   member: Member;
   active = 'Bob';
-  store: Store<RootStoreState.State>;
 
-  constructor(private theStore: Store<RootStoreState.State>) {
-    this.store = theStore;
-    this.store.select(MemberStoreSelectors.selectMemberById(0)).subscribe({
-      next(x) { this.member = x;},
+  constructor(private store: Store<RootStoreState.State>) {
+    console.log(MemberStoreSelectors.selectMemberById(100222333))
+    this.store.select(MemberStoreSelectors.selectMemberById(100222333)).subscribe({
+      next(x) { this.member = x;
+        console.log(x)
+      },
       error(err) { console.error('something wrong occurred: ' + err);},
       complete() { console.log('done'); }
     });
