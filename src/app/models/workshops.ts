@@ -1,4 +1,4 @@
-import { Url } from 'url';
+import { Url } from "url";
 
 export interface Workshops {
   id: number;

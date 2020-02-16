@@ -1,8 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { Member } from "../../models";
 
-export const memberFeatureKey = "member";
-
 export interface MemberState extends EntityState<Member> {
   // additional entities state properties
   selectedMemberId: number;

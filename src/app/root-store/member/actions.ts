@@ -10,7 +10,7 @@ export const loadMembersSuccess = createAction(
 
 export const loadMembersFailure = createAction(
   "[Member] Load Members Failure",
-  props<{ error: any }>()
+  (error = "Error loading members") => ({ error: { error } })
 );
 
 export const loadAuth = createAction(

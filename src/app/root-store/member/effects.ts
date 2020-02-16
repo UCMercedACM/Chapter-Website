@@ -4,7 +4,7 @@ import { of } from "rxjs";
 import { catchError, map, concatMap, exhaustMap } from "rxjs/operators";
 
 import { DataService } from "../../services/data.service";
-import * as memberActions from "./actions";
+import * as MemberActions from "./actions";
 
 @Injectable()
 export class MemberStoreEffects {
@@ -12,11 +12,11 @@ export class MemberStoreEffects {
 
   loadMemberStores$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(memberActions.loadMembers),
+      ofType(MemberActions.loadMembers),
       concatMap(() =>
-        this.dataService.getItems().pipe(
-          map(data => memberActions.loadMembersSuccess({ data })),
-          catchError(error => of(memberActions.loadMembersFailure({ error })))
+        this.dataService.getMembers().pipe(
+          map(data => MemberActions.loadMembersSuccess({ data })),
+          catchError(error => of(MemberActions.loadMembersFailure({ error })))
         )
       )
     );

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CoffeeNCodeComponent } from './coffee-n-code.component';
+import { CoffeeNCodeComponent } from "./coffee-n-code.component";
 
-describe('CoffeeNCodeComponent', () => {
+describe("CoffeeNCodeComponent", () => {
   let component: CoffeeNCodeComponent;
   let fixture: ComponentFixture<CoffeeNCodeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoffeeNCodeComponent ]
-    })
-    .compileComponents();
+      declarations: [CoffeeNCodeComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('CoffeeNCodeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
