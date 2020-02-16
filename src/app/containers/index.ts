@@ -7,7 +7,7 @@ import { LanComponent } from "./lan/lan.component";
 import { CodeEditorComponent } from "./code-editor/code-editor.component";
 import { InterviewsComponent } from "./interviews/interviews.component";
 import { CalendarComponent } from "./calendar/calendar.component";
-import { MembersComponent  } from "./members/members.component";
+import { MembersComponent } from "./members/members.component";
 import { AccountComponent } from "./account/account.component";
 
 export {
