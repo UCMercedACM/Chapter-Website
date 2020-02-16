@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { LanComponent } from './lan.component';
+import { LanComponent } from "./lan.component";
 
-describe('LanComponent', () => {
+describe("LanComponent", () => {
   let component: LanComponent;
   let fixture: ComponentFixture<LanComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LanComponent ]
-    })
-    .compileComponents();
+      declarations: [LanComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('LanComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
