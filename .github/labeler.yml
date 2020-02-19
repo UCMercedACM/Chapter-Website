@@ -1,0 +1,25 @@
+# Add 'test' label to any change to *.spec.js files within the source dir
+test: 
+  - src/**/*.spec.js
+
+# Add 'actions' label to any new or updated GitHub action workflow
+actions: 
+  - .github/workflows/*
+
+# Add 'server' label to any changes done to the express.js server
+server:
+  - server.js
+  - package.json
+  - src/*
+  - test/*
+
+# Add 'client' label to any changes done to the React application
+client:
+  - client/*
+
+# Add the 'documentation' label to any changes in either of the documented files
+documentation:
+  - READEME.md
+  - LICENSE
+  - CODE_OF_CONDUCT.md
+  - client/README.md
