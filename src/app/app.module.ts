@@ -1,6 +1,6 @@
 // Core Utility Imports
 import { NgModule, APP_INITIALIZER } from "@angular/core";
-import { Store } from '@ngrx/store';
+import { Store } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -33,7 +33,11 @@ import {
 } from "./containers";
 
 // NgRx Store Imports
-import { RootStoreModule, RootStoreState, MemberStoreActions } from "./root-store";
+import {
+  RootStoreModule,
+  RootStoreState,
+  MemberStoreActions
+} from "./root-store";
 
 @NgModule({
   declarations: [
