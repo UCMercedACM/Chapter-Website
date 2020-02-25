@@ -1,8 +1,14 @@
 import { Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
-
-import { Member } from "../../models";
-import { RootStoreState, MemberStoreActions, MemberStoreSelectors } from "src/app/root-store";
+import { select, Store } from "@ngrx/store";
+import { Observable, Subscription } from "rxjs";
+import { map } from "rxjs/operators";
+import {
+  RootStoreState,
+  RootStoreSelectors,
+  MemberStoreSelectors,
+  MemberStoreActions
+} from "src/app/root-store";
+import { Member, Members } from "src/app/models";
 
 @Component({
   selector: "app-login",
@@ -10,28 +16,26 @@ import { RootStoreState, MemberStoreActions, MemberStoreSelectors } from "src/ap
   styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-  member: Member;
-  active = 'Bob';
+  members$: any;
+  email?: string;
+  password?: string;
 
-  constructor(private store: Store<RootStoreState.State>) {
-    console.log(MemberStoreSelectors.selectMemberById(100222333))
-    this.store.select(MemberStoreSelectors.selectMemberById(100222333)).subscribe({
-      next(x) { this.member = x;
-        console.log(x)
-      },
-      error(err) { console.error('something wrong occurred: ' + err);},
-      complete() { console.log('done'); }
-    });
+  constructor(private store$: Store<RootStoreState.State>) {
+    this.store$
+      .pipe(select(MemberStoreSelectors.selectAllMembers))
+      .subscribe(data => {
+        this.members$ = data;
+      });
   }
 
   ngOnInit() {}
 
   onSubmit() {
     const payload = {
-      email: this.member.email,
-      password: this.member.password
+      email: this.email,
+      password: this.password
     };
 
-    this.store.dispatch(MemberStoreActions.loadAuth(payload));
+    this.store$.dispatch(MemberStoreActions.loadAuth(payload));
   }
 }

@@ -15,7 +15,8 @@ import {
   TitleComponent,
   CoffeeComponent,
   NavbarComponent,
-  WorkshopCardComponent
+  WorkshopCardComponent,
+  LoginComponent
 } from "./components";
 
 // Container Imports
@@ -54,7 +55,8 @@ import { RootStoreModule, RootStoreState, MemberStoreActions } from "./root-stor
     MembersComponent,
     LoginComponent,
     AccountComponent,
-    WorkshopCardComponent
+    WorkshopCardComponent,
+    LoginComponent
   ],
   imports: [
     NgbModule,

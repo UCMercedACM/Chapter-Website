@@ -14,7 +14,7 @@ export class DataService {
 
   getMembers(): Observable<Member[]> {
     return this.http
-      .get<Members>(`https://anlisp.herokuapp.com/api/members`)
+      .get<Members>(`${this.BASE_URL}/members`)
       .pipe(map(result => result.members));
   }
   getToken(): string{
