@@ -1,12 +1,13 @@
 import { Url } from "url";
 
-export interface Workshops {
+
+
+export interface Projects {
   id: number;
   name: string;
   time: Date;
   location: Geolocation;
   description: string;
-  rsvp: Attendee[];
   github: Url;
   hostedBy: string;
   tags: [];
@@ -14,13 +15,4 @@ export interface Workshops {
   difficulty: number;
   image: string;
 }
-
-export interface Attendee {
-  name: string;
-  email: string;
-  year: string;
-}
-
-
-
 

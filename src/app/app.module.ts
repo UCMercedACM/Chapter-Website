@@ -14,7 +14,8 @@ import {
   TitleComponent,
   CoffeeComponent,
   NavbarComponent,
-  WorkshopCardComponent
+  WorkshopCardComponent,
+  ProjectsDisplayComponent
 } from "./components";
 
 // Container Imports
@@ -56,7 +57,8 @@ import {
     CalendarComponent,
     MembersComponent,
     AccountComponent,
-    WorkshopCardComponent
+    WorkshopCardComponent,
+    ProjectsDisplayComponent
   ],
   imports: [
     NgbModule,
