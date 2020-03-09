@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  MEMBER_MANAGEMENT_API: 'http://localhost:3000',
-  WORKSHOP_MANAGEMENT_API: 'http://localhost:3001',
-  PROJECT_MANAGEMENT_API: 'http://localhost:3002',
+  MEMBER_MANAGEMENT_API: "http://localhost:3000",
+  WORKSHOP_MANAGEMENT_API: "http://localhost:3001",
+  PROJECT_MANAGEMENT_API: "http://localhost:3002"
 };
 
 /*
