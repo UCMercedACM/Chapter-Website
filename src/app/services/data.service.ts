@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Member, Members } from "../models";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root"
@@ -12,7 +13,7 @@ export class DataService {
 
   getMembers(): Observable<Member[]> {
     return this.http
-      .get<Members>(`https://anlisp.herokuapp.com/api/members`)
+      .get<Members>(environment.MEMBER_MANAGEMENT_API + "/api/members")
       .pipe(map(result => result.members));
   }
 }
