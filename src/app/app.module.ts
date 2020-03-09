@@ -4,7 +4,6 @@ import { Store } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from "./app-routing.module"; // Routing Import
 import { AppComponent } from "./app.component"; // Main app import
@@ -59,7 +58,6 @@ import {
     WorkshopCardComponent
   ],
   imports: [
-    NgbModule,
     HttpClientModule,
 
     // Angular
