@@ -1,4 +1,47 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- <app-navbar>
+<nav>
+  <a routerLink="/home" routerLinkActive="active">home</a>
+  <a routerLink="/coffee-n-code" routerLinkActive="active">Coffee and Code</a>
+</nav> -->
+
+<!-- Tailwind CSS Navbar -->
+<div class="container mx-auto bg-teal-200 p-5 bg-dark">
+  <nav class="flex justify-between">
+    <div>
+      <a routerLink="">ACM @ UCM</a>
+    </div>
+    <ul class="flex flex-row">
+      <li class="pr-5">
+        <a routerLink="/home">Home</a>
+      </li>
+      <li class="pr-5">
+        <a routerLink="calendar">Calendar</a>
+      </li>
+      <li class="pr-5">
+        <a routerLink="projects">Projects</a>
+      </li>
+      <li class="pr-5">
+        <a routerLink="workshops">Workshops</a>
+      </li>
+      <li class="pr-5">
+        <a routerLink="members">Members</a>
+      </li>
+      <!-- <li class="pr-5">
+        <a href="">Professional</a>
+      </li>
+      <li class="pr-5">
+        <a href="">Privacy Policy</a>
+      </li>
+      <li class="pr-5">
+        <a href="">Terms and Conditions</a>
+      </li> -->
+    </ul>
+  </nav>
+</div>
+
+<!-- Navbar written in Bootstrap -->
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" routerLink="">ACM @ UCM</a>
   <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse"
     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -42,7 +85,7 @@
     </ul>
     <a class="nav-link" routerLink="account" routerLinkActive="active">Account</a>
   </div>
-</nav>
+</nav> -->
 
 <router-outlet></router-outlet>
 
