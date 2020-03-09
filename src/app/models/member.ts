@@ -1,4 +1,4 @@
-import { Url } from 'url';
+import { Url } from "url";
 
 export interface Members {
   members: Member[];
@@ -8,16 +8,16 @@ export interface Member {
   id: number;
   firstName: string;
   lastName: string;
-  email: string;
-  year: string;
-  github: Url;
-  linkedin: Url;
+  email?: string;
+  year?: string;
+  github?: Url;
+  linkedin?: Url;
   portfolium?: Url;
   handshake?: Url;
-  slack: string;
+  slack?: string;
   discord?: string;
   image?: string;
-  active: boolean;
-  banned: boolean;
-  createdDate: Date;
+  active?: boolean;
+  banned?: boolean;
+  createdDate?: Date;
 }

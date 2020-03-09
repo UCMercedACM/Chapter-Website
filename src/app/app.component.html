@@ -1,14 +1,8 @@
-<!-- <app-navbar>
-<nav>
-  <a routerLink="/home" routerLinkActive="active">home</a>
-  <a routerLink="/coffee-n-code" routerLinkActive="active">Coffee and Code</a>
-</nav> -->
-
-
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" routerLink="">ACM @ UCM</a>
-  <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse"
+    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+    aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -30,7 +24,8 @@
         <a class="nav-link" routerLink="members" routerLinkActive="active">Members</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Professional
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,8 +40,41 @@
         <a class="nav-link" routerLink="terms" routerLinkActive="active">Terms and Conditions</a>
       </li>
     </ul>
-      <a class="nav-link" routerLink="account" routerLinkActive="active">Account</a>
+    <a class="nav-link" routerLink="account" routerLinkActive="active">Account</a>
   </div>
 </nav>
 
 <router-outlet></router-outlet>
+
+<div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="sm:flex sm:items-center px-6 py-4">
+    <div
+      class="flex items-center justify-center sm:flex-col sm:w-24 sm:border sm:border-gray-500 sm:rounded-full"
+    >
+      <img
+        class="block sm:mx-auto mx-0 flex-shrink-0 h-16 sm:h-12"
+        src="https://angular.io/assets/images/logos/angular/angular.svg"
+        alt="Angular Logo"
+      />
+      <img
+        class="block sm:mx-auto mx-0 flex-shrink-0 h-16 sm:h-12"
+        src="https://tailwindcss.com/android-chrome-512x512.png"
+        alt="Tailwind CSS Logo"
+      />
+    </div>
+
+    <div class="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left">
+      <p class="text-xl leading-tight">Tailwind CSS & Angular CLI</p>
+      <p class="text-sm leading-tight text-gray-600">
+        With custom webpack configuration!
+      </p>
+      <div class="mt-4">
+        <button
+          class="text-purple-500 hover:text-white hover:bg-purple-500 border border-purple-500 text-xs font-semibold rounded-full px-4 py-1 leading-normal"
+        >
+          GO
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

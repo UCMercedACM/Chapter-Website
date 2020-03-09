@@ -10,9 +10,9 @@ import { Member, Members } from "../models";
 export class DataService {
   constructor(private http: HttpClient) {}
 
-  getItems(): Observable<Member[]> {
+  getMembers(): Observable<Member[]> {
     return this.http
-    .get<Members>(`https://anlisp.herokuapp.com/api/members`)
-    .pipe(map(result => result.members));
+      .get<Members>(`https://anlisp.herokuapp.com/api/members`)
+      .pipe(map(result => result.members));
   }
 }
