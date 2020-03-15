@@ -1,44 +1,55 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<!-- <app-navbar>
-<nav>
-  <a routerLink="/home" routerLinkActive="active">home</a>
-  <a routerLink="/coffee-n-code" routerLinkActive="active">Coffee and Code</a>
-</nav> -->
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+<!-- <app-navbar>-->
 
 <!-- Tailwind CSS Navbar -->
-<div class="container mx-auto bg-teal-200 p-5 bg-dark">
-  <nav class="flex justify-between">
-    <div>
-      <a routerLink="">ACM @ UCM</a>
-    </div>
-    <ul class="flex flex-row">
-      <li class="pr-5">
-        <a routerLink="/home">Home</a>
-      </li>
-      <li class="pr-5">
-        <a routerLink="calendar">Calendar</a>
-      </li>
-      <li class="pr-5">
-        <a routerLink="projects">Projects</a>
-      </li>
-      <li class="pr-5">
-        <a routerLink="workshops">Workshops</a>
-      </li>
-      <li class="pr-5">
-        <a routerLink="members">Members</a>
-      </li>
-      <!-- <li class="pr-5">
-        <a href="">Professional</a>
-      </li>
-      <li class="pr-5">
-        <a href="">Privacy Policy</a>
-      </li>
-      <li class="pr-5">
-        <a href="">Terms and Conditions</a>
-      </li> -->
-    </ul>
-  </nav>
-</div>
+
+<nav class="bg-gray-900 mx-auto p-3 flex justify-between">
+
+  <div class="brand">
+    <a class="font-bold text-white text-2xl tracking-wide" routerLink="/home">ACM @ UCM</a>
+  </div>
+
+  <ul class="text-xl tracking-wide">
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="/home">Home</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="calendar">Calendar</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="projects">Projects</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="workshops">Workshops</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="members">Members</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white">Professional</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="privacy">Privacy Policy</a>
+    </li>
+
+    <li class="inline-block pr-5">
+      <a class="text-white" routerLink="terms">Terms and Conditions</a>
+    </li>
+
+    <li class="inline-block">
+      <a class="text-white" routerLink="account">Account</a>
+    </li>
+
+  </ul>
+</nav>
+<!-- </div> -->
 
 <!-- Navbar written in Bootstrap -->
 <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -89,7 +100,7 @@
 
 <router-outlet></router-outlet>
 
-<div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+<!-- <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
   <div class="sm:flex sm:items-center px-6 py-4">
     <div
       class="flex items-center justify-center sm:flex-col sm:w-24 sm:border sm:border-gray-500 sm:rounded-full"
@@ -120,4 +131,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
