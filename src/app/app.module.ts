@@ -5,6 +5,9 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AppRoutingModule } from "./app-routing.module"; // Routing Import
 import { AppComponent } from "./app.component"; // Main app import
@@ -86,6 +89,12 @@ import {
     StoreDevtoolsModule.instrument({
       name: "NgRx ACM App",
       maxAge: 25 // Retains last 25 states
+    }),
+
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
     })
   ],
   providers: [
