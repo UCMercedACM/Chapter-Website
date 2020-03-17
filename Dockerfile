@@ -11,16 +11,18 @@ RUN apt-get install -yq google-chrome-stable
 # set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# Copy dependency definitions
+COPY package*.json /app/
 
-# install and cache app dependencies
-COPY package.json /app/package.json
-RUN npm install -g yarn
+# Install dependecies
+RUN npm i -g yarn
 RUN yarn install
 
-# add app
-COPY . /app
+# Get all the code needed to run the app
+COPY . /app/
 
-# start app
-CMD yarn start --host 0.0.0.0
+# Expose the port the app runs in
+EXPOSE 4200:4200
+
+# Serve the app
+CMD ["yarn", "start"]
