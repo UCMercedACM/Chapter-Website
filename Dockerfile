@@ -1,5 +1,5 @@
 # base image
-FROM node:12.2.0
+FROM node:12.16.1
 
 # install chrome for protractor tests
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
@@ -15,7 +15,6 @@ WORKDIR /app
 COPY package*.json /app/
 
 # Install dependecies
-RUN npm i -g yarn
 RUN yarn install
 
 # Get all the code needed to run the app
