@@ -1,80 +1,205 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="">ACM @ UCM</a>
-  <button class="navbar-toggler" type="button" (click)="toggleNavbar()" data-toggle="collapse"
-    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-    aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="calendar" routerLinkActive="active">Calendar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="projects" routerLinkActive="active">Projects</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="workshops" routerLinkActive="active">Workshops</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="members" routerLinkActive="active">Members</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Professional
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="coffee-n-code">Coffee and Code</a>
-          <a class="dropdown-item" href="interview">Interview</a>
+<nav class="navbar bg-white fixed top-0 w-full">
+  <div class="max-w-7x1 mx-auto px-2 md:px-6 lg:px-6">
+    <div class="relative flex items-center justify-between h-20">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <button
+          (click)="navbarExtend = !navbarExtend"
+          class="inline-flex items-center justify-center p-2 rounded-md hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-button"
+        >
+          <svg
+            class="h-6 w-6"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              [ngClass]="{ hidden: navbarExtend, 'inline-flex': !navbarExtend }"
+              class="inline-flex"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+            <path
+              [ngClass]="{ hidden: !navbarExtend, 'inline-flex': navbarExtend }"
+              class="hidden"
+              stroke-linecap="round"
+              stroker-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
+      >
+        <div class="flex-shrink-0">
+          <a [routerLink]="['/home']">
+            <img
+              class="h-16 w-auto"
+              src="assets/img/acm_logo.png"
+              alt="ACM @ UCM"
+          /></a>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="privacy" routerLinkActive="active">Privacy Policy</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="terms" routerLinkActive="active">Terms and Conditions</a>
-      </li>
-    </ul>
-    <a class="nav-link" routerLink="account" routerLinkActive="active">Account</a>
+        <div class="hidden sm:block sm:ml-6 sm:mt-3 navbar-items">
+          <div class="flex">
+            <a
+              [routerLink]="['/calendar']"
+              routerLinkActive="active"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
+              >Calendar</a
+            >
+            <a
+              [routerLink]="['/projects']"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
+              >Projects</a
+            >
+            <a
+              [routerLink]="['/workshops']"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
+              >Workshops</a
+            >
+            <a
+              [routerLink]="['/members']"
+              fragment="leadership"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
+              >Members</a
+            >
+            <a
+              (click)="professionalOpen = !professionalOpen"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
+              >Professional &#9660;</a
+            >
+            <div
+              [hidden]="professionalOpen"
+              class="absolute focus:mt-2 focus:w-48 focus:rounded-md focus:shadow-lg"
+            >
+              <div class="py-1 rounded-md bg-white shadow-xs">
+                <a
+                  [routerLink]="['/coffee-n-code']"
+                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                  >Coffee & Code</a
+                >
+                <a
+                  [routerLink]="['/koding-kata']"
+                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                  >Koding Kata</a
+                >
+                <a
+                  [routerLink]="['/lan']"
+                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                  >LAN</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+      >
+        <button
+          class="p-1 border-2 border-transparent text-black rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out notifcation-icon"
+        >
+          <svg
+            class="h-6 w-6"
+            stroke="currentColor"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
+          </svg>
+        </button>
+        <div class="ml-3 relative">
+          <div>
+            <button
+              (click)="profileOpen = !profileOpen"
+              class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
+            >
+              <img
+                class="h-8 w-8 rounded-full"
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt=""
+              />
+            </button>
+          </div>
+          <div
+            [hidden]="profileOpen"
+            class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
+          >
+            <div class="py-1 rounded-md bg-white shadow-xs">
+              <a
+                [routerLink]="['/dashboard']"
+                [queryParams]="{ member: null }"
+                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                >Dashboard</a
+              >
+              <a
+                [routerLink]="['/settings']"
+                [queryParams]="{ member: null }"
+                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                >Settings</a
+              >
+              <a
+                [routerLink]="['/sign-out']"
+                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
+                >Sign out</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    [ngClass]="{ block: navbarExtend, hidden: !navbarExtend }"
+    class="hidden sm:hidden nabvar-items"
+  >
+    <div class="px-2 pt-2 pb-3">
+      <a
+        [routerLink]="['/calendar']"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >Calendar</a
+      >
+      <a
+        [routerLink]="['/projects']"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >Projects</a
+      >
+      <a
+        [routerLink]="['/workshops']"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >Workshops</a
+      >
+      <a
+        [routerLink]="['/members']"
+        fragment="leadership"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >Members</a
+      >
+      <a
+        [routerLink]="['/coffee-n-code']"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >Coffee & Code</a
+      >
+      <a
+        [routerLink]="['/koding-kata']"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >Koding Kata</a
+      >
+      <a
+        [routerLink]="['/lan']"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
+        >LAN</a
+      >
+    </div>
   </div>
 </nav>
 
 <router-outlet></router-outlet>
-
-<div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-  <div class="sm:flex sm:items-center px-6 py-4">
-    <div
-      class="flex items-center justify-center sm:flex-col sm:w-24 sm:border sm:border-gray-500 sm:rounded-full"
-    >
-      <img
-        class="block sm:mx-auto mx-0 flex-shrink-0 h-16 sm:h-12"
-        src="https://angular.io/assets/images/logos/angular/angular.svg"
-        alt="Angular Logo"
-      />
-      <img
-        class="block sm:mx-auto mx-0 flex-shrink-0 h-16 sm:h-12"
-        src="https://tailwindcss.com/android-chrome-512x512.png"
-        alt="Tailwind CSS Logo"
-      />
-    </div>
-
-    <div class="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left">
-      <p class="text-xl leading-tight">Tailwind CSS & Angular CLI</p>
-      <p class="text-sm leading-tight text-gray-600">
-        With custom webpack configuration!
-      </p>
-      <div class="mt-4">
-        <button
-          class="text-purple-500 hover:text-white hover:bg-purple-500 border border-purple-500 text-xs font-semibold rounded-full px-4 py-1 leading-normal"
-        >
-          GO
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
