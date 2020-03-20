@@ -1,26 +1,30 @@
 .navbar {
-    &-button {
-        &:focus {
-            background-color: #FFA265;
-        }
+  &-button {
+    &:focus {
+      background-color: #ffa265;
     }
+  }
 
-    &-items {
-        .navbar-item {
-            &:focus {
-                background-color: #FFA265;
-            }
+  &-items {
+    .navbar-item {
+      &:focus {
+        background-color: #ffa265;
+      }
 
-            &:hover {
-                background-color: #FFC26F;
-                cursor: pointer;
-            }
-        }
+      &:hover {
+        background-color: #ffc26f;
+        cursor: pointer;
+      }
     }
+  }
 }
 
 .notifcation-icon {
-    &:hover {
-        color: #FFC26F;
-    }
+  &:hover {
+    color: #ffc26f;
+  }
+}
+
+.social {
+  background: #FFC26F;
 }
