@@ -1,0 +1,41 @@
+name: Build CI
+
+on: 
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  build:
+    name: Test application and make sure it runs on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [11.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - name: Checkout to current branch
+      uses: actions/checkout@v2
+
+    - name: Configure Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Ensure a clean branch
+      run: |
+        echo 'Cleaning repo before executing build script...'
+        yarn clean
+
+    - name: Install Dependencies 
+      run: |
+        echo 'Running Setup...'
+        yarn install
+
+    - name: Build Angular Application
+      run: |
+        echo 'Building Angular Application...'
+        yarn build
