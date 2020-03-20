@@ -24,11 +24,11 @@ export class MemberStoreEffects {
 
   authUser$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(memberActions.loadAuth),
+      ofType(MemberActions.loadAuth),
       exhaustMap(action =>
         this.dataService.login(action.email, action.password).pipe(
-          map(data => memberActions.loadAuthSuccess({ data })),
-          catchError(error => of(memberActions.loadAuthFailure({ error })))
+          map(data => MemberActions.loadAuthSuccess({ data })),
+          catchError(error => of(MemberActions.loadAuthFailure({ error })))
         )
       )
     );

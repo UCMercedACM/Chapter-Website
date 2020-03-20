@@ -14,7 +14,6 @@ import { AppComponent } from "./app.component"; // Main app import
 import {
   TitleComponent,
   CoffeeComponent,
-  NavbarComponent,
   WorkshopCardComponent
 } from "./components";
 
@@ -30,7 +29,8 @@ import {
   InterviewsComponent,
   CalendarComponent,
   MembersComponent,
-  AccountComponent
+  AccountComponent,
+  LoginComponent
 } from "./containers";
 
 // NgRx Store Imports
@@ -39,18 +39,15 @@ import {
   RootStoreState,
   MemberStoreActions
 } from "./root-store";
-import { RootStoreModule } from "./root-store";
-import { LoginComponent } from './components/login/login.component';
+
+// Data Services
 import { DataService } from './services/data.service'
-import { MembersComponent } from './containers/members/members.component';
-import { AccountComponent } from './containers/account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TitleComponent,
     CoffeeComponent,
-    NavbarComponent,
     CoffeeNCodeComponent,
     HomeComponent,
     ProjectsComponent,
@@ -62,8 +59,7 @@ import { AccountComponent } from './containers/account/account.component';
     CalendarComponent,
     MembersComponent,
     AccountComponent,
-    WorkshopCardComponent
-    AccountComponent,
+    WorkshopCardComponent,
     LoginComponent
   ],
   imports: [
@@ -99,6 +95,7 @@ import { AccountComponent } from './containers/account/account.component';
     })
   ],
   providers: [
+    DataService,
     {
       provide: APP_INITIALIZER,
       useFactory: (store: Store<RootStoreState.State>) => {
@@ -110,7 +107,6 @@ import { AccountComponent } from './containers/account/account.component';
       deps: [Store]
     }
   ],
-  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
