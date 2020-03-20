@@ -1,10 +1,10 @@
-<nav class="bg-gray-800">
-  <div class="max-w-7x1 mx-auto px-2 sm:px-6 lg:px-6">
-    <div class="relative flex items-center justify-between h-16">
+<nav class="navbar bg-white fixed top-0 w-full">
+  <div class="max-w-7x1 mx-auto px-2 md:px-6 lg:px-6">
+    <div class="relative flex items-center justify-between h-20">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
         <button
           (click)="navbarExtend = !navbarExtend"
-          class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+          class="inline-flex items-center justify-center p-2 rounded-md hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-button"
         >
           <svg
             class="h-6 w-6"
@@ -37,51 +37,45 @@
         <div class="flex-shrink-0">
           <a [routerLink]="['/home']">
             <img
-              class="block lg:hidden h-8 w-auto"
-              src="assets/img/acm_logo.png"
-              alt="ACM @ UCM"
-          /></a>
-          <a [routerLink]="['/home']">
-            <img
-              class="hidden lg:block h-8 w-auto"
+              class="h-16 w-auto"
               src="assets/img/acm_logo.png"
               alt="ACM @ UCM"
           /></a>
         </div>
-        <div class="hidden sm:block sm:ml-6">
+        <div class="hidden sm:block sm:ml-6 sm:mt-3 navbar-items">
           <div class="flex">
             <a
               [routerLink]="['/calendar']"
               routerLinkActive="active"
-              class="px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
               >Calendar</a
             >
             <a
               [routerLink]="['/projects']"
-              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
               >Projects</a
             >
             <a
               [routerLink]="['/workshops']"
-              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
               >Workshops</a
             >
             <a
               [routerLink]="['/members']"
               fragment="leadership"
-              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
               >Members</a
             >
             <a
               (click)="professionalOpen = !professionalOpen"
-              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
-              >Professional <!-- &#9660; --></a
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
+              >Professional &#9660;</a
             >
-            <!-- <div
-              
-              class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
+            <div
+              [hidden]="professionalOpen"
+              class="absolute focus:mt-2 focus:w-48 focus:rounded-md focus:shadow-lg"
             >
-              <div [hidden]="professionalOpen" class="py-1 rounded-md bg-white shadow-xs">
+              <div class="py-1 rounded-md bg-white shadow-xs">
                 <a
                   [routerLink]="['/coffee-n-code']"
                   class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
@@ -98,7 +92,7 @@
                   >LAN</a
                 >
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +100,7 @@
         class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
         <button
-          class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+          class="p-1 border-2 border-transparent text-black rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out notifcation-icon"
         >
           <svg
             class="h-6 w-6"
@@ -165,43 +159,43 @@
   </div>
   <div
     [ngClass]="{ block: navbarExtend, hidden: !navbarExtend }"
-    class="hidden sm:hidden"
+    class="hidden sm:hidden nabvar-items"
   >
     <div class="px-2 pt-2 pb-3">
       <a
         [routerLink]="['/calendar']"
-        class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >Calendar</a
       >
       <a
         [routerLink]="['/projects']"
-        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >Projects</a
       >
       <a
         [routerLink]="['/workshops']"
-        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >Workshops</a
       >
       <a
         [routerLink]="['/members']"
         fragment="leadership"
-        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >Members</a
       >
       <a
         [routerLink]="['/coffee-n-code']"
-        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >Coffee & Code</a
       >
       <a
         [routerLink]="['/koding-kata']"
-        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >Koding Kata</a
       >
       <a
         [routerLink]="['/lan']"
-        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
         >LAN</a
       >
     </div>

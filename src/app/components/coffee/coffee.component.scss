@@ -7,13 +7,6 @@ $white: #ffffff;
 $blue: #333351;
 $shadow: #FFA265;
 
-/* Reset */
-*, *::after, *::before {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
 /* Generic */
 #coffee {
     display: flex;
