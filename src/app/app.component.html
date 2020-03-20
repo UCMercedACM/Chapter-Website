@@ -46,7 +46,6 @@
           <div class="flex">
             <a
               [routerLink]="['/calendar']"
-              routerLinkActive="active"
               class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
               >Calendar</a
             >
@@ -203,3 +202,87 @@
 </nav>
 
 <router-outlet></router-outlet>
+
+<footer class="w-full text-center border-t border-grey p-4 bg-white">
+  <div>
+    <div>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://www.linkedin.com/company/association-of-computing-machinery-at-uc-merced/"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faLinkedinIn"></fa-icon
+        ></a>
+      </button>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://twitter.com/ucmercedacm"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faTwitter"></fa-icon
+        ></a>
+      </button>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-pink-600 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://www.instagram.com/ucmacm/"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faInstagram"></fa-icon
+        ></a>
+      </button>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://www.facebook.com/groups/ucmercedacm/"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faFacebookF"></fa-icon
+        ></a>
+      </button>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-gray-800 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://github.com/UCMercedACM"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faGithub"></fa-icon
+        ></a>
+      </button>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-indigo-800 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://discord.gg/PFgPtMD"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faDiscord"></fa-icon
+        ></a>
+      </button>
+      <button
+        class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-red-400 transform hover:scale-125 hover:shadow-lg"
+      >
+        <a
+          href="https://join.slack.com/t/ucm-acm/shared_invite/zt-cyj63j4n-uZbfahTOTrlyJvKIRyEAdA"
+          target="_blank"
+          class="text-xl"
+          ><fa-icon [icon]="faSlack"></fa-icon
+        ></a>
+      </button>
+    </div>
+    <div class="text-center">
+      <fa-icon [icon]="faCopyright"></fa-icon> Copyright 2020
+    </div>
+    <hr />
+    <div class="text-center">
+      Written and Coded with ❤️ by ACM @ UCM
+    </div>
+  </div>
+</footer>
