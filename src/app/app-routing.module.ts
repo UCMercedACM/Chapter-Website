@@ -9,7 +9,8 @@ import {
   InterviewsComponent,
   MembersComponent,
   AccountComponent,
-  CalendarComponent
+  CalendarComponent,
+  LoginComponent
 } from "./containers";
 
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: "members",
     component: MembersComponent
+  },
+  {
+    path: "login",
+    component: LoginComponent
   },
   {
     path: "account",
