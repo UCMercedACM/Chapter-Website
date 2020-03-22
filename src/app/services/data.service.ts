@@ -5,6 +5,7 @@ import { map } from "rxjs/operators";
 import { Member, Members } from "../models";
 import axios from 'axios';
 import * as JWT from 'jwt-decode';
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +17,7 @@ export class DataService {
 
   getMembers(): Observable<Member[]> {
     return this.http
-      .get<Members>(`${this.BASE_URL}/api/member`)
+      .get<Members>(environment.MEMBER_MANAGEMENT_API + "/api/members")
       .pipe(map(result => result.members));
   }
   getToken(): string{

@@ -9,10 +9,12 @@ export interface Member {
   firstName: string;
   lastName: string;
   email?: string;
+  password?: string;
   year?: string;
   token?: string;
   github?: Url;
   linkedin?: Url;
+  token: string;
   portfolium?: Url;
   handshake?: Url;
   slack?: string;

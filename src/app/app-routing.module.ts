@@ -1,7 +1,17 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { HomeComponent, CoffeeNCodeComponent, ProjectsComponent, WorkshopsComponent, InterviewsComponent, MembersComponent, AccountComponent, CalendarComponent } from "./containers";
+import {
+  HomeComponent,
+  CoffeeNCodeComponent,
+  ProjectsComponent,
+  WorkshopsComponent,
+  InterviewsComponent,
+  MembersComponent,
+  AccountComponent,
+  CalendarComponent,
+  LoginComponent
+} from "./containers";
 
 const routes: Routes = [
   {
@@ -9,7 +19,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: "calendar",
+    path: "events",
     component: CalendarComponent
   },
   {
@@ -33,6 +43,10 @@ const routes: Routes = [
     component: MembersComponent
   },
   {
+    path: "login",
+    component: LoginComponent
+  },
+  {
     path: "account",
     component: AccountComponent
   },
@@ -48,4 +62,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-``

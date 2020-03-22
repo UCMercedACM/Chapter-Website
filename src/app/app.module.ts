@@ -1,11 +1,11 @@
 // Core Utility Imports
 import { NgModule, APP_INITIALIZER } from "@angular/core";
-import { Store } from '@ngrx/store';
+import { Store } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from "./app-routing.module"; // Routing Import
 import { AppComponent } from "./app.component"; // Main app import
@@ -14,9 +14,7 @@ import { AppComponent } from "./app.component"; // Main app import
 import {
   TitleComponent,
   CoffeeComponent,
-  NavbarComponent,
-  WorkshopCardComponent,
-  LoginComponent
+  WorkshopCardComponent
 } from "./components";
 
 // Container Imports
@@ -31,18 +29,25 @@ import {
   InterviewsComponent,
   CalendarComponent,
   MembersComponent,
-  AccountComponent
+  AccountComponent,
+  LoginComponent
 } from "./containers";
 
 // NgRx Store Imports
-import { RootStoreModule, RootStoreState, MemberStoreActions } from "./root-store";
+import {
+  RootStoreModule,
+  RootStoreState,
+  MemberStoreActions
+} from "./root-store";
+
+// Data Services
+import { DataService } from './services/data.service'
 
 @NgModule({
   declarations: [
     AppComponent,
     TitleComponent,
     CoffeeComponent,
-    NavbarComponent,
     CoffeeNCodeComponent,
     HomeComponent,
     ProjectsComponent,
@@ -59,7 +64,6 @@ import { RootStoreModule, RootStoreState, MemberStoreActions } from "./root-stor
     LoginComponent
   ],
   imports: [
-    NgbModule,
     HttpClientModule,
 
     // Angular
@@ -70,6 +74,9 @@ import { RootStoreModule, RootStoreState, MemberStoreActions } from "./root-stor
 
     // NgRx
     RootStoreModule,
+
+    // Fontawesome
+    FontAwesomeModule,
 
     FormsModule,
 
@@ -89,6 +96,7 @@ import { RootStoreModule, RootStoreState, MemberStoreActions } from "./root-stor
     })
   ],
   providers: [
+    DataService,
     {
       provide: APP_INITIALIZER,
       useFactory: (store: Store<RootStoreState.State>) => {
