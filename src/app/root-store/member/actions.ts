@@ -20,7 +20,7 @@ export const loadAuth = createAction(
 
 export const loadAuthSuccess = createAction(
   "[Member] Log In Success",
-  props<{ data: Member[] }>()
+  props<{ data: Member }>()
 );
 
 export const loadAuthFailure = createAction(

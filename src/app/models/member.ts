@@ -10,15 +10,16 @@ export interface Member {
   lastName: string;
   email?: string;
   year?: string;
+  token?: string;
   github?: Url;
   linkedin?: Url;
   portfolium?: Url;
   handshake?: Url;
   slack?: string;
   discord?: string;
-  image?: string;
   active?: boolean;
   banned?: boolean;
+  privilege?: string;
   createdDate?: Date;
 }
 
