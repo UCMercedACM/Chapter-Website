@@ -1,4 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+
+import { Member } from "../../models";
+import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 
 @Component({
   selector: "app-account",
@@ -6,7 +10,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./account.component.scss"]
 })
 export class AccountComponent implements OnInit {
-  constructor() {}
+  member: Member;
 
-  ngOnInit() {}
+  constructor(private store: Store<RootStoreState.State>) {}
+
+  ngOnInit() {
+  }
+
 }

@@ -9,9 +9,11 @@ export interface Member {
   firstName: string;
   lastName: string;
   email?: string;
+  password?: string;
   year?: string;
   github?: Url;
   linkedin?: Url;
+  token: string;
   portfolium?: Url;
   handshake?: Url;
   slack?: string;
@@ -20,4 +22,9 @@ export interface Member {
   active?: boolean;
   banned?: boolean;
   createdDate?: Date;
+}
+
+export interface FullName {
+  firstName: string;
+  lastName: string;
 }
