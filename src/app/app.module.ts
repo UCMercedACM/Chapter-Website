@@ -3,8 +3,9 @@ import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { AppRoutingModule } from "./app-routing.module"; // Routing Import
 import { AppComponent } from "./app.component"; // Main app import
@@ -13,7 +14,6 @@ import { AppComponent } from "./app.component"; // Main app import
 import {
   TitleComponent,
   CoffeeComponent,
-  NavbarComponent,
   WorkshopCardComponent,
   ProjectsDisplayComponent
 } from "./components";
@@ -30,7 +30,9 @@ import {
   InterviewsComponent,
   CalendarComponent,
   MembersComponent,
-  AccountComponent
+  AccountComponent,
+  LoginComponent,
+  SignUpComponent
 } from "./containers";
 
 // NgRx Store Imports
@@ -40,12 +42,14 @@ import {
   MemberStoreActions
 } from "./root-store";
 
+// Data Services
+import { DataService } from "./services/data.service";
+
 @NgModule({
   declarations: [
     AppComponent,
     TitleComponent,
     CoffeeComponent,
-    NavbarComponent,
     CoffeeNCodeComponent,
     HomeComponent,
     ProjectsComponent,
@@ -59,9 +63,10 @@ import {
     AccountComponent,
     WorkshopCardComponent,
     ProjectsDisplayComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
-    NgbModule,
     HttpClientModule,
 
     // Angular
@@ -72,6 +77,11 @@ import {
 
     // NgRx
     RootStoreModule,
+
+    // Fontawesome
+    FontAwesomeModule,
+
+    ReactiveFormsModule,
 
     /**
      * Store devtools instrument the store retaining past versions of state
@@ -89,6 +99,7 @@ import {
     })
   ],
   providers: [
+    DataService,
     {
       provide: APP_INITIALIZER,
       useFactory: (store: Store<RootStoreState.State>) => {

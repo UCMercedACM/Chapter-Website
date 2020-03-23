@@ -8,16 +8,26 @@ export interface Member {
   id: number;
   firstName: string;
   lastName: string;
-  email?: string;
+  email: string;
+  password: string;
   year?: string;
   github?: Url;
   linkedin?: Url;
+  personalWebsite?: Url;
+  stackOverflow?: Url;
   portfolium?: Url;
   handshake?: Url;
   slack?: string;
   discord?: string;
-  image?: string;
-  active?: boolean;
-  banned?: boolean;
-  createdDate?: Date;
+  thumbnail?: string;
+  active: boolean;
+  banned: boolean;
+  privilege: string;
+  joined?: Date;
+  token: string;
+}
+
+export interface FullName {
+  firstName: string;
+  lastName: string;
 }
