@@ -20,9 +20,9 @@ import { MemberStoreActions } from "./root-store";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  navbarExtend: boolean = false;
-  professionalOpen: boolean = true;
-  profileOpen: boolean = true;
+  navbarExtend = false;
+  professionalOpen = true;
+  profileOpen = true;
   faTwitter = faTwitter;
   faLinkedinIn = faLinkedinIn;
   faFacebookF = faFacebookF;

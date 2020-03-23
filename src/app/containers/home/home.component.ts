@@ -19,6 +19,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    console.log(this.contactUsForm.value)
+    console.log(this.contactUsForm.value);
   }
 }
