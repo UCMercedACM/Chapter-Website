@@ -1,0 +1,43 @@
+.uc-merced {
+  color: #f9a826;
+}
+
+.home-login-btn {
+  background-color: #0093d0;
+
+  &:hover {
+    background-color: #039ed4;
+  }
+}
+
+.home-sign-up-btn {
+  color: #005dab;
+}
+
+.home-login-btn,
+.home-sign-up-btn {
+  box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
+    12px 12px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 1024px) {
+  .home-img {
+    top: 10rem;
+    right: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-img {
+    top: 10rem;
+    right: 10rem;
+  }
+}
+
+.about-us-title {
+  color: #f9a826;
+}
+
+.about-us-icons {
+  background-color: #f9a826;
+}

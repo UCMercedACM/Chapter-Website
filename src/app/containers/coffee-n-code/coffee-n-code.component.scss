@@ -110,6 +110,10 @@ $shadow: #FFA265;
     border-radius: 50%;
     background-color: $white;
 
+    @media only screen and (max-width: 610px) {
+        right: 3%;
+    }
+
     &__s {
         position: absolute;
         top: 10px;

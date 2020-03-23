@@ -62,7 +62,7 @@ import { DataService } from "./services/data.service";
     MembersComponent,
     AccountComponent,
     WorkshopCardComponent,
-    ProjectsDisplayComponent
+    ProjectsDisplayComponent,
     LoginComponent,
     SignUpComponent
   ],
