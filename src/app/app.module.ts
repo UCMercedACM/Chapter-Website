@@ -14,7 +14,8 @@ import { AppComponent } from "./app.component"; // Main app import
 import {
   TitleComponent,
   CoffeeComponent,
-  WorkshopCardComponent
+  WorkshopCardComponent,
+  ProjectsDisplayComponent
 } from "./components";
 
 // Container Imports
@@ -61,6 +62,7 @@ import { DataService } from "./services/data.service";
     MembersComponent,
     AccountComponent,
     WorkshopCardComponent,
+    ProjectsDisplayComponent
     LoginComponent,
     SignUpComponent
   ],
