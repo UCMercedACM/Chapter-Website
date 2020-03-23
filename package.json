@@ -3,8 +3,8 @@
   "version": "0.5.0",
   "private": true,
   "scripts": {
-    "deploy": "yarn build && ngh --branch=master",
-    "build": "ngtw build && ng build --prod --base-href Chapter-Website/client",
+    "deploy": "yarn build && ngh --branch=production",
+    "build": "ngtw build && ng build --prod --base-href Chapter-Website",
     "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
     "e2e": "ng e2e",
     "lint": "ng lint",
