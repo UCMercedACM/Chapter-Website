@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 
 import { Member } from "../../models";
@@ -14,7 +14,5 @@ export class AccountComponent implements OnInit {
 
   constructor(private store: Store<RootStoreState.State>) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

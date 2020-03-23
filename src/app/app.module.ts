@@ -3,9 +3,9 @@ import { NgModule, APP_INITIALIZER } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from "@angular/forms";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import { AppRoutingModule } from "./app-routing.module"; // Routing Import
 import { AppComponent } from "./app.component"; // Main app import
@@ -30,7 +30,8 @@ import {
   CalendarComponent,
   MembersComponent,
   AccountComponent,
-  LoginComponent
+  LoginComponent,
+  SignUpComponent
 } from "./containers";
 
 // NgRx Store Imports
@@ -41,7 +42,7 @@ import {
 } from "./root-store";
 
 // Data Services
-import { DataService } from './services/data.service'
+import { DataService } from "./services/data.service";
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { DataService } from './services/data.service'
     MembersComponent,
     AccountComponent,
     WorkshopCardComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     HttpClientModule,
@@ -77,7 +79,7 @@ import { DataService } from './services/data.service'
     // Fontawesome
     FontAwesomeModule,
 
-    FormsModule,
+    ReactiveFormsModule,
 
     /**
      * Store devtools instrument the store retaining past versions of state

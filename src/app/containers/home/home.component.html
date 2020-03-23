@@ -32,7 +32,7 @@
                 Login
               </a>
             </div>
-            <div class="mt-3 sm:mt-0 sm:ml-8">
+            <div class="sm:ml-8">
               <a
                 [routerLink]="['/sign-up']"
                 class="home-sign-up-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10"
@@ -269,7 +269,7 @@
 </div>
 
 <!-- Contact Us -->
-<form class="contact-us w-full max-w-lg mb-20 sm:ml-4">
+<form class="contact-us w-full max-w-lg mb-20 sm:ml-4" [formGroup]="contactUsForm" (ngSubmit)="onSubmit()">
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <label
@@ -279,12 +279,14 @@
         First Name
       </label>
       <input
-        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
         id="grid-first-name"
         type="text"
         placeholder="Jane"
+        required
+        formControlName="firstName"
       />
-      <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+      <p class="hidden text-red-500 text-xs italic">Please fill out this field.</p>
     </div>
     <div class="w-full md:w-1/2 px-3">
       <label
@@ -298,6 +300,8 @@
         id="grid-last-name"
         type="text"
         placeholder="Doe"
+        required
+        formControlName="lastName"
       />
     </div>
   </div>
@@ -313,8 +317,9 @@
         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         id="email"
         type="email"
+        required
+        formControlName="email"
       />
-      <p class="text-gray-600 text-xs italic">Some tips - as long as needed</p>
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
@@ -328,18 +333,16 @@
       <textarea
         class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
         id="message"
+        required
+        formControlName="message"
       ></textarea>
-      <p class="text-gray-600 text-xs italic">
-        Re-size can be disabled by set by resize-none / resize-y / resize-x /
-        resize
-      </p>
     </div>
   </div>
   <div class="flex items-center justify-center">
     <div class="md:w-1/3">
       <button
         class="contact-us-submit shadow hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-        type="button"
+        type="submit"
       >
         Send
       </button>
