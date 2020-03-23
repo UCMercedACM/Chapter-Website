@@ -10,7 +10,8 @@ import {
   MembersComponent,
   AccountComponent,
   CalendarComponent,
-  LoginComponent
+  LoginComponent,
+  SignUpComponent
 } from "./containers";
 
 const routes: Routes = [
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "sign-up",
+    component: SignUpComponent
   },
   {
     path: "account",
