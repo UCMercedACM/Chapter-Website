@@ -3,7 +3,7 @@
   "version": "0.5.0",
   "private": true,
   "scripts": {
-    "deploy": "yarn build && ngh --branch=master",
+    "deploy": "yarn build && ngh --branch=gh-pages",
     "build": "ngtw build && ng build --prod",
     "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
     "e2e": "ng e2e",
