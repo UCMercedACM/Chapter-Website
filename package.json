@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "deploy": "yarn build && ngh --branch=master",
-    "build": "ngtw build && ng build --prod --base-href Chapter-Website",
+    "build": "ngtw build && ng build --prod --base-href Chapter-Website/client",
     "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
     "e2e": "ng e2e",
     "lint": "ng lint",
