@@ -15,7 +15,8 @@ import {
   TitleComponent,
   CoffeeComponent,
   WorkshopCardComponent,
-  ProjectsDisplayComponent
+  ProjectsDisplayComponent,
+  TerminalComponent
 } from "./components";
 
 // Container Imports
@@ -64,7 +65,8 @@ import { DataService } from "./services/data.service";
     WorkshopCardComponent,
     ProjectsDisplayComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    TerminalComponent
   ],
   imports: [
     HttpClientModule,
