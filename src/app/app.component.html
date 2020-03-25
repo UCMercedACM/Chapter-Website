@@ -47,58 +47,64 @@
             <a
               [routerLink]="['/events']"
               class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
-              >Events</a
             >
+              Events
+            </a>
             <a
               [routerLink]="['/projects']"
               class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item"
-              >Projects</a
             >
-            <a
+              Projects
+            </a>
+            <!-- <a
               [routerLink]="['/workshops']"
               class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item"
-              >Workshops</a
+              >
+              Workshops
+              </a
             >
             <a
               [routerLink]="['/members']"
               fragment="leadership"
               class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item"
-              >Members</a
-            >
+              >
+              Members
+              </a
+            > -->
             <a
-              (click)="professionalOpen = !professionalOpen"
-              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
-              >Professional &#9660;</a
+              [routerLink]="['/coffee-n-code']"
+              class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
             >
-            <div
-              [hidden]="professionalOpen"
-              class="absolute focus:mt-2 focus:w-48 focus:rounded-md focus:shadow-lg"
+              Coffee & Code
+            </a>
+            <!-- <a
+              [routerLink]="['/koding-kata']"
+              class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
             >
-              <div class="py-1 rounded-md bg-white shadow-xs">
-                <a
-                  [routerLink]="['/coffee-n-code']"
-                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                  >Coffee & Code</a
-                >
-                <a
-                  [routerLink]="['/koding-kata']"
-                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                  >Koding Kata</a
-                >
-                <a
-                  [routerLink]="['/lan']"
-                  class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                  >LAN</a
-                >
-              </div>
-            </div>
+              Koding Kata
+            </a>
+            <a
+              [routerLink]="['/lan']"
+              class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
+            >
+              LAN
+            </a> -->
           </div>
         </div>
       </div>
       <div
         class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
+        <div [hidden]="loggedIn">
+          <a
+            [routerLink]="['/login']"
+            class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
+          >
+            Login
+          </a>
+        </div>
         <button
+          [hidden]="!loggedIn"
           class="p-1 border-2 border-transparent text-black rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out notifcation-icon"
         >
           <svg
@@ -115,7 +121,7 @@
             />
           </svg>
         </button>
-        <div class="ml-3 relative">
+        <div class="ml-3 relative" [hidden]="!loggedIn">
           <div>
             <button
               (click)="profileOpen = !profileOpen"
@@ -128,6 +134,7 @@
               />
             </button>
           </div>
+
           <div
             [hidden]="profileOpen"
             class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
@@ -137,19 +144,22 @@
                 [routerLink]="['/dashboard']"
                 [queryParams]="{ member: null }"
                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                >Dashboard</a
               >
+                Dashboard
+              </a>
               <a
                 [routerLink]="['/settings']"
                 [queryParams]="{ member: null }"
                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                >Settings</a
               >
+                Settings
+              </a>
               <a
                 [routerLink]="['/sign-out']"
                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                >Sign out</a
               >
+                Sign out
+              </a>
             </div>
           </div>
         </div>
@@ -164,39 +174,46 @@
       <a
         [routerLink]="['/events']"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
-        >Events</a
       >
+        Events
+      </a>
       <a
         [routerLink]="['/projects']"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-        >Projects</a
       >
-      <a
+        Projects
+      </a>
+      <!-- <a
         [routerLink]="['/workshops']"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-        >Workshops</a
       >
+        Workshops
+      </a>
       <a
         [routerLink]="['/members']"
         fragment="leadership"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-        >Members</a
       >
+        Members
+      </a> -->
       <a
         [routerLink]="['/coffee-n-code']"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-        >Coffee & Code</a
       >
-      <a
+        Coffee & Code
+      </a>
+      <!-- <a
         [routerLink]="['/koding-kata']"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-        >Koding Kata</a
       >
+        Koding Kata
+      </a>
       <a
         [routerLink]="['/lan']"
         class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-        >LAN</a
       >
+        LAN
+      </a> -->
     </div>
   </div>
 </nav>
