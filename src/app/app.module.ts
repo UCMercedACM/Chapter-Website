@@ -33,7 +33,8 @@ import {
   MembersComponent,
   AccountComponent,
   LoginComponent,
-  SignUpComponent
+  SignUpComponent,
+  EventsComponent
 } from "./containers";
 
 // NgRx Store Imports
@@ -66,7 +67,8 @@ import { DataService } from "./services/data.service";
     ProjectsDisplayComponent,
     LoginComponent,
     SignUpComponent,
-    TerminalComponent
+    TerminalComponent,
+    EventsComponent
   ],
   imports: [
     HttpClientModule,
