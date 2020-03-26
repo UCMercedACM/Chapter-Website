@@ -11,23 +11,44 @@
       <h2
         class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900"
       >
-        Sign in to your account
+        Member Sign Up Page
       </h2>
       <p class="mt-2 text-center text-sm leading-5 text-gray-600">
-        Or
         <a
-          [routerLink]="['/sign-up']"
+          [routerLink]="['/login']"
           routerLinkActive="active"
-          class="sign-up-now font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+          class="already-member font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
         >
-          Sign Up Now
+          Already a Member?
         </a>
       </p>
     </div>
-    <form class="mt-8" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+    <form class="mt-8" (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
       <input type="hidden" name="remember" value="true" />
       <div class="rounded-md shadow-sm">
         <div>
+          <input
+            formControlName="firstName"
+            aria-label="First Name"
+            name="first-name"
+            type="text"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+            placeholder="First Name"
+          />
+        </div>
+        <div class="-mt-px">
+          <input
+          formControlName="lastName"
+            aria-label="Last Name"
+            name="last-name"
+            type="text"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+            placeholder="Last Name"
+          />
+        </div>
+        <div class="-mt-px">
           <input
             formControlName="email"
             aria-label="Email address"
@@ -35,7 +56,7 @@
             type="email"
             required
             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
-            placeholder="Email address"
+            placeholder="UC Merced Email address"
           />
         </div>
         <div class="-mt-px">
@@ -49,30 +70,16 @@
             placeholder="Password"
           />
         </div>
-      </div>
-
-      <div class="mt-6 flex items-center justify-between">
-        <div class="flex items-center">
+        <div class="-mt-px">
           <input
-            id="remember_me"
-            type="checkbox"
-            class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+            formControlName="id"
+            aria-label="Student ID"
+            name="student-id"
+            type="number"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5"
+            placeholder="UC Merced Student ID"
           />
-          <label
-            for="remember_me"
-            class="ml-2 block text-sm leading-5 text-gray-900"
-          >
-            Remember me
-          </label>
-        </div>
-
-        <div class="text-sm leading-5">
-          <a
-            href="#"
-            class="forgot-password font-medium focus:outline-none focus:underline transition ease-in-out duration-150"
-          >
-            Forgot your password?
-          </a>
         </div>
       </div>
 
@@ -80,6 +87,7 @@
         <button
           type="submit"
           class="login-submit-btn group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+          [disabled]="!signUpForm.valid"
         >
           <span class="absolute left-0 inset-y-0 flex items-center pl-3">
             <svg
@@ -94,14 +102,9 @@
               />
             </svg>
           </span>
-          Sign in
+          Sign Up
         </button>
       </div>
     </form>
   </div>
 </div>
-
-<h1>Members:</h1>
-<li *ngFor="let attr of members$">
-  {{ attr }}
-</li>

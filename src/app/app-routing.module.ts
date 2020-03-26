@@ -9,8 +9,9 @@ import {
   InterviewsComponent,
   MembersComponent,
   AccountComponent,
-  CalendarComponent,
-  LoginComponent
+  LoginComponent,
+  SignUpComponent,
+  EventsComponent
 } from "./containers";
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: "events",
-    component: CalendarComponent
+    component: EventsComponent
   },
   {
     path: "coffee-n-code",
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "sign-up",
+    component: SignUpComponent
   },
   {
     path: "account",

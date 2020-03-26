@@ -2,13 +2,15 @@ import { Component, OnInit } from "@angular/core";
 import { select, Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
+import { FormControl, FormGroup } from "@angular/forms";
+
+import { Member } from "../../models";
 import {
   RootStoreState,
   RootStoreSelectors,
   MemberStoreSelectors,
   MemberStoreActions
 } from "src/app/root-store";
-import { Member } from "../../models";
 
 @Component({
   selector: "app-login",
@@ -17,8 +19,10 @@ import { Member } from "../../models";
 })
 export class LoginComponent implements OnInit {
   members$: any;
-  email?: string;
-  password?: string;
+  loginForm = new FormGroup({
+    email: new FormControl(""),
+    password: new FormControl("")
+  });
 
   constructor(private store$: Store<RootStoreState.State>) {
     this.store$
@@ -31,10 +35,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    const payload = {
-      email: this.email,
-      password: this.password
-    };
+    const payload = this.loginForm.value;
 
     this.store$.dispatch(MemberStoreActions.loadAuth(payload));
     console.log(this.store$);
