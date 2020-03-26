@@ -6,6 +6,7 @@ export interface Members {
 
 export interface Member {
   id: number;
+  studentId: number;
   firstName: string;
   lastName: string;
   email: string;

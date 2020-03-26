@@ -62,6 +62,7 @@ import { DataService } from "./services/data.service";
     InterviewsComponent,
     CalendarComponent,
     MembersComponent,
+    LoginComponent,
     AccountComponent,
     WorkshopCardComponent,
     ProjectsDisplayComponent,

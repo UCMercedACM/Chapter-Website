@@ -37,7 +37,7 @@
     "@ngrx/store-devtools": "~8.5.2",
     "@popperjs/core": "~2.0.4",
     "angular-cli-ghpages": "~0.6.2",
-    "axios": "~0.19.0",
+    "jwt-decode": "~2.2.0",
     "rxjs": "~6.5.3",
     "tslib": "~1.10.0",
     "zone.js": "~0.9.1"

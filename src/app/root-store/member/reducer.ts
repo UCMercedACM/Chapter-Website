@@ -29,12 +29,18 @@ const memberReducer = createReducer(
   }),
 
   on(MemberActions.loadAuthSuccess, (state, action) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: null,
-      isAuthenticated: true
-    };
+    // return {
+    //    ...state,
+    //    isLoading: false,
+    //    error: null,
+    //    isAuthenticated: true
+    // };
+    return memberAdapter.addOne(action.data, {
+         ...state,
+         isLoading: false,
+         error: null,
+         isAuthenticated: true
+      });
   }),
 
   on(MemberActions.loadAuthFailure, (state, action) => {
