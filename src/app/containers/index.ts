@@ -11,6 +11,7 @@ import { MembersComponent } from "./members/members.component";
 import { AccountComponent } from "./account/account.component";
 import { LoginComponent } from "./login/login.component";
 import { SignUpComponent } from "./sign-up/sign-up.component";
+import { EventsComponent } from "./events/events.component";
 
 export {
   CoffeeNCodeComponent,
@@ -25,5 +26,6 @@ export {
   MembersComponent,
   AccountComponent,
   LoginComponent,
-  SignUpComponent
+  SignUpComponent,
+  EventsComponent
 };
