@@ -22,7 +22,30 @@ const memberReducer = createReducer(
       isLoading: false,
       error: action.error
     };
-  })
+  }),
+
+  on(MemberActions.loadAuth, (state, action) => {
+    return { ...state, isLoading: true, error: null };
+  }),
+
+  on(MemberActions.loadAuthSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: null,
+      isAuthenticated: true
+    };
+  }),
+
+  on(MemberActions.loadAuthFailure, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error,
+      isAuthenticated: false
+    };
+  }),
+
 );
 
 export function reducer(state: MemberState | undefined, action: Action) {

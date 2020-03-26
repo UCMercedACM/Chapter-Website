@@ -9,6 +9,9 @@ import { InterviewsComponent } from "./interviews/interviews.component";
 import { CalendarComponent } from "./calendar/calendar.component";
 import { MembersComponent } from "./members/members.component";
 import { AccountComponent } from "./account/account.component";
+import { LoginComponent } from "./login/login.component";
+import { SignUpComponent } from "./sign-up/sign-up.component";
+import { EventsComponent } from "./events/events.component";
 
 export {
   CoffeeNCodeComponent,
@@ -21,5 +24,8 @@ export {
   InterviewsComponent,
   CalendarComponent,
   MembersComponent,
-  AccountComponent
+  AccountComponent,
+  LoginComponent,
+  SignUpComponent,
+  EventsComponent
 };

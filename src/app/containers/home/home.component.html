@@ -1,1 +1,382 @@
-<p>We'll deal with this later, once we get a better picture of other services</p>
+<!-- Header/Title -->
+<div class="home-heading static bg-white overflow-hidden mt-24">
+  <div class="max-w-screen-xl mx-auto ">
+    <div
+      class="relative pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
+    >
+      <div
+        class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28"
+      >
+        <div class="sm:text-center lg:text-left">
+          <h2
+            class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-5xl"
+          >
+            Association for Computing Machinery
+            <br class="xl:hidden" />
+            @ <span class="uc-merced">UC Merced</span>
+          </h2>
+          <p
+            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
+          >
+            ACM, the world’s largest educational and scientific computing
+            society, delivers resources that advance computing as a science and
+            a profession. We're just your friendly neighborhood student chapter
+            at UC Merced.
+          </p>
+          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+            <div class="rounded-md shadow">
+              <a
+                [routerLink]="['/login']"
+                class="home-login-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10"
+              >
+                Login
+              </a>
+            </div>
+            <div class="sm:ml-8">
+              <a
+                [routerLink]="['/sign-up']"
+                class="home-sign-up-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10"
+              >
+                Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="hidden lg:block lg:absolute lg:bottom-0 lg:w-2/5 xl:w-1/3 home-img h-0"
+  >
+    <img
+      src="assets/img/undraw_social_distancing.svg"
+      alt="social distancing"
+    />
+  </div>
+</div>
+
+<!---About Us -->
+<div class="py-12 bg-white">
+  <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="lg:text-center">
+      <p
+        class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
+      >
+        About Us
+      </p>
+      <h3
+        class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
+      >
+        Who We Are and Why We Do What We Do
+      </h3>
+      <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
+        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
+        voluptatum cupiditate veritatis in accusamus quisquam.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <ul class="md:grid md:grid-cols-2 md:col-gap-8 md:row-gap-10">
+        <li>
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div
+                class="about-us-icons flex items-center justify-center h-12 w-12 rounded-md text-white"
+              >
+                <svg
+                  class="h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">
+                Teaching
+              </h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                We extend our hand to students who need help with their classes,
+                as well as present material not readily available in classes at
+                UC Merced.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div
+                class="about-us-icons flex items-center justify-center h-12 w-12 rounded-md text-white"
+              >
+                <svg
+                  class="h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">
+                Coding
+              </h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                In ACM, we firmly believe that if you want to be a better
+                programmer, you have to keep on coding. We will help you get
+                started on your first project and help you out with any you
+                already have.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div
+                class="about-us-icons flex items-center justify-center h-12 w-12 rounded-md text-white"
+              >
+                <svg
+                  class="h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">
+                Companies
+              </h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                Forming relationships with companies helps bridge the gap
+                between graduation and that first job. We regularly tour
+                companies around the bay area and keep in contact with them.
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="mt-10 md:mt-0">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <div
+                class="about-us-icons flex items-center justify-center h-12 w-12 rounded-md text-white"
+              >
+                <svg
+                  class="h-6 w-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="ml-4">
+              <h5 class="text-lg leading-6 font-medium text-gray-900">
+                People
+              </h5>
+              <p class="mt-2 text-base leading-6 text-gray-500">
+                If you just want to hang with some cool peeps in CS, then that's
+                just fine as well. We host many social events each semester, and
+                are more than happy to see a new face.
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- What We Offer -->
+<div class="lg:text-center">
+  <p
+    class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
+  >
+    Top 3 Provided Resources
+  </p>
+  <h3
+    class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
+  >
+    What We Offer
+  </h3>
+</div>
+<div class="what-we-offer">
+  <div class="smiley__face smiley__face--01 flex flex-wrap">
+    <div class="face">
+      <div class="eyes">
+        <div class="eye eye__left"></div>
+        <div class="eye eye__right"></div>
+      </div>
+      <div class="mouth"></div>
+    </div>
+    <button class="static wwo-pill">
+      <a [routerLink]="['/events']">Events</a>
+    </button>
+  </div>
+
+  <div class="smiley__face smiley__face--02 flex flex-wrap">
+    <div class="face">
+      <div class="eyes">
+        <div class="eye eye__left"></div>
+        <div class="eye eye__right"></div>
+      </div>
+      <div class="mouth"></div>
+    </div>
+    <button class="static wwo-pill">
+      <a [routerLink]="['/coffee-n-code']">Tutoring</a>
+    </button>
+  </div>
+
+  <div class="smiley__face smiley__face--03 flex flex-wrap">
+    <div class="face">
+      <div class="eyes">
+        <div class="eye eye__left"></div>
+        <div class="eye eye__right"></div>
+      </div>
+      <div class="mouth"></div>
+    </div>
+    <button class="static wwo-pill">
+      <a [routerLink]="['/projects']">Projects</a>
+    </button>
+  </div>
+
+  <div class="underground"></div>
+
+  <div class="sparkles">
+    <div class="star star--01"></div>
+    <div class="star star--02"></div>
+    <div class="star star--03"></div>
+    <div class="circle circle--01"></div>
+    <div class="circle circle--02"></div>
+    <div class="circle circle--03"></div>
+    <div class="circle circle--04"></div>
+  </div>
+</div>
+
+<!-- Contact Us -->
+<div class="lg:text-center mb-16">
+  <p
+    class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
+  >
+    Contact Us
+  </p>
+  <h3
+    class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
+  >
+    Questions or Concerns
+  </h3>
+</div>
+<form
+  class="contact-us w-full max-w-lg mb-20 sm:ml-4"
+  [formGroup]="contactUsForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+      <label
+        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        for="grid-first-name"
+      >
+        First Name
+      </label>
+      <input
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+        id="grid-first-name"
+        type="text"
+        placeholder="Jane"
+        required
+        formControlName="firstName"
+      />
+      <p class="hidden text-red-500 text-xs italic">
+        Please fill out this field.
+      </p>
+    </div>
+    <div class="w-full md:w-1/2 px-3">
+      <label
+        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        for="grid-last-name"
+      >
+        Last Name
+      </label>
+      <input
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        id="grid-last-name"
+        type="text"
+        placeholder="Doe"
+        required
+        formControlName="lastName"
+      />
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label
+        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        for="grid-password"
+      >
+        E-mail
+      </label>
+      <input
+        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        id="email"
+        type="email"
+        required
+        formControlName="email"
+      />
+    </div>
+  </div>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label
+        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        for="grid-password"
+      >
+        Message
+      </label>
+      <textarea
+        class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
+        id="message"
+        required
+        formControlName="message"
+      ></textarea>
+    </div>
+  </div>
+  <div class="flex items-center justify-center">
+    <div class="md:w-1/3">
+      <button
+        class="contact-us-submit shadow hover:bg-teal-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+        type="submit"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</form>

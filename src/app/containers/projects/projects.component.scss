@@ -1,0 +1,43 @@
+.uc-merced {
+  color: #f9a826;
+}
+
+.projects-login-btn {
+  background-color: #0093d0;
+
+  &:hover {
+    background-color: #039ed4;
+  }
+}
+
+.projects-sign-up-btn {
+  color: #005dab;
+}
+
+.projects-login-btn,
+.projects-sign-up-btn {
+  box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
+    12px 12px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 1024px) {
+  .projects-img {
+    top: 10rem;
+    right: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .projects-img {
+    top: 10rem;
+    right: 10rem;
+  }
+}
+
+.about-us-title {
+  color: #f9a826;
+}
+
+.about-us-icons {
+  background-color: #f9a826;
+}
