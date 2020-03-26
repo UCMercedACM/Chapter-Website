@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import {
   faTwitter,
   faLinkedinIn,
@@ -12,7 +12,13 @@ import {
 import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 import {} from "@fortawesome/free-solid-svg-icons";
 
-import { MemberStoreActions } from "./root-store";
+import { Member } from "./models";
+import {
+  RootStoreState,
+  MemberStoreActions,
+  MemberStoreSelectors,
+  MemberStoreState
+} from "src/app/root-store";
 
 @Component({
   selector: "app-root",
@@ -20,7 +26,7 @@ import { MemberStoreActions } from "./root-store";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  loggedIn = false;
+  isLoggedIn$: boolean;
   navbarExtend = false;
   professionalOpen = true;
   profileOpen = true;
@@ -32,10 +38,27 @@ export class AppComponent implements OnInit {
   faSlack = faSlack;
   faCopyright = faCopyright;
   faInstagram = faInstagram;
+  memberId$: number;
 
-  constructor(private store: Store<{}>) {}
+  constructor(private store$: Store<RootStoreState.State>) {
+    this.store$
+      .pipe(select(MemberStoreSelectors.selectMemberIsLoggedIn))
+      .subscribe(data => {
+        this.isLoggedIn$ = data;
+      });
+  }
 
-  ngOnInit() {
-    this.store.dispatch(MemberStoreActions.loadMembers());
+  ngOnInit() {}
+
+  onLoggedIn() {
+    if (this.isLoggedIn$ === true) {
+      this.store$
+      .pipe(select(MemberStoreSelectors.selectSelectedMemberId))
+      .subscribe(data => {
+        this.memberId$ = data;
+      });
+
+      this.profileOpen = !this.profileOpen;
+    }
   }
 }

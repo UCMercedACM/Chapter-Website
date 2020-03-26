@@ -10,25 +10,27 @@ import * as MemberActions from "./actions";
 export class MemberStoreEffects {
   constructor(private dataService: DataService, private actions: Actions) {}
 
-  loadMemberStores$ = createEffect(() => {
-    return this.actions.pipe(
-      ofType(MemberActions.loadMembers),
-      concatMap(() =>
-        this.dataService.getMembers().pipe(
-          map(data => MemberActions.loadMembersSuccess({ data })),
-          catchError(error => of(MemberActions.loadMembersFailure({ error })))
-        )
-      )
-    );
-  });
+  // loadMemberStores$ = createEffect(() => {
+  //   return this.actions.pipe(
+  //     ofType(MemberActions.loadMembers),
+  //     concatMap(() =>
+  //       this.dataService.getMembers().pipe(
+  //         map(data => MemberActions.loadMembersSuccess({ data })),
+  //         catchError(error => of(MemberActions.loadMembersFailure({ error })))
+  //       )
+  //     )
+  //   );
+  // });
 
   authUser$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(MemberActions.loadAuth),
+      ofType(MemberActions.loginAuthentication),
       exhaustMap(action =>
         this.dataService.login(action.email, action.password).pipe(
-          map(data => MemberActions.loadAuthSuccess({ data })),
-          catchError(error => of(MemberActions.loadAuthFailure({ error })))
+          map(data => MemberActions.loginAuthenticationSuccess({ data })),
+          catchError(error =>
+            of(MemberActions.loginAuthenticationFailure({ error }))
+          )
         )
       )
     );

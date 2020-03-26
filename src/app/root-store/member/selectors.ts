@@ -18,55 +18,11 @@ export const reducers: ActionReducerMap<State> = {
 
 export const selectMemberState = createFeatureSelector<MemberState>("member");
 
-export const getSelectedMemberId = (state: MemberState) => state.selectedMemberId;
+export const getSelectedMemberId = (state: MemberState): number => state.selectedMemberId;
+export const selectSelectedMemberId = createSelector(selectMemberState, getSelectedMemberId);
 
-// get the selectors
-const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = memberAdapter.getSelectors();
-
-export const getMembers = createSelector(
-  selectMemberState,
-  props => props
-);
-
-// select the array of member ids
-export const selectMemberIds = createSelector(
-  selectMemberState,
-  selectIds // shorthand for MemberState => fromUser.selectMemberIds(MemberState)
-);
-
-// select the dictionary of member entities
-export const selectMemberEntities = createSelector(
-  selectMemberState,
-  selectEntities
-);
-
-// select the array of members
-export const selectAllMembers = createSelector(
-  selectMemberState,
-  selectAll
-);
-
-// select the total member count
-export const selectMemberTotal = createSelector(
-  selectMemberState,
-  selectTotal
-);
-
-export const selectCurrentMemberId = createSelector(
-  selectMemberState,
-  getSelectedMemberId
-);
-
-export const selectCurrentMember = createSelector(
-  selectMemberEntities,
-  selectCurrentMemberId,
-  (memberEntities, memberId) => memberEntities[memberId]
-);
+export const getIsLoggedIn = (state: MemberState): boolean => state.isLoggedIn;
+export const selectMemberIsLoggedIn = createSelector(selectMemberState, getIsLoggedIn);
 
 export const selectAllMemberItems: (
   state: object

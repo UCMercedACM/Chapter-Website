@@ -7,6 +7,7 @@ export interface MemberState extends EntityState<Member> {
   isLoading?: boolean;
   error?: any;
   isAuthenticated?: boolean;
+  isLoggedIn: boolean;
 }
 
 export function selectedMemberId(a: Member): number {
@@ -29,5 +30,6 @@ export const initialState: MemberState = memberAdapter.getInitialState({
   selectedMemberId: null,
   isLoading: false,
   error: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  isLoggedIn: false,
 });
