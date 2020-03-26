@@ -14,7 +14,6 @@ export interface Member {
   token?: string;
   github?: Url;
   linkedin?: Url;
-  token: string;
   portfolium?: Url;
   handshake?: Url;
   slack?: string;

@@ -1,9 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { map } from "rxjs/operators";
 import { Member, Members } from "../models";
-import axios from 'axios';
 import * as JWT from 'jwt-decode';
 import { environment } from "src/environments/environment";
 
@@ -25,39 +24,78 @@ export class DataService {
   }
 
   login(email: string, password: string): Observable<Member> {
-    const url = `${this.BASE_URL}/api/logi`; //Change to backend endpoint for auth and token generation
+    const url = `${this.BASE_URL}/api/login`; //Change to backend endpoint for auth and token generation
     let res;
     let member: Member;
-    axios.post(url, {"email": email, "password": password})
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.auth == false){
-          throw response.data.error;
-        }
-        member = JWT(response.data.token).payload.data.map(attr=>{
-          return <Member>{
-            id: attr.student_id,
-            firstName: attr.first_name,
-            lastName: attr.last_name,
-            email: attr.email,
-            token: response.data.token,
-            year: attr.year,
-            github: attr.github,
-            linkedin: attr.linkedin,
-            portfolium: attr.portfolium,
-            handshake: attr.handshake,
-            slack: attr.slack,
-            discord: attr.discord,
-            active: attr.active,
-            banned: attr.banned,
-            privilege: attr.privilege,
-            createdDate: attr.created_at
+    return this.http
+      .get<any>(`${environment.MEMBER_MANAGEMENT_API}/api/login`, {
+        params: new HttpParams()
+          .append("email", email)
+          .append("password", password)
+      })
+      .pipe(
+        map(result => {
+          console.log(result);
+          if (result.auth === false){
+            throw result.error;
           }
-        });
+          var successData = JWT(result.token).data;
+          member = {
+            id: successData.student_id,
+            firstName: successData.first_name,
+            lastName: successData.last_name,
+            email: successData.email,
+            token: result.token,
+            year: successData.year,
+            github: successData.github,
+            linkedin: successData.linkedin,
+            portfolium: successData.portfolium,
+            handshake: successData.handshake,
+            slack: successData.slack,
+            discord: successData.discord,
+            active: successData.active,
+            banned: successData.banned,
+            privilege: successData.privilege,
+            createdDate: successData.created_at
+          }
+          return {
+            yourData: member,
+            ...result
+          };
+        })
+      );
+    // return axios.post(url, {"email": email, "password": password})
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     if (response.data.auth == false){
+    //       throw response.data.error;
+    //     }
+    //     var successData = JWT(response.data.token).data;
+    //     console.log(successData);
 
-      });
-    console.log({data: member});
-    return of(member);
+    //     console.log(successData.student_id);
+    //     console.log(member);
+
+    //     member = {
+    //       id: successData.student_id,
+    //       firstName: successData.first_name,
+    //       lastName: successData.last_name,
+    //       email: successData.email,
+    //       token: response.data.token,
+    //       year: successData.year,
+    //       github: successData.github,
+    //       linkedin: successData.linkedin,
+    //       portfolium: successData.portfolium,
+    //       handshake: successData.handshake,
+    //       slack: successData.slack,
+    //       discord: successData.discord,
+    //       active: successData.active,
+    //       banned: successData.banned,
+    //       privilege: successData.privilege,
+    //       createdDate: successData.created_at
+    //     }
+    //     return of(member);
+    //   });
     // return all member for user
     // need to write query in backend to check email
   }
