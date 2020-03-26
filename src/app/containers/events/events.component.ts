@@ -6,7 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./events.component.scss"]
 })
 export class EventsComponent implements OnInit {
-  i: number = 0;
+  i = 0;
   imageArray: any[] = [
     { imageUrl: "assets/img/undraw_environmental_study.svg", imageAlt: "" },
     { imageUrl: "assets/img/undraw_nakamoto.svg", imageAlt: "" },
