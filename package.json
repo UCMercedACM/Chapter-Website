@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "ng": "ng",
     "prestart": "ngtw build",
+    "docker": "ng serve --host 0.0.0.0 --port 4200 & ngtw watch",
     "start": "ng serve & ngtw watch",
     "store": "ng g module --flat false --module root-store/root-store.module.ts",
     "test": "ng test"
