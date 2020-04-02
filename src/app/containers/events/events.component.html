@@ -19,21 +19,21 @@
             Did you know ACM hosts at minimum 3 events a week?
           </p>
           <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-            <div class="rounded-md shadow">
+            <!-- <div class="rounded-md shadow">
               <a
-                href=""
+                href="mailto:acm@ucmerced.edu?"
                 class="events-subscribe-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:text-sm md:px-10"
               >
                 Subscribe To Newsletter
               </a>
-            </div>
+            </div> -->
             <div class="sm:ml-8">
-              <a
-                href=""
+              <button
+                (click)="openNewsletter()"
                 class="events-download-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-sm md:px-10"
               >
                 Download Newsletter
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -72,8 +72,8 @@
     >
       <img
         class="absolute inset-0 w-full h-full object-scale-down"
-        [src]="imageArray[i].imageUrl"
-        [alt]="imageArray[i].imageAlt"
+        [src]="images[i].url"
+        [alt]="images[i].alt"
       />
     </div>
     <div
@@ -81,19 +81,22 @@
     >
       <div class="p-12 md:pr-24 md:pl-16 md:py-12">
         <p class="text-gray-600">
-          <span class="text-gray-900">Missguided</span> is a UK-based fashion
-          retailer that has nearly doubled in size since last year. They
-          integrated Stripe to deliver seamless checkout across mobile and web
-          for customers in 100+ countries, all while automatically combating
-          fraud.
+          <span class="text-gray-900">{{images[i].title}}</span> 
+          <br>
+          {{images[i].description}}
+          <br>
+          <span class="flex">
+            <span style="flex: 50%;"><span class="text-gray-900">Date:</span> {{images[i].date}}</span>
+            <span style="flex: 50%;"><span class="text-gray-900">Time:</span> {{images[i].time}}</span>
+          </span>
         </p>
-        <a
+        <!-- <a
           class="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900"
           href=""
         >
           <span>Learn more about our users</span>
           <span class="text-xs ml-1">&#x279c;</span>
-        </a>
+        </a> -->
       </div>
       <svg
         class="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12"
@@ -125,8 +128,8 @@
     >
       <img
         class="w-full"
-        [src]="imageArray[0].imageUrl"
-        [alt]="imageArray[0].imageAlt"
+        [src]="images[0].url"
+        [alt]="images[0].alt"
         style="max-height: 60px;"
       />
     </button>
@@ -136,8 +139,8 @@
     >
       <img
         class="w-full"
-        [src]="imageArray[1].imageUrl"
-        [alt]="imageArray[1].imageAlt"
+        [src]="images[1].url"
+        [alt]="images[1].alt"
         style="max-height: 60px;"
       />
     </button>
@@ -147,8 +150,8 @@
     >
       <img
         class="w-full"
-        [src]="imageArray[2].imageUrl"
-        [alt]="imageArray[2].imageAlt"
+        [src]="images[2].url"
+        [alt]="images[2].alt"
         style="max-height: 60px;"
       />
     </button>
@@ -158,8 +161,8 @@
     >
       <img
         class="w-full"
-        [src]="imageArray[3].imageUrl"
-        [alt]="imageArray[3].imageAlt"
+        [src]="images[3].url"
+        [alt]="images[3].alt"
         style="max-height: 60px;"
       />
     </button>
@@ -169,8 +172,8 @@
     >
       <img
         class="w-full"
-        [src]="imageArray[4].imageUrl"
-        [alt]="imageArray[4].imageAlt"
+        [src]="images[4].url"
+        [alt]="images[4].alt"
         style="max-height: 60px;"
       />
     </button>

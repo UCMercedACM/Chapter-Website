@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-home",
@@ -7,18 +7,35 @@ import { FormControl, FormGroup } from "@angular/forms";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-  contactUsForm = new FormGroup({
-    firstName: new FormControl(""),
-    lastName: new FormControl(""),
-    email: new FormControl(""),
-    message: new FormControl("")
-  });
+  contactForm: FormGroup;
+  submitted = false;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.contactForm = this.formBuilder.group({
+      firstName: ["", [Validators.required, Validators.minLength(3)]],
+      lastName: ["", [Validators.required, Validators.minLength(3)]],
+      email: ["", [Validators.required, Validators.email]],
+      body: ["", [Validators.required, Validators.minLength(20)]]
+    });
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.contactForm.controls;
+  }
 
   onSubmit() {
-    console.log(this.contactUsForm.value);
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.contactForm.invalid) {
+      return;
+    }
+
+    let { firstName, lastName, email, body } = this.contactForm.value;
+
+    window.location.href = `mailto:acm@ucmerced.edu?subject=[ACM Website Contact Form] Questions&body=Hello ACM,%0D%0A${body}%0D%0A%0D%0AFrom,%0D%0A${firstName} ${lastName}&CC=${email}`;
   }
 }
