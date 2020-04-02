@@ -1,31 +1,18 @@
 import { createAction, props } from "@ngrx/store";
-import { Member } from "../../models";
 
-export const loadMembers = createAction("[Member] Load Members");
+import { Member } from "src/app/models";
 
-export const loadMembersSuccess = createAction(
-  "[Member] Load Members Success",
-  props<{ data: Member[] }>()
-);
-
-export const loadMembersFailure = createAction(
-  "[Member] Load Members Failure",
-  (error = "Error loading members") => ({ error: { error } })
-);
-
-export const loadAuth = createAction(
+export const loginAuthentication = createAction(
   "[Member] Check if User is in the Database",
-  props<{ email: string, password: string }>()
+  props<{ email: string; password: string }>()
 );
 
-export const loadAuthSuccess = createAction(
+export const loginAuthenticationSuccess = createAction(
   "[Member] Log In Success",
-  props<{ data: Member[] }>()
+  props<{ data: Member }>()
 );
 
-export const loadAuthFailure = createAction(
+export const loginAuthenticationFailure = createAction(
   "[Member] Log In Failure",
-  props<{ error: any}>()
+  props<{ error: any }>()
 );
-
-

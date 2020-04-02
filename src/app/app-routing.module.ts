@@ -11,7 +11,8 @@ import {
   AccountComponent,
   LoginComponent,
   SignUpComponent,
-  EventsComponent
+  EventsComponent,
+  DashboardComponent
 } from "./containers";
 
 const routes: Routes = [
@@ -52,8 +53,8 @@ const routes: Routes = [
     component: SignUpComponent
   },
   {
-    path: "account",
-    component: AccountComponent
+    path: "dashboard/:id",
+    component: DashboardComponent
   },
   {
     path: "",

@@ -1,36 +1,44 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { Member, Members } from "../models";
+import * as JWT from "jwt-decode";
+
+import { Member } from "src/app/models";
 import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
 export class DataService {
-  private BASE_URL = "http://localhost:3000";
-
   constructor(private http: HttpClient) {}
-
-  getMembers(): Observable<Member[]> {
-    return this.http
-      .get<Members>(environment.MEMBER_MANAGEMENT_API + "/api/members")
-      .pipe(map(result => result.members));
-  }
 
   getToken(): string {
     return localStorage.getItem("token");
   }
 
-  login(email: string, password: string): Observable<any> {
-    const url = `${this.BASE_URL}/token`; // Change to backend endpoint for auth and token generation
-    return this.http.post<Member>(url, { email, password }); // return all member for user
-    // need to write query in backend to check email
+  login(email: string, password: string): Observable<Member> {
+    return this.http
+      .get<any>(`${environment.MEMBER_MANAGEMENT_API}/api/login`, {
+        params: new HttpParams()
+          .append("email", email)
+          .append("password", password)
+      })
+      .pipe(
+        map(response => {
+          if (response.auth === false) {
+            throw response.error;
+          }
+
+          return JWT(response.token);
+        })
+      );
   }
 
-  signUp(email: string, password: string): Observable<Member> {
-    const url = `${this.BASE_URL}/register`;
-    return this.http.post<Member>(url, { email, password });
+  signUp(member: Member): Observable<Member> {
+    return this.http.post<Member>(
+      `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
+      { member }
+    );
   }
 }

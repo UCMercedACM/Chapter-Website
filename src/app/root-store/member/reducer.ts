@@ -6,46 +6,29 @@ import * as MemberActions from "./actions";
 const memberReducer = createReducer(
   initialState,
 
-  on(MemberActions.loadMembers, state => {
-    return { ...state, isLoading: true, error: null };
-  }),
-  on(MemberActions.loadMembersSuccess, (state, action) => {
-    return memberAdapter.addAll(action.data, {
-      ...state,
-      isLoading: false,
-      error: null
-    });
-  }),
-  on(MemberActions.loadMembersFailure, (state, action) => {
-    return {
-      ...state,
-      isLoading: false,
-      error: action.error
-    };
-  }),
-
-  on(MemberActions.loadAuth, (state, action) => {
+  on(MemberActions.loginAuthentication, (state, action) => {
     return { ...state, isLoading: true, error: null };
   }),
 
-  on(MemberActions.loadAuthSuccess, (state, action) => {
-    return {
+  on(MemberActions.loginAuthenticationSuccess, (state, action) => {
+    return memberAdapter.addOne(action.data, {
       ...state,
+      selectedMemberId: action.data.id,
       isLoading: false,
       error: null,
-      isAuthenticated: true
-    };
+      isAuthenticated: true,
+      isLoggedIn: true,
+    });
   }),
 
-  on(MemberActions.loadAuthFailure, (state, action) => {
+  on(MemberActions.loginAuthenticationFailure, (state, action) => {
     return {
       ...state,
       isLoading: false,
       error: action.error,
       isAuthenticated: false
     };
-  }),
-
+  })
 );
 
 export function reducer(state: MemberState | undefined, action: Action) {

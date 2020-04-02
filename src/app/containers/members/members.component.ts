@@ -1,14 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { select, Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
-import { map } from "rxjs/operators";
-import {
-  RootStoreState,
-  RootStoreSelectors,
-  MemberStoreSelectors,
-  MemberStoreActions
-} from "src/app/root-store";
-import { Member, Members } from "src/app/models";
 
 @Component({
   selector: "app-members",
@@ -16,17 +6,7 @@ import { Member, Members } from "src/app/models";
   styleUrls: ["./members.component.scss"]
 })
 export class MembersComponent implements OnInit {
-  members$: any;
+  constructor() {}
 
-  constructor(private store$: Store<RootStoreState.State>) {
-    this.store$
-      .pipe(select(MemberStoreSelectors.selectAllMembers))
-      .subscribe(data => {
-        this.members$ = data;
-      });
-  }
-
-  ngOnInit() {
-    console.log(this.members$);
-  }
+  ngOnInit() {}
 }

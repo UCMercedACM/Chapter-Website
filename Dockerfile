@@ -11,17 +11,20 @@ RUN apt-get install -yq google-chrome-stable
 # set working directory
 WORKDIR /app
 
-# Copy dependency definitions
-COPY package*.json /app/
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-# Install dependecies
+# install and cache app dependencies
+COPY package.json /app/package.json
+RUN yarn add node-sass
 RUN yarn install
+RUN yarn global add @angular/cli@8.3.14
 
-# Get all the code needed to run the app
-COPY . /app/
+# add app
+COPY . /app
 
 # Expose the port the app runs in
 EXPOSE 4200
 
 # Serve the app
-CMD ["yarn", "start"]
+CMD ["yarn", "docker"]

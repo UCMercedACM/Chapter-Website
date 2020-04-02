@@ -1,7 +1,12 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { FormControl, FormGroup } from "@angular/forms";
 
 import { Member } from "../../models";
+import {
+  RootStoreState,
+  MemberStoreActions
+} from "src/app/root-store";
 
 @Component({
   selector: "app-login",
@@ -9,17 +14,19 @@ import { Member } from "../../models";
   styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-  member: Member;
+  member$: Member;
   loginForm = new FormGroup({
     email: new FormControl(""),
     password: new FormControl("")
   });
 
-  constructor() {}
+  constructor(private store$: Store<RootStoreState.State>) {}
 
   ngOnInit() {}
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    this.store$.dispatch(
+      MemberStoreActions.loginAuthentication(this.loginForm.value)
+    );
   }
 }

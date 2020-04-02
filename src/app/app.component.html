@@ -73,7 +73,7 @@
             > -->
             <a
               [routerLink]="['/coffee-n-code']"
-              class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
+              class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
             >
               Coffee & Code
             </a>
@@ -92,10 +92,10 @@
           </div>
         </div>
       </div>
-      <div
+      <!-- <div
         class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
       >
-        <div [hidden]="loggedIn">
+        <div [hidden]="isLoggedIn$">
           <a
             [routerLink]="['/login']"
             class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
@@ -104,7 +104,7 @@
           </a>
         </div>
         <button
-          [hidden]="!loggedIn"
+          [hidden]="!isLoggedIn$"
           class="p-1 border-2 border-transparent text-black rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out notifcation-icon"
         >
           <svg
@@ -121,10 +121,10 @@
             />
           </svg>
         </button>
-        <div class="ml-3 relative" [hidden]="!loggedIn">
+        <div class="ml-3 relative" [hidden]="!isLoggedIn$">
           <div>
             <button
-              (click)="profileOpen = !profileOpen"
+              (click)="onLoggedIn()"
               class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
             >
               <img
@@ -141,15 +141,13 @@
           >
             <div class="py-1 rounded-md bg-white shadow-xs">
               <a
-                [routerLink]="['/dashboard']"
-                [queryParams]="{ member: null }"
+                [routerLink]="['/dashboard/', memberId$]"
                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
               >
                 Dashboard
               </a>
               <a
-                [routerLink]="['/settings']"
-                [queryParams]="{ member: null }"
+                [routerLink]="['/settings/', memberId$]"
                 class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
               >
                 Settings
@@ -163,7 +161,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div
@@ -273,7 +271,7 @@
       <button
         class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-indigo-800 transform hover:scale-125 hover:shadow-lg"
       >
-        <a href="https://discord.gg/PFgPtMD" target="_blank" class="text-xl"
+        <a href="https://acm-ucm-discord" target="_blank" class="text-xl"
           ><fa-icon [icon]="faDiscord"></fa-icon
         ></a>
       </button>
@@ -281,7 +279,7 @@
         class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-red-400 transform hover:scale-125 hover:shadow-lg"
       >
         <a
-          href="https://join.slack.com/t/ucm-acm/shared_invite/zt-cyj63j4n-uZbfahTOTrlyJvKIRyEAdA"
+          href="https://bit.ly/acm-ucm-slack"
           target="_blank"
           class="text-xl"
           ><fa-icon [icon]="faSlack"></fa-icon

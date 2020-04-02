@@ -7,7 +7,7 @@
       <div
         class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28"
       >
-        <div class="sm:text-center lg:text-left">
+        <div class="text-center lg:text-left">
           <h2
             class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-5xl"
           >
@@ -23,7 +23,7 @@
             a profession. We're just your friendly neighborhood student chapter
             at UC Merced.
           </p>
-          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+          <!-- <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
             <div class="rounded-md shadow">
               <a
                 [routerLink]="['/login']"
@@ -40,7 +40,7 @@
                 Sign Up
               </a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
 <!---About Us -->
 <div class="py-12 bg-white">
   <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="lg:text-center">
+    <div class="text-center">
       <p
         class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
       >
@@ -67,12 +67,8 @@
       <h3
         class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
       >
-        Who We Are and Why We Do What We Do
+        Our Goals
       </h3>
-      <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
-        Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
-        voluptatum cupiditate veritatis in accusamus quisquam.
-      </p>
     </div>
 
     <div class="mt-10">
@@ -100,12 +96,11 @@
             </div>
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">
-                Teaching
+                Technical Excellence
               </h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                We extend our hand to students who need help with their classes,
-                as well as present material not readily available in classes at
-                UC Merced.
+                Preparing the club and its members for work in the industry, ath
+                the highest quality of effciency and scalability.
               </p>
             </div>
           </div>
@@ -133,13 +128,11 @@
             </div>
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">
-                Coding
+                Educational Transparency
               </h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                In ACM, we firmly believe that if you want to be a better
-                programmer, you have to keep on coding. We will help you get
-                started on your first project and help you out with any you
-                already have.
+                Allowing ease of access for all academic topics related to
+                computer science and in our course materials.
               </p>
             </div>
           </div>
@@ -167,12 +160,12 @@
             </div>
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">
-                Companies
+                Community
               </h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                Forming relationships with companies helps bridge the gap
-                between graduation and that first job. We regularly tour
-                companies around the bay area and keep in contact with them.
+                Providing a welcoming environment for computer scientists from
+                all areas of technical knowledge and tying that back to a sense
+                of campus culture.
               </p>
             </div>
           </div>
@@ -200,12 +193,12 @@
             </div>
             <div class="ml-4">
               <h5 class="text-lg leading-6 font-medium text-gray-900">
-                People
+                Social Responsibility
               </h5>
               <p class="mt-2 text-base leading-6 text-gray-500">
-                If you just want to hang with some cool peeps in CS, then that's
-                just fine as well. We host many social events each semester, and
-                are more than happy to see a new face.
+                Ensuring that our members are involved in social and corporate
+                environments that uphold high standards of ethical and moral
+                responsibility.
               </p>
             </div>
           </div>
@@ -216,7 +209,7 @@
 </div>
 
 <!-- What We Offer -->
-<div class="lg:text-center">
+<div class="text-center">
   <p
     class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
   >
@@ -282,7 +275,7 @@
 </div>
 
 <!-- Contact Us -->
-<div class="lg:text-center mb-16">
+<div class="text-center mb-16">
   <p
     class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
   >
@@ -296,7 +289,7 @@
 </div>
 <form
   class="contact-us w-full max-w-lg mb-20 sm:ml-4"
-  [formGroup]="contactUsForm"
+  [formGroup]="contactForm"
   (ngSubmit)="onSubmit()"
 >
   <div class="flex flex-wrap -mx-3 mb-6">
@@ -313,11 +306,18 @@
         type="text"
         placeholder="Jane"
         required
+        minlength="3"
         formControlName="firstName"
+        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
       />
-      <p class="hidden text-red-500 text-xs italic">
-        Please fill out this field.
-      </p>
+      <div
+        class="help is-error text-red-500 text-xs italic"
+        *ngIf="submitted && f.firstName.errors"
+      >
+        <div *ngIf="f.firstName.errors.required">
+          First name is required and needs to be at least 3 characters long.
+        </div>
+      </div>
     </div>
     <div class="w-full md:w-1/2 px-3">
       <label
@@ -332,8 +332,18 @@
         type="text"
         placeholder="Doe"
         required
+        minlength="3"
         formControlName="lastName"
+        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
       />
+      <div
+        class="help is-error text-red-500 text-xs italic"
+        *ngIf="submitted && f.lastName.errors"
+      >
+        <div *ngIf="f.lastName.errors.required">
+          Last name is required and needs to be at least 3 characters long.
+        </div>
+      </div>
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
@@ -349,8 +359,16 @@
         id="email"
         type="email"
         required
+        email
         formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
       />
+      <div
+        class="help is-error text-red-500 text-xs italic"
+        *ngIf="submitted && f.email.errors"
+      >
+        <div *ngIf="f.email.errors.required">Needs to be a valid email.</div>
+      </div>
     </div>
   </div>
   <div class="flex flex-wrap -mx-3 mb-6">
@@ -365,8 +383,16 @@
         class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-48 resize-none"
         id="message"
         required
-        formControlName="message"
+        minlength="20"
+        formControlName="body"
+        [ngClass]="{ 'is-invalid': submitted && f.message.errors }"
       ></textarea>
+      <div
+        class="help is-error text-red-500 text-xs italic"
+        *ngIf="submitted && f.message.errors"
+      >
+        <div *ngIf="f.message.errors.required">Your message is required!</div>
+      </div>
     </div>
   </div>
   <div class="flex items-center justify-center">

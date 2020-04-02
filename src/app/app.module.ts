@@ -25,7 +25,7 @@ import {
   HomeComponent,
   ProjectsComponent,
   WorkshopsComponent,
-  DashboardsComponent,
+  DashboardComponent,
   LanComponent,
   CodeEditorComponent,
   InterviewsComponent,
@@ -56,12 +56,13 @@ import { DataService } from "./services/data.service";
     HomeComponent,
     ProjectsComponent,
     WorkshopsComponent,
-    DashboardsComponent,
+    DashboardComponent,
     LanComponent,
     CodeEditorComponent,
     InterviewsComponent,
     CalendarComponent,
     MembersComponent,
+    LoginComponent,
     AccountComponent,
     WorkshopCardComponent,
     ProjectsDisplayComponent,
@@ -102,19 +103,7 @@ import { DataService } from "./services/data.service";
       maxAge: 25 // Retains last 25 states
     })
   ],
-  providers: [
-    DataService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (store: Store<RootStoreState.State>) => {
-        return () => {
-          store.dispatch(MemberStoreActions.loadMembers());
-        };
-      },
-      multi: true,
-      deps: [Store]
-    }
-  ],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
