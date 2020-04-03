@@ -41,7 +41,7 @@ jobs:
       - name: Angular Deploy gh-pages Actions
         uses: JamesIves/github-pages-deploy-action@releases/v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
           COMMIT_MESSAGE: Release ${{ github.event.title }}
           BRANCH: gh-pages # The branch the action should deploy to.
           BASE_BRANCH: master
