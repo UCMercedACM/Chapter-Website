@@ -1,7 +1,7 @@
 name: Deploy and Update Release Notes
 
 on:
-  push:
+  pull_request:
     branches:
       - master # Successful Merge on master branch
 
