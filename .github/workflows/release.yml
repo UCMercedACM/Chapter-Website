@@ -59,19 +59,15 @@ jobs:
 
       - name: Install Dependencies
         run: |
-            echo 'Running Setup...'
-            yarn install
-
-      - name: GitHub Token for gren
-        run: |
-          export GREN_GITHUB_TOKEN=${{ secrets.GREN_GITHUB_TOKEN }}
+          echo 'Running Setup...'
+          yarn install
 
       - name: Update Release notes
         run: |
           echo 'Update Release Notes...'
-          yarn gren:release
+          npm run gren:release -- --token=${{ secrets.GREN_GITHUB_TOKEN }}
 
       - name: Update Release notes
         run: |
           echo 'Update Changelog...'
-          yarn gren:release
+          npm run gren:release -- --token=${{ secrets.GREN_GITHUB_TOKEN }}
