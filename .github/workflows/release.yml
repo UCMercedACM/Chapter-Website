@@ -50,11 +50,11 @@ jobs:
     
         steps:
         - name: Checkout to current branch
-            uses: actions/checkout@v2
+          uses: actions/checkout@v2
     
         - name: Configure Node.js ${{ matrix.node-version }}
-            uses: actions/setup-node@v1
-            with:
+          uses: actions/setup-node@v1
+          with:
             node-version: ${{ matrix.node-version }}
     
         - name: Install Dependencies
