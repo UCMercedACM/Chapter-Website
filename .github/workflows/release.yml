@@ -42,6 +42,7 @@ jobs:
   release:
     name: Update Release notes and Changelog
     runs-on: ${{ matrix.os }}
+    needs: deploy
 
     strategy:
         matrix:
