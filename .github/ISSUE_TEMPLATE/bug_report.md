@@ -2,8 +2,8 @@
 name: Bug report
 about: Create a report to help us improve
 title: bug/
-labels: bug, help wanted
-assignees: adriandarian
+labels: bug
+assignees: [adriandarian, rperrine]
 
 ---
 

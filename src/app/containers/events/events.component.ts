@@ -42,7 +42,7 @@ export class EventsComponent implements OnInit {
       description:
         "Technical Interview prep at your finger tips, join us weekly for at least 3 different questions that could be on your next interview!",
       date: "Every Wednesday",
-      time: "12 to 4 PM"
+      time: "3 to 5 PM"
     },
     {
       url: "assets/img/undraw_calculator.svg",

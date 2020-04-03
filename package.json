@@ -2,18 +2,37 @@
   "name": "chapter-website",
   "version": "0.5.0",
   "private": true,
+  "contributors": [
+    "Adrian Darian",
+    "Dan Tran",
+    "Robert Perrine"
+  ],
   "scripts": {
-    "deploy": "yarn build && ngh --branch=gh-pages",
     "build": "ngtw build && ng build --prod --base-href=https://ucmercedacm.github.io/Chapter-Website/",
     "clean": "rm -rf node_modules/ yarn.lock package-lock.json",
+    "deploy": "yarn build && ngh --branch=gh-pages --no-silent",
+    "docker": "ng serve --host 0.0.0.0 --port 4200 & ngtw watch",
     "e2e": "ng e2e",
+    "gren:changelog": "gren changelog --generate --override --tags=all --config=.grenrc.js",
+    "gren:release": "gren release --override --tags=all --config=.grenrc.js",
     "lint": "ng lint",
     "ng": "ng",
     "prestart": "ngtw build",
-    "docker": "ng serve --host 0.0.0.0 --port 4200 & ngtw watch",
     "start": "ng serve & ngtw watch",
     "store": "ng g module --flat false --module root-store/root-store.module.ts",
     "test": "ng test"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "resolutions": {
     "@babel/preset-env": "7.5.5"
@@ -38,6 +57,7 @@
     "@ngrx/store-devtools": "~8.5.2",
     "@popperjs/core": "~2.0.4",
     "angular-cli-ghpages": "~0.6.2",
+    "github-release-notes": "^0.17.1",
     "jwt-decode": "~2.2.0",
     "rxjs": "~6.5.3",
     "tslib": "~1.10.0",
