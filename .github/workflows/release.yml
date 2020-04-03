@@ -1,9 +1,9 @@
 name: Deploy and Update Release Notes
 
 on:
-  pull_request:
+  push:
     branches:
-      - master # Pull requests on master branch
+      - master # Successful Merge on master branch
 
 jobs:
   deploy:
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout to current branch
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: Configure Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -28,19 +30,28 @@ jobs:
         run: |
           echo 'Running Setup...'
           yarn install
+          npm install -g @angular/cli  
 
       - name: Building Production Environment
         run: |
           echo 'Building and Compiling...'
+          rm -rf dist
           yarn build
 
       - name: Angular Deploy gh-pages Actions
-        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.1.0
+        uses: JamesIves/github-pages-deploy-action@releases/v2
         with:
-          github_access_token: ${{ secrets.GREN_GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
-          base_href: https://ucmercedacm.github.io/Chapter-Website/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
-          deploy_branch: gh-pages # The branch the action should deploy to.
-          run_lint: true
+          ACCESS_TOKEN: ${{ secrets.GREN_GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
+          COMMIT_MESSAGE: Release ${{ github.event.title }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          BASE_BRANCH: master
+          FOLDER: dist
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
 
       - name: Tag Deployment
         run: |
@@ -60,6 +71,8 @@ jobs:
     steps:
       - name: Checkout to current branch
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: Configure Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
