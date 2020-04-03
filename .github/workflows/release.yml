@@ -62,16 +62,16 @@ jobs:
             echo 'Running Setup...'
             yarn install
 
-      - name: Update Release notes
-        with:
-          repo-token: ${{ secrets.GREN_GITHUB_TOKEN }}
+      - name: GitHub Token for gren
         run: |
-            echo 'Update Release Notes...'
-            yarn gren:release
+          export GREN_GITHUB_TOKEN=${{ secrets.GREN_GITHUB_TOKEN }}
 
       - name: Update Release notes
-        with:  
-          repo-token: ${{ secrets.GREN_GITHUB_TOKEN }}
         run: |
-            echo 'Update Changelog...'
-            yarn gren:release
+          echo 'Update Release Notes...'
+          yarn gren:release
+
+      - name: Update Release notes
+        run: |
+          echo 'Update Changelog...'
+          yarn gren:release
