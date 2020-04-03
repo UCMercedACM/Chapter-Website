@@ -48,28 +48,28 @@ jobs:
             node-version: [12.x]
             os: [ubuntu-latest]
     
-        steps:
-        - name: Checkout to current branch
-          uses: actions/checkout@v2
-    
-        - name: Configure Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node-version }}
-    
-        - name: Install Dependencies
-          run: |
-              echo 'Running Setup...'
-              yarn install
-    
-        - name: Update Release notes
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-              echo 'Update Release Notes...'
-              yarn gren:release
+    steps:
+      - name: Checkout to current branch
+        uses: actions/checkout@v2
 
-        - name: Update Release notes
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          run: |
-              echo 'Update Release Notes...'
-              yarn gren:release
+      - name: Configure Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: |
+            echo 'Running Setup...'
+            yarn install
+
+      - name: Update Release notes
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            echo 'Update Release Notes...'
+            yarn gren:release
+
+      - name: Update Release notes
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            echo 'Update Release Notes...'
+            yarn gren:release
