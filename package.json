@@ -13,7 +13,9 @@
     "docker": "ng serve --host 0.0.0.0 --port 4200 & ngtw watch",
     "start": "ng serve & ngtw watch",
     "store": "ng g module --flat false --module root-store/root-store.module.ts",
-    "test": "ng test"
+    "test": "ng test",
+    "gren:release": "gren release --override --tags=all --config=.grenrc.js",
+    "gren:changelog": "gren changelog --generate --override --tags=all --config=.grenrc.js"
   },
   "resolutions": {
     "@babel/preset-env": "7.5.5"
@@ -38,6 +40,7 @@
     "@ngrx/store-devtools": "~8.5.2",
     "@popperjs/core": "~2.0.4",
     "angular-cli-ghpages": "~0.6.2",
+    "github-release-notes": "^0.17.1",
     "jwt-decode": "~2.2.0",
     "rxjs": "~6.5.3",
     "tslib": "~1.10.0",
@@ -66,5 +69,10 @@
     "ts-node": "~8.5.4",
     "tslint": "~5.20.1",
     "typescript": "~3.5.0"
-  }
+  },
+  "contributors": [
+    "Adrian Darian",
+    "Dan Tran",
+    "Robert Perrine"
+  ]
 }
