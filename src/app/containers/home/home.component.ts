@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    let { firstName, lastName, email, body } = this.contactForm.value;
+    const { firstName, lastName, email, body } = this.contactForm.value;
 
     window.location.href = `mailto:acm@ucmerced.edu?subject=[ACM Website Contact Form] Questions&body=Hello ACM,%0D%0A${body}%0D%0A%0D%0AFrom,%0D%0A${firstName} ${lastName}&CC=${email}`;
   }

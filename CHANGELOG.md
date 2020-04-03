@@ -1,6 +1,6 @@
 # Changelog
 
-## Release v1.0.1 Tue Feb 04 2020 00:00:00 GMT-0800 (Pacific Standard Time)
+## Release v0.1.0 Tue Feb 04 2020 00:00:00 GMT-0800 (Pacific Standard Time)
 
 #### Features:
 
