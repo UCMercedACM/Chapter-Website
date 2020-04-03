@@ -40,7 +40,7 @@ jobs:
           echo ${{ secrets. ACCESS_TOKEN }}
 
       - name: Angular Deploy gh-pages Actions
-        uses: JamesIves/github-pages-deploy-action@releases/v2
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
           COMMIT_MESSAGE: Release ${{ github.event.title }}
