@@ -27,14 +27,19 @@ jobs:
       - name: Install Dependencies
         run: |
           echo 'Running Setup...'
-          git config --global user.name 'Adrian Darian'
-          git config --global user.email adarian@ucmerced.edu
           yarn install
 
-      - name: Deploy Changes
+      - name: Building Production Environment
         run: |
-          echo 'Deploy Angular Application...'
-          yarn deploy --message=${{ github.event.title }}
+          echo 'Building and Compiling...'
+          yarn build
+
+      - name: Deploy Changes
+        uses: AhsanAyaz/angular-deploy-gh-pages-actions
+        with:
+          github_access_token: ${{ secrets.GREN_GITHUB_TOKEN }} # see the Configuration section for how you can create secrets
+        #   base_href: https://ucmercedacm.github.io/Chapter-Website/   # make sure this corresponds to https://<your_username>.github.io/<base_href>/
+          deploy_branch: gh-pages # The branch the action should deploy to.
 
       - name: Tag Deployment
         run: |
