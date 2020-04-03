@@ -30,7 +30,7 @@ jobs:
         run: |
           echo 'Running Setup...'
           yarn install
-          npm install -g @angular/cli  
+          npm install -g @angular/cli
 
       - name: Building Production Environment
         run: |
@@ -43,21 +43,15 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
-          COMMIT_MESSAGE: Release ${{ github.event.title }}
+          COMMIT_MESSAGE: Release ${{ github.event.pull_request.head.ref }}
           BRANCH: gh-pages # The branch the action should deploy to.
           BASE_BRANCH: master
           FOLDER: dist
 
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: build
-
       - name: Tag Deployment
         run: |
           echo 'Tagging Deployment...'
-          git tag -l ${{ github.event.title }}
+          git tag -l ${{ github.event.pull_request.head.ref }}
 
   release:
     name: Update Release notes and Changelog
@@ -65,10 +59,10 @@ jobs:
     needs: deploy
 
     strategy:
-        matrix:
-            node-version: [12.x]
-            os: [ubuntu-latest]
-    
+      matrix:
+        node-version: [12.x]
+        os: [ubuntu-latest]
+
     steps:
       - name: Checkout to current branch
         uses: actions/checkout@v2
