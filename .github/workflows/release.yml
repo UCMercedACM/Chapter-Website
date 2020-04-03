@@ -37,6 +37,7 @@ jobs:
           echo 'Building and Compiling...'
           rm -rf dist
           yarn build
+          echo ${{ secrets. ACCESS_TOKEN }}
 
       - name: Angular Deploy gh-pages Actions
         uses: JamesIves/github-pages-deploy-action@releases/v2
