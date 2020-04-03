@@ -26,9 +26,7 @@
     "production": [
       ">0.2%",
       "not dead",
-      "Firefox ESR",
       "not op_mini all",
-      "not IE 9-11 # For IE 9-11 support, remove 'not'"
     ],
     "development": [
       "last 1 chrome version",
