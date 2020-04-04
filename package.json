@@ -1,6 +1,6 @@
 {
   "name": "chapter-website",
-  "version": "0.5.0",
+  "version": "0.1.2",
   "private": true,
   "contributors": [
     "Adrian Darian",
@@ -13,8 +13,7 @@
     "deploy": "yarn build && ngh --branch=gh-pages --no-silent",
     "docker": "ng serve --host 0.0.0.0 --port 4200 & ngtw watch",
     "e2e": "ng e2e",
-    "gren:changelog": "gren changelog --generate --override --tags=all --config=.grenrc.js",
-    "gren:release": "gren release --override --tags=all --config=.grenrc.js",
+    "gren": "gren release --override --tags=all --config=.grenrc.js",
     "lint": "ng lint",
     "ng": "ng",
     "prestart": "ngtw build",

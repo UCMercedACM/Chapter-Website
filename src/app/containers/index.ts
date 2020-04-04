@@ -1,17 +1,16 @@
-import { CoffeeNCodeComponent } from "./coffee-n-code/coffee-n-code.component";
-import { HomeComponent } from "./home/home.component";
-import { ProjectsComponent } from "./projects/projects.component";
-import { WorkshopsComponent } from "./workshops/workshops.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { LanComponent } from "./lan/lan.component";
-import { CodeEditorComponent } from "./code-editor/code-editor.component";
-import { InterviewsComponent } from "./interviews/interviews.component";
-import { CalendarComponent } from "./calendar/calendar.component";
-import { MembersComponent } from "./members/members.component";
-import { AccountComponent } from "./account/account.component";
-import { LoginComponent } from "./login/login.component";
-import { SignUpComponent } from "./sign-up/sign-up.component";
-import { EventsComponent } from "./events/events.component";
+import { CoffeeNCodeComponent } from "./CoffeeAndCode/coffee-n-code.component";
+import { HomeComponent } from "./Home/home.component";
+import { ProjectsComponent } from "./Projects/projects.component";
+import { WorkshopsComponent } from "./Workshops/workshops.component";
+import { DashboardComponent } from "./Dashboard/dashboard.component";
+import { LanComponent } from "./LAN/lan.component";
+import { CodeEditorComponent } from "./CodeEditor/code-editor.component";
+import { CalendarComponent } from "./Calendar/calendar.component";
+import { MembersComponent } from "./Members/members.component";
+import { LoginComponent } from "./Login/login.component";
+import { SignUpComponent } from "./SignUp/sign-up.component";
+import { EventsComponent } from "./Events/events.component";
+import { NotFoundComponent } from "./NotFound/not-found.component";
 
 export {
   CoffeeNCodeComponent,
@@ -21,11 +20,10 @@ export {
   DashboardComponent,
   LanComponent,
   CodeEditorComponent,
-  InterviewsComponent,
   CalendarComponent,
   MembersComponent,
-  AccountComponent,
   LoginComponent,
   SignUpComponent,
-  EventsComponent
+  EventsComponent,
+  NotFoundComponent
 };

@@ -1,6 +1,5 @@
 // Core Utility Imports
 import { NgModule, APP_INITIALIZER } from "@angular/core";
-import { Store } from "@ngrx/store";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -14,8 +13,6 @@ import { AppComponent } from "./app.component"; // Main app import
 import {
   TitleComponent,
   CoffeeComponent,
-  WorkshopCardComponent,
-  ProjectsDisplayComponent,
   TerminalComponent
 } from "./components";
 
@@ -28,20 +25,17 @@ import {
   DashboardComponent,
   LanComponent,
   CodeEditorComponent,
-  InterviewsComponent,
   CalendarComponent,
   MembersComponent,
-  AccountComponent,
   LoginComponent,
   SignUpComponent,
-  EventsComponent
+  EventsComponent,
+  NotFoundComponent
 } from "./containers";
 
 // NgRx Store Imports
 import {
   RootStoreModule,
-  RootStoreState,
-  MemberStoreActions
 } from "./root-store";
 
 // Data Services
@@ -59,17 +53,14 @@ import { DataService } from "./services/data.service";
     DashboardComponent,
     LanComponent,
     CodeEditorComponent,
-    InterviewsComponent,
     CalendarComponent,
     MembersComponent,
     LoginComponent,
-    AccountComponent,
-    WorkshopCardComponent,
-    ProjectsDisplayComponent,
     LoginComponent,
     SignUpComponent,
     TerminalComponent,
-    EventsComponent
+    EventsComponent,
+    NotFoundComponent
   ],
   imports: [
     HttpClientModule,
