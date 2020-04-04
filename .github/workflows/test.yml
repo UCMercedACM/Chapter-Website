@@ -40,7 +40,7 @@ jobs:
         echo 'Running Protractor on Angular Application...'
         yarn e2e
 
-    - name: Running Test Script on Angular Application
-      run: |
-        echo 'Running Test Script on Angular Application...'
-        yarn test
+    # - name: Running Test Script on Angular Application
+    #   run: |
+    #     echo 'Running Test Script on Angular Application...'
+    #     yarn test

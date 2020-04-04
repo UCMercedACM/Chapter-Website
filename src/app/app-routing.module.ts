@@ -6,9 +6,8 @@ import {
   CoffeeNCodeComponent,
   ProjectsComponent,
   WorkshopsComponent,
-  InterviewsComponent,
   MembersComponent,
-  AccountComponent,
+  NotFoundComponent,
   LoginComponent,
   SignUpComponent,
   EventsComponent,
@@ -37,10 +36,6 @@ const routes: Routes = [
     component: WorkshopsComponent
   },
   {
-    path: "interview",
-    component: InterviewsComponent
-  },
-  {
     path: "members",
     component: MembersComponent
   },
@@ -60,6 +55,10 @@ const routes: Routes = [
     path: "",
     redirectTo: "/home",
     pathMatch: "full"
+  },
+  {
+    path: "**",
+    component: NotFoundComponent
   }
 ];
 
