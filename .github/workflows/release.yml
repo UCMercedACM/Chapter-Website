@@ -82,9 +82,4 @@ jobs:
       - name: Update Release notes
         run: |
           echo 'Update Release Notes...'
-          npm run gren:release -- --token=${{ secrets.GREN_GITHUB_TOKEN }}
-
-      - name: Update Release notes
-        run: |
-          echo 'Update Changelog...'
-          npm run gren:release -- --token=${{ secrets.GREN_GITHUB_TOKEN }}
+          npm run gren -- --token=${{ secrets.GREN_GITHUB_TOKEN }}
