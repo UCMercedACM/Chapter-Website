@@ -51,7 +51,7 @@ export class EventsComponent implements OnInit {
       description:
         "Introductory level web development class where you will learn how to program a simple calculator using HTML/CSS and JavaScript",
       date: "April 9th",
-      time: "7 PM"
+      time: "6 PM to 8PM"
     }
   ];
 
