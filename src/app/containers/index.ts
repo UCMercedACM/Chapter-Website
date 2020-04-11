@@ -10,6 +10,7 @@ import { MembersComponent } from "./Members/members.component";
 import { LoginComponent } from "./Login/login.component";
 import { SignUpComponent } from "./SignUp/sign-up.component";
 import { EventsComponent } from "./Events/events.component";
+import { KodingKataComponent } from "./KodingKata/koding-kata.component";
 import { NotFoundComponent } from "./NotFound/not-found.component";
 
 export {
@@ -25,5 +26,6 @@ export {
   LoginComponent,
   SignUpComponent,
   EventsComponent,
+  KodingKataComponent,
   NotFoundComponent
 };

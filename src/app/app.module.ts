@@ -30,6 +30,7 @@ import {
   LoginComponent,
   SignUpComponent,
   EventsComponent,
+  KodingKataComponent,
   NotFoundComponent
 } from "./containers";
 
@@ -60,6 +61,7 @@ import { DataService } from "./services/data.service";
     SignUpComponent,
     TerminalComponent,
     EventsComponent,
+    KodingKataComponent,
     NotFoundComponent
   ],
   imports: [

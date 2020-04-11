@@ -11,7 +11,8 @@ import {
   LoginComponent,
   SignUpComponent,
   EventsComponent,
-  DashboardComponent
+  DashboardComponent,
+  KodingKataComponent 
 } from "./containers";
 
 const routes: Routes = [
@@ -56,6 +57,10 @@ const routes: Routes = [
     redirectTo: "/home",
     pathMatch: "full"
   },
+  {
+    path: "koding-kata",
+    component: KodingKataComponent,
+    },
   {
     path: "**",
     component: NotFoundComponent
