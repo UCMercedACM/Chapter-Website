@@ -7,10 +7,10 @@ import { WorkshopService } from "../../services";
 import * as WorkshopActions from "./actions";
 
 @Injectable()
-export class MemberStoreEffects {
+export class WorkshopStoreEffects {
   constructor(private workshopService: WorkshopService, private actions: Actions) {}
 
-  loadMemberStores$ = createEffect(() => {
+  loadWorkshopStores$ = createEffect(() => {
     return this.actions.pipe(
       ofType(WorkshopActions.loadWorkshops),
       concatMap(() =>

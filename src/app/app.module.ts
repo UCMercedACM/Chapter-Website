@@ -13,7 +13,7 @@ import { AppComponent } from "./app.component"; // Main app import
 import {
   TitleComponent,
   CoffeeComponent,
-  TerminalComponent
+  TerminalComponent,
 } from "./components";
 
 // Container Imports
@@ -30,16 +30,14 @@ import {
   SignUpComponent,
   EventsComponent,
   NotFoundComponent,
-  CTFComponent
+  CTFComponent,
 } from "./containers";
 
 // NgRx Store Imports
-import {
-  RootStoreModule,
-} from "./root-store";
+import { RootStoreModule } from "./root-store";
 
 // Data Services
-import { MemberService, WorkshopService } from "./services";
+import { MemberService, WorkshopService, EventService } from "./services";
 
 @NgModule({
   declarations: [
@@ -60,7 +58,7 @@ import { MemberService, WorkshopService } from "./services";
     TerminalComponent,
     EventsComponent,
     NotFoundComponent,
-    CTFComponent
+    CTFComponent,
   ],
   imports: [
     HttpClientModule,
@@ -91,10 +89,10 @@ import { MemberService, WorkshopService } from "./services";
      */
     StoreDevtoolsModule.instrument({
       name: "NgRx ACM App",
-      maxAge: 25 // Retains last 25 states
-    })
+      maxAge: 25, // Retains last 25 states
+    }),
   ],
-  providers: [MemberService, WorkshopService],
-  bootstrap: [AppComponent]
+  providers: [MemberService, WorkshopService, EventService],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
