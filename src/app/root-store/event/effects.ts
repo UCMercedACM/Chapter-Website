@@ -1,7 +1,12 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
+import {
+  Actions,
+  createEffect,
+  ofType,
+  ROOT_EFFECTS_INIT,
+} from "@ngrx/effects";
 import { of } from "rxjs";
-import { catchError, map, concatMap, exhaustMap } from "rxjs/operators";
+import { catchError, map, concatMap } from "rxjs/operators";
 
 import { EventService } from "../../services";
 import * as EventActions from "./actions";
@@ -12,11 +17,11 @@ export class EventStoreEffects {
 
   loadMemberStores$ = createEffect(() => {
     return this.actions.pipe(
-      ofType(EventActions.loadEvents),
+      ofType(ROOT_EFFECTS_INIT),
       concatMap(() =>
         this.eventService.getEvents().pipe(
-          map(data => EventActions.loadEventsSuccess({ data })),
-          catchError(error => of(EventActions.loadEventsFailure({ error })))
+          map((data) => EventActions.loadEventsSuccess({ data })),
+          catchError((error) => of(EventActions.loadEventsFailure({ error })))
         )
       )
     );

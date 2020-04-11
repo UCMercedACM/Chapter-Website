@@ -6,14 +6,9 @@ import * as WorkshopActions from "./actions";
 const workshopReducer = createReducer(
   initialState,
 
-  on(WorkshopActions.loadWorkshops, (state, action) => {
-    return { ...state, isLoading: true, error: null };
-  }),
-
   on(WorkshopActions.loadWorkshopsSuccess, (state, action) => {
     return workshopAdapter.addAll(action.data, {
       ...state,
-      isLoading: false,
       error: null,
     });
   }),
@@ -21,7 +16,6 @@ const workshopReducer = createReducer(
   on(WorkshopActions.loadWorkshopsFailure, (state, action) => {
     return {
       ...state,
-      isLoading: false,
       error: action.error,
     };
   })

@@ -10,8 +10,8 @@ import { reducer } from "./reducer";
   imports: [
     CommonModule,
     StoreModule.forFeature("event", reducer),
-    EffectsModule.forFeature([EventStoreEffects])
+    EffectsModule.forFeature([EventStoreEffects]),
   ],
-  providers: [EventStoreEffects]
+  providers: [EventStoreEffects],
 })
 export class EventStoreModule {}

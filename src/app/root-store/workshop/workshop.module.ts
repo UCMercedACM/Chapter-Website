@@ -10,8 +10,8 @@ import { reducer } from "./reducer";
   imports: [
     CommonModule,
     StoreModule.forFeature("workshop", reducer),
-    EffectsModule.forFeature([WorkshopStoreEffects])
+    EffectsModule.forFeature([WorkshopStoreEffects]),
   ],
-  providers: [WorkshopStoreEffects]
+  providers: [WorkshopStoreEffects],
 })
 export class WorkshopStoreModule {}

@@ -6,14 +6,9 @@ import * as EventActions from "./actions";
 const eventReducer = createReducer(
   initialState,
 
-  on(EventActions.loadEvents, (state, action) => {
-    return { ...state, isLoading: true, error: null };
-  }),
-
   on(EventActions.loadEventsSuccess, (state, action) => {
     return eventAdapter.addAll(action.data, {
       ...state,
-      isLoading: false,
       error: null,
     });
   }),
@@ -21,7 +16,6 @@ const eventReducer = createReducer(
   on(EventActions.loadEventsFailure, (state, action) => {
     return {
       ...state,
-      isLoading: false,
       error: action.error,
     };
   })

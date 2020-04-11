@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   MEMBER_MANAGEMENT_API: "http://localhost:4201",
-  WORKSHOP_MANAGEMENT_API: "http://localhost:3001",
-  PROJECT_MANAGEMENT_API: "http://localhost:3002"
+  WORKSHOP_MANAGEMENT_API: "http://localhost:4202",
+  EVENT_MANAGEMENT_API: "http://localhost:4203",
 };
 
 /*
