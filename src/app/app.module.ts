@@ -25,12 +25,12 @@ import {
   DashboardComponent,
   LanComponent,
   CodeEditorComponent,
-  CalendarComponent,
   MembersComponent,
   LoginComponent,
   SignUpComponent,
   EventsComponent,
-  NotFoundComponent
+  NotFoundComponent,
+  CTFComponent
 } from "./containers";
 
 // NgRx Store Imports
@@ -39,7 +39,7 @@ import {
 } from "./root-store";
 
 // Data Services
-import { DataService } from "./services/data.service";
+import { MemberService, WorkshopService } from "./services";
 
 @NgModule({
   declarations: [
@@ -53,14 +53,14 @@ import { DataService } from "./services/data.service";
     DashboardComponent,
     LanComponent,
     CodeEditorComponent,
-    CalendarComponent,
     MembersComponent,
     LoginComponent,
     LoginComponent,
     SignUpComponent,
     TerminalComponent,
     EventsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CTFComponent
   ],
   imports: [
     HttpClientModule,
@@ -94,7 +94,7 @@ import { DataService } from "./services/data.service";
       maxAge: 25 // Retains last 25 states
     })
   ],
-  providers: [DataService],
+  providers: [MemberService, WorkshopService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

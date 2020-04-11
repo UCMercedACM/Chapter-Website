@@ -5,7 +5,7 @@ import { WorkshopsComponent } from "./Workshops/workshops.component";
 import { DashboardComponent } from "./Dashboard/dashboard.component";
 import { LanComponent } from "./LAN/lan.component";
 import { CodeEditorComponent } from "./CodeEditor/code-editor.component";
-import { CalendarComponent } from "./Calendar/calendar.component";
+import { CTFComponent } from "./CaptureTheFlag/capture-the-flag.component";
 import { MembersComponent } from "./Members/members.component";
 import { LoginComponent } from "./Login/login.component";
 import { SignUpComponent } from "./SignUp/sign-up.component";
@@ -20,7 +20,7 @@ export {
   DashboardComponent,
   LanComponent,
   CodeEditorComponent,
-  CalendarComponent,
+  CTFComponent,
   MembersComponent,
   LoginComponent,
   SignUpComponent,

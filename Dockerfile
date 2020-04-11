@@ -16,9 +16,9 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 COPY package.json /app/package.json
-RUN yarn add node-sass
-RUN yarn install
-RUN yarn global add @angular/cli@8.3.14
+RUN yarn add --silent node-sass
+RUN yarn install --silent
+RUN yarn global add --silent @angular/cli@8.3.14
 
 # add app
 COPY . /app

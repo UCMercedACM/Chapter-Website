@@ -4,20 +4,16 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import * as JWT from "jwt-decode";
 
-import { Member } from "src/app/models";
+import { Workshop } from "src/app/models";
 import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
-export class DataService {
+export class WorkshopService {
   constructor(private http: HttpClient) {}
 
-  getToken(): string {
-    return localStorage.getItem("token");
-  }
-
-  login(email: string, password: string): Observable<Member> {
+  getWorkshops(): Observable<Workshop[]> {
     return this.http
       .get<any>(`${environment.MEMBER_MANAGEMENT_API}/api/login`, {
         params: new HttpParams()
@@ -33,12 +29,5 @@ export class DataService {
           return JWT(response.token);
         })
       );
-  }
-
-  signUp(member: Member): Observable<Member> {
-    return this.http.post<Member>(
-      `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
-      { member }
-    );
   }
 }

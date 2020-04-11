@@ -11,7 +11,9 @@ import {
   LoginComponent,
   SignUpComponent,
   EventsComponent,
-  DashboardComponent
+  DashboardComponent,
+  CTFComponent,
+  LanComponent
 } from "./containers";
 
 const routes: Routes = [
@@ -38,6 +40,14 @@ const routes: Routes = [
   {
     path: "members",
     component: MembersComponent
+  },
+  {
+    path: "capture-the-flag",
+    component: CTFComponent
+  },
+  {
+    path: "lan",
+    component: LanComponent
   },
   {
     path: "login",

@@ -1,28 +1,29 @@
 import { Url } from "url";
 
-export interface Workshops {
+export interface Workshop {
   id: number;
   name: string;
   description: string;
-  location: Geolocation;
+  location?: Geolocation;
   time: Date;
   date: Date;
-  github: Url;
-  googleSlide: Url;
-  attendees: Attendee[];
+  github?: Url;
+  googleSlide?: Url;
+  attendees?: Attendee[];
   hostedBy: string;
   tags?: [];
   series?: string;
   difficulty?: number;
-  image: string;
-  flyer: string;
+  image?: string;
+  flyer?: string;
   active: boolean;
 }
 
 export interface Attendee {
+  studentId?: number;
   name: string;
   email: string;
-  year: string;
+  year?: string;
 }
 
 
