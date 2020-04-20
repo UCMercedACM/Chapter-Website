@@ -12,7 +12,7 @@ import {
   SignUpComponent,
   EventsComponent,
   DashboardComponent,
-  KodingKataComponent 
+  KodingKataComponent
 } from "./containers";
 
 const routes: Routes = [

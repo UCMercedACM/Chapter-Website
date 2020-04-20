@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "koding-kata",
+  selector: "app-koding-kata",
   templateUrl: "./koding-kata.component.html",
   styleUrls: ["./koding-kata.component.scss"]
 })
