@@ -156,31 +156,20 @@
 <h1 class="ml-24 mb-4 text-5xl text-center">Koding Kata Leaderboard</h1>
 <div class="text-gray-900 bg-gray-100">
    <div class="px-3 py-4 flex justify-center">
-       <table class="w-full text-md bg-white shadow-md rounded mb-4">
-           <tbody>
-               <tr class="border-b">
-                   <th class="text-left p-3 px-5">Rank</th>
-                   <th class="text-left p-3 px-5">Name</th>
-                   <th class="text-left p-3 px-5">Points</th>
-                   <th></th>
-               </tr>
-               <!-- Actual Ranking Row -->
-               <tr class="border-b hover:bg-orange-100 bg-gray-100">
-                   <td class="p-3 px-5"><h1> 1st </h1></td>
-                   <td class="p-3 px-5"><h1> Paulo S. </h1></td>
-                   <td class="p-3 px-5"> <h1> 500 </h1></td>
-               </tr>
-               <tr class="border-b hover:bg-orange-100">
-                  <td class="p-3 px-5"><h1> 2nd </h1></td>
-                  <td class="p-3 px-5"><h1> Sean C. </h1></td>
-                  <td class="p-3 px-5"> <h1> 450 </h1></td>
-              </tr>
-              <tr class="border-b hover:bg-orange-100">
-               <td class="p-3 px-5"><h1> 3rd </h1></td>
-               <td class="p-3 px-5"><h1> Busher B </h1></td>
-               <td class="p-3 px-5"> <h1> 450 </h1></td>
-           </tr>
-           </tbody>
-       </table>
+    <table class="w-full text-md bg-white shadow-md rounded mb-4">
+      <tr class="border-b">
+        <th class="text-left p-3 px-5" *ngFor = "let column of headers"> 
+          {{column}}
+        </th>
+      </tr>
+    
+      <tr class="border-b hover:bg-orange-200" *ngFor = "let row of rows">
+        <td class="p-3 px-5" *ngFor = "let column of headers">
+          {{row[column]}}
+        </td>
+      </tr>
+    </table>
    </div>
 </div>
+
+
