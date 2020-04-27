@@ -1,91 +1,34 @@
-<div class="row text-center">
-  <div class="col-md-4">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        mwlCalendarPreviousView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
-        Previous
-      </div>
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-      >
-        Today
-      </div>
-      <div
-        class="btn btn-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (viewDateChange)="closeOpenMonthViewDay()"
-      >
-        Next
-      </div>
+<div>
+  <div  class="flex justify-between px-5 py-5">
+        <div class="inline-flex">
+            <button class="bg-blue-500 rounded-l-lg hover:bg-blue-700 text-white font-bold py-2 px-4" (click)="previousButton($event)">Prev</button>
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4" (click)="todayButton($event)">Today</button>
+            <button class="bg-blue-500 rounded-r-lg hover:bg-blue-700 text-white font-bold py-2 px-4" (click)="nextButton($event)">Next</button>
+        </div>
+            <div class="text-3xl font-bold" >{{ todayString }}</div>
+            <div class="inline-flex">
+        <button class="bg-blue-500 rounded-l-lg hover:bg-blue-700 text-white font-bold py-2 px-4">Month</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4">Week</button>
+        <button class="bg-blue-500 rounded-r-lg hover:bg-blue-700 text-white font-bold py-2 px-4">Day</button>
+            </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-  </div>
-  <div class="col-md-4">
-    <div class="btn-group">
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Month)"
-        [class.active]="view === CalendarView.Month"
-      >
-        Month
+
+    <!-----------------------Calendar using Table elements----------------->
+<div>
+    <table class="?" id="calendar">
+      <thead>
+        <tr class="?">
+          <th class="px-4 py-2">Sunday</th>
+          <th class="px-4 py-2">Monday</th>
+          <th class="px-4 py-2">Tuesday</th>
+          <th class="px-4 py-2">Wednesday</th>
+          <th class="px-4 py-2">Thursday</th>
+          <th class="px-4 py-2">Friday</th>
+          <th class="px-4 py-2">Saturday</th>
+        </tr>
+      </thead>
+      <tbody class="flex-1" id="calendar-content">
+      </tbody>
+    </table>
       </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Week)"
-        [class.active]="view === CalendarView.Week"
-      >
-        Week
-      </div>
-      <div
-        class="btn btn-primary"
-        (click)="setView(CalendarView.Day)"
-        [class.active]="view === CalendarView.Day"
-      >
-        Day
-      </div>
-    </div>
-  </div>
-</div>
-<br />
-<div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
-  >
-  </mwl-calendar-month-view>
-  <mwl-calendar-week-view
-    *ngSwitchCase="CalendarView.Week"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
-  >
-  </mwl-calendar-week-view>
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
-  >
-  </mwl-calendar-day-view>
 </div>
