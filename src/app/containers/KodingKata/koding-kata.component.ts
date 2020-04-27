@@ -25,7 +25,18 @@ export class KodingKataComponent implements OnInit {
       "Name": "Busher B.",
       "Points": "300"
     }
-  ]
+  ];
+
+  questionHeaders = ["Name", "Date Added"];
+  /*questionRows = [
+    {
+      ""
+    },
+    {
+
+    }
+  ];
+*/
   
   leaderboard: any[] = [
     {
