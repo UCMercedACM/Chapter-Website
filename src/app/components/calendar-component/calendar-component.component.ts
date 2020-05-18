@@ -50,7 +50,7 @@ showCalendar(month:number, year:number){
     for(let j = 0; j < 7; j++) {
         if (i == 0 && j < firstDay) {
         var col = document.createElement('td');
-        col.classList.add('border', 'px-8', 'py-8');
+        col.classList.add('hover:bg-gray-200', 'border', 'px-2', 'py-8');
         var text = document.createTextNode(count.toString());
         col.appendChild(text);
         row.appendChild(col);
@@ -60,7 +60,7 @@ showCalendar(month:number, year:number){
       }
       else{
       var col = document.createElement('td');
-      col.classList.add('border', 'px-8', 'py-8');
+      col.classList.add('hover:bg-gray-200', 'border', 'px-2', 'py-8');
       var text = document.createTextNode(count.toString());
       col.appendChild(text);
       row.appendChild(col);
