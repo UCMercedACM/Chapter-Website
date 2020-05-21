@@ -1,31 +1,31 @@
 .events-subscribe-btn {
-  background-color: #0093d0;
+    background-color: #0093d0;
 
-  &:hover {
-    background-color: #039ed4;
-  }
+    &:hover {
+        background-color: #039ed4;
+    }
 }
 
 .events-download-btn {
-  color: #005dab;
+    color: #005dab;
 }
 
 .events-subscribe-btn,
 .events-download-btn {
-  box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
-    12px 12px 12px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
+        12px 12px 12px 0 rgba(0, 0, 0, 0.05);
 }
 
 @media (min-width: 1024px) {
-  .events-img {
-    top: 10rem;
-    right: 4rem;
-  }
+    .events-img {
+        top: 10rem;
+        right: 4rem;
+    }
 }
 
 @media (min-width: 1280px) {
-  .events-img {
-    top: 10rem;
-    right: 10rem;
-  }
+    .events-img {
+        top: 10rem;
+        right: 10rem;
+    }
 }

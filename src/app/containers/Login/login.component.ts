@@ -3,30 +3,27 @@ import { Store } from "@ngrx/store";
 import { FormControl, FormGroup } from "@angular/forms";
 
 import { Member } from "../../models";
-import {
-  RootStoreState,
-  MemberStoreActions
-} from "src/app/root-store";
+import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+    selector: "app-login",
+    templateUrl: "./login.component.html",
+    styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  member$: Member;
-  loginForm = new FormGroup({
-    email: new FormControl(""),
-    password: new FormControl("")
-  });
+    member$: Member;
+    loginForm = new FormGroup({
+        email: new FormControl(""),
+        password: new FormControl(""),
+    });
 
-  constructor(private store$: Store<RootStoreState.State>) {}
+    constructor(private store$: Store<RootStoreState.State>) {}
 
-  ngOnInit() {}
+    ngOnInit() {}
 
-  onSubmit() {
-    this.store$.dispatch(
-      MemberStoreActions.loginAuthentication(this.loginForm.value)
-    );
-  }
+    onSubmit() {
+        this.store$.dispatch(
+            MemberStoreActions.loginAuthentication(this.loginForm.value)
+        );
+    }
 }

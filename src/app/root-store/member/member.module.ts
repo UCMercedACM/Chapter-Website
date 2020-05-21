@@ -7,11 +7,11 @@ import { MemberStoreEffects } from "./effects";
 import { reducer } from "./reducer";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    StoreModule.forFeature("member", reducer),
-    EffectsModule.forFeature([MemberStoreEffects])
-  ],
-  providers: [MemberStoreEffects]
+    imports: [
+        CommonModule,
+        StoreModule.forFeature("member", reducer),
+        EffectsModule.forFeature([MemberStoreEffects]),
+    ],
+    providers: [MemberStoreEffects],
 })
 export class MemberStoreModule {}
