@@ -72,7 +72,7 @@ import {
     imports: [
         HttpClientModule,
 
-        // Angular
+        // Angular Browser
         BrowserModule,
 
         // Application
@@ -84,6 +84,7 @@ import {
         // Fontawesome
         FontAwesomeModule,
 
+        // Reactive Forms
         ReactiveFormsModule,
 
         /**
@@ -97,7 +98,7 @@ import {
          * See: https://github.com/zalmoxisus/redux-devtools-extension
          */
         StoreDevtoolsModule.instrument({
-            name: "NgRx ACM App",
+            name: "NgRx || ACM Chapter Website",
             maxAge: 25, // Retains last 25 states
         }),
     ],
