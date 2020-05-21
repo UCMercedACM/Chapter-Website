@@ -7,6 +7,7 @@ import { KodingKataStoreSelectors } from "./koding-kata";
 import { LANStoreSelectors } from "./lan";
 import { ProjectStoreSelectors } from "./project";
 import { WorkshopStoreSelectors } from "./workshop";
+import { CTFStoreSelectors } from "./capture-the-flag";
 
 export const selectError: MemoizedSelector<object, string> = createSelector(
     MemberStoreSelectors.selectMemberError,
@@ -16,6 +17,7 @@ export const selectError: MemoizedSelector<object, string> = createSelector(
     LANStoreSelectors.selectLANError,
     ProjectStoreSelectors.selectProjectError,
     WorkshopStoreSelectors.selectWorkshopError,
+    CTFStoreSelectors.selectCTFError,
     (
         memberError: string,
         coffeeNCodeError: string,
@@ -23,7 +25,8 @@ export const selectError: MemoizedSelector<object, string> = createSelector(
         kodingKataError: string,
         lanError: string,
         projectError: string,
-        workshopError: string
+        workshopError: string,
+        ctfError: string
     ) => {
         return (
             memberError ||
@@ -32,7 +35,8 @@ export const selectError: MemoizedSelector<object, string> = createSelector(
             kodingKataError ||
             lanError ||
             projectError ||
-            workshopError
+            workshopError ||
+            ctfError
         );
     }
 );

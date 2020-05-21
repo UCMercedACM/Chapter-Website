@@ -5,3 +5,4 @@ export * from "./project";
 export * from "./coffee-n-code";
 export * from "./koding-kata";
 export * from "./lan";
+export * from "./capture-the-flag";

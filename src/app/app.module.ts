@@ -37,7 +37,16 @@ import {
 import { RootStoreModule } from "./root-store";
 
 // Data Services
-import { MemberService, WorkshopService, EventService } from "./services";
+import {
+    MemberService,
+    WorkshopService,
+    EventService,
+    CoffeeNCodeService,
+    KodingKataService,
+    ProjectService,
+    LANService,
+    CTFService,
+} from "./services";
 
 @NgModule({
     declarations: [
@@ -92,7 +101,16 @@ import { MemberService, WorkshopService, EventService } from "./services";
             maxAge: 25, // Retains last 25 states
         }),
     ],
-    providers: [MemberService, WorkshopService, EventService],
+    providers: [
+        MemberService,
+        WorkshopService,
+        EventService,
+        CoffeeNCodeService,
+        KodingKataService,
+        ProjectService,
+        LANService,
+        CTFService,
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import { KodingKataService } from "./koding-kata.service";
 import { CoffeeNCodeService } from "./coffee-n-code.service";
 import { LANService } from "./lan.service";
 import { ProjectService } from "./project.service";
+import { CTFService } from "./capture-the-flag.service";
 
 export {
     MemberService,
@@ -14,4 +15,5 @@ export {
     CoffeeNCodeService,
     LANService,
     ProjectService,
+    CTFService,
 };

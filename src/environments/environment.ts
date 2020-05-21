@@ -11,6 +11,7 @@ export const environment = {
   COFFEE_N_CODE_MANAGEMENT_API: "http://localhost:4205",
   KODING_KATA_MANAGEMENT_API: "http://localhost:4206",
   PROJECT_MANAGEMENT_API: "http://localhost:4207",
+  CAPTURE_THE_FLAG_MANAGEMENT_API: "http://localhost:4208",
 };
 
 /*

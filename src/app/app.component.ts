@@ -13,12 +13,7 @@ import { faCopyright } from "@fortawesome/free-regular-svg-icons";
 import {} from "@fortawesome/free-solid-svg-icons";
 
 import { Member } from "./models";
-import {
-    RootStoreState,
-    MemberStoreActions,
-    MemberStoreSelectors,
-    MemberStoreState,
-} from "src/app/root-store";
+import { RootStoreState, MemberStoreSelectors } from "src/app/root-store";
 
 @Component({
     selector: "app-root",

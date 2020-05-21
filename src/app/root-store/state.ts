@@ -5,6 +5,7 @@ import { KodingKataStoreState } from "./koding-kata";
 import { LANStoreState } from "./lan";
 import { ProjectStoreState } from "./project";
 import { WorkshopStoreState } from "./workshop";
+import { CTFStoreState } from "./capture-the-flag";
 
 export interface State {
     member: MemberStoreState.MemberState;
@@ -14,4 +15,5 @@ export interface State {
     lan: LANStoreState.LANState;
     project: ProjectStoreState.ProjectState;
     workshop: WorkshopStoreState.WorkshopState;
+    ctf: CTFStoreState.CTFState;
 }

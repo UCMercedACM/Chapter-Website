@@ -3,18 +3,18 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { Event } from "src/app/models";
+import { CTFMeetings } from "src/app/models";
 import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: "root",
 })
-export class EventService {
+export class CTFService {
     constructor(private http: HttpClient) {}
 
-    getEvents(): Observable<Event[]> {
+    getCTFMeetings(): Observable<CTFMeetings[]> {
         return this.http
-            .get<any>(`${environment.EVENT_MANAGEMENT_API}/api/events`)
-            .pipe(map((result) => result.events));
+            .get<any>(`${environment.CAPTURE_THE_FLAG_MANAGEMENT_API}/api/meetings`)
+            .pipe(map((result) => result.meetings));
     }
 }

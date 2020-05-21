@@ -10,6 +10,7 @@ import { EventStoreModule } from "./event";
 import { KodingKataStoreModule } from "./koding-kata";
 import { LANStoreModule } from "./lan";
 import { ProjectStoreModule } from "./project";
+import { CTFStoreModule } from "./capture-the-flag";
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import { ProjectStoreModule } from "./project";
         KodingKataStoreModule,
         LANStoreModule,
         ProjectStoreModule,
+        CTFStoreModule,
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
     ],
