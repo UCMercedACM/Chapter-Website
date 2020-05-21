@@ -17,7 +17,7 @@ angular:
 
 # Add 'angular' label to any changes done to the React application
 ngrx:
-    - src/app/root-store
+    - src/app/root-store/*
 
 # Add the 'documentation' label to any changes in either of the documented files
 documentation:
