@@ -8,37 +8,37 @@ import { Member } from "src/app/models";
 import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: "root"
+    providedIn: "root",
 })
 export class MemberService {
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-  getToken(): string {
-    return localStorage.getItem("token");
-  }
+    getToken(): string {
+        return localStorage.getItem("token");
+    }
 
-  login(email: string, password: string): Observable<Member> {
-    return this.http
-      .get<any>(`${environment.MEMBER_MANAGEMENT_API}/api/login`, {
-        params: new HttpParams()
-          .append("email", email)
-          .append("password", password)
-      })
-      .pipe(
-        map(response => {
-          if (response.auth === false) {
-            throw response.error;
-          }
+    login(email: string, password: string): Observable<Member> {
+        return this.http
+            .get<any>(`${environment.MEMBER_MANAGEMENT_API}/api/login`, {
+                params: new HttpParams()
+                    .append("email", email)
+                    .append("password", password),
+            })
+            .pipe(
+                map((response) => {
+                    if (response.auth === false) {
+                        throw response.error;
+                    }
 
-          return JWT(response.token);
-        })
-      );
-  }
+                    return JWT(response.token);
+                })
+            );
+    }
 
-  signUp(member: Member): Observable<Member> {
-    return this.http.post<Member>(
-      `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
-      { member }
-    );
-  }
+    signUp(member: Member): Observable<Member> {
+        return this.http.post<Member>(
+            `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
+            { member }
+        );
+    }
 }

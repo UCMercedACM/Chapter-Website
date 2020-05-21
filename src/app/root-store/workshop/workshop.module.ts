@@ -7,11 +7,11 @@ import { WorkshopStoreEffects } from "./effects";
 import { reducer } from "./reducer";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    StoreModule.forFeature("workshop", reducer),
-    EffectsModule.forFeature([WorkshopStoreEffects]),
-  ],
-  providers: [WorkshopStoreEffects],
+    imports: [
+        CommonModule,
+        StoreModule.forFeature("workshop", reducer),
+        EffectsModule.forFeature([WorkshopStoreEffects]),
+    ],
+    providers: [WorkshopStoreEffects],
 })
 export class WorkshopStoreModule {}

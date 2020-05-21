@@ -7,11 +7,11 @@ import { EventStoreEffects } from "./effects";
 import { reducer } from "./reducer";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    StoreModule.forFeature("event", reducer),
-    EffectsModule.forFeature([EventStoreEffects]),
-  ],
-  providers: [EventStoreEffects],
+    imports: [
+        CommonModule,
+        StoreModule.forFeature("event", reducer),
+        EffectsModule.forFeature([EventStoreEffects]),
+    ],
+    providers: [EventStoreEffects],
 })
 export class EventStoreModule {}

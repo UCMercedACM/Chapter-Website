@@ -7,14 +7,14 @@ import { Workshop } from "src/app/models";
 import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class WorkshopService {
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-  getWorkshops(): Observable<Workshop[]> {
-    return this.http
-      .get<any>(`${environment.WORKSHOP_MANAGEMENT_API}/api/workshops`)
-      .pipe(map((result) => result.workshops));
-  }
+    getWorkshops(): Observable<Workshop[]> {
+        return this.http
+            .get<any>(`${environment.WORKSHOP_MANAGEMENT_API}/api/workshops`)
+            .pipe(map((result) => result.workshops));
+    }
 }

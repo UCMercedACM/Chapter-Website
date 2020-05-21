@@ -1,6 +1,10 @@
 # base image
 FROM node:12.16.1
 
+LABEL maintainer="UCM ACM Chapter"
+LABEL maintainer.email="acm@ucmerced.edu"
+LABEL version="0.2.0"
+
 # install chrome for protractor tests
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
