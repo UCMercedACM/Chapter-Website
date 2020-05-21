@@ -12,19 +12,16 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 RUN apt-get update 
 RUN apt-get install -yq google-chrome-stable
 
-# set working directory
+# use changes to package.json to force Docker not to use the cache
+# when we change our application's angular dependencies:
+COPY package.json /tmp/package.json
+RUN cd /tmp && yarn install --silent
+# RUN yarn global add --silent @angular/cli@8.3.14
+RUN mkdir -p /app && cp -a /tmp/node_modules /app/
+
+# From here we load our application's code in, therefore the previous docker
+# "layer" thats been cached will be used if possible
 WORKDIR /app
-
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
-COPY package.json /app/package.json
-RUN yarn add --silent node-sass
-RUN yarn install --silent
-RUN yarn global add --silent @angular/cli@8.3.14
-
-# add app
 COPY . /app
 
 # Expose the port the app runs in
@@ -32,3 +29,6 @@ EXPOSE 4200
 
 # Serve the app
 CMD ["yarn", "docker"]
+
+HEALTHCHECK --interval=5m --timeout=3s \
+    CMD curl -f http://localhost/ || exit 1
