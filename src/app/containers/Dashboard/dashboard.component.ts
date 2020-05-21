@@ -5,14 +5,14 @@ import { Member } from "../../models";
 import { RootStoreState, MemberStoreActions } from "src/app/root-store";
 
 @Component({
-  selector: "app-account",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"]
+    selector: "app-account",
+    templateUrl: "./dashboard.component.html",
+    styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit {
-  member: Member;
+    member: Member;
 
-  constructor(private store: Store<RootStoreState.State>) {}
+    constructor(private store: Store<RootStoreState.State>) {}
 
-  ngOnInit() {}
+    ngOnInit() {}
 }

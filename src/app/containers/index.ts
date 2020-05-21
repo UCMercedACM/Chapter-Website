@@ -13,17 +13,17 @@ import { EventsComponent } from "./Events/events.component";
 import { NotFoundComponent } from "./NotFound/not-found.component";
 
 export {
-  CoffeeNCodeComponent,
-  HomeComponent,
-  ProjectsComponent,
-  WorkshopsComponent,
-  DashboardComponent,
-  LanComponent,
-  CodeEditorComponent,
-  CTFComponent,
-  MembersComponent,
-  LoginComponent,
-  SignUpComponent,
-  EventsComponent,
-  NotFoundComponent
+    CoffeeNCodeComponent,
+    HomeComponent,
+    ProjectsComponent,
+    WorkshopsComponent,
+    DashboardComponent,
+    LanComponent,
+    CodeEditorComponent,
+    CTFComponent,
+    MembersComponent,
+    LoginComponent,
+    SignUpComponent,
+    EventsComponent,
+    NotFoundComponent,
 };

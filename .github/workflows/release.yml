@@ -1,85 +1,85 @@
 name: Deploy and Update Release Notes
 
 on:
-  push:
-    branches:
-      - master # Successful Merge on master branch
+    push:
+        branches:
+            - master # Successful Merge on master branch
 
 jobs:
-  deploy:
-    name: Deploy Angular Application
-    runs-on: ${{ matrix.os }}
+    deploy:
+        name: Deploy Angular Application
+        runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-        os: [ubuntu-latest]
+        strategy:
+            matrix:
+                node-version: [12.x]
+                os: [ubuntu-latest]
 
-    steps:
-      - name: Checkout to current branch
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+        steps:
+            - name: Checkout to current branch
+              uses: actions/checkout@v2
+              with:
+                  persist-credentials: false
 
-      - name: Configure Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+            - name: Configure Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-      - name: Install Dependencies
-        run: |
-          echo 'Running Setup...'
-          yarn install
-          npm install -g @angular/cli
+            - name: Install Dependencies
+              run: |
+                  echo 'Running Setup...'
+                  yarn install
+                  npm install -g @angular/cli
 
-      - name: Building Production Environment
-        run: |
-          echo 'Building and Compiling...'
-          rm -rf dist
-          yarn build
-          echo ${{ secrets. ACCESS_TOKEN }}
+            - name: Building Production Environment
+              run: |
+                  echo 'Building and Compiling...'
+                  rm -rf dist
+                  yarn build
+                  echo ${{ secrets. ACCESS_TOKEN }}
 
-      - name: Angular Deploy gh-pages Actions
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
-          COMMIT_MESSAGE: Release ${{ github.event.pull_request.head.ref }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          BASE_BRANCH: master
-          FOLDER: dist
+            - name: Angular Deploy gh-pages Actions
+              uses: JamesIves/github-pages-deploy-action@releases/v3
+              with:
+                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }} # see the Configuration section for how you can create secrets
+                  COMMIT_MESSAGE: Release ${{ github.event.pull_request.head.ref }}
+                  BRANCH: gh-pages # The branch the action should deploy to.
+                  BASE_BRANCH: master
+                  FOLDER: dist
 
-      - name: Tag Deployment
-        run: |
-          echo 'Tagging Deployment...'
-          git tag -l ${{ github.event.pull_request.head.ref }}
+            - name: Tag Deployment
+              run: |
+                  echo 'Tagging Deployment...'
+                  git tag -l ${{ github.event.pull_request.head.ref }}
 
-  release:
-    name: Update Release notes and Changelog
-    runs-on: ${{ matrix.os }}
-    needs: deploy
+    release:
+        name: Update Release notes and Changelog
+        runs-on: ${{ matrix.os }}
+        needs: deploy
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-        os: [ubuntu-latest]
+        strategy:
+            matrix:
+                node-version: [12.x]
+                os: [ubuntu-latest]
 
-    steps:
-      - name: Checkout to current branch
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+        steps:
+            - name: Checkout to current branch
+              uses: actions/checkout@v2
+              with:
+                  persist-credentials: false
 
-      - name: Configure Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+            - name: Configure Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
 
-      - name: Install Dependencies
-        run: |
-          echo 'Running Setup...'
-          yarn install
+            - name: Install Dependencies
+              run: |
+                  echo 'Running Setup...'
+                  yarn install
 
-      - name: Update Release notes
-        run: |
-          echo 'Update Release Notes...'
-          npm run gren -- --token=${{ secrets.GREN_GITHUB_TOKEN }}
+            - name: Update Release notes
+              run: |
+                  echo 'Update Release Notes...'
+                  npm run gren -- --token=${{ secrets.GREN_GITHUB_TOKEN }}

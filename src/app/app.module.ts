@@ -11,39 +11,13 @@ import { AppComponent } from "./app.component"; // Main app import
 
 // Component Imports
 import {
-  TitleComponent,
-  CoffeeComponent,
-  TerminalComponent,
+    TitleComponent,
+    CoffeeComponent,
+    TerminalComponent,
 } from "./components";
 
 // Container Imports
 import {
-  CoffeeNCodeComponent,
-  HomeComponent,
-  ProjectsComponent,
-  WorkshopsComponent,
-  DashboardComponent,
-  LanComponent,
-  CodeEditorComponent,
-  MembersComponent,
-  LoginComponent,
-  SignUpComponent,
-  EventsComponent,
-  NotFoundComponent,
-  CTFComponent,
-} from "./containers";
-
-// NgRx Store Imports
-import { RootStoreModule } from "./root-store";
-
-// Data Services
-import { MemberService, WorkshopService, EventService } from "./services";
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    TitleComponent,
-    CoffeeComponent,
     CoffeeNCodeComponent,
     HomeComponent,
     ProjectsComponent,
@@ -53,46 +27,72 @@ import { MemberService, WorkshopService, EventService } from "./services";
     CodeEditorComponent,
     MembersComponent,
     LoginComponent,
-    LoginComponent,
     SignUpComponent,
-    TerminalComponent,
     EventsComponent,
     NotFoundComponent,
     CTFComponent,
-  ],
-  imports: [
-    HttpClientModule,
+} from "./containers";
 
-    // Angular
-    BrowserModule,
+// NgRx Store Imports
+import { RootStoreModule } from "./root-store";
 
-    // Application
-    AppRoutingModule,
+// Data Services
+import { MemberService, WorkshopService, EventService } from "./services";
 
-    // NgRx
-    RootStoreModule,
+@NgModule({
+    declarations: [
+        AppComponent,
+        TitleComponent,
+        CoffeeComponent,
+        CoffeeNCodeComponent,
+        HomeComponent,
+        ProjectsComponent,
+        WorkshopsComponent,
+        DashboardComponent,
+        LanComponent,
+        CodeEditorComponent,
+        MembersComponent,
+        LoginComponent,
+        LoginComponent,
+        SignUpComponent,
+        TerminalComponent,
+        EventsComponent,
+        NotFoundComponent,
+        CTFComponent,
+    ],
+    imports: [
+        HttpClientModule,
 
-    // Fontawesome
-    FontAwesomeModule,
+        // Angular
+        BrowserModule,
 
-    ReactiveFormsModule,
+        // Application
+        AppRoutingModule,
 
-    /**
-     * Store devtools instrument the store retaining past versions of state
-     * and recalculating new states. This enables powerful time-travel
-     * debugging.
-     *
-     * To use the debugger, install the Redux Devtools extension for either
-     * Chrome or Firefox
-     *
-     * See: https://github.com/zalmoxisus/redux-devtools-extension
-     */
-    StoreDevtoolsModule.instrument({
-      name: "NgRx ACM App",
-      maxAge: 25, // Retains last 25 states
-    }),
-  ],
-  providers: [MemberService, WorkshopService, EventService],
-  bootstrap: [AppComponent],
+        // NgRx
+        RootStoreModule,
+
+        // Fontawesome
+        FontAwesomeModule,
+
+        ReactiveFormsModule,
+
+        /**
+         * Store devtools instrument the store retaining past versions of state
+         * and recalculating new states. This enables powerful time-travel
+         * debugging.
+         *
+         * To use the debugger, install the Redux Devtools extension for either
+         * Chrome or Firefox
+         *
+         * See: https://github.com/zalmoxisus/redux-devtools-extension
+         */
+        StoreDevtoolsModule.instrument({
+            name: "NgRx ACM App",
+            maxAge: 25, // Retains last 25 states
+        }),
+    ],
+    providers: [MemberService, WorkshopService, EventService],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

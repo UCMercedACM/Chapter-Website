@@ -1,25 +1,27 @@
 <!-- Events Heading -->
 <div class="events-heading static bg-white overflow-hidden mt-24">
-  <div class="max-w-screen-xl mx-auto ">
-    <div
-      class="relative pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
-    >
-      <div
-        class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-32 xl:mt-28"
-      >
-        <div class="sm:text-center lg:text-left">
-          <h2
-            class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-5xl"
-          >
-            Events
-          </h2>
-          <p
-            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
-          >
-            Did you know ACM hosts at minimum 3 events a week?
-          </p>
-          <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-            <!-- <div class="rounded-md shadow">
+    <div class="max-w-screen-xl mx-auto">
+        <div
+            class="relative pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
+        >
+            <div
+                class="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-32 xl:mt-28"
+            >
+                <div class="sm:text-center lg:text-left">
+                    <h2
+                        class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-5xl"
+                    >
+                        Events
+                    </h2>
+                    <p
+                        class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
+                    >
+                        Did you know ACM hosts at minimum 3 events a week?
+                    </p>
+                    <div
+                        class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"
+                    >
+                        <!-- <div class="rounded-md shadow">
               <a
                 href="mailto:acm@ucmerced.edu?"
                 class="events-subscribe-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white focus:outline-none focus:shadow-outline transition duration-150 ease-in-out md:py-4 md:text-sm md:px-10"
@@ -27,154 +29,156 @@
                 Subscribe To Newsletter
               </a>
             </div> -->
-            <div class="sm:ml-8">
-              <button
-                (click)="openNewsletter()"
-                class="events-download-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-sm md:px-10"
-              >
-                Download Newsletter
-              </button>
+                        <div class="sm:ml-8">
+                            <button
+                                (click)="openNewsletter()"
+                                class="events-download-btn w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-sm md:px-10"
+                            >
+                                Download Newsletter
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div
-    class="hidden lg:block lg:absolute lg:bottom-0 lg:w-2/5 xl:w-1/3 events-img h-0"
-  >
-    <img src="assets/img/undraw_schedule.svg" alt="schedule" />
-  </div>
+    <div
+        class="hidden lg:block lg:absolute lg:bottom-0 lg:w-2/5 xl:w-1/3 events-img h-0"
+    >
+        <img src="assets/img/undraw_schedule.svg" alt="schedule" />
+    </div>
 </div>
 
 <!-- Upcoming Events -->
 
 <div class="m-10 mx-auto p-16 sm:px-24 lg:px-48 bg-gray-200">
-  <div class="lg:text-center mb-16">
-    <p
-      class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
-    >
-      Latest News
-    </p>
-    <h3
-      class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
-    >
-      Upcoming Events
-    </h3>
-  </div>
-  <div
-    class="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl"
-    style="min-height: 19rem;"
-  >
-    <div
-      class="relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg"
-      style="min-height: 19rem;"
-    >
-      <img
-        class="absolute inset-0 w-full h-full object-scale-down"
-        [src]="images[i].url"
-        [alt]="images[i].alt"
-      />
+    <div class="lg:text-center mb-16">
+        <p
+            class="about-us-title text-base leading-6 font-semibold tracking-wide uppercase"
+        >
+            Latest News
+        </p>
+        <h3
+            class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10"
+        >
+            Upcoming Events
+        </h3>
     </div>
     <div
-      class="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg"
+        class="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl"
+        style="min-height: 19rem;"
     >
-      <div class="p-12 md:pr-24 md:pl-16 md:py-12">
-        <p class="text-gray-600">
-          <span class="text-gray-900">{{ images[i].title }}</span>
-          <br />
-          {{ images[i].description }}
-          <br />
-          <span class="text-gray-900">Date:</span> {{ images[i].date }}
-          <br />
-          <span class="text-gray-900">Time:</span> {{ images[i].time }}
-        </p>
-        <!-- <a
+        <div
+            class="relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg"
+            style="min-height: 19rem;"
+        >
+            <img
+                class="absolute inset-0 w-full h-full object-scale-down"
+                [src]="images[i].url"
+                [alt]="images[i].alt"
+            />
+        </div>
+        <div
+            class="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg"
+        >
+            <div class="p-12 md:pr-24 md:pl-16 md:py-12">
+                <p class="text-gray-600">
+                    <span class="text-gray-900">{{ images[i].title }}</span>
+                    <br />
+                    {{ images[i].description }}
+                    <br />
+                    <span class="text-gray-900">Date:</span>
+                    {{ images[i].date }}
+                    <br />
+                    <span class="text-gray-900">Time:</span>
+                    {{ images[i].time }}
+                </p>
+                <!-- <a
           class="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900"
           href=""
         >
           <span>Learn more about our users</span>
           <span class="text-xs ml-1">&#x279c;</span>
         </a> -->
-      </div>
-      <svg
-        class="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        <polygon points="50,0 100,0 50,100 0,100" />
-      </svg>
+            </div>
+            <svg
+                class="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+            >
+                <polygon points="50,0 100,0 50,100 0,100" />
+            </svg>
+        </div>
+        <button
+            (click)="getPreviousEvent()"
+            class="absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-400 focus:text-indigo-400 -ml-6 focus:outline-none focus:shadow-outline"
+        >
+            <span class="block" style="transform: scale(-1);">&#x279c;</span>
+        </button>
+        <button
+            (click)="getNextEvent()"
+            class="absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-400 focus:text-indigo-400 -mr-6 focus:outline-none focus:shadow-outline"
+        >
+            <span class="block" style="transform: scale(1);">&#x279c;</span>
+        </button>
     </div>
-    <button
-      (click)="getPreviousEvent()"
-      class="absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-400 focus:text-indigo-400 -ml-6 focus:outline-none focus:shadow-outline"
-    >
-      <span class="block" style="transform: scale(-1);">&#x279c;</span>
-    </button>
-    <button
-      (click)="getNextEvent()"
-      class="absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-400 focus:text-indigo-400 -mr-6 focus:outline-none focus:shadow-outline"
-    >
-      <span class="block" style="transform: scale(1);">&#x279c;</span>
-    </button>
-  </div>
 
-  <!-- Carousel Tabs -->
-  <div class="flex items-center pt-5 justify-between">
-    <button
-      (click)="i = 0"
-      class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
-    >
-      <img
-        class="w-full"
-        [src]="images[0].url"
-        [alt]="images[0].alt"
-        style="max-height: 60px;"
-      />
-    </button>
-    <button
-      (click)="i = 1"
-      class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
-    >
-      <img
-        class="w-full"
-        [src]="images[1].url"
-        [alt]="images[1].alt"
-        style="max-height: 60px;"
-      />
-    </button>
-    <button
-      (click)="i = 2"
-      class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
-    >
-      <img
-        class="w-full"
-        [src]="images[2].url"
-        [alt]="images[2].alt"
-        style="max-height: 60px;"
-      />
-    </button>
-    <button
-      (click)="i = 3"
-      class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
-    >
-      <img
-        class="w-full"
-        [src]="images[3].url"
-        [alt]="images[3].alt"
-        style="max-height: 60px;"
-      />
-    </button>
-    <button
-      (click)="i = 4"
-      class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
-    >
-      <img
-        class="w-full"
-        [src]="images[4].url"
-        [alt]="images[4].alt"
-        style="max-height: 60px;"
-      />
-    </button>
-  </div>
+    <!-- Carousel Tabs -->
+    <div class="flex items-center pt-5 justify-between">
+        <button
+            (click)="i = 0"
+            class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
+        >
+            <img
+                class="w-full"
+                [src]="images[0].url"
+                [alt]="images[0].alt"
+                style="max-height: 60px;"
+            />
+        </button>
+        <button
+            (click)="i = 1"
+            class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
+        >
+            <img
+                class="w-full"
+                [src]="images[1].url"
+                [alt]="images[1].alt"
+                style="max-height: 60px;"
+            />
+        </button>
+        <button
+            (click)="i = 2"
+            class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
+        >
+            <img
+                class="w-full"
+                [src]="images[2].url"
+                [alt]="images[2].alt"
+                style="max-height: 60px;"
+            />
+        </button>
+        <button
+            (click)="i = 3"
+            class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
+        >
+            <img
+                class="w-full"
+                [src]="images[3].url"
+                [alt]="images[3].alt"
+                style="max-height: 60px;"
+            />
+        </button>
+        <button
+            (click)="i = 4"
+            class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"
+        >
+            <img
+                class="w-full"
+                [src]="images[4].url"
+                [alt]="images[4].alt"
+                style="max-height: 60px;"
+            />
+        </button>
+    </div>
 </div>

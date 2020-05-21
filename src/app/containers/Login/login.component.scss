@@ -1,22 +1,22 @@
 .sign-up-now,
 .forgot-password {
-  color: #0093d0;
+    color: #0093d0;
 
-  &:hover {
-    color: #005dab;
-    cursor: pointer;
-    text-decoration: none;
-  }
+    &:hover {
+        color: #005dab;
+        cursor: pointer;
+        text-decoration: none;
+    }
 }
 
 .login-submit-btn {
-  background-color: #0093d0;
+    background-color: #0093d0;
 
-  &:hover {
-    background-color: #dbf0f9;
-  }
+    &:hover {
+        background-color: #dbf0f9;
+    }
 }
 
 .login-lock {
-  color: #005dab;
+    color: #005dab;
 }
