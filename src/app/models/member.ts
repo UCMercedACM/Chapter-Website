@@ -27,8 +27,3 @@ export interface Member {
     joined?: Date;
     token: string;
 }
-
-export interface FullName {
-    firstName: string;
-    lastName: string;
-}

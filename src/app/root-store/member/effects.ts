@@ -9,7 +9,7 @@ import * as MemberActions from "./actions";
 @Injectable()
 export class MemberStoreEffects {
     constructor(
-        private workshopService: MemberService,
+        private memberService: MemberService,
         private actions: Actions
     ) {}
 
@@ -29,7 +29,7 @@ export class MemberStoreEffects {
         return this.actions.pipe(
             ofType(MemberActions.loginAuthentication),
             exhaustMap((action) =>
-                this.workshopService.login(action.email, action.password).pipe(
+                this.memberService.login(action.email, action.password).pipe(
                     map((data) =>
                         MemberActions.loginAuthenticationSuccess({ data })
                     ),
