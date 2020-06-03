@@ -2,12 +2,12 @@ import { Action, createReducer, on } from "@ngrx/store";
 
 import { initialState } from "./state";
 import * as AuthActions from "./actions";
-import { Auth } from 'src/app/models';
+import { Auth } from "src/app/models";
 
 const authReducer = createReducer(
   initialState,
 
-  on(AuthActions.Authentication, (state, _action) => {
+  on(AuthActions.Authentication, (state, action) => {
     return { ...state, isLoading: true, error: null };
   }),
 
