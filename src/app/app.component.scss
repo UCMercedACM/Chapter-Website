@@ -1,31 +1,32 @@
 .navbar {
-  &-button {
-    &:focus {
-      background-color: #f9a826;
+    &-button {
+        &:focus {
+            background-color: #f9a826;
+        }
     }
-  }
 
-  &-items {
-    .navbar-item {
-      &:focus {
-        background-color: #f9a826;
-      }
+    &-items {
+        .navbar-item {
+            &:focus {
+                background-color: #f9a826;
+            }
 
-      &:hover {
-        background-color: #f9a826;
-        cursor: pointer;
-      }
+            &:hover {
+                background-color: #f9a826;
+                cursor: pointer;
+            }
+        }
     }
-  }
 }
 
 .notifcation-icon {
-  &:hover {
-    color: #f9a826;
-  }
+    &:hover {
+        color: #f9a826;
+    }
 }
 
 .social {
-  background: #f9a826;
-  box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1), 12px 12px 12px 0 rgba(0, 0, 0, 0.05);
+    background: #f9a826;
+    box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
+        12px 12px 12px 0 rgba(0, 0, 0, 0.05);
 }

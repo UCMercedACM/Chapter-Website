@@ -2,62 +2,64 @@ $density: 12;
 $size: 30vmin;
 
 #title {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  // background: #323133;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 700;
-  perspective: 60rem;
-  perspective-origin: 50% 50%;
-  overflow: hidden;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    // background: #323133;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    perspective: 60rem;
+    perspective-origin: 50% 50%;
+    overflow: hidden;
 
-  #user-button {
-    --user-button-background: #434a54;
-    --user-button-text: white;
-  }
-
-  .text {
-	user-select: none;
-	
-    > div {
-      display: inline-block;
-      position: relative;
-      font-size: $size;
-      color: transparent;
-      transform-origin: center center;
-      transform-style: preserve-3d;
-	  animation: float 4s infinite;
-	  
-      @for $i from 1 through 4 {
-        &:nth-child(#{$i}) {
-          animation-delay: (-$i + 10) * -0.5s;
-        }
-	  }
-	  
-      > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        color: #323133;
-        text-shadow: 0 0 1px white; //Fill in gaps a little
-        $thickness: 3; //Thickness of ends
-		
-		//&:last-child, &:first-child //Just does first and last
-        &:not(:nth-child(n + #{$thickness})),
-        &:not(:nth-last-child(n + #{$thickness})) {
-          color: #3294e4;
-          text-shadow: 0 0 1px #3294e4;
-		}
-		
-        @for $i from 1 through $density {
-          &:nth-child(#{$i}) {
-            transform: translateZ(($i - ($density/2)) * ($size / ($density * 5)));
-          }
-        }
-      }
+    #user-button {
+        --user-button-background: #434a54;
+        --user-button-text: white;
     }
-  }
+
+    .text {
+        user-select: none;
+
+        > div {
+            display: inline-block;
+            position: relative;
+            font-size: $size;
+            color: transparent;
+            transform-origin: center center;
+            transform-style: preserve-3d;
+            animation: float 4s infinite;
+
+            @for $i from 1 through 4 {
+                &:nth-child(#{$i}) {
+                    animation-delay: (-$i + 10) * -0.5s;
+                }
+            }
+
+            > div {
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: #323133;
+                text-shadow: 0 0 1px white; //Fill in gaps a little
+                $thickness: 3; //Thickness of ends
+
+                //&:last-child, &:first-child //Just does first and last
+                &:not(:nth-child(n + #{$thickness})),
+                &:not(:nth-last-child(n + #{$thickness})) {
+                    color: #3294e4;
+                    text-shadow: 0 0 1px #3294e4;
+                }
+
+                @for $i from 1 through $density {
+                    &:nth-child(#{$i}) {
+                        transform: translateZ(
+                            ($i - ($density/2)) * ($size / ($density * 5))
+                        );
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Uncomment the following to enable rotation
@@ -66,59 +68,59 @@ $pi: 3.14159265359;
 $_precision: 10;
 
 @function pow($base, $exp) {
-  $value: $base;
+    $value: $base;
 
-  @if $exp > 1 {
-    @for $i from 2 through $exp {
-      $value: $value * $base;
+    @if $exp > 1 {
+        @for $i from 2 through $exp {
+            $value: $value * $base;
+        }
     }
-  }
 
-  @if $exp < 1 {
-    @for $i from 0 through -$exp {
-      $value: $value / $base;
+    @if $exp < 1 {
+        @for $i from 0 through -$exp {
+            $value: $value / $base;
+        }
     }
-  }
 
-  @return $value;
+    @return $value;
 }
 
 @function fact($num) {
-  $fact: 1;
+    $fact: 1;
 
-  @if $num > 0 {
-    @for $i from 1 through $num {
-      $fact: $fact * $i;
+    @if $num > 0 {
+        @for $i from 1 through $num {
+            $fact: $fact * $i;
+        }
     }
-  }
 
-  @return $fact;
+    @return $fact;
 }
 
 @function sin($a) {
-  $sin: $a;
+    $sin: $a;
 
-  @for $n from 1 through $_precision {
-    $sin: $sin + (pow(-1, $n) / fact(2 * $n + 1)) * pow($a, (2 * $n + 1));
-  }
+    @for $n from 1 through $_precision {
+        $sin: $sin + (pow(-1, $n) / fact(2 * $n + 1)) * pow($a, (2 * $n + 1));
+    }
 
-  @return $sin;
+    @return $sin;
 }
 
 @function cos($a) {
-  $cos: 1;
+    $cos: 1;
 
-  @for $n from 1 through $_precision {
-    $cos: $cos + (pow(-1, $n) / fact(2 * $n)) * pow($a, 2 * $n);
-  }
-  
-  @return $cos;
+    @for $n from 1 through $_precision {
+        $cos: $cos + (pow(-1, $n) / fact(2 * $n)) * pow($a, 2 * $n);
+    }
+
+    @return $cos;
 }
 
 @keyframes float {
-  @for $i from 0 through 100 {
-    #{$i*1%} {
-      transform: rotate3d(sin($i * $pi/50), cos($i * $pi/50), 0, 30deg);
+    @for $i from 0 through 100 {
+        #{$i*1%} {
+            transform: rotate3d(sin($i * $pi/50), cos($i * $pi/50), 0, 30deg);
+        }
     }
-  }
 }
