@@ -4,6 +4,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 
 import { MemberStoreModule } from "./member";
+import { AuthStoreModule } from "./auth";
 import { WorkshopStoreModule } from "./workshop";
 import { CoffeeNCodeStoreModule } from "./coffee-n-code";
 import { EventStoreModule } from "./event";
@@ -16,6 +17,7 @@ import { CTFStoreModule } from "./capture-the-flag";
     imports: [
         CommonModule,
         MemberStoreModule,
+        AuthStoreModule,
         WorkshopStoreModule,
         CoffeeNCodeStoreModule,
         EventStoreModule,

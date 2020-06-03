@@ -1,44 +1,45 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import * as JWT from "jwt-decode";
+import { Store } from "@ngrx/store";
 
 import { Member } from "src/app/models";
 import { environment } from "src/environments/environment";
+import { RootStoreState } from "../root-store";
+import { AuthStoreActions } from "../root-store/auth";
 
 @Injectable({
-    providedIn: "root",
+  providedIn: "root",
 })
 export class MemberService {
-    constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private store$: Store<RootStoreState.State>
+  ) {}
 
-    getToken(): string {
-        return localStorage.getItem("token");
-    }
+  getToken(): string {
+    return localStorage.getItem("token");
+  }
 
-    login(email: string, password: string): Observable<Member> {
-        return this.http
-            .get<any>(`${environment.MEMBER_MANAGEMENT_API}/api/login`, {
-                params: new HttpParams()
-                    .append("email", email)
-                    .append("password", password),
-            })
-            .pipe(
-                map((response) => {
-                    if (response.auth === false) {
-                        throw response.error;
-                    }
+  login(email: string, password: string): Observable<Member> {
+    return this.http
+      .post<any>(`${environment.MEMBER_MANAGEMENT_API}/api/auth/login`, {
+        email,
+        password,
+      })
+      .pipe(
+        map((response) => {
+          this.store$.dispatch(AuthStoreActions.Authentication(response.token));
+          return response.member;
+        })
+      );
+  }
 
-                    return JWT(response.token);
-                })
-            );
-    }
-
-    signUp(member: Member): Observable<Member> {
-        return this.http.post<Member>(
-            `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
-            { member }
-        );
-    }
+  signUp(member: Member): Observable<Member> {
+    return this.http.post<Member>(
+      `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
+      { member }
+    );
+  }
 }
