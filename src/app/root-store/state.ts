@@ -6,9 +6,11 @@ import { LANStoreState } from "./lan";
 import { ProjectStoreState } from "./project";
 import { WorkshopStoreState } from "./workshop";
 import { CTFStoreState } from "./capture-the-flag";
+import { Auth } from '../models';
 
 export interface State {
     member: MemberStoreState.MemberState;
+    auth: Auth;
     coffeeNCode: CoffeeNCodeStoreState.CoffeeNCodeState;
     event: EventStoreState.EventState;
     kodingKata: KodingKataStoreState.KodingKataState;

@@ -1,27 +1,33 @@
 import {
-    createFeatureSelector,
-    createSelector,
-    ActionReducerMap,
+  createFeatureSelector,
+  createSelector,
+  ActionReducerMap,
 } from "@ngrx/store";
 
-import { AuthState } from "./state";
 import { reducer } from "./reducer";
+import { Auth } from "src/app/models";
 
 export interface State {
-    auth: AuthState;
+  auth: Auth;
 }
 
 export const reducers: ActionReducerMap<State> = {
-    auth: reducer,
+  auth: reducer,
 };
 
-export const selectAuthState = createFeatureSelector<AuthState>("auth");
+export const selectAuthState = createFeatureSelector<Auth>("auth");
 
-export const getIsLoading = (state: AuthState): boolean => state.isLoading;
-export const selectAuthIsLoading = createSelector(
-    selectAuthState,
-    getIsLoading
+export const getAccessToken = (state: Auth): string => state.accessToken;
+export const selectAccessToken = createSelector(
+  selectAuthState,
+  getAccessToken
 );
 
-export const getError = (state: AuthState): any => state.error;
-export const selectAuthError = createSelector(selectAuthState, getError);
+export const getRefreshToken = (state: Auth): string => state.refreshToken;
+export const selectRefreshToken = createSelector(
+  selectAuthState,
+  getRefreshToken
+);
+
+export const getExpiresIn = (state: Auth): string => state.expiresIn;
+export const selectExpiresIn = createSelector(selectAuthState, getExpiresIn);

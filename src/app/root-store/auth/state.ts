@@ -1,10 +1,10 @@
-export interface AuthState {
-    // additional entities state properties
-    isLoading?: boolean;
-    error?: any;
-}
+import { Auth } from "src/app/models";
 
-export const initialState: AuthState = {
-    isLoading: false,
-    error: null,
+export const initialState: Auth & { isLoading?: boolean; error?: any } = {
+  tokenType: "",
+  accessToken: "",
+  refreshToken: "",
+  expiresIn: "",
+  isLoading: false,
+  error: null,
 };
