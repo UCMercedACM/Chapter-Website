@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    MEMBER_MANAGEMENT_API: "http://localhost:4201",
+    MEMBER_MANAGEMENT_API: "https://acm-ucm-member-api.herokuapp.com",
     WORKSHOP_MANAGEMENT_API: "http://localhost:4202",
     EVENT_MANAGEMENT_API: "http://localhost:4203",
     LAN_PARTY_MANAGEMENT_API: "http://localhost:4204",

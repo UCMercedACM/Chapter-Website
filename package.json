@@ -22,11 +22,6 @@
     "store": "ng g module --flat false --module root-store/root-store.module.ts",
     "test": "ng test"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -40,7 +35,7 @@
     ]
   },
   "resolutions": {
-    "@babel/preset-env": "7.5.5"
+    "@babel/preset-env": "7.8.7"
   },
   "dependencies": {
     "@angular/animations": "~8.2.11",
