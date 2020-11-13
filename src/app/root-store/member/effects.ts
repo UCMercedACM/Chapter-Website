@@ -25,7 +25,7 @@ export class MemberStoreEffects {
     //   );
     // });
 
-    authUser$ = createEffect(() => {
+    login$ = createEffect(() => {
         return this.actions.pipe(
             ofType(MemberActions.loginAuthentication),
             exhaustMap((action) =>
@@ -37,6 +37,33 @@ export class MemberStoreEffects {
                         of(MemberActions.loginAuthenticationFailure({ error }))
                     )
                 )
+            )
+        );
+    });
+
+    signUp$ = createEffect(() => {
+        return this.actions.pipe(
+            ofType(MemberActions.signUpAuthentication),
+            exhaustMap((action) =>
+                this.memberService
+                    .signUp(
+                        action.firstName,
+                        action.lastName,
+                        action.email,
+                        action.password
+                    )
+                    .pipe(
+                        map((data) =>
+                            MemberActions.signUpAuthenticationSuccess({ data })
+                        ),
+                        catchError((error) =>
+                            of(
+                                MemberActions.signUpAuthenticationFailure({
+                                    error,
+                                })
+                            )
+                        )
+                    )
             )
         );
     });

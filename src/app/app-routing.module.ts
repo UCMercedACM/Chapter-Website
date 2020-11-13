@@ -33,22 +33,22 @@ const routes: Routes = [
         path: "projects",
         component: ProjectsComponent,
     },
-    {
-        path: "workshops",
-        component: WorkshopsComponent,
-    },
-    {
-        path: "members",
-        component: MembersComponent,
-    },
-    {
-        path: "capture-the-flag",
-        component: CTFComponent,
-    },
-    {
-        path: "lan",
-        component: LanComponent,
-    },
+    // {
+    //     path: "workshops",
+    //     component: WorkshopsComponent,
+    // },
+    // {
+    //     path: "members",
+    //     component: MembersComponent,
+    // },
+    // {
+    //     path: "capture-the-flag",
+    //     component: CTFComponent,
+    // },
+    // {
+    //     path: "lan",
+    //     component: LanComponent,
+    // },
     {
         path: "login",
         component: LoginComponent,

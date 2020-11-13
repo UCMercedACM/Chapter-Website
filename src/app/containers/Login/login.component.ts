@@ -22,8 +22,13 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     onSubmit() {
+        const { email, password } = this.loginForm.value;
+
         this.store$.dispatch(
-            MemberStoreActions.loginAuthentication(this.loginForm.value)
+            MemberStoreActions.loginAuthentication({
+                email,
+                password,
+            })
         );
     }
 }
