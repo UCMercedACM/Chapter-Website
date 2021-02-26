@@ -36,7 +36,7 @@ export const selectAllMemberItems: (
 ) => Member[] = memberAdapter.getSelectors(selectMemberState).selectAll;
 
 export const selectMemberById = (id: number) =>
-    createSelector(this.selectAllMemberItems, (allMembers: Member[]) => {
+    createSelector(selectAllMemberItems, (allMembers: Member[]) => {
         if (allMembers) {
             return allMembers.find((p) => p.id === id);
         } else {

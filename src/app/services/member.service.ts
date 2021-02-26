@@ -10,36 +10,57 @@ import { RootStoreState } from "../root-store";
 import { AuthStoreActions } from "../root-store/auth";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class MemberService {
-  constructor(
-    private http: HttpClient,
-    private store$: Store<RootStoreState.State>
-  ) {}
+    constructor(
+        private http: HttpClient,
+        private store$: Store<RootStoreState.State>
+    ) {}
 
-  getToken(): string {
-    return localStorage.getItem("token");
-  }
+    getToken(): string {
+        return localStorage.getItem("token");
+    }
 
-  login(email: string, password: string): Observable<Member> {
-    return this.http
-      .post<any>(`${environment.MEMBER_MANAGEMENT_API}/api/auth/login`, {
-        email,
-        password,
-      })
-      .pipe(
-        map((response) => {
-          this.store$.dispatch(AuthStoreActions.Authentication(response.token));
-          return response.member;
-        })
-      );
-  }
+    login(email: string, password: string): Observable<Member> {
+        return this.http
+            .post<Member>(
+                `${environment.MEMBER_MANAGEMENT_API}/api/auth/login`,
+                {
+                    email,
+                    password,
+                }
+            )
+            .pipe(
+                map((response: any) => {
+                    this.store$.dispatch(
+                        AuthStoreActions.Authentication(response.token)
+                    );
 
-  signUp(member: Member): Observable<Member> {
-    return this.http.post<Member>(
-      `${environment.MEMBER_MANAGEMENT_API}/api/signup`,
-      { member }
-    );
-  }
+                    return response.member;
+                })
+            );
+    }
+
+    signUp(
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string
+    ): Observable<Member> {
+        return this.http
+            .post<Member>(
+                `${environment.MEMBER_MANAGEMENT_API}/api/auth/register`,
+                { first_name: firstName, last_name: lastName, email, password }
+            )
+            .pipe(
+                map((response: any) => {
+                    this.store$.dispatch(
+                        AuthStoreActions.Authentication(response.token)
+                    );
+
+                    return response.member;
+                })
+            );
+    }
 }

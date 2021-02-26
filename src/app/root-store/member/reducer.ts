@@ -28,6 +28,30 @@ const memberReducer = createReducer(
             error: action.error,
             isAuthenticated: false,
         };
+    }),
+
+    on(MemberActions.signUpAuthentication, (state, action) => {
+        return { ...state, isLoading: true, error: null };
+    }),
+
+    on(MemberActions.signUpAuthenticationSuccess, (state, action) => {
+        return memberAdapter.addOne(action.data, {
+            ...state,
+            selectedMemberId: action.data.id,
+            isLoading: false,
+            error: null,
+            isAuthenticated: true,
+            isLoggedIn: true,
+        });
+    }),
+
+    on(MemberActions.signUpAuthenticationFailure, (state, action) => {
+        return {
+            ...state,
+            isLoading: false,
+            error: action.error,
+            isAuthenticated: false,
+        };
     })
 );
 

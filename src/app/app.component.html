@@ -2,10 +2,7 @@
     <div class="max-w-7x1 mx-auto px-2 md:px-6 lg:px-6">
         <div class="relative flex items-center justify-between h-20">
             <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                <button
-                    (click)="navbarExtend = !navbarExtend"
-                    class="inline-flex items-center justify-center p-2 rounded-md hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-button"
-                >
+                <button (click)="navbarExtend = !navbarExtend" class="inline-flex items-center justify-center p-2 rounded-md hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-button">
                     <svg
                         class="h-6 w-6"
                         stroke="currentColor"
@@ -37,32 +34,20 @@
                     </svg>
                 </button>
             </div>
-            <div
-                class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
-            >
+            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0">
                     <a [routerLink]="['/home']">
-                        <img
-                            class="h-16 w-auto"
-                            src="assets/img/acm_logo.png"
-                            alt="ACM @ UCM"
-                    /></a>
+                        <img class="h-16 w-auto" src="assets/img/acm_logo.png" alt="ACM @ UCM" /></a>
                 </div>
                 <div class="hidden sm:block sm:ml-6 sm:mt-3 navbar-items">
                     <div class="flex">
-                        <a
-                            [routerLink]="['/events']"
-                            class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
-                        >
+                        <a [routerLink]="['/events']" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item">
                             Events
                         </a>
-                        <a
-                            [routerLink]="['/projects']"
-                            class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item"
-                        >
+                        <a [routerLink]="['/projects']" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item">
                             Projects
                         </a>
-                        <a
+                        <!-- <a
                             [routerLink]="['/workshops']"
                             class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item"
                         >
@@ -74,43 +59,26 @@
                             class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out hover:no-underline navbar-item"
                         >
                             Members
-                        </a>
-                        <a
-                            [routerLink]="['/coffee-n-code']"
-                            class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item"
-                        >
+                        </a> -->
+                        <a [routerLink]="['/coffee-n-code']" class="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-black hover:text-white focus:outline-none focus:text-white transition duration-150 ease-in-out navbar-item">
                             Coffee & Code
                         </a>
-                        <a
-                            [routerLink]="['/koding-kata']"
-                            class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                        >
+                        <!-- <a [routerLink]="['/koding-kata']" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline">
                             Koding Kata
                         </a>
-                        <a
-                            [routerLink]="['/lan']"
-                            class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                        >
+                        <a [routerLink]="['/lan']" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline">
                             LAN
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
-            <div
-                class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
-            >
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div [hidden]="isLoggedIn$">
-                    <a
-                        [routerLink]="['/login']"
-                        class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                    >
+                    <a [routerLink]="['/login']" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline">
                         Login
                     </a>
                 </div>
-                <button
-                    [hidden]="!isLoggedIn$"
-                    class="p-1 border-2 border-transparent text-black rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out notifcation-icon"
-                >
+                <button [hidden]="!isLoggedIn$" class="p-1 border-2 border-transparent text-black rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out notifcation-icon">
                     <svg
                         class="h-6 w-6"
                         stroke="currentColor"
@@ -127,10 +95,7 @@
                 </button>
                 <div class="ml-3 relative" [hidden]="!isLoggedIn$">
                     <div>
-                        <button
-                            (click)="onLoggedIn()"
-                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out"
-                        >
+                        <button (click)="onLoggedIn()" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-white transition duration-150 ease-in-out">
                             <img
                                 class="h-8 w-8 rounded-full"
                                 src="assets/img/undraw_female_avatar.svg"
@@ -139,27 +104,15 @@
                         </button>
                     </div>
 
-                    <div
-                        [hidden]="profileOpen"
-                        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
-                    >
+                    <div [hidden]="profileOpen" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                         <div class="py-1 rounded-md bg-white shadow-xs">
-                            <a
-                                [routerLink]="['/dashboard/', memberId$]"
-                                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                            >
+                            <a [routerLink]="['/dashboard/', memberId$]" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline">
                                 Dashboard
                             </a>
-                            <a
-                                [routerLink]="['/settings/', memberId$]"
-                                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                            >
+                            <a [routerLink]="['/settings/', memberId$]" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline">
                                 Settings
                             </a>
-                            <a
-                                [routerLink]="['/sign-out']"
-                                class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline"
-                            >
+                            <a [routerLink]="['/sign-out']" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out hover:no-underline">
                                 Sign out
                             </a>
                         </div>
@@ -168,54 +121,29 @@
             </div>
         </div>
     </div>
-    <div
-        [ngClass]="{ block: navbarExtend, hidden: !navbarExtend }"
-        class="hidden sm:hidden nabvar-items"
-    >
+    <div [ngClass]="{ block: navbarExtend, hidden: !navbarExtend }" class="hidden sm:hidden nabvar-items">
         <div class="px-2 pt-2 pb-3">
-            <a
-                [routerLink]="['/events']"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item"
-            >
+            <a [routerLink]="['/events']" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item">
                 Events
             </a>
-            <a
-                [routerLink]="['/projects']"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-            >
+            <a [routerLink]="['/projects']" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline">
                 Projects
             </a>
-            <a
-                [routerLink]="['/workshops']"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-            >
+            <!-- <a [routerLink]="['/workshops']" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline">
                 Workshops
             </a>
-            <a
-                [routerLink]="['/members']"
-                fragment="leadership"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-            >
+            <a [routerLink]="['/members']" fragment="leadership" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline">
                 Members
-            </a>
-            <a
-                [routerLink]="['/coffee-n-code']"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-            >
+            </a> -->
+            <a [routerLink]="['/coffee-n-code']" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline">
                 Coffee & Code
             </a>
-            <a
-                [routerLink]="['/koding-kata']"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-            >
+            <!-- <a [routerLink]="['/koding-kata']" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline">
                 Koding Kata
             </a>
-            <a
-                [routerLink]="['/lan']"
-                class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline"
-            >
+            <a [routerLink]="['/lan']" class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-black focus:outline-none transition duration-150 ease-in-out nabvar-item hover:no-underline">
                 LAN
-            </a>
+            </a> -->
         </div>
     </div>
 </nav>
@@ -225,9 +153,7 @@
 <footer class="w-full text-center p-4 bg-white relative bottom-0 z-10">
     <div>
         <div>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://www.linkedin.com/company/association-of-computing-machinery-at-uc-merced/"
                     target="_blank"
@@ -235,9 +161,7 @@
                     ><fa-icon [icon]="faLinkedinIn"></fa-icon
                 ></a>
             </button>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://twitter.com/ucmercedacm"
                     target="_blank"
@@ -245,9 +169,7 @@
                     ><fa-icon [icon]="faTwitter"></fa-icon
                 ></a>
             </button>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-pink-600 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-pink-600 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://www.instagram.com/ucmacm/"
                     target="_blank"
@@ -255,9 +177,7 @@
                     ><fa-icon [icon]="faInstagram"></fa-icon
                 ></a>
             </button>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-blue-600 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://www.facebook.com/groups/ucmercedacm/"
                     target="_blank"
@@ -265,9 +185,7 @@
                     ><fa-icon [icon]="faFacebookF"></fa-icon
                 ></a>
             </button>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-gray-800 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-gray-800 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://github.com/UCMercedACM"
                     target="_blank"
@@ -275,9 +193,7 @@
                     ><fa-icon [icon]="faGithub"></fa-icon
                 ></a>
             </button>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-indigo-800 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-indigo-800 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://bit.ly/acm-ucm-discord"
                     target="_blank"
@@ -285,9 +201,7 @@
                     ><fa-icon [icon]="faDiscord"></fa-icon
                 ></a>
             </button>
-            <button
-                class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-red-400 transform hover:scale-125 hover:shadow-lg"
-            >
+            <button class="social border-0 border-none m-3 text-white rounded-full h-12 w-12 inline-block hover:text-red-400 transform hover:scale-125 hover:shadow-lg">
                 <a
                     href="https://bit.ly/acm-ucm-slack"
                     target="_blank"
