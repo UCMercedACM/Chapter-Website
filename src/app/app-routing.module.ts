@@ -3,17 +3,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 import {
     HomeComponent,
-    CoffeeNCodeComponent,
-    ProjectsComponent,
-    WorkshopsComponent,
-    MembersComponent,
     NotFoundComponent,
-    LoginComponent,
-    SignUpComponent,
     EventsComponent,
-    DashboardComponent,
-    CTFComponent,
-    LanComponent,
 } from "./containers";
 
 const routes: Routes = [
@@ -24,42 +15,6 @@ const routes: Routes = [
     {
         path: "events",
         component: EventsComponent,
-    },
-    {
-        path: "coffee-n-code",
-        component: CoffeeNCodeComponent,
-    },
-    {
-        path: "projects",
-        component: ProjectsComponent,
-    },
-    // {
-    //     path: "workshops",
-    //     component: WorkshopsComponent,
-    // },
-    // {
-    //     path: "members",
-    //     component: MembersComponent,
-    // },
-    // {
-    //     path: "capture-the-flag",
-    //     component: CTFComponent,
-    // },
-    // {
-    //     path: "lan",
-    //     component: LanComponent,
-    // },
-    {
-        path: "login",
-        component: LoginComponent,
-    },
-    {
-        path: "sign-up",
-        component: SignUpComponent,
-    },
-    {
-        path: "dashboard/:id",
-        component: DashboardComponent,
     },
     {
         path: "",

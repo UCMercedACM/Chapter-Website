@@ -12,25 +12,13 @@ import { AppComponent } from "./app.component"; // Main app import
 // Component Imports
 import {
     TitleComponent,
-    CoffeeComponent,
-    TerminalComponent,
 } from "./components";
 
 // Container Imports
 import {
-    CoffeeNCodeComponent,
     HomeComponent,
-    ProjectsComponent,
-    WorkshopsComponent,
-    DashboardComponent,
-    LanComponent,
-    CodeEditorComponent,
-    MembersComponent,
-    LoginComponent,
-    SignUpComponent,
     EventsComponent,
     NotFoundComponent,
-    CTFComponent,
 } from "./containers";
 
 // NgRx Store Imports
@@ -52,22 +40,9 @@ import {
     declarations: [
         AppComponent,
         TitleComponent,
-        CoffeeComponent,
-        CoffeeNCodeComponent,
         HomeComponent,
-        ProjectsComponent,
-        WorkshopsComponent,
-        DashboardComponent,
-        LanComponent,
-        CodeEditorComponent,
-        MembersComponent,
-        LoginComponent,
-        LoginComponent,
-        SignUpComponent,
-        TerminalComponent,
         EventsComponent,
         NotFoundComponent,
-        CTFComponent,
     ],
     imports: [
         HttpClientModule,

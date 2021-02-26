@@ -1,128 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "./styles.css";
-@import "./tailwind.css";
-
 /* Poppins font from Google Fonts */
-
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap");
 * {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 
-/* Header Pallete */
-
-$header-background-light: #fffffe;
-$header-headline-light: #272343;
-$header-paragraph-light: #2d334a;
-$header-button-light: #ffd803;
-$header-button-text-light: #272343;
-$header-background-dark: #16161a;
-$header-headline-dark: #fffffe;
-$header-paragraph-dark: #94a1b2;
-$header-button-dark: #7f5af0;
-$header-button-text-dark: #fffffe;
-
-/* Illustration Pallete */
-
-$illustration-stroke-light: #272343;
-$illustration-main-light: #fffffe;
-$illustration-highlight-light: #ffd803;
-$illustration-secondary-light: #e3f6f5;
-$illustration-tertiary-light: #bae8e8;
-$illustration-stroke-dark: #010101;
-$illustration-main-dark: #fffffe;
-$illustration-highlight-dark: #7f5af0;
-$illustration-secondary-dark: #72757e;
-$illustration-tertiary-dark: #2cb67d;
-
-/* About Pallete */
-
-$about-background-light: #e3f6f5;
-$about-headline-light: #272343;
-$about-paragraph-light: #2d334a;
-$about-link-light: #272343;
-$about-card-background-light: #fffffe;
-$about-card-headline-light: #272343;
-$about-card-paragraph-light: #2d334a;
-$about-background-dark: #242629;
-$about-headline-dark: #fffffe;
-$about-paragraph-dark: #94a1b2;
-$about-link-dark: #7f5af0;
-$about-card-background-dark: #16161a;
-$about-card-headline-dark: #fffffe;
-$about-card-paragraph-dark: #94a1b2;
-
-/* Newsletter Pallete */
-
-$newsletter-background-light: #bae8e8;
-$newsletter-form-input-light: #fffffe;
-$newsletter-label-light: #272343;
-$newsletter-form-button-light: #272343;
-$newsletter-form-button-text-light: #fffffe;
-$newsletter-background-dark: #fffffe;
-$newsletter-form-input-dark: #16161a;
-$newsletter-label-dark: #fffffe;
-$newsletter-form-button-dark: #7f5af0;
-$newsletter-form-button-text-dark: #fffffe;
-
-/* Events Pallete */
-
-$events-background-light: #e3f6f5;
-$events-headline-light: #272343;
-$events-sub-headline-light: #2d334a;
-$events-card-background: #fffffe;
-$events-card-headline-light: #272343;
-$events-card-paragraph-light: #2d334a;
-$events-background-dark: #242629;
-$events-headline-dark: #fffffe;
-$events-sub-headline-dark: #94a1b2;
-$events-card-background-dark: #16161a;
-$events-card-headline-dark: #fffffe;
-$events-card-paragraph-dark: #94a1b2;
-
-/* Icons Palette */
-
-$icons-stroke-light: #272343;
-$icons-main-light: #fffffe;
-$icons-highlight-light: #ffd803;
-$icons-secondary-light: #e3f6f5;
-$icons-tertiary-light: #bae8e8;
-$icons-stroke-dark: #010101;
-$icons-main-dark: #fffffe;
-$icons-highlight-dark: #7f5af0;
-$icons-secondary-dark: #72757e;
-$icons-tertiary-dark: #2cb67d;
-
-/* Projects Palette */
-
-$projects-background-light: #fffffe;
-$projects-headline-light: #272343;
-$projects-paragraph-light: #2d334a;
-$projects-card-background-light: #272343;
-$projects-card-headline-light: #fffffe;
-$projects-card-paragraph-light: #2d334a;
-$projects-card-tag-background-light: #bae8e8;
-$projects-card-tag-text-light: #272343;
-$projects-card-tag-highlight-light: #bae8e8;
-$projects-background-dark: #16161a;
-$projects-headline-dark: #fffffe;
-$projects-paragraph-dark: #94a1b2;
-$projects-card-background-dark: #242629;
-$projects-card-headline-dark: #fffffe;
-$projects-card-paragraph-dark: #94a1b2;
-$projects-card-tag-background-dark: #7f5af0;
-$projects-card-tag-text-dark: #fffffe;
-$projects-card-tag-highlight-dark: #fffffe;
-
-/* Footer Pallete */
-
-$footer-background-light: #fffffe;
-$footer-headline-light: #272343;
-$footer-paragraph-light: #2d334a;
-$footer-links-light: #ffd803;
-$footer-background-dark: #16161a;
-$footer-headline-dark: #fffffe;
-$footer-paragraph-dark: #94a1b2;
-$footer-links-dark: #7f5af0;
+/* Light Mode */
+$landingBackgroundColor-light: #00E1BF;
+$landingTextColor-light: #FFFFFF;
+$backgroundColor-light: #F5F5F5;
+$buttons-light: #084778;
+$headlineColor-light: #084778;
+$secondaryColor-light: #0D2E47;
+$tertiaryColor-light: #3DA9FC;
+$textColor: #0D2E47;
