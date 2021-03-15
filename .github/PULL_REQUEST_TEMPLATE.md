@@ -1,10 +1,10 @@
-## Proposed changes
+# Proposed changes
 
-Describe the big picture of your changes here to communicate to the maintainers why we should accept this pull request. If it fixes a bug or resolves a feature request, be sure to link to that issue.
+<!-- Describe the big picture of your changes here to communicate to the maintainers why we should accept this pull request. If it fixes a bug or resolves a feature request, be sure to link to that issue. -->
 
 ## Types of changes
 
-What types of changes does your code introduce to the Chapter Website?
+What types of changes does your code introduce to the UC Merced's ACM Chapter Website?
 _Put an `x` in the boxes that apply_
 
 - [ ] Bugfix (non-breaking change which fixes an issue)
@@ -22,6 +22,47 @@ _Put an `x` in the boxes that apply. You can also fill these out after creating 
 - [ ] I have added necessary documentation (if appropriate)
 - [ ] Any dependent changes have been merged and published in downstream modules
 
+## Responsiveness
+
+Check off the different **browsers** and **devices** you have tested on. Note: testing includes Horizontal and Vertical alignments
+
+### Browsers
+
+- [ ] Chrome
+- [ ] Firefox
+- [ ] Edge
+- [ ] Safari
+- [ ] Brave
+- [ ] Opera
+
+### Devices
+
+#### Phones
+
+- [ ] Moto G4
+- [ ] Galaxy S5
+- [ ] Pixel 2
+- [ ] Pixel 2 XL
+- [ ] iPhone 5/SE
+- [ ] iPhone 6/7/8
+- [ ] iPhone 6/7/8 Plus
+- [ ] iPhone X
+
+#### Tablets
+
+- [ ] iPad
+- [ ] iPad Pro
+
+#### Desktops
+
+- [ ] Windows 10
+- [ ] MacOSX
+- [ ] Ubuntu
+
+## Screenshots
+
+_Please attach at least one Desktop and Mobile screenshot of your update._
+
 ## Further comments
 
-If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc...
+<!-- If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc... -->
