@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1615968005796,
+  "timestamp": 1615981305258,
   "index": "https://ucmercedacm.github.io/Chapter-Website/index.html",
   "assetGroups": [
     {
@@ -13,14 +13,14 @@
       "urls": [
         "https://ucmercedacm.github.io/Chapter-Website/favicon.ico",
         "https://ucmercedacm.github.io/Chapter-Website/index.html",
-        "https://ucmercedacm.github.io/Chapter-Website/main-es2015.60481b24e5615bfa335c.js",
-        "https://ucmercedacm.github.io/Chapter-Website/main-es5.60481b24e5615bfa335c.js",
+        "https://ucmercedacm.github.io/Chapter-Website/main-es2015.0b2253a2f36f5f6da3e9.js",
+        "https://ucmercedacm.github.io/Chapter-Website/main-es5.0b2253a2f36f5f6da3e9.js",
         "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest",
         "https://ucmercedacm.github.io/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js",
         "https://ucmercedacm.github.io/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js",
         "https://ucmercedacm.github.io/Chapter-Website/runtime-es2015.4008b8a4bb7b8c9cd11f.js",
         "https://ucmercedacm.github.io/Chapter-Website/runtime-es5.4008b8a4bb7b8c9cd11f.js",
-        "https://ucmercedacm.github.io/Chapter-Website/styles.09e2c710755c8867a460.css"
+        "https://ucmercedacm.github.io/Chapter-Website/styles.77f61483e1522db22d57.css"
       ],
       "patterns": []
     },
@@ -32,6 +32,10 @@
         "ignoreVary": true
       },
       "urls": [
+        "https://ucmercedacm.github.io/Chapter-Website/assets/acm_logo.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/ai.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/cyber_security.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/design.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-128x128.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-144x144.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-152x152.png",
@@ -39,13 +43,19 @@
         "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-384x384.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-512x512.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-72x72.png",
-        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-96x96.png"
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-96x96.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/iot.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/software_engineer.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
+    "https://ucmercedacm.github.io/Chapter-Website/assets/acm_logo.png": "4e8d367e306e7d30aa99b9063e606191edc30444",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/ai.png": "a206bbd691c1399ef8490b0ff2a3c26c2c759215",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/cyber_security.png": "b01e25e8f1fc6eca4ac02125e2776a3238243e2f",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/design.png": "bfe0bbff79f149de9a1c9dc680d6c7e9c32d066d",
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
@@ -54,16 +64,18 @@
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
-    "https://ucmercedacm.github.io/Chapter-Website/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://ucmercedacm.github.io/Chapter-Website/index.html": "e52e6a3ef48a495ab59d920af49ac471d31b6d80",
-    "https://ucmercedacm.github.io/Chapter-Website/main-es2015.60481b24e5615bfa335c.js": "8c0493bdb9ca09a49aaff40990f47d75b52ff226",
-    "https://ucmercedacm.github.io/Chapter-Website/main-es5.60481b24e5615bfa335c.js": "265643ad6a514097178e283150d638d672ddc952",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/iot.png": "468f067850331bf7bca31279c60dd8ebde935474",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/software_engineer.png": "7da8cd86b1d82d989cb211b5970005b0cef08530",
+    "https://ucmercedacm.github.io/Chapter-Website/favicon.ico": "e7e58ae8629b78337043601e7a985cfd12757261",
+    "https://ucmercedacm.github.io/Chapter-Website/index.html": "038afcc277bdaa4d02b2f298975115d378d0a932",
+    "https://ucmercedacm.github.io/Chapter-Website/main-es2015.0b2253a2f36f5f6da3e9.js": "c98405abfa9912e723687b12c391c994fd140042",
+    "https://ucmercedacm.github.io/Chapter-Website/main-es5.0b2253a2f36f5f6da3e9.js": "a496c4cfdb80010696babe744270d7b19e14e6bf",
     "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest": "f8e92aebdc478299350b1854269a1af0a840a8e4",
     "https://ucmercedacm.github.io/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js": "e0beba5d1ab83a602698e7bd630f7552b06cb1e1",
     "https://ucmercedacm.github.io/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js": "5adba0daece150ee84aa6a61066626bd0339780d",
     "https://ucmercedacm.github.io/Chapter-Website/runtime-es2015.4008b8a4bb7b8c9cd11f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "https://ucmercedacm.github.io/Chapter-Website/runtime-es5.4008b8a4bb7b8c9cd11f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "https://ucmercedacm.github.io/Chapter-Website/styles.09e2c710755c8867a460.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "https://ucmercedacm.github.io/Chapter-Website/styles.77f61483e1522db22d57.css": "704849c5504ead3fb8c8bf6b9db3cb055324483c"
   },
   "navigationUrls": [
     {
