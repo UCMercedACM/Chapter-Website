@@ -1,0 +1,87 @@
+{
+  "configVersion": 1,
+  "timestamp": 1615951518435,
+  "index": "https://ucmercedacm.github.io/Chapter-Website/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://ucmercedacm.github.io/Chapter-Website/favicon.ico",
+        "https://ucmercedacm.github.io/Chapter-Website/index.html",
+        "https://ucmercedacm.github.io/Chapter-Website/main-es2015.0719bca89891b5ef9dcd.js",
+        "https://ucmercedacm.github.io/Chapter-Website/main-es5.0719bca89891b5ef9dcd.js",
+        "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest",
+        "https://ucmercedacm.github.io/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js",
+        "https://ucmercedacm.github.io/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js",
+        "https://ucmercedacm.github.io/Chapter-Website/runtime-es2015.4008b8a4bb7b8c9cd11f.js",
+        "https://ucmercedacm.github.io/Chapter-Website/runtime-es5.4008b8a4bb7b8c9cd11f.js",
+        "https://ucmercedacm.github.io/Chapter-Website/styles.09e2c710755c8867a460.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-128x128.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-144x144.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-152x152.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-192x192.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-384x384.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-512x512.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-72x72.png",
+        "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://ucmercedacm.github.io/Chapter-Website/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "https://ucmercedacm.github.io/Chapter-Website/index.html": "184e3b8a5a35c779a0c2810cb54255ea966a77ac",
+    "https://ucmercedacm.github.io/Chapter-Website/main-es2015.0719bca89891b5ef9dcd.js": "a55e8083dc0fa576ec7e6abe9eab4cdffe6e3f4d",
+    "https://ucmercedacm.github.io/Chapter-Website/main-es5.0719bca89891b5ef9dcd.js": "a9c1dc5f2ffe44ca34d5d2bc9e89e2e27777c220",
+    "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest": "f8e92aebdc478299350b1854269a1af0a840a8e4",
+    "https://ucmercedacm.github.io/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js": "e0beba5d1ab83a602698e7bd630f7552b06cb1e1",
+    "https://ucmercedacm.github.io/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js": "5adba0daece150ee84aa6a61066626bd0339780d",
+    "https://ucmercedacm.github.io/Chapter-Website/runtime-es2015.4008b8a4bb7b8c9cd11f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://ucmercedacm.github.io/Chapter-Website/runtime-es5.4008b8a4bb7b8c9cd11f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://ucmercedacm.github.io/Chapter-Website/styles.09e2c710755c8867a460.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
