@@ -61,7 +61,7 @@ Check off the different **browsers** and **devices** you have tested on. Note: t
 
 ## Screenshots
 
-_Please attach at least one Desktop and Mobile screenshot of your update._
+<!-- _Please attach at least one Desktop and Mobile screenshot of your update._ -->
 
 ## Further comments
 
