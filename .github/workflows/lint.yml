@@ -3,7 +3,6 @@ name: Lint CI
 on:
   pull_request:
     branches:
-      - develop
       - master
 
 jobs:
