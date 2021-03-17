@@ -1,6 +1,6 @@
 # Add 'test' label to any change to *.spec.js files within the source dir
 test:
-    - src/**/*.spec.js
+    - src/**/*.spec.ts
     - e2e/*
 
 # Add 'workflows' label to any new or updated GitHub action workflow

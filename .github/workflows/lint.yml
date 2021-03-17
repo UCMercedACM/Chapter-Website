@@ -1,41 +1,36 @@
 name: Lint CI
 
 on:
-    pull_request:
-        branches:
-            - develop
-            - master
+  pull_request:
+    branches:
+      - develop
+      - master
 
 jobs:
-    build:
-        name: Test application and make sure it runs on ${{ matrix.os }}
-        runs-on: ${{ matrix.os }}
+  build:
+    name: Test application and make sure it runs on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-        strategy:
-            matrix:
-                node-version: [11.x]
-                os: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [11.x]
+        os: [ubuntu-latest]
 
-        steps:
-            - name: Checkout to current branch
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout to current branch
+        uses: actions/checkout@v2
 
-            - name: Configure Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
-              with:
-                  node-version: ${{ matrix.node-version }}
+      - name: Configure Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-            - name: Ensure a clean branch
-              run: |
-                  echo 'Cleaning repo before executing lint script...'
-                  yarn clean
+      - name: Install Dependencies
+        run: |
+          echo 'Running Setup...'
+          yarn
 
-            - name: Install Dependencies
-              run: |
-                  echo 'Running Setup...'
-                  yarn install
-
-            - name: Lint Angular Application
-              run: |
-                  echo 'Linting Angular Application...'
-                  yarn lint
+      - name: Lint Angular Application
+        run: |
+          echo 'Linting Angular Application...'
+          yarn lint
