@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1615951518435,
+  "timestamp": 1615968005796,
   "index": "https://ucmercedacm.github.io/Chapter-Website/index.html",
   "assetGroups": [
     {
@@ -13,8 +13,8 @@
       "urls": [
         "https://ucmercedacm.github.io/Chapter-Website/favicon.ico",
         "https://ucmercedacm.github.io/Chapter-Website/index.html",
-        "https://ucmercedacm.github.io/Chapter-Website/main-es2015.0719bca89891b5ef9dcd.js",
-        "https://ucmercedacm.github.io/Chapter-Website/main-es5.0719bca89891b5ef9dcd.js",
+        "https://ucmercedacm.github.io/Chapter-Website/main-es2015.60481b24e5615bfa335c.js",
+        "https://ucmercedacm.github.io/Chapter-Website/main-es5.60481b24e5615bfa335c.js",
         "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest",
         "https://ucmercedacm.github.io/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js",
         "https://ucmercedacm.github.io/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js",
@@ -55,9 +55,9 @@
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://ucmercedacm.github.io/Chapter-Website/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://ucmercedacm.github.io/Chapter-Website/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://ucmercedacm.github.io/Chapter-Website/index.html": "184e3b8a5a35c779a0c2810cb54255ea966a77ac",
-    "https://ucmercedacm.github.io/Chapter-Website/main-es2015.0719bca89891b5ef9dcd.js": "a55e8083dc0fa576ec7e6abe9eab4cdffe6e3f4d",
-    "https://ucmercedacm.github.io/Chapter-Website/main-es5.0719bca89891b5ef9dcd.js": "a9c1dc5f2ffe44ca34d5d2bc9e89e2e27777c220",
+    "https://ucmercedacm.github.io/Chapter-Website/index.html": "e52e6a3ef48a495ab59d920af49ac471d31b6d80",
+    "https://ucmercedacm.github.io/Chapter-Website/main-es2015.60481b24e5615bfa335c.js": "8c0493bdb9ca09a49aaff40990f47d75b52ff226",
+    "https://ucmercedacm.github.io/Chapter-Website/main-es5.60481b24e5615bfa335c.js": "265643ad6a514097178e283150d638d672ddc952",
     "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest": "f8e92aebdc478299350b1854269a1af0a840a8e4",
     "https://ucmercedacm.github.io/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js": "e0beba5d1ab83a602698e7bd630f7552b06cb1e1",
     "https://ucmercedacm.github.io/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js": "5adba0daece150ee84aa6a61066626bd0339780d",
