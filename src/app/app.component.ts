@@ -1,10 +1,20 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
 })
-export class AppComponent {
-  title = "chapter-website";
+export class AppComponent implements OnInit {
+  public route = "";
+
+  constructor(location: Location, private router: Router) {
+    router.events.subscribe(() => {
+      this.route = location.path();
+    });
+  }
+
+  ngOnInit() {}
 }
