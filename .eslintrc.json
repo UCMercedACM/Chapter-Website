@@ -36,7 +36,9 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        "quotes": "off",
+        "@typescript-eslint/quotes": ["error", "double"]
       }
     },
     {
