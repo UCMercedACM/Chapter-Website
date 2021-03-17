@@ -1,45 +1,35 @@
 name: Test CI
 
 on:
-    pull_request:
-        branches:
-            - develop
-            - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
-    build:
-        name: Test application and make sure it runs on ${{ matrix.os }}
-        runs-on: ${{ matrix.os }}
+  build:
+    name: Test application and make sure it runs on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
-        strategy:
-            matrix:
-                node-version: [11.x]
-                os: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [12.x]
+        os: [ubuntu-latest]
 
-        steps:
-            - name: Checkout to current branch
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout to current branch
+        uses: actions/checkout@v2
 
-            - name: Configure Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v1
-              with:
-                  node-version: ${{ matrix.node-version }}
+      - name: Configure Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-            - name: Ensure a clean branch
-              run: |
-                  echo 'Cleaning repo before executing test scripts...'
-                  yarn clean
+      - name: Install Dependencies
+        run: |
+          echo 'Running Setup...'
+          yarn
 
-            - name: Install Dependencies
-              run: |
-                  echo 'Running Setup...'
-                  yarn install
-
-            - name: Running Protractor on Angular Application
-              run: |
-                  echo 'Running Protractor on Angular Application...'
-                  yarn e2e
-        # - name: Running Test Script on Angular Application
-        #   run: |
-        #     echo 'Running Test Script on Angular Application...'
-        #     yarn test
+      - name: Running Test Script on Angular Application
+        run: |
+          echo 'Running Test Script on Angular Application...'
+          yarn test --browsers=ChromeHeadless --watch=false --code-coverage
