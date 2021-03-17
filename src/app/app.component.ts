@@ -9,6 +9,7 @@ import { Location } from "@angular/common";
 })
 export class AppComponent implements OnInit {
   public route = "";
+  public title = "Chapter Website";
 
   constructor(location: Location, private router: Router) {
     router.events.subscribe(() => {
