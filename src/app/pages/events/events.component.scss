@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap');
+
+
+$color-primary: #00E1BF;
+$color-blue: #3DA9FC;
+$color-light-purple: #B0A6FF;
+$color-neon-light-blue: #C6FDFF;
+$color-light-yellow: #FFF7AF;
+$color-light-pink: #FFC5F0;
+$color-pink: #FEA1A1;
+$color-light-green: #D1FFCF;
+$color-neon-green: #6DFF8D;
+$color-text: #101429;
+$color-btn: #084778;
+$color-headline: #084778;
+$color-white: #FFFFFF;
+
+$font-header: 'Bebas Neue';
+$font-regular: 'Montserrat';
+$font-size-xl: 25px;
+$font-size-lg: 18px;
+$font-size-med: 16px;
+$font-size-sm: 12px;  
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: $font-regular, Arial, Helvetica, sans-serif;
+    font-size: $font-size-sm;
+    color: $color-text;
+}
+
+.bg-light-pink {
+    background-color: $color-light-pink;
+}  
+
+.bg-green {
+    background-color: $color-light-green;
+}
+
+.bg-yellow {
+    background-color: $color-light-yellow;
+}
+
+.bg-light-purple {
+    background-color: $color-light-purple;
+}
+
+.bg-neon-light-blue {
+    background-color: $color-neon-light-blue;
+}
+
+.bg-blue {
+    background-color: $color-blue;
+}
+
+.bg-pink {
+    background-color: $color-pink;
+}
+
+.bg-neon-green {
+    background-color: $color-neon-green;
+}
+
+.events-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#events-heading {
+    color: $color-headline;
+    font-size: $font-size-lg;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#heading-underline {
+    height: 6px;
+    width: 350px;
+    background-color: $color-blue;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 75px;
+}
+
+.sig-list-container {
+    height: 25vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80vw;
+    margin-bottom: 8vh;
+    
+}
+
+.sig-text {
+    font-size: $font-size-med;
+    font-weight: 500;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.sig-list-left, .sig-list-right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    align-items: center;
+
+}
+
+.sig-list-left-content, .sig-list-right-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bullet-pt {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.design-sig, .iot-sig, .cybersecurity-sig,
+.swe-sig, .ai-sig, .general-meetings {
+    display: flex;
+    align-items: center;
+}
+
+.upcoming-events-container {
+    height: 50vh;
+    width: 90vw;
+    background: #F9F8F8;
+    box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.2);
+    border-radius: 60px;
+    overflow: hidden;
+}
+
+.events-top-bar {
+    height: 15%;
+    background-color: $color-primary;
+    border-top-left-radius: 10%;
+    border-top-right-radius: 10%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bullet-pt-container {
+    position: absolute;
+    left: 3%;
+    width: 6%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#upcoming-events-heading {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: $font-size-lg;
+    letter-spacing: 5px;
+    color: $color-headline;
+}   
+
+
