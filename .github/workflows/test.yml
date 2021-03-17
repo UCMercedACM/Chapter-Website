@@ -32,9 +32,9 @@ jobs:
       - name: Running Protractor on Angular Application
         run: |
           echo 'Running Protractor on Angular Application...'
-          yarn e2e --configuration=ci
+          yarn e2e
 
       - name: Running Test Script on Angular Application
         run: |
           echo 'Running Test Script on Angular Application...'
-          yarn test --configuration=ci
+          yarn test --browsers=ChromeHeadless --watch=false --code-coverage
