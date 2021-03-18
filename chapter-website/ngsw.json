@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1615981305258,
+  "timestamp": 1616051360164,
   "index": "https://ucmercedacm.github.io/Chapter-Website/index.html",
   "assetGroups": [
     {
@@ -32,6 +32,7 @@
         "ignoreVary": true
       },
       "urls": [
+        "https://ucmercedacm.github.io/Chapter-Website/assets/acm_banner.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/acm_logo.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/ai.png",
         "https://ucmercedacm.github.io/Chapter-Website/assets/cyber_security.png",
@@ -52,6 +53,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
+    "https://ucmercedacm.github.io/Chapter-Website/assets/acm_banner.png": "50a5dcb0d1b461981e9f789f64755aa725c37b10",
     "https://ucmercedacm.github.io/Chapter-Website/assets/acm_logo.png": "4e8d367e306e7d30aa99b9063e606191edc30444",
     "https://ucmercedacm.github.io/Chapter-Website/assets/ai.png": "a206bbd691c1399ef8490b0ff2a3c26c2c759215",
     "https://ucmercedacm.github.io/Chapter-Website/assets/cyber_security.png": "b01e25e8f1fc6eca4ac02125e2776a3238243e2f",
