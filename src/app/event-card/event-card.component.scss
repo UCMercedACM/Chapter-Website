@@ -1,0 +1,86 @@
+$color-light-pink: #FFC5F0;
+$primary-color: #084778;
+$paragraph-color: #16161A;
+
+* {
+    width: 100%;
+}
+
+.event-card-container {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.event-card-left {
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.month {
+    text-align: center;
+    margin-bottom: 0px;
+    color: $primary-color;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.day-container {
+    display: flex;
+    justify-content: center;
+}
+
+.day {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $color-light-pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}
+
+.event-card-middle {
+    width: 70%;
+    height: 100%;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-evenly;
+    margin: 0;
+}
+
+.event-title {
+    color: $primary-color;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.event-details {
+    font-size: 0.85rem;
+}
+
+
+.event-card-right {
+    width: 20%;
+}
+
+.add-to-calendar-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background-color: $primary-color;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    color: #FFF;
+    box-shadow: -6px -6px 10px rgba(61, 169, 252, 0.2), 6px 6px 10px rgba(0, 29, 53, 0.25);
+}

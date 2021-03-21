@@ -51,6 +51,13 @@
             </div>
             <h2 id="upcoming-events-heading">Upcoming Events</h2>
         </div>
+        
+        <div class="events-content">
+            <div class="app-event-card-container" *ngFor="let event of events; let i = index; first as isFirst" [style.margin-top.px]="isFirst ? 75 : 0">
+                <app-event-card [index]="i"></app-event-card>
+            </div>
+        </div>
+
     </div>
 </div>
 

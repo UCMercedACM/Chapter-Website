@@ -9,6 +9,7 @@ import { SigsComponent } from "./pages/sigs/sigs.component";
 import { ResourcesComponent } from "./pages/resources/resources.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
+import { EventCardComponent } from './event-card/event-card.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { environment } from "../environments/environment";
     EventsComponent,
     SigsComponent,
     ResourcesComponent,
+    EventCardComponent,
   ],
   imports: [
     BrowserModule,

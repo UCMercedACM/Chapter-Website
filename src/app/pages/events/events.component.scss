@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 $color-primary: #00E1BF;
 $color-blue: #3DA9FC;
@@ -15,7 +14,6 @@ $color-btn: #084778;
 $color-headline: #084778;
 $color-white: #FFFFFF;
 
-$font-header: 'Bebas Neue';
 $font-regular: 'Montserrat';
 $font-size-xl: 25px;
 $font-size-lg: 18px;
@@ -96,8 +94,8 @@ $font-size-sm: 12px;
 }
 
 .sig-text {
-    font-size: $font-size-med;
-    font-weight: 500;
+    font-size: $font-size-lg;
+    font-weight: 400;
     display: inline-block;
     margin-left: 20px;
 }
@@ -106,7 +104,6 @@ $font-size-sm: 12px;
     width: 50%;
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     align-items: center;
 
 }
@@ -119,8 +116,8 @@ $font-size-sm: 12px;
 }
 
 .bullet-pt {
-    height: 20px;
-    width: 20px;
+    height: 15px;
+    width: 15px;
     display: inline-block;
     border-radius: 50%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -134,18 +131,18 @@ $font-size-sm: 12px;
 
 .upcoming-events-container {
     height: 50vh;
-    width: 90vw;
+    width: 75vw;
     background: #F9F8F8;
     box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.2);
-    border-radius: 60px;
-    overflow: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
 }
 
 .events-top-bar {
     height: 15%;
     background-color: $color-primary;
-    border-top-left-radius: 10%;
-    border-top-right-radius: 10%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -165,8 +162,39 @@ $font-size-sm: 12px;
     text-align: center;
     text-transform: uppercase;
     font-size: $font-size-lg;
-    letter-spacing: 5px;
+    font-weight: 700;
+    letter-spacing: 3px;
     color: $color-headline;
 }   
+
+app-event-card {
+    margin-top: 30px;
+    width: 95%;
+    height: 15vh;
+    box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.isFirst {
+    margin-top: 50px ;
+}
+
+.events-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+.app-event-card-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 
