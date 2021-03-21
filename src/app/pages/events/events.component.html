@@ -1,5 +1,5 @@
 <div class="events-container">
-    <h2 id="events-heading">Events and Activities 2020 - 2021</h2>
+    <h2 id="events-heading">SIGS and Events 2020 - 2021</h2>
     <div id="heading-underline"></div>
     
     <div class="sig-list-container">
@@ -7,17 +7,17 @@
             <div class="sig-list-left-content">
                 <div class="design-sig">
                     <span class="bullet-pt bg-light-pink"></span>
-                    <p class="sig-text">SIG Design</p>
+                    <p class="sig-text">Design SIG</p>
                 </div>
         
                 <div class="iot-sig">
                     <span class="bullet-pt bg-green"></span>
-                    <p class="sig-text">SIG Internet of Things (IOT)</p>
+                    <p class="sig-text">Internet of Things (IOT) SIG</p>
                 </div>
                 
                 <div class="cybersecurity-sig">
                     <span class="bullet-pt bg-yellow"></span>
-                    <p class="sig-text">SIG Cybersecurity</p>
+                    <p class="sig-text">Cybersecurity SIG</p>
                 </div>
             </div>
         </div>
@@ -26,12 +26,12 @@
             <div class="sig-list-right-content">
                 <div class="swe-sig">
                     <span class="bullet-pt bg-light-purple"></span>
-                    <p class="sig-text">SIG Software Engineering</p>
+                    <p class="sig-text">Software Engineering SIG</p>
                 </div>
         
                 <div class="ai-sig">
                     <span class="bullet-pt bg-neon-light-blue"></span>
-                    <p class="sig-text">SIG Artificial Intelligence (AI)</p>
+                    <p class="sig-text">Artificial Intelligence (AI) SIG</p>
                 </div>
         
                 <div class="general-meetings">
@@ -45,16 +45,16 @@
     <div class="upcoming-events-container">
         <div class="events-top-bar">
             <div class="bullet-pt-container">
-                <div class="bullet-pt bg-pink"></div>
-                <div class="bullet-pt bg-yellow"></div>
-                <div class="bullet-pt bg-neon-green"></div>
+                <div class="bullet-pt bullet-pt-mobile bg-pink"></div>
+                <div class="bullet-pt bullet-pt-mobile bg-yellow"></div>
+                <div class="bullet-pt bullet-pt-mobile bg-neon-green"></div>
             </div>
             <h2 id="upcoming-events-heading">Upcoming Events</h2>
         </div>
         
         <div class="events-content">
-            <div class="app-event-card-container" *ngFor="let event of events; let i = index; first as isFirst" [style.margin-top.px]="isFirst ? 75 : 0">
-                <app-event-card [index]="i"></app-event-card>
+            <div class="app-event-card-container" *ngFor="let event of events; let i = index; first as isFirst; last as isLast">
+                <app-event-card [index]="i" [style.margin-top.px]="isFirst ? 50 : 30" [style.margin-bottom.px]="isLast ? 30 : 0"></app-event-card>
             </div>
         </div>
 

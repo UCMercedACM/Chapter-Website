@@ -1,10 +1,19 @@
-$color-light-pink: #FFC5F0;
 $primary-color: #084778;
 $paragraph-color: #16161A;
+$color-blue: #3DA9FC;
+$color-primary: #00E1BF;
+$color-blue: #3DA9FC;
+$color-light-purple: #B0A6FF;
+$color-neon-light-blue: #C6FDFF;
+$color-light-yellow: #FFF7AF;
+$color-light-pink: #FFC5F0;
+$color-pink: #FEA1A1;
+$color-light-green: #D1FFCF;
+$color-neon-green: #6DFF8D;
 
-* {
-    width: 100%;
-}
+// * {
+//     width: 100%;
+// }
 
 .event-card-container {
     width: 95%;
@@ -83,4 +92,22 @@ $paragraph-color: #16161A;
     font-family: Montserrat, Arial, Helvetica, sans-serif;
     color: #FFF;
     box-shadow: -6px -6px 10px rgba(61, 169, 252, 0.2), 6px 6px 10px rgba(0, 29, 53, 0.25);
+    transition: all 0.25s ease-in-out;
+    font-weight: bold;
+}
+
+.add-to-calendar-btn:hover {
+    background-color: $color-blue;
+    cursor: pointer;
+}
+
+.add-to-calendar-btn:active {
+    outline: none;
+    transform: scale(0.96) translateY(1px);
+}
+
+@media screen and (max-width: 700px) {
+    .add-to-calendar-btn {
+        display: block;
+    }
 }

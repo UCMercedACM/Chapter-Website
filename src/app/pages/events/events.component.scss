@@ -86,7 +86,7 @@ $font-size-sm: 12px;
 .sig-list-container {
     height: 25vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
     justify-content: center;
     width: 80vw;
     margin-bottom: 8vh;
@@ -152,7 +152,7 @@ $font-size-sm: 12px;
 .bullet-pt-container {
     position: absolute;
     left: 3%;
-    width: 6%;
+    min-width: 65px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -168,7 +168,7 @@ $font-size-sm: 12px;
 }   
 
 app-event-card {
-    margin-top: 30px;
+    // margin-top: 30px;
     width: 95%;
     height: 15vh;
     box-shadow: 0px 16px 40px rgba(112, 144, 176, 0.2);
@@ -177,10 +177,6 @@ app-event-card {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-}
-
-.isFirst {
-    margin-top: 50px ;
 }
 
 .events-content {
@@ -195,6 +191,122 @@ app-event-card {
     width: 100%;
     display: flex;
     justify-content: center;
+    position: relative;
+    top: calc(15%);
+}
+
+@media screen and (max-width: 700px) {
+    #heading-underline {
+        height: 10px;
+        margin-bottom: 50px;
+    }
+
+    .sig-list-container {
+        flex-direction: row;
+        align-items: center;
+        width: 90vw;
+        height: 35vh;
+        margin-bottom: 50px;
+    }
+
+    .sig-list-left, .sig-list-right {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .sig-list-left {
+        margin-right: 30px;
+    }
+
+    .bullet-pt {
+        display: none;
+    }
+
+    .bullet-pt-mobile {
+        height: 15px;
+        width: 15px;
+        display: inline-block;
+        border-radius: 50%;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .design-sig, .iot-sig, .cybersecurity-sig, .swe-sig, .ai-sig, .general-meetings {
+        margin-bottom: 20px;
+        width: 95%;
+        height: 80px;
+        left: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .design-sig {
+        background-color: $color-light-pink;
+    }
+
+    .iot-sig {
+        background-color: $color-light-green;
+    }
+
+    .cybersecurity-sig {
+        background-color: $color-light-yellow;
+    }
+
+    .swe-sig {
+        background-color: $color-light-purple;
+    }
+
+    .ai-sig {
+        background-color: $color-neon-light-blue;
+    }
+
+    .general-meetings {
+        background-color: $color-blue;
+    }
+
+    .sig-text {
+        color: $color-headline;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .sig-list-left-content, .sig-list-right-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .upcoming-events-container {
+        height: 60vh;
+        width: 90vw;
+    }
+
+    .events-top-bar {
+        height: 30%;
+    }
+
+    .bullet-pt-container {
+        width: 12%;
+    }
+
+    #upcoming-events-heading {
+        letter-spacing: 0px;
+    }
+
+    app-event-card {
+        height: 20vh;
+    }
+
+    .app-event-card-container {
+        height: 50%;
+        margin-top: 10%;
+    }
+
 }
 
 
