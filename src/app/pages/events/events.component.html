@@ -54,7 +54,7 @@
         
         <div class="events-content">
             <div class="app-event-card-container" *ngFor="let event of events; let i = index; first as isFirst; last as isLast">
-                <app-event-card [index]="i" [style.margin-top.px]="isFirst ? 50 : 30" [style.margin-bottom.px]="isLast ? 30 : 0"></app-event-card>
+                <app-event-card [index]="i" ></app-event-card>
             </div>
         </div>
 
