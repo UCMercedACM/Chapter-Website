@@ -1,0 +1,101 @@
+.home {
+  background-color: var(--background);
+  width: 100%;
+  height: auto;
+
+  &__landing {
+    background-color: var(--landing-background);
+    width: 100%;
+    height: 80vh;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr minmax(150px, 25%);
+    padding: calc(82px + 2vh) 10vw 0 10vw;
+
+    &__content {
+      &__sub-title {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+
+        letter-spacing: 0.15em;
+        color: var(--secondary);
+      }
+
+      &__title {
+        font-family: "Bebas Neue", cursive;
+        font-size: 45px;
+        line-height: 54px;
+        letter-spacing: 0.08em;
+        color: var(--headline);
+        padding: 1rem 0;
+      }
+
+      &__text {
+        font-family: "Montserrat", sans-serif;
+        font-size: 23px;
+        line-height: 40px;
+        letter-spacing: 0.05em;
+        color: var(--text);
+        width: 85%;
+        margin-bottom: 4vh;
+      }
+
+      &__sub-title,
+      &__title,
+      &__text {
+        font-style: normal;
+        display: flex;
+        align-items: center;
+      }
+
+      &__sub-title,
+      &__title {
+        font-weight: normal;
+      }
+
+      &__button {
+        width: 238px;
+        height: 80px;
+        position: relative;
+
+        &__front {
+          display: grid;
+          place-items: center;
+          background-color: var(--button);
+          box-shadow: -6px -6px 10px rgba(61, 169, 252, 0.2),
+            6px 6px 10px rgba(0, 29, 53, 0.25);
+          border-radius: 30px;
+          z-index: 2;
+
+          &__text {
+            font-family: "Montserrat", sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 25px;
+            line-height: 30px;
+            color: var(--background);
+            text-decoration: none;
+          }
+        }
+
+        &__behind {
+          background: rgba(245, 245, 245, 0.75);
+          backdrop-filter: blur(20px);
+          border-radius: 26px;
+          z-index: 1;
+          left: 15px;
+          top: 15px;
+        }
+
+        &__front,
+        &__behind {
+          width: 180px;
+          height: 64px;
+          position: absolute;
+        }
+      }
+    }
+  }
+}
