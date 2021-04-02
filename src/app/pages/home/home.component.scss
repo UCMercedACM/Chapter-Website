@@ -6,11 +6,11 @@
   &__landing {
     background-color: var(--landing-background);
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     display: grid;
     place-items: center;
     grid-template-columns: 1fr minmax(150px, 25%);
-    padding: calc(82px + 2vh) 10vw 0 10vw;
+    padding: calc(82px + 8vh) 10vw 0 10vw;
 
     &__content {
       &__sub-title {
@@ -18,7 +18,6 @@
         font-weight: 600;
         font-size: 18px;
         line-height: 22px;
-
         letter-spacing: 0.15em;
         color: var(--secondary);
       }
@@ -97,5 +96,40 @@
         }
       }
     }
+
+    &__animation {
+      width: 440px;
+      height: 467px;
+
+      &__top-page, &__bottom-page {
+        animation: MoveUpDown 4s linear infinite;
+
+        &__bar {
+          animation: MoveDownUp 4s linear infinite;
+        }
+      }
+
+      &__comment {
+        animation: MoveDownUp 4s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes MoveDownUp {
+  0%, 100% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0px);
   }
 }
