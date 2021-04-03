@@ -299,7 +299,11 @@
     </svg>
   </section>
   <!-- SVG Credits to https://getwaves.io/ -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="home__wave">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1440 320"
+    class="home__wave"
+  >
     <path
       fill="#00e1bfcc"
       fill-opacity="1"
@@ -307,9 +311,15 @@
     ></path>
   </svg>
   <section class="home__about-us">
-    <app-section-title></app-section-title>
+    <app-section-title [text]="'About Us'"></app-section-title>
   </section>
-  <section class="home__goals"></section>
-  <section class="home__sigs"></section>
-  <section class="home__leadership"></section>
+  <section class="home__goals">
+    <app-section-title [text]="'Goals'"></app-section-title>
+  </section>
+  <section class="home__sigs">
+    <app-section-title [text]="'SIGs'"></app-section-title>
+  </section>
+  <section class="home__leadership">
+    <app-section-title [text]="'Leadership'"></app-section-title>
+  </section>
 </main>

@@ -9,6 +9,7 @@ import { SigsComponent } from "./pages/sigs/sigs.component";
 import { ResourcesComponent } from "./pages/resources/resources.component";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from "../environments/environment";
+import { SectionTitleComponent } from "./components/section-title/section-title.component";
 
 @NgModule({
   declarations: [
@@ -17,13 +18,16 @@ import { environment } from "../environments/environment";
     EventsComponent,
     SigsComponent,
     ResourcesComponent,
+    SectionTitleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register("ngsw-worker.js", { enabled: environment.production })
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
