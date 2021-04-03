@@ -1,3 +1,6 @@
+$animation-time: 2s;
+$animation-duration: infinite;
+
 .home {
   background-color: var(--background);
   width: 100%;
@@ -11,6 +14,7 @@
     place-items: center;
     grid-template-columns: 1fr minmax(150px, 25%);
     padding: calc(82px + 8vh) 10vw 0 10vw;
+    overflow-y: hidden;
 
     &__content {
       &__sub-title {
@@ -102,15 +106,15 @@
       height: 467px;
 
       &__top-page, &__bottom-page {
-        animation: MoveUpDown 4s linear infinite;
+        animation: MoveUpDown $animation-time linear $animation-duration;
 
         &__bar {
-          animation: MoveDownUp 4s linear infinite;
+          animation: MoveDownUp $animation-time linear $animation-duration;
         }
       }
 
       &__comment {
-        animation: MoveDownUp 4s linear infinite;
+        animation: MoveDownUp $animation-time linear $animation-duration;
       }
     }
   }
