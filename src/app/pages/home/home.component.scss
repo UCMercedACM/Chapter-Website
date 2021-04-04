@@ -105,7 +105,8 @@ $animation-duration: infinite;
       width: 440px;
       height: 467px;
 
-      &__top-page, &__bottom-page {
+      &__top-page,
+      &__bottom-page {
         animation: MoveUpDown $animation-time linear $animation-duration;
 
         &__bar {
@@ -118,10 +119,66 @@ $animation-duration: infinite;
       }
     }
   }
+
+  &__goals {
+    display: grid;
+    place-items: center;
+
+    &__grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10vh 0;
+
+      &__cell {
+        flex-grow: 0.25;
+        width: calc(50% - 10vw);
+        display: flex;
+        flex-direction: row;
+        margin: 5vh 2vw;
+
+        @media (max-width: 760px) {
+          width: calc(100% - 10vw);
+        }
+
+        img {
+          object-fit: contain;
+          width: clamp(50px, 100px, 150px);;
+        }
+
+        &__content {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+
+          &__heading {
+            font-family: "Bebas Neue", cursive;
+            font-size: 20px;
+            line-height: 30px;
+            color: var(--headline);
+          }
+
+          &__text {
+            font-family: "Montserrat", sans-serif;
+            font-size: 15px;
+            line-height: 18px;
+            color: var(--text-inverted);
+          }
+
+          &__heading, &__text {
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+          }
+        }
+      }
+    }
+  }
 }
 
 @keyframes MoveUpDown {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -130,7 +187,8 @@ $animation-duration: infinite;
 }
 
 @keyframes MoveDownUp {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(-10px);
   }
   50% {
