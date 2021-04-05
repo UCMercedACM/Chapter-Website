@@ -1,0 +1,202 @@
+[
+  {
+    "isBlank": false,
+    "firstName": "Adrian",
+    "lastName": "Darian",
+    "position": "SIG Software Engineer Lead",
+    "linkedIn": "https://www.linkedin.com/in/adriandarian/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQGeZi-Ciku94A/profile-displayphoto-shrink_400_400/0/1555040453899?e=1623283200&v=beta&t=Mxaj0LR7VQ2QqZ8iAbyM-wsl5DFAVm5VIkslQlns_t0"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Mary",
+    "lastName": "Delos Reyes",
+    "position": "SIG Design Lead",
+    "linkedIn": "https://www.linkedin.com/in/maryfrancine/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C4D03AQEgvHSTmRyihA/profile-displayphoto-shrink_200_200/0/1597109460950?e=1623283200&v=beta&t=nRw4ovDbBvM_zE8xMLPP6Kny17W3pHYS7ZIc2FNxJ5E"
+  },
+  {
+    "isBlank": true,
+    "firstName": "",
+    "lastName": "",
+    "position": "",
+    "linkedIn": "",
+    "picture": ""
+  },
+  {
+    "isBlank": false,
+    "firstName": "Jatnael",
+    "lastName": "Montes",
+    "position": "President",
+    "linkedIn": "https://www.linkedin.com/in/jatnael-montes/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQGPsC9skYIxfg/profile-displayphoto-shrink_200_200/0/1617563590008?e=1623283200&v=beta&t=PIFQad63HqqdsfGRzykqXhK3GD4qe8fEl3YtL_gOjYw"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Sean",
+    "lastName": "O'Callaghan",
+    "position": "External Affairs",
+    "linkedIn": "https://www.linkedin.com/in/sean-ocal/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C4E03AQFL3dBStxDYHQ/profile-displayphoto-shrink_200_200/0/1575343208813?e=1623283200&v=beta&t=mAyziRgf3Gd-YkhdqwBdY4s8r42E-zUVg0O8jKhtbHw"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Jairo",
+    "lastName": "Carreon",
+    "position": "Vice President",
+    "linkedIn": "linkedin.com/in/jairo-carreon/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQHNpjHC8yX6SQ/profile-displayphoto-shrink_200_200/0/1574317912880?e=1623283200&v=beta&t=hDcwIeTAjKVIoUr4v-YaBM27K17P0uKFPxhfFSRM7to"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Salvador",
+    "lastName": "Rodriguez",
+    "position": "Marketing Lead",
+    "linkedIn": "https://www.linkedin.com/in/salvador-erodriguez/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQGKu3rXVzOMfA/profile-displayphoto-shrink_200_200/0/1583274249422?e=1623283200&v=beta&t=tZQD1INtpt8WTDgQzZT6HaQGnKJYl5yjRTBZNWqKbJs"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Tahea",
+    "lastName": "Hossain",
+    "position": "Secretary",
+    "linkedIn": "https://www.linkedin.com/in/tahea-hossain/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQFIpcQ7fIqteg/profile-displayphoto-shrink_200_200/0/1601674559763?e=1623283200&v=beta&t=rvB3bR0oARMoQeE1YQoXx8NCCExDEzly3Am37QdyKpA"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Rodolfo",
+    "lastName": "Higuera",
+    "position": "LinkedIn Lead",
+    "linkedIn": "https://www.linkedin.com/in/rodolfo-higuera-30b617183/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQHiddBUEKc8mw/profile-displayphoto-shrink_200_200/0/1601534335723?e=1623283200&v=beta&t=S9bnCDqePPEGVADt7aReN2jCRBMgisylsrWII_NqTO4"
+  },
+  {
+    "isBlank": false,
+    "firstName": "David",
+    "lastName": "Dominguez",
+    "position": "SIG Cyber Security Lead",
+    "linkedIn": "https://www.linkedin.com/in/david-dominguez-3621b4187/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQG7TtozXDTjaA/profile-displayphoto-shrink_200_200/0/1609890437965?e=1623283200&v=beta&t=PMQY8VFvbJvlRF1Qglfy78Ia_5Z3BmwDduIhFNGabWA"
+  },
+  {
+    "isBlank": true,
+    "firstName": "",
+    "lastName": "",
+    "position": "",
+    "linkedIn": "",
+    "picture": ""
+  },
+  {
+    "isBlank": false,
+    "firstName": "Alexander",
+    "lastName": "Hom",
+    "position": "Catlife Coordinator",
+    "linkedIn": "https://www.linkedin.com/in/alexander-hom-94811b188/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQE7PPIDW8p7Kg/profile-displayphoto-shrink_200_200/0/1606514223035?e=1623283200&v=beta&t=jw0A_pVoJJCc2hTfYamLDURE5NcJ8z3jxdAYt58JWvQ"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Busher",
+    "lastName": "Bridi",
+    "position": "SIG Cyber Security Lead",
+    "linkedIn": "https://www.linkedin.com/in/busher-bridi/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C4E03AQHdm42_yBgoUw/profile-displayphoto-shrink_200_200/0/1565297469929?e=1623283200&v=beta&t=gE9KIv24uiKGi-DUXEmv70-he6Y8mBKM2TiXNw-aZAw"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Alejandro",
+    "lastName": "Lopez",
+    "position": "General Meetings Coordinator",
+    "linkedIn": "https://www.linkedin.com/in/alejandro-lopez-45191b1a2/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQEMWK4-6BtPrg/profile-displayphoto-shrink_200_200/0/1613707089134?e=1623283200&v=beta&t=JhfGexvjI4rR-MXJIwTsU7c-0WJsYWOFZ82-b2eLBT8"
+  },
+  {
+    "isBlank": true,
+    "firstName": "",
+    "lastName": "",
+    "position": "",
+    "linkedIn": "",
+    "picture": ""
+  },
+  {
+    "isBlank": false,
+    "firstName": "Paulo",
+    "lastName": "Sousa",
+    "position": "",
+    "linkedIn": "https://www.linkedin.com/in/paulo-a-sousa/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQHRPYzejnjNqw/profile-displayphoto-shrink_200_200/0/1557161946694?e=1623283200&v=beta&t=72qMXS69I2xMkITmyoZdH_Xzw0Lhd2oatcxcQOnhEko"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Hannah",
+    "lastName": "Joyce Villasin",
+    "position": "Flyer Coordinator",
+    "linkedIn": "https://www.linkedin.com/in/hannah-joyce-villasin/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQGadfsSVOgSzA/profile-displayphoto-shrink_400_400/0/1611080418366?e=1623283200&v=beta&t=Xn4c8cI7OkMDvoh3IL9uGoRiylwr7_kpZbfEHylChyA"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Aditya",
+    "lastName": "Tomar",
+    "position": "SIG IoT Lead",
+    "linkedIn": "https://www.linkedin.com/in/aditya-tomar-a5ab7a148/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQEf_we0G_UHqw/profile-displayphoto-shrink_200_200/0/1612646121792?e=1623283200&v=beta&t=gwxwoiq0Rlmq_GZN4kaTN6F3w3vgZB-jzdIm_1cRM2Q"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Bharadwaj",
+    "lastName": "Satyanarayana",
+    "position": "SIG AI Lead",
+    "linkedIn": "https://www.linkedin.com/in/go2bharadwaj/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQEYcnlaFzt-og/profile-displayphoto-shrink_200_200/0/1616652635171?e=1623283200&v=beta&t=j1xMi-Rb4f0ROHqAm4gG4gH2ikmPFJ2AP8kVojZuEGI"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Jorge",
+    "lastName": "Cruz",
+    "position": "Twitter Coordinator",
+    "linkedIn": "https://www.linkedin.com/in/jorge-cruz-0707041a3/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQFkPe0oZCLzkg/profile-displayphoto-shrink_400_400/0/1603680033974?e=1623283200&v=beta&t=T8dxmUTduyXywD6bnKyEnOGb7MiVT1QniaoQf6b5XCQ"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Ken",
+    "lastName": "Fukuyama",
+    "position": "Alumni Coordinator",
+    "linkedIn": "https://www.linkedin.com/in/kenfukuyama/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C5603AQFRT8IRV6FVEA/profile-displayphoto-shrink_200_200/0/1581823025211?e=1623283200&v=beta&t=FFqgt_GJxIHIbu4YVPkAutlTL-8jkG3GJ3tcuyCGzi0"
+  },
+  {
+    "isBlank": false,
+    "firstName": "Rylan",
+    "lastName": "",
+    "position": "",
+    "linkedIn": "",
+    "picture": ""
+  },
+  {
+    "isBlank": true,
+    "firstName": "",
+    "lastName": "",
+    "position": "",
+    "linkedIn": "",
+    "picture": ""
+  },
+  {
+    "isBlank": false,
+    "firstName": "Matthew",
+    "lastName": "",
+    "position": "",
+    "linkedIn": "",
+    "picture": ""
+  },
+  {
+    "isBlank": false,
+    "firstName": "Yash",
+    "lastName": "Sharma",
+    "position": "Treasurer",
+    "linkedIn": "https://www.linkedin.com/in/ysharma0/",
+    "picture": "https://media-exp1.licdn.com/dms/image/C4E03AQHTrZbRQEijEA/profile-displayphoto-shrink_400_400/0/1589577996240?e=1623283200&v=beta&t=Mqgm9ZhPxKEmxDiLDUs_AR4YGpHBd33N43puXJ11e14"
+  }
+]

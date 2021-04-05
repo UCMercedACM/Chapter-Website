@@ -248,6 +248,7 @@ $animation-duration: infinite;
         height: auto;
         padding: 2ch 0;
         display: grid;
+        grid-template-rows: minmax(100px, 30%) 1fr;
         place-items: center;
 
         img {
@@ -265,6 +266,40 @@ $animation-duration: infinite;
           padding: 0 2ch;
           text-align: center;
         }
+      }
+    }
+  }
+
+  &__leadership {
+    overflow: hidden;
+
+    &__members {
+      display: grid;
+      place-items: center;
+      padding: 10vh 10vw;
+      margin: 15vh 0;
+      grid-template-columns: repeat(5, 128px);
+      gap: 10px;
+      justify-content: center;
+      transform: rotate(45deg);
+
+      &__profile, &__blank {
+        width: 128px;
+        height: 128px;
+        border-radius: 40px;
+        padding: 0;
+        overflow: hidden;
+
+
+        img {
+          width: 100%;
+          height: auto;
+          transform: rotate(-45deg);
+        }
+      }
+
+      &__blank {
+        background-color: rgba(0, 0, 0, 0);
       }
     }
   }
