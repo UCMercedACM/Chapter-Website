@@ -292,14 +292,18 @@ $animation-duration: infinite;
 
 
         img {
-          width: 100%;
+          // width: 160px;
+          // height: 150px;
+          // margin: -15px;
+          width: 120%;
           height: auto;
+          margin: -11px;
           transform: rotate(-45deg);
         }
       }
 
-      &__blank {
-        background-color: rgba(0, 0, 0, 0);
+      &__profile {
+        background-color: grey;
       }
     }
   }
