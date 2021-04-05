@@ -32,6 +32,7 @@
       display: inline-block;
       text-align: center;
       margin: 0 1rem;
+      padding: 2% 0% 0% 0%;
 
       a {
         text-decoration: none;
@@ -43,9 +44,9 @@
 
 .bar {
   width: 120%;
-  height: 11px;
+  height: 10px;
   background: var(--tertiary);
-  border-radius: 9px;
+  border-radius: 25px;
   margin: 5px 0 0 -10%;
 }
 

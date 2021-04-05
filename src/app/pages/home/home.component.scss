@@ -133,7 +133,7 @@ $animation-duration: infinite;
         font-family: "Montserrat", sans-serif;
         font-style: normal;
         font-weight: normal;
-        font-size: 20px;
+        font-size: 15px;
         line-height: 40px;
         display: flex;
         align-items: center;
@@ -210,12 +210,13 @@ $animation-duration: infinite;
             font-size: 20px;
             line-height: 30px;
             color: var(--headline);
+            padding-bottom: 10px;
           }
 
           &__text {
             font-family: "Montserrat", sans-serif;
             font-size: 15px;
-            line-height: 18px;
+            line-height: 25px;
             color: var(--text-inverted);
           }
 
@@ -259,12 +260,12 @@ $animation-duration: infinite;
           font-family: "Montserrat", sans-serif;
           font-style: normal;
           font-weight: 600;
-          font-size: 11px;
+          font-size: 10px;
           line-height: 15px;
           letter-spacing: 0.08em;
           color: var(--text-inverted);
           padding: 0 2ch;
-          text-align: center;
+
         }
       }
     }
