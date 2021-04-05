@@ -23,31 +23,31 @@
     display: flex;
 
     li {
-      font-family: "Montserrat", sans-serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 22px;
-      letter-spacing: 0.15em;
-      display: inline-block;
-      text-align: center;
       margin: 0 1rem;
       padding: 2% 0% 0% 0%;
 
       a {
+        font-family: "Montserrat", sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0.15em;
+        text-align: center;
         text-decoration: none;
         color: var(--background);
       }
+
+      > .bar {
+        width: 100%;
+        height: 11px;
+        background: var(--tertiary);
+        backdrop-filter: blur(20px);
+        border-radius: 9px;
+        margin: 5px 0 0 0;
+      }
     }
   }
-}
-
-.bar {
-  width: 120%;
-  height: 10px;
-  background: var(--tertiary);
-  border-radius: 25px;
-  margin: 5px 0 0 -10%;
 }
 
 .footer {
