@@ -28,7 +28,7 @@ $animation-duration: infinite;
 
       &__title {
         font-family: "Bebas Neue", cursive;
-        font-size: 45px;
+        font-size: 42px;
         line-height: 54px;
         letter-spacing: 0.08em;
         color: var(--headline);
@@ -37,8 +37,8 @@ $animation-duration: infinite;
 
       &__text {
         font-family: "Montserrat", sans-serif;
-        font-size: 23px;
-        line-height: 40px;
+        font-size: 20px;
+        line-height: 45px;
         letter-spacing: 0.05em;
         color: var(--text);
         width: 85%;
@@ -120,27 +120,31 @@ $animation-duration: infinite;
     }
   }
 
+
+  // ----- ABOUT US -----
+
   &__about-us {
     display: grid;
     place-items: center;
+    
 
     &__container {
       display: grid;
       grid-template-columns: 1fr minmax(535px, 25%);
-      padding: 5vh 10vw;
+      padding: 10vh 10vw;
       width: 100%;
 
       &__text {
         font-family: "Montserrat", sans-serif;
         font-style: normal;
         font-weight: normal;
-        font-size: 15px;
+        font-size: 16px;
         line-height: 40px;
         display: flex;
         align-items: center;
         letter-spacing: 0.05em;
         color: var(--text-inverted);
-        padding-right: 5rem;
+        padding-right: 3rem;
       }
 
       &__image {
@@ -194,6 +198,8 @@ $animation-duration: infinite;
     }
   }
 
+  // ----- GOALS -----
+
   &__goals {
     display: grid;
     place-items: center;
@@ -218,6 +224,7 @@ $animation-duration: infinite;
         img {
           object-fit: contain;
           width: clamp(50px, 100px, 150px);
+          padding-right: 30px;
         }
 
         &__content {
@@ -236,7 +243,7 @@ $animation-duration: infinite;
           &__text {
             font-family: "Montserrat", sans-serif;
             font-size: 15px;
-            line-height: 25px;
+            line-height: 30px;
             color: var(--text-inverted);
           }
 
@@ -250,6 +257,8 @@ $animation-duration: infinite;
       }
     }
   }
+
+// ----- SIGS -----
 
   &__sigs {
     display: grid;
@@ -292,6 +301,7 @@ $animation-duration: infinite;
 
   &__leadership {
     overflow: hidden;
+    padding-top: 5%;
 
     &__members {
       display: grid;
