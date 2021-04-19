@@ -1,13 +1,12 @@
-name: Deploy and Update Release Notes
+name: Deploy
 
 on:
-  push:
-    branches:
-      - master # Successful Merge on master branch
+  schedule:
+    - cron: "0 17 * * 5"
 
 jobs:
   deploy:
-    name: Deploy Angular Application
+    name: Deploy Chapter Website
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -52,34 +51,3 @@ jobs:
         run: |
           echo 'Tagging Deployment...'
           git tag -l ${{ github.event.pull_request.head.ref }}
-
-  release:
-    name: Update Release notes and Changelog
-    runs-on: ${{ matrix.os }}
-    needs: deploy
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-        os: [ubuntu-latest]
-
-    steps:
-      - name: Checkout to current branch
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-
-      - name: Configure Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: |
-          echo 'Running Setup...'
-          yarn
-
-      - name: Update Release notes
-        run: |
-          echo 'Update Release Notes...'
-          yarn gren --token=${{ secrets.GREN_GITHUB_TOKEN }}

@@ -8,7 +8,6 @@
     "deploy": "yarn build && ngh --branch=gh-pages --no-silent",
     "docker": "ng serve --host 0.0.0.0 --port 4200",
     "e2e": "ng e2e",
-    "gren": "gren release --override --tags=all --config=.grenrc.js",
     "lint": "ng lint",
     "ng": "ng",
     "start": "ng serve",
