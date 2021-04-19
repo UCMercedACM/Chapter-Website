@@ -110,8 +110,8 @@
         margin: 0 0.75rem;
         background-color: rgba(0, 0, 0, 0);
         border-radius: 9999px;
-        height: clamp(2vw, 3rem, 10vw);
-        width: clamp(2vw, 3rem, 10vw);
+        height: clamp(5vw, 3rem, 10vw);
+        width: clamp(3vw, 3rem, 10vw);
         display: inline-block;
         transform: translateX(0) translateY(0) rotate(0) skewX(0) skewY(0)
           scaleX(1) scaleY(1);
@@ -124,7 +124,7 @@
         }
 
         &__link {
-          font-size: 1.25rem;
+          font-size: 2rem;
           line-height: 1.75rem;
 
           &,
