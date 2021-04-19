@@ -126,8 +126,9 @@ $animation-duration: infinite;
 
     &__container {
       display: grid;
-      grid-template-columns: 1fr minmax(500px, 25%);
-      padding: 10vh 10vw;
+      grid-template-columns: 1fr minmax(535px, 25%);
+      padding: 5vh 10vw;
+      width: 100%;
 
       &__text {
         font-family: "Montserrat", sans-serif;
@@ -143,8 +144,8 @@ $animation-duration: infinite;
       }
 
       &__image {
-        width: 700px;
-        height: 450px;
+        width: 535px;
+        height: 420px;
         position: relative;
 
         &__front {
@@ -169,6 +170,25 @@ $animation-duration: infinite;
           width: 500px;
           height: 385px;
           position: absolute;
+        }
+      }
+
+      @media screen and (max-width: 1300px) {
+        grid-template-columns: 1fr;
+        place-items: center;
+
+        &__text {
+          padding: 0 0 2rem 0;
+        }
+      }
+
+      @media screen and (max-width: 500px) {
+        padding: 5vh 5vw;
+        place-items: start;
+
+        &__image {
+          width: 535px;
+          height: 420px;
         }
       }
     }
@@ -265,7 +285,6 @@ $animation-duration: infinite;
           letter-spacing: 0.08em;
           color: var(--text-inverted);
           padding: 0 2ch;
-
         }
       }
     }
@@ -284,13 +303,13 @@ $animation-duration: infinite;
       justify-content: center;
       transform: rotate(45deg);
 
-      &__profile, &__blank {
+      &__profile,
+      &__blank {
         width: 128px;
         height: 128px;
         border-radius: 40px;
         padding: 0;
         overflow: hidden;
-
 
         img {
           // width: 160px;
