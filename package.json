@@ -69,6 +69,7 @@
     "@types/node": "12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "angular-cli-ghpages": "1.0.0-rc.2",
     "babel-loader": "8.2.2",
     "codelyzer": "6.0.0",
     "eslint": "^7.6.0",
