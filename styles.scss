@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+:root {
+  --landing-background: rgba(0, 225, 191, 0.8);
+  --background: #f5f5f5;
+  --button: #084778;
+  --headline: #084778;
+  --secondary: #0d2e47;
+  --tertiary: #3da9fc;
+  --text: #ffffff;
+  --acm-logo: rgba(0, 133, 202, 0.8);
+  --design-logo: #ffc5f0;
+  --iot-logo: #d1ffcf;
+  --cyber-security-logo: #fff7af;
+  --ai-logo: #c6fdff;
+  --swe-logo: #b0a6ff;
+  --text-inverted: #101429;
+  --section-title: #084A7C;
+}
