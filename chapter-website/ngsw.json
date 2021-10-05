@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1624037076567,
+  "timestamp": 1633461163927,
   "index": "https://ucmercedacm.github.io/Chapter-Website/index.html",
   "assetGroups": [
     {
@@ -95,7 +95,7 @@
     "https://ucmercedacm.github.io/Chapter-Website/assets/images/swe_logo_v2.png": "3a3caacd82e4c3f883e0dddb64b78c921488539b",
     "https://ucmercedacm.github.io/Chapter-Website/assets/interfaces/leadership.model.ts": "12a42792373833035b67c02ebd9be2a03616fa88",
     "https://ucmercedacm.github.io/Chapter-Website/favicon.ico": "e7e58ae8629b78337043601e7a985cfd12757261",
-    "https://ucmercedacm.github.io/Chapter-Website/index.html": "8f864c7d47d560dd56648f963e765200ea2cb2f1",
+    "https://ucmercedacm.github.io/Chapter-Website/index.html": "d1c758f8c28927e48abe84d09c81fcf2fc2e4fea",
     "https://ucmercedacm.github.io/Chapter-Website/main-es2015.cd4ca71773c621732d67.js": "380fa2cc58431a1fb429dffdb9d0cb43db61ae13",
     "https://ucmercedacm.github.io/Chapter-Website/main-es5.cd4ca71773c621732d67.js": "5f6842cbfc5f71ddb97a8a4633a67276c1a8f92b",
     "https://ucmercedacm.github.io/Chapter-Website/manifest.webmanifest": "f8e92aebdc478299350b1854269a1af0a840a8e4",
