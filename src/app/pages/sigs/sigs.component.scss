@@ -37,8 +37,13 @@
             }
         }
     }
+
+    // ---- Topics ----
+
     &__topics{
         &__list{
+            // position: relative;
+            margin: 0 10vw 0 10vw;
             font-family: Montserrat;
             font-style: normal;
             font-weight: normal;
@@ -49,14 +54,48 @@
 
             color: #000000;
             &__element{
-                margin-bottom: 5px;
+                &__subtitle{
+                    margin: 6vh 0 6vh 0;
+                }
+                margin-bottom: 230px;
                 &__row{
                     font-size: 15px;
                     line-height: 30px;
-                    &__column__video,
-                    &__column__caption{
-                        float: left;
-                        width: 50%;
+                    &__column{
+                        // position: relative;
+                        &__video,
+                        &__caption{
+                            float: left;
+                            width: 50%;
+                        }
+                        &__video{
+                            // position: absolute;
+                            // margin: 0 5vw 0 5vw;
+                            // position: absolute;
+                            // top: 50%;
+                            // display: flex;
+                            // align-items: center;
+                            overflow: hidden;
+                            // width: 39vw;
+                            // height: 10vh;
+                            // border: 10px solid pink;
+                            // border-radius: 25px;
+                            // box-shadow: 0 2px 2px 2px;
+                            // align-items: center;
+
+                        }
+                        &__caption{
+                            // position: absolute;
+                            // width: 39vw;
+                            // margin: 0 5vw 0 5vw;
+                            padding: 0 2vw 0 2vw;
+                            h4{
+                                font-size: 20px;
+                            }
+                            p{
+                                margin-top: 2vh;
+                            }
+                        }
                     }
                     display: table;
                     clear: both;
