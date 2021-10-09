@@ -1,33 +1,66 @@
-.sigs{
+.sigs {
     background-color: var(--background);
-    width: 100%;
-    height: auto;
-    &__front{
+    margin-top: 45px;
+    &__landing {
         background-color: var(--landing-background);
-        width: 100%;
-        height: calc(70vh + 45px);
-        display: grid;
-        place-items: center;
-        // grid-template-columns: 1fr minmax(150px, 25%);
-        // padding: calc(82px + 8vh) 10vw 0 10vw;
+        padding: 133px 0 230px 0;
+        // padding-top: 133px;
+        // padding-bottom: 230px;
         overflow-y: hidden;
-        &__content{
-            // text-align: center;
-            // width: 8em;
-            line-height: 35px;
-            letter-spacing: 0.13em;
-            color: var(--secondary);
-            &__title{
-                font-family: "Bebas Neue", cursive;
-                text-align: center;
-                font-size: 70px;
-                line-height: 54px;
-                letter-spacing: 0.08em;
-                color: var(--headline);
-                padding: 1rem 0;
+
+        &__content {
+            margin: 0 15vw 0 15vw;
+            // margin: 0 auto;
+            // width: 50vw;
+            &__title {
+            text-align: center;
+            font-weight: normal;
+            font-size: 72px;
+            color: var(--headline);
+            font-family: Bebas Neue;
+            font-style: normal;
+            letter-spacing: 0.08em;
             }
-            &__paragraph{
-                text-align: left;
+
+            &__text {
+            vertical-align: top;
+            color: var(--text);
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 21px;
+            line-height: 40px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 0.05em;
+            margin: 0 5vw 0 5vw;
+            }
+        }
+    }
+    &__topics{
+        &__list{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 40px;
+            align-items: center;
+            letter-spacing: 0.08em;
+
+            color: #000000;
+            &__element{
+                margin-bottom: 5px;
+                &__row{
+                    font-size: 15px;
+                    line-height: 30px;
+                    &__column__video,
+                    &__column__caption{
+                        float: left;
+                        width: 50%;
+                    }
+                    display: table;
+                    clear: both;
+                }
             }
         }
     }

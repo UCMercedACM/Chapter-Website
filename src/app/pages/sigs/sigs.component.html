@@ -1,11 +1,11 @@
-<p>sigs works!</p>
+<!-- <p>sigs works!</p> -->
 <main class="sigs">
-    <section class="sigs__front">
-        <div class="sigs__front__content">
-            <h1 class="sigs__front__content__title">
+    <section class="sigs__landing">
+        <div class="sigs__landing__content">
+            <h1 class="sigs__landing__content__title">
                 Special Interest Groups
             </h1>
-            <p class="sigs__front__content__paragraph">ACM's Special Interest Groups (SIGs) represent major 
+            <p class="sigs__landing__content__text">ACM's Special Interest Groups (SIGs) represent major 
                 areas of computing, addressing the interests of technical 
                 communities that drive innovation. SIGs offer a wealth of 
                 conferences, publications and activities focused on specific 
@@ -26,4 +26,37 @@
             >
             </path>
     </svg>
+    <section class="sigs__topics">
+        <ul class="sigs__topics__list">
+            <li class="sigs__topics__list__element">
+                <app-section-title [text]="'Software Engineering (SWE)'"></app-section-title>
+                <p>The ACM Special Interest Group on Software Engineering seeks to improve our ability to engineer software by stimulating interaction among practitioners, researchers, and educators; by fostering the professional development of software engineers; and by representing software engineers to professional, legal, and political entities.</p>
+                <div class="sigs__topics__list__element__row">
+                    <div class="sigs__topics__list__element__row__column__video">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BHlhxNOEHS4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="sigs__topics__list__element__row__column__caption">
+                        <h4>Introduction to React</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="sigs__topics__list__element">
+                <app-section-title [text]="'Cybersecurity'"></app-section-title>
+                <p>The ACM Special Interest Group on Cybersecurity seeks is to develop the information security profession by sponsoring high quality research conferences and workshops. SIGSAC conferences address all aspects of information and system security, encompassing security technologies, secure systems, security applications, and security policies. Security technologies include access control, assurance, authentication, cryptography, intrusion detection, penetration techniques, risk analysis, and secure protocols.</p>
+                <div class="sigs__topics__list__element__row">
+                    <div class="sigs__topics__list__element__row__column__video">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/En07mqDS640" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="sigs__topics__list__element__row__column__caption">
+                        <h4>Introduction to React</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+    </section>
+
 </main>
