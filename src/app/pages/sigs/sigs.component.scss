@@ -1,0 +1,34 @@
+.sigs{
+    background-color: var(--background);
+    width: 100%;
+    height: auto;
+    &__front{
+        background-color: var(--landing-background);
+        width: 100%;
+        height: calc(70vh + 45px);
+        display: grid;
+        place-items: center;
+        // grid-template-columns: 1fr minmax(150px, 25%);
+        // padding: calc(82px + 8vh) 10vw 0 10vw;
+        overflow-y: hidden;
+        &__content{
+            // text-align: center;
+            // width: 8em;
+            line-height: 35px;
+            letter-spacing: 0.13em;
+            color: var(--secondary);
+            &__title{
+                font-family: "Bebas Neue", cursive;
+                text-align: center;
+                font-size: 70px;
+                line-height: 54px;
+                letter-spacing: 0.08em;
+                color: var(--headline);
+                padding: 1rem 0;
+            }
+            &__paragraph{
+                text-align: left;
+            }
+        }
+    }
+}
