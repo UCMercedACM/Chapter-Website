@@ -9,26 +9,13 @@
 
         @media (max-width: 480px){
             height: auto;
-            // padding: 133px 0 230px 0;
-
         }
 
         &__content {
             text-align: center;
             display: table;
             margin: 12vh auto;
-            // width: 100%;
-            // @media (min-width: 1110) {
-            //     // margin: 0 40vw 0 40vw;
-            //     &__text{
-
-            //     }
-            // }
-            // margin: 14vh 15vw 0 15vw;
-            // height: 70%;
-            // flex-shrink: 100;
             &__title {
-                // text-align: center;
                 font-weight: normal;
                 font-size: 72px;
                 color: var(--headline);
@@ -41,8 +28,6 @@
                 text-align: left;
                 margin-left: 1.5vw;
                 max-width: 700px;
-                // width: 80%;
-                // vertical-align: top;
                 color: var(--text);
                 font-family: Montserrat;
                 font-style: normal;
@@ -50,9 +35,7 @@
                 font-size: 21px;
                 line-height: 40px;
                 display: flex;
-                // align-items: center;
                 letter-spacing: 0.05em;
-                // margin: 0 5vw 0 5vw;
             }
         }
     }
@@ -75,52 +58,56 @@
                 &__subtitle{
                     margin: 6vh 0 6vh 0;
                 }
-                &__content{
-                    width: auto;
-                    align-items: center;
-                    justify-content: center;
-                    flex-grow: 0.3;
-                    // width: calc(50% - 10vw);
-                    display: flex;
-                    flex-direction: row;
-                    // margin: 5vh 2vw;
-                    iframe{
-                        // padding-right: 100px;
-                        border-radius: 30px;
-                        box-shadow: 5px 10px 8px #888888;
-                        object-fit: contain;
-                        width: 50vw;
-                        height: 14vw;
-                        // padding-right: 30px;
-                    }
-                    &__caption{
-                        // width: 130vw;
-                        margin-left: 3vw;
-                        h4{
-                            font-size: 23px;
-                            // font-weight: 100px;
+                    &__content{
+                        align-items: center;
+                        justify-content: start;
+                        display: flex;
+                        flex-direction: row-reverse;
+                        &__caption{
+                            width: 46vw;
+                            flex-shrink: 4;
+                            margin-left: 2vw;
+                            h4{
+                                font-size: 23px;
+                            }
+                            p{
+                                font-size: 15px;
+                            }
                         }
-                        p{
-                            font-size: 15px;
+                        &__video{
+                            iframe{
+                                flex-grow: 10;
+                                min-width: 27vw;
+                                margin-right: 2vw;
+                                border-radius: 30px;
+                                box-shadow: 5px 10px 8px #888888;
+                                height: 14vw;
+                            }
                         }
                     }
-                    // @media (max-width:900px) and (min-width:760px) {
-
-                    // }
-                    @media (max-width: 843px) {
-                        display: block;
+                @media (max-width: 1200px) {
+                    &__content{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        align-items: center;
                         iframe{
-                            align-items: center;
-                            margin-bottom: 4vh;
-                            margin-left: 13vw;
+                            margin-bottom: 2vh;
                             width: 50vw;
-                            height: 20vh;
+                            height: 27vh;
+                            border-radius: 30px;
+                            box-shadow: 5px 10px 8px #888888;
                         }
                         &__caption{
-                            margin-left: 0;
+                            margin: 0;
+                            width: 80vw;
+                            margin-bottom: 2vh;
                         }
                     }
                 }
+            }
+            @media (max-width: 1200px) {
+                margin: 0 2vw 0 2vw;
             }
         }
     }
