@@ -26,17 +26,17 @@
     <section class="events__events-overview">
         <div class="events__events-overview__content">
             <app-section-title [text]="'Fall 2021 Events Overview'"></app-section-title>
-            <div class="events__events-overview__content__sig-list">
-                <div class="events__events-overview__content__sig-list__item">
+            <div class="events__events-overview__content__event-list">
+                <div class="events__events-overview__content__event-list__item">
                     <p>Artificial Intelligence (AI) SIG Workshops</p>
                 </div>
-                <div class="events__events-overview__content__sig-list__item">
+                <div class="events__events-overview__content__event-list__item">
                     <p>Cybersecurity SIG Workshops</p>
                 </div>
-                <div class="events__events-overview__content__sig-list__item">
+                <div class="events__events-overview__content__event-list__item">
                     <p>Software Engineering (SWE) SIG Workshops</p>
                 </div>
-                <div class="events__events-overview__content__sig-list__item">
+                <div class="events__events-overview__content__event-list__item">
                     <p>General Meetings</p>
                 </div>
             </div>
@@ -45,15 +45,56 @@
     <section class="events__upcoming">
         <div class="events__upcoming__content">
             <app-section-title [text]="'Upcoming Events'"></app-section-title>
-            <div class="events__upcoming__container__top">
-                
-            </div>
-            <div class="events__upcoming__content__bottom">
-                <table class="events__upcoming__content__bottom__events__table">
-                    <tr class="events__upcoming__content__bottom__events__table__entry">Intro to JavaScript Workshop</tr>
-                    <tr class="events__upcoming__content__bottom__events__table__entry">JavaScript API Workshop</tr>
-                    <tr class="events__upcoming__content__bottom__events__table__entry">Intro to Tableau Workshop</tr>
-                </table>
+            <div class="events__upcoming__content__upcoming-list">
+                <div class="events__upcoming__content__upcoming-list__top">
+                    <div class="events__upcoming__content__upcoming-list__top__decorative-buttons">
+                        <div class="events__upcoming__content__upcoming-list__top__decorative-buttons__first"></div>
+                        <div class="events__upcoming__content__upcoming-list__top__decorative-buttons__second"></div>
+                        <div class="events__upcoming__content__upcoming-list__top__decorative-buttons__third"></div>
+                    </div>
+                </div>
+                <div class="events__upcoming__content__upcoming-list__bottom">
+                    <div class="events__upcoming__content__upcoming-list__bottom__event-item">
+                        <div class="event-item-left-container">
+                            <p class="event-date">Oct 19</p>
+                            <p class="event-time">3-4pm</p>
+                        </div>
+                        <div class="event-item-middle-container">
+                            <h3 class="event-name">SWE SIG Intro to Databases Workshop</h3>
+                            <p class="event-description">Learn about Firebase and how to use it for the applications you're developing.</p>
+                        </div>
+                        <div class="event-item-right-container">
+                            <p class="event-location">COB 263</p>
+                        </div>
+                    </div>
+                    <div class="events__upcoming__content__upcoming-list__bottom__event-item">
+                        <div class="event-item-left-container">
+                            <p class="event-date">Oct 19</p>
+                            <p class="event-time">6:30-7:30pm</p>
+                        </div>
+                        <div class="event-item-middle-container">
+                            <h3 class="event-name">Cybersecurity SIG Intro to Web Exploitation Workshop</h3>
+                            <p class="event-description">Learn about web exploitation in our next cybersecurity workshop.</p>
+                        </div>
+                        <div class="event-item-right-container">
+                            <p class="event-location">COB 267</p>
+                        </div>
+                    </div>
+                    <div class="events__upcoming__content__upcoming-list__bottom__event-item">
+                        <div class="event-item-left-container">
+                            <p class="event-date">Oct 28</p>
+                            <p class="event-time">6-7pm</p>
+                        </div>
+                        <div class="event-item-middle-container">
+                            <h3 class="event-name">General Meeting 2</h3>
+                            <p class="event-description">Join us for our second general meeting of the semester where we'll be discussing the latest updates and upcoming events.</p>
+                        </div>
+                        <div class="event-item-right-container">
+                            <p class="event-location">COB 120</p>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </section>

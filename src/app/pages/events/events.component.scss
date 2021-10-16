@@ -62,7 +62,6 @@
                     &__text {
                         font-size: 21px;
                         font-weight: normal;
-                        // text-transform: uppercase;
                         text-decoration: none;
                         color: var(--text);
                     }
@@ -80,25 +79,28 @@
 
     &__events-overview {
         width: 100%;
-        height: 100vh;
+        height: 90vh;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
 
         &__content {
-            width: 75%;
-            &__sig-list {
+            width: 65%;
+            &__event-list {
                 margin-top: 50px;
                 display: grid;
                 grid-template-rows: 1fr 1fr;
                 grid-template-columns: 1fr 1fr;
-                gap: 20px;
+                gap: 30px;
+                padding: 20px;
 
                 &__item {
                     width: 100%;
                     height: 200px;
-                    background-color: #e9ecef;
+                    justify-self: center;
+                    background-color: #F9F8F8;
+                    box-shadow: 0px 8px 20px rgba(112, 144, 176, 0.2);
                     border-radius: 30px;
                     padding: 20px;
                     display: flex;
@@ -109,6 +111,114 @@
                     p {
                         font-size: 23px;
                         color: var(--text-inverted);
+                    }
+                }
+            }
+        }
+    }
+
+    &__upcoming {
+        width: 100%;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        &__content {
+            width: 90vw;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            &__upcoming-list {
+                margin-top: 50px;
+                width: 80%;
+                height: 80%;
+
+                &__top {
+                    height: 45px;
+                    border-top-left-radius: 15px;
+                    border-top-right-radius: 15px;
+                    background-color: var(--landing-background);
+                    position: relative;
+
+                    &__decorative-buttons {
+                        position: absolute;
+                        width: 120px;
+                        height: 80%;
+                        left: 20px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+                        align-items: center;
+
+                        &__first, &__second, &__third {
+                            border-radius: 50%;
+                            width: 26px;
+                            height: 26px;
+                        }
+
+                        &__first {
+                            background-color: #FEA1A1;
+                        }
+
+                        &__second {
+                            background-color: #E3EE9F;
+                        }
+
+                        &__third {
+                            background-color: #6DFF8D;
+                        }
+                    }
+                }
+
+                &__bottom {
+                    background-color: #F9F8F8;
+                    height: calc(100% - 45px);
+                    padding: 20px;
+                    border-bottom-left-radius: 15px;
+                    border-bottom-right-radius: 15px;
+                    display: grid;
+                    grid-template-rows: 1fr 1fr 1fr;
+                    gap: 20px;
+
+                    &__event-item {
+                        border-radius: 30px;
+                        box-shadow: 0px 8px 25px rgba(112, 144, 176, 0.2);
+                        display: grid;
+                        grid-template-columns: 1fr 3fr 1fr;
+                        justify-items: center;
+                        align-items: center;
+                        font-size: 23px;
+
+                        .event-item-left-container {
+                            text-align: center;
+
+                            .event-date {
+                                text-transform: uppercase;
+                                color: var(--headline);
+                            }
+
+                            .event-time {
+                                font-size: 18px;
+                            }
+                        }
+
+                        .event-item-middle-container {
+                            .event-name {
+                                font-size: 23px;
+                                color: var(--headline);
+                            }
+
+                            .event-description {
+                                margin-top: 10px;
+                                font-size: 18px;
+                            }
+                        }
                     }
                 }
             }
