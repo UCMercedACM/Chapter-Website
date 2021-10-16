@@ -1,0 +1,81 @@
+.events {
+    background-color: var(--background);
+    width: 100%;
+    height: auto;
+    margin-top: 45px;
+    font-family: "Montserrat", Arial, Helvetica, sans-serif;
+    letter-spacing: .05em;
+
+    &__landing {
+        background-color: var(--landing-background);
+        width: 100%;
+        height: calc(50vh);
+        position: relative;
+
+        &__content {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 75%;
+
+            &__title {
+                font-family: "Bebas Neue", Arial, Helvetica, sans-serif;
+                font-size: 72px;
+                font-weight: normal;
+                letter-spacing: .08em;
+                color: var(--headline);
+            }
+
+            &__text {
+                font-size: 21px;
+                color: var(--text);
+            }
+
+            &__button {
+                width: 70%;
+                height: 79px;
+                position: relative;
+                margin-top: 10%;
+
+                &__front, &__behind {
+                    height: 64px;
+                    width: calc(100% - 15px);
+                    border-radius: 30px;
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                &__front {
+                    background-color: var(--button);
+                    z-index: 2;
+                    box-shadow: -6px -6px 10px rgba(61, 169, 252, .2),
+                        6px 6px 10px rgba(0, 29, 53, .25);
+
+                    &__text {
+                        font-size: 21px;
+                        font-weight: normal;
+                        text-transform: uppercase;
+                        text-decoration: none;
+                        color: var(--text);
+                    }
+                }
+
+                &__behind {
+                    background: rgba(245, 245, 245, .75);
+                    backdrop-filter: blur(20px);
+                    top: 15px;
+                    left: 15px;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}
