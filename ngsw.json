@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1633992383300,
+  "timestamp": 1634453982359,
   "index": "/Chapter-Website/index.html",
   "assetGroups": [
     {
@@ -13,14 +13,14 @@
       "urls": [
         "/Chapter-Website/favicon.ico",
         "/Chapter-Website/index.html",
-        "/Chapter-Website/main-es2015.ab6d54f6b24d8a9433c4.js",
-        "/Chapter-Website/main-es5.ab6d54f6b24d8a9433c4.js",
+        "/Chapter-Website/main-es2015.51fff73bb8f0b2387f19.js",
+        "/Chapter-Website/main-es5.51fff73bb8f0b2387f19.js",
         "/Chapter-Website/manifest.webmanifest",
         "/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js",
         "/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js",
         "/Chapter-Website/runtime-es2015.4008b8a4bb7b8c9cd11f.js",
         "/Chapter-Website/runtime-es5.4008b8a4bb7b8c9cd11f.js",
-        "/Chapter-Website/styles.f08317a071ae788daf08.css"
+        "/Chapter-Website/styles.080cba85de2bbf17a04c.css"
       ],
       "patterns": []
     },
@@ -95,15 +95,15 @@
     "/Chapter-Website/assets/images/swe_logo_v2.png": "3a3caacd82e4c3f883e0dddb64b78c921488539b",
     "/Chapter-Website/assets/interfaces/leadership.model.ts": "12a42792373833035b67c02ebd9be2a03616fa88",
     "/Chapter-Website/favicon.ico": "e7e58ae8629b78337043601e7a985cfd12757261",
-    "/Chapter-Website/index.html": "bd2e80779bca2b6547584f35151816763bd4695e",
-    "/Chapter-Website/main-es2015.ab6d54f6b24d8a9433c4.js": "eea3813294f53a1be5cb83dc0d5abf5ff088928f",
-    "/Chapter-Website/main-es5.ab6d54f6b24d8a9433c4.js": "c54d2b94e8d4542ca50cb9f46f5922820391e64e",
+    "/Chapter-Website/index.html": "503bd034476bf93a34161b7d1a3e847e794002df",
+    "/Chapter-Website/main-es2015.51fff73bb8f0b2387f19.js": "87e5050ecfb0c2ec18340927d93b4fd9f3b2f9aa",
+    "/Chapter-Website/main-es5.51fff73bb8f0b2387f19.js": "d754a94ba19ae76ab66326442854ddece84b8479",
     "/Chapter-Website/manifest.webmanifest": "f8e92aebdc478299350b1854269a1af0a840a8e4",
     "/Chapter-Website/polyfills-es2015.f691d23ab622231863b8.js": "e0beba5d1ab83a602698e7bd630f7552b06cb1e1",
     "/Chapter-Website/polyfills-es5.0136ed38ac25d54dbd59.js": "5adba0daece150ee84aa6a61066626bd0339780d",
     "/Chapter-Website/runtime-es2015.4008b8a4bb7b8c9cd11f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
     "/Chapter-Website/runtime-es5.4008b8a4bb7b8c9cd11f.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/Chapter-Website/styles.f08317a071ae788daf08.css": "50c9d0491486fa803eb7c498b98404d8695b78ab"
+    "/Chapter-Website/styles.080cba85de2bbf17a04c.css": "418a06e260aece99b66b8c1af47aead221423b00"
   },
   "navigationUrls": [
     {
