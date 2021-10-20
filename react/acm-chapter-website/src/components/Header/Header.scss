@@ -27,7 +27,7 @@
       margin: 0 1rem;
       padding: 2% 0% 0% 0%;
 
-      a {
+      .inactive {
         font-family: "Montserrat", sans-serif;
         font-style: normal;
         font-weight: 600;
@@ -37,15 +37,22 @@
         text-align: center;
         text-decoration: none;
         color: var(--background);
+        z-index: 1;
+        display: inline-block;
       }
 
-      >.bar {
-        width: 100%;
-        height: 11px;
-        background: var(--tertiary);
-        backdrop-filter: blur(20px);
-        border-radius: 9px;
-        margin: 5px 0 0 0;
+      // .active {
+      //   width: 100%;
+      //   height: 11px;
+      //   background: var(--tertiary);
+      //   backdrop-filter: blur(20px);
+      //   border-radius: 9px;
+      //   margin: 5px 0 0 0;
+      // }
+
+      .active {
+        border-bottom: 5px solid #29b6f6;
+        transition: border-bottom .5s ease-in-out;
       }
     }
   }
