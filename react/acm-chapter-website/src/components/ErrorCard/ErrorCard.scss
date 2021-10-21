@@ -1,0 +1,26 @@
+  .errorCard {
+    margin: 40vh auto auto 0;
+    padding: 5%;
+    width: 20%;
+    height: 40%;
+    background: var(--landing-background);
+    font-family: "Montserrat", sans-serif;
+    max-height: 25%;
+    max-width: 50%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+
+    .tag {
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+    .error {
+
+    }
+  }

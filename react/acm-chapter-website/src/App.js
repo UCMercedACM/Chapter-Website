@@ -10,29 +10,26 @@ import Resources from "./pages/resources/Resources";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Dashboard from "./pages/dashboard/dashboard";
-import { AuthProvider} from "./contexts/AuthContext";
-import PrivateRoute from "./components/PrivateRoute"
+import { AuthProvider } from "./contexts/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
-
-
 function App() {
-
   return (
     <Router>
-      <AuthProvider> 
-      <Header/>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/events" component={Events} exact />
-        <Route path="/sigs" component={Sigs} />
-        <Route path="/resources" component={Resources} />
-        <Route path="/reset" component={ResetPassword} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-      </Switch>
-      <Footer />
+      <AuthProvider>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/events" component={Events} exact />
+          <Route path="/sigs" component={Sigs} />
+          <Route path="/resources" component={Resources} />
+          <Route path="/reset" component={ResetPassword} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+        </Switch>
+        <Footer />
       </AuthProvider>
     </Router>
   );

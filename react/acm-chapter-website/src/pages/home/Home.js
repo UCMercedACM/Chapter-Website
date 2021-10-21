@@ -1,16 +1,28 @@
 import React from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import leadership from "../../data/leadership";
+import leaderships from "../../assets/data/leaderships.json";
+
+import acmLanParty from "../../assets/images/about-us.png";
+import projectManagement from "../../assets/images/project-management.png";
+import educationalTransperencyIcon from "../../assets/images/online-course.png";
+import community from "../../assets/images/communities.png";
+import socialResponsibiliy from "../../assets/images/social-responsibility.png";
+import acmLogo from "../../assets/images/acm_logo_v2.png";
+import sweLogo from "../../assets/images/swe_logo_v2.png";
+import aiLogo from "../../assets/images/ai_logo_v2.png";
+import cyberLogo from "../../assets/images/cyber_logo_v2.png";
+import designLogo from "../../assets/images/design_logo_v2.png";
+import iotLogo from "../../assets/images/iot_logo_v2.png";
+
 import "./Home.scss";
-import { db } from '../../firebase/config'
+import { db } from "../../firebase/config";
 const Home = () => {
-
-db.collection("test").doc("test").get().then((documentSnapshot) => {
-  console.log(documentSnapshot.data())
-})
-
-
-
+  db.collection("test")
+    .doc("test")
+    .get()
+    .then((documentSnapshot) => {
+      console.log(documentSnapshot.data());
+    });
 
   return (
     <main class="home">
@@ -29,7 +41,6 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
           <div class="home__landing__content__button">
             <div class="home__landing__content__button__front">
               <a
-                target="_blank"
                 class="home__landing__content__button__front__text"
                 href="http://bit.ly/acm-ucm-discord"
               >
@@ -348,7 +359,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
           </p>
           <div class="home__about-us__container__image">
             <div class="home__about-us__container__image__front">
-              <img src="assets/images/about-us.png" alt="ACM LAN Party" />
+              <img src={acmLanParty} alt="ACM LAN Party" />
             </div>
             <div class="home__about-us__container__image__behind"></div>
           </div>
@@ -358,10 +369,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
         <SectionTitle text="Goals" />
         <div class="home__goals__grid">
           <div class="home__goals__grid__cell">
-            <img
-              src="assets/images/project-management.png"
-              alt="Technical Excellence Icon"
-            />
+            <img src={projectManagement} alt="Technical Excellence Icon" />
             <div class="home__goals__grid__cell__content">
               <h4 class="home__goals__grid__cell__content__heading">
                 Technical Excellence
@@ -374,7 +382,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
           </div>
           <div class="home__goals__grid__cell">
             <img
-              src="assets/images/online-course.png"
+              src={educationalTransperencyIcon}
               alt="Educational Transparency Icon"
             />
             <div class="home__goals__grid__cell__content">
@@ -388,7 +396,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </div>
           </div>
           <div class="home__goals__grid__cell">
-            <img src="assets/images/communities.png" alt="Community Icon" />
+            <img src={community} alt="Community Icon" />
             <div class="home__goals__grid__cell__content">
               <h4 class="home__goals__grid__cell__content__heading">
                 Community
@@ -401,10 +409,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </div>
           </div>
           <div class="home__goals__grid__cell">
-            <img
-              src="assets/images/social-responsibility.png"
-              alt="Social Responsibility Icon"
-            />
+            <img src={socialResponsibiliy} alt="Social Responsibility Icon" />
             <div class="home__goals__grid__cell__content">
               <h4 class="home__goals__grid__cell__content__heading">
                 Social Responsibility
@@ -423,7 +428,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
         <SectionTitle text="Special Interest Groups" />
         <div class="home__sigs__container">
           <div class="home__sigs__container__sig">
-            <img src="assets/images/acm_logo_v2.png" alt="ACM" />
+            <img src={acmLogo} alt="ACM" />
             <p>
               <br></br> ACM’s Special Interest Groups (SIGs) represent the major
               areas of the dynamic computing field. <br></br>We are invested in
@@ -432,10 +437,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </p>
           </div>
           <div class="home__sigs__container__sig">
-            <img
-              src="assets/images/swe_logo_v2.png"
-              alt="Software Engineering SIG"
-            />
+            <img src={sweLogo} alt="Software Engineering SIG" />
             <p>
               <br></br>The ACM Special Interest Group on Software Engineering
               provides a forum for computing professionals from industry,
@@ -444,10 +446,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </p>
           </div>
           <div class="home__sigs__container__sig">
-            <img
-              src="assets/images/ai_logo_v2.png"
-              alt="Artificial Intelligence SIG"
-            />
+            <img src={aiLogo} alt="Artificial Intelligence SIG" />
             <p>
               <br></br>Lorem urna in ac cras sollicitudin integer. Feidn ekd
               ekdno if ejornk kejei ineput. Lorem urna in ac cras foene
@@ -455,10 +454,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </p>
           </div>
           <div class="home__sigs__container__sig">
-            <img
-              src="assets/images/cyber_logo_v2.png"
-              alt="Cyber Security SIG"
-            />
+            <img src={cyberLogo} alt="Cyber Security SIG" />
             <p>
               <br></br>Lorem urna in ac cras sollicitudin integer. Feidn ekd
               ekdno if ejornk kejei ineput. Lorem urna in ac cras foene
@@ -466,7 +462,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </p>
           </div>
           <div class="home__sigs__container__sig">
-            <img src="assets/images/design_logo_v2.png" alt="Design SIG" />
+            <img src={designLogo} alt="Design SIG" />
             <p>
               <br></br>The ACM Special Interest Group on Design is all about
               design with technology. <br></br>It is committed to advancing the
@@ -475,10 +471,7 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
             </p>
           </div>
           <div class="home__sigs__container__sig">
-            <img
-              src="assets/images/iot_logo_v2.png"
-              alt="Internet of Things SIG"
-            />
+            <img src={iotLogo} alt="Internet of Things SIG" />
             <p>
               <br></br>Lorem urna in ac cras sollicitudin integer. Feidn ekd
               ekdno if ejornk kejei ineput. Lorem urna in ac cras foene
@@ -487,19 +480,19 @@ db.collection("test").doc("test").get().then((documentSnapshot) => {
           </div>
         </div>
       </section>
-      <section class="home__leadership">
+      {/* <section class="home__leadership">
         <SectionTitle text="ACM Board" />
         <div class="home__leadership__members">
-          {leadership.map((leadership) => {
-            <div class="home__leadership__member__profile">
-              <img
-                src={leadership.picture}
-                alt="Leadership LinkedIn Profile Picture"
-              />
-            </div>;
+          {leaderships.map((leadership) => {
+            console.log(leadership.picture);
+            return (
+              <div class="home__leadership__member__profile">
+                <img src={leadership.picture} alt={leadership.firstName} />
+              </div>
+            );
           })}
         </div>
-      </section>
+      </section> */}
     </main>
   );
 };
