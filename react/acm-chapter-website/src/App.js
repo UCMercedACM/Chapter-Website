@@ -12,6 +12,7 @@ import Register from "./pages/register/Register";
 import Dashboard from "./pages/dashboard/dashboard";
 import { AuthProvider} from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute"
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/events" component={Events} exact />
         <Route path="/sigs" component={Sigs} />
         <Route path="/resources" component={Resources} />
+        <Route path="/reset" component={ResetPassword} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <PrivateRoute path="/dashboard" component={Dashboard} />

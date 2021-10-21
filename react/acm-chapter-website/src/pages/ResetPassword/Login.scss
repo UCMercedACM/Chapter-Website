@@ -1,0 +1,276 @@
+.login {
+  background-color: var(--background);
+
+  &__landing {
+    margin: auto;
+    width: 65%;
+    height: 40%;
+    background: var(--landing-background);
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    margin-top: 20vh;
+    max-height: 25%;
+    max-width: 50%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    header {
+      text-align: center;
+      margin: 5vh auto 2vh auto;
+
+      h2 {
+        font-size: 300%;
+        font-style: normal;
+        font-weight: 1000;
+        line-height: 96px;
+        letter-spacing: 0.03em;
+        color: #084a7c;
+      }
+
+      p {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 23px;
+        line-height: 40px;
+        /* or 174% */
+        letter-spacing: 0.05em;
+
+        color: #ffffff;
+      }
+    }
+
+    // .item {
+    //   background: #f8f8f8;
+    //   color: #838181;
+    //   padding: 14.5px 0px 15px 9px;
+    //   border-radius: 10px;
+    // }
+    .input {
+      width: 75%;
+      height: 50px;
+      margin-top: 2%;
+      margin-bottom: 3%;
+      padding: 15px;
+      font-size: 16px;
+      color: #5e6472;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+      transition: 0.2s linear;
+    }
+
+    input:focus {
+      transform: translateX(-2px);
+      border-radius: 5px;
+    }
+
+    // #txt-input {
+    //   width: 250px;
+    // }
+    // #eye {
+    //   position:absolute;
+    //   margin-top: 45px;
+    //   margin-left: 260px;
+    // }
+
+    a {
+      font-weight: 200;
+    }
+
+    a:hover {
+      color: rgb(160, 160, 160);
+    }
+
+    a:active {
+      color: black;
+    }
+
+    a:visited {
+      color: rgb(40, 61, 94);
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 18px;
+    }
+
+    button {
+      display: inline-block;
+      color: #f5f5f5;
+      background-color: #084778;
+      width: 280px;
+      height: 50px;
+      font-weight: 500;
+      font-size: 25px;
+      line-height: 30px;
+      padding: 0 20px;
+      border-radius: 30px;
+      box-shadow: -6px -6px 10px rgba(61, 169, 252, 0.2),
+        6px 6px 10px rgba(0, 29, 53, 0.25);
+      outline: none;
+      border: none;
+
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s linear;
+
+      margin: 7% %10;
+      letter-spacing: 0.05em;
+    }
+
+    button:hover {
+      transform: translatey(3px);
+      box-shadow: none;
+    }
+
+    /* buttons hover Animation */
+    button:hover {
+      animation: ani9 0.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes ani9 {
+      0% {
+        transform: translateY(3px);
+      }
+
+      100% {
+        transform: translateY(5px);
+      }
+    }
+
+    .align-x {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .align-x p {
+      margin-right: 10px;
+      color: #ffffff;
+      font-size: 20px;
+    }
+
+    .align-x a {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    .align-x label {
+      margin-right: 10px;
+      font-size: 10px;
+      color: #ffffff;
+    }
+
+    //checkbox (don't touch)
+    @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+      input[type="checkbox"] {
+        --active: #275efe;
+        --active-inner: #fff;
+        --focus: 2px rgba(39, 94, 254, 0.3);
+        --border: #bbc1e1;
+        --border-hover: #275efe;
+        --background: #fff;
+        --disabled: #f6f8ff;
+        --disabled-inner: #e1e6f9;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        height: 21px;
+        outline: none;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        margin: 0;
+        cursor: pointer;
+        border: 1px solid var(--bc, var(--border));
+        background: var(--b, var(--background));
+        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+
+        &:after {
+          content: "";
+          display: block;
+          left: 0;
+          top: 0;
+          position: absolute;
+          transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+            opacity var(--d-o, 0.2s);
+        }
+
+        &:checked {
+          --b: var(--active);
+          --bc: var(--active);
+          --d-o: 0.3s;
+          --d-t: 0.6s;
+          --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+        }
+
+        &:disabled {
+          --b: var(--disabled);
+          cursor: not-allowed;
+          opacity: 0.9;
+
+          &:checked {
+            --b: var(--disabled-inner);
+            --bc: var(--border);
+          }
+
+          & + label {
+            cursor: not-allowed;
+          }
+        }
+
+        &:hover {
+          &:not(:checked) {
+            &:not(:disabled) {
+              --bc: var(--border-hover);
+            }
+          }
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 var(--focus);
+        }
+
+        width: 21px;
+
+        &:after {
+          opacity: var(--o, 0);
+        }
+
+        &:checked {
+          --o: 1;
+        }
+
+        & + label {
+          font-size: 20px;
+          font-weight: bold;
+          display: inline-block;
+          vertical-align: top;
+          cursor: pointer;
+          margin-left: 4px;
+        }
+      }
+
+      input[type="checkbox"] {
+        &:after {
+          width: 5px;
+          height: 9px;
+          border: 2px solid var(--active-inner);
+          border-top: 0;
+          border-left: 0;
+          transform: rotate(var(--r, 20deg));
+        }
+
+        &:checked {
+          --r: 43deg;
+        }
+      }
+    }
+  }
+}

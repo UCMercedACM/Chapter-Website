@@ -7,7 +7,6 @@ export function useAuth() {
 }
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
   
   function signup(email, password,name) {
     var data;
@@ -37,6 +36,7 @@ export function AuthProvider({ children }) {
   }
 
   function resetPassword(email) {
+    console.log(email + 'yeet')
     return auth.sendPasswordResetEmail(email)
   }
 
@@ -56,7 +56,6 @@ export function AuthProvider({ children }) {
           .get()
           .then((document) => {
       setCurrentUser(document.data())
-      setLoading(false)
           })
     }})
   
@@ -75,7 +74,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   )
 }

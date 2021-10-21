@@ -32,15 +32,6 @@ export default function Dashboard() {
 
 <button onClick={handleLogout}type="logout">Logout</button>
 </div>
-      {/* <div style={{marginTop:100}}> 
-          <h2 className="text-center mb-4">Profile</h2>
-          <strong>Email:</strong> {currentUser.email}
-      <div className="w-100 text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log Out
-        </Button>
-      </div>
-      </div> */}
       </main>
     </>
   )

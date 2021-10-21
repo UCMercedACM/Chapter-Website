@@ -76,7 +76,7 @@ const Login = () => {
             <div className="align-x">
               <input id="c1d" type="checkbox" />
               <label for="c1d">Remember me?</label>
-              <Link to="">Forgot my password?</Link>
+              <Link to="/reset">Forgot my password?</Link>
             </div>
             <button type="submit" onClick={formik.handleSubmit}>
               Sign In
