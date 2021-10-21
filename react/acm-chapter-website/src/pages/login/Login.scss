@@ -39,7 +39,7 @@
         /* or 174% */
         letter-spacing: 0.05em;
 
-        color: #FFFFFF;
+        color: #ffffff;
       }
     }
 
@@ -56,7 +56,7 @@
       margin-bottom: 3%;
       padding: 15px;
       font-size: 16px;
-      color: #5E6472;
+      color: #5e6472;
       outline: none;
       border: none;
       border-radius: 10px;
@@ -151,12 +151,12 @@
 
     .align-x p {
       margin-right: 10px;
-      color: #FFFFFF;
+      color: #ffffff;
       font-size: 20px;
     }
 
     .align-x a {
-      color: #FFFFFF;
+      color: #ffffff;
       font-weight: bold;
       font-size: 20px;
       text-decoration: none;
@@ -165,21 +165,20 @@
     .align-x label {
       margin-right: 10px;
       font-size: 10px;
-      color: #FFFFFF;
+      color: #ffffff;
     }
 
     //checkbox (don't touch)
-    @supports(-webkit-appearance: none) or (-moz-appearance: none) {
-
-      input[type='checkbox'] {
-        --active: #275EFE;
+    @supports (-webkit-appearance: none) or (-moz-appearance: none) {
+      input[type="checkbox"] {
+        --active: #275efe;
         --active-inner: #fff;
-        --focus: 2px rgba(39, 94, 254, .3);
-        --border: #BBC1E1;
-        --border-hover: #275EFE;
+        --focus: 2px rgba(39, 94, 254, 0.3);
+        --border: #bbc1e1;
+        --border-hover: #275efe;
         --background: #fff;
-        --disabled: #F6F8FF;
-        --disabled-inner: #E1E6F9;
+        --disabled: #f6f8ff;
+        --disabled-inner: #e1e6f9;
         -webkit-appearance: none;
         -moz-appearance: none;
         height: 21px;
@@ -191,36 +190,37 @@
         cursor: pointer;
         border: 1px solid var(--bc, var(--border));
         background: var(--b, var(--background));
-        transition: background .3s, border-color .3s, box-shadow .2s;
+        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
 
         &:after {
-          content: '';
+          content: "";
           display: block;
           left: 0;
           top: 0;
           position: absolute;
-          transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+          transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),
+            opacity var(--d-o, 0.2s);
         }
 
         &:checked {
           --b: var(--active);
           --bc: var(--active);
-          --d-o: .3s;
-          --d-t: .6s;
-          --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+          --d-o: 0.3s;
+          --d-t: 0.6s;
+          --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
         }
 
         &:disabled {
           --b: var(--disabled);
           cursor: not-allowed;
-          opacity: .9;
+          opacity: 0.9;
 
           &:checked {
             --b: var(--disabled-inner);
             --bc: var(--border);
           }
 
-          &+label {
+          & + label {
             cursor: not-allowed;
           }
         }
@@ -247,7 +247,7 @@
           --o: 1;
         }
 
-        &+label {
+        & + label {
           font-size: 20px;
           font-weight: bold;
           display: inline-block;
@@ -257,7 +257,7 @@
         }
       }
 
-      input[type='checkbox'] {
+      input[type="checkbox"] {
         &:after {
           width: 5px;
           height: 9px;
@@ -272,6 +272,5 @@
         }
       }
     }
-
   }
 }

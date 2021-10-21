@@ -11,6 +11,7 @@
   align-items: center;
   padding: 30px 10%;
   overflow: hidden;
+  z-index: 5;
 
   &__logo {
     width: 100px;
@@ -52,7 +53,7 @@
 
       .active {
         border-bottom: 5px solid #29b6f6;
-        transition: border-bottom .5s ease-in-out;
+        transition: border-bottom 0.5s ease-in-out;
       }
     }
   }
