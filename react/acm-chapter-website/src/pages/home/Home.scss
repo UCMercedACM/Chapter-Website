@@ -5,7 +5,6 @@ $animation-duration: infinite;
   background-color: var(--background);
   width: 100%;
   height: auto;
-  margin-top: 5.4%;
 
   &__landing {
     background-color: var(--landing-background);
@@ -121,13 +120,11 @@ $animation-duration: infinite;
     }
   }
 
-
   // ----- ABOUT US -----
 
   &__about-us {
     display: grid;
     place-items: center;
-
 
     &__container {
       display: grid;
@@ -341,7 +338,6 @@ $animation-duration: infinite;
 }
 
 @keyframes MoveUpDown {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -353,7 +349,6 @@ $animation-duration: infinite;
 }
 
 @keyframes MoveDownUp {
-
   0%,
   100% {
     transform: translateY(-10px);

@@ -2,8 +2,16 @@ import React from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import leadership from "../../data/leadership";
 import "./Home.scss";
-
+import { db } from '../../firebase/config'
 const Home = () => {
+
+db.collection("test").doc("test").get().then((documentSnapshot) => {
+  console.log(documentSnapshot.data())
+})
+
+
+
+
   return (
     <main class="home">
       <section class="home__landing">

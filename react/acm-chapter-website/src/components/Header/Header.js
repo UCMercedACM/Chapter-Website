@@ -1,8 +1,10 @@
 import React from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+export default function Header(){
 
-const Header = () => {
+  const { currentUser} = useAuth()
   return (
     <header class="navbar">
       <img
@@ -47,6 +49,7 @@ const Header = () => {
               RESOURCES
             </NavLink>
           </li>
+          {!currentUser ? 
           <li>
             <NavLink
               to="/login"
@@ -57,10 +60,34 @@ const Header = () => {
               LOGIN
             </NavLink>
           </li>
+          : null}
+ {!currentUser ? 
+          <li>
+          <NavLink
+              to="/register"
+              className="inactive"
+              activeClassName="active"
+              exact
+            >
+              REGISTER
+            </NavLink>
+          </li>
+          : null}
+ {currentUser ? 
+          <li>
+          <NavLink
+              to="/dashboard"
+              className="inactive"
+              activeClassName="active"
+              exact
+            >
+              DASHBOARD
+            </NavLink>
+          </li>
+          : null}
         </ul>
       </nav>
     </header>
   );
 };
 
-export default Header;
