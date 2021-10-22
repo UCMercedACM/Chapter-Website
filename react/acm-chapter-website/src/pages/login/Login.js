@@ -2,10 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Login.scss";
 import { useAuth } from "../../contexts/AuthContext";
-import { useHistory } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import ErrorCard from "../../components/ErrorCard/ErrorCard";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -17,7 +15,6 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
   const { login } = useAuth();
-  const history = useHistory();
   return (
     <Formik
       initialValues={{
@@ -27,10 +24,7 @@ const Login = () => {
       validationSchema={LoginSchema}
       validateOnBlur
       onSubmit={(values) => {
-        console.log(values);
-
         login(values.email, values.password);
-        history.push("/dashboard");
       }}
     >
       {({ errors, handleSubmit, handleChange, values }) => (
