@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./Login.scss";
 import { useAuth } from "../../contexts/AuthContext";
+import { auth } from "../../firebase/config";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -14,6 +15,10 @@ const LoginSchema = Yup.object().shape({
 });
 
 const Login = () => {
+  const history = useHistory();
+  if (auth.currentUser) {
+    history.push("/");
+  }
   const { login } = useAuth();
   return (
     <Formik

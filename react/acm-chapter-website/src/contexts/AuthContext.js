@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth, firebase } from "../firebase/config";
 import { useHistory } from "react-router-dom";
+// import { getAuth, linkWithPopup, GithubAuthProvider } from "firebase/auth";
+
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -10,32 +12,43 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const history = useHistory();
 
+  // const githubProvider = new GithubAuthProvider();
+
   function signup(email, password, name) {
-    var data;
-    return auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        const uid = response.user.uid;
-        data = {
-          id: uid,
-          email: email,
-          name: name,
-        };
-        const usersRef = firebase.firestore().collection("users");
-        usersRef
-          .doc(uid)
-          .set(data)
-          .then(() => {
+    let data;
+    return auth.createUserWithEmailAndPassword(email, password).then((cred) => {
+      if (cred.user.emailVerified === false) {
+        auth.signOut();
+        cred.user.sendEmailVerification();
+        history.push("/verifyEmail");
+      }
+      const uid = cred.user.uid;
+      data = {
+        id: uid,
+        email: email,
+        name: name,
+      };
+      const usersRef = firebase.firestore().collection("users");
+      usersRef
+        .doc(uid)
+        .set(data)
+        .then(() => {
+          setTimeout(function () {
             history.push("/dashboard");
-          })
-          .catch((error) => {
-            alert(error);
-          });
-      });
+          }, 2000);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    });
   }
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password).then(() => {
+    return auth.signInWithEmailAndPassword(email, password).then((cred) => {
+      if (cred.user.emailVerified === false) {
+        cred.user.sendEmailVerification();
+        history.push("/verifyEmail");
+      }
       history.push("/dashboard");
     });
   }

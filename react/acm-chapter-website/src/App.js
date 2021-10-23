@@ -13,6 +13,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import VerifyEmail from "./pages/verifiyEmail/verifyEmail";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/reset" component={ResetPassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/verifyEmail" component={VerifyEmail} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
         </Switch>
         <Footer />
