@@ -191,12 +191,11 @@
 
         &__bottom {
           background-color: #f9f8f8;
-          height: calc(100% - 45px);
+          height: auto;
           padding: 20px;
           border-bottom-left-radius: 15px;
           border-bottom-right-radius: 15px;
           display: grid;
-          grid-template-rows: 1fr 1fr 1fr;
           gap: 20px;
 
           &__event-item {
@@ -228,6 +227,7 @@
                 font-family: "Hind", Arial, Helvetica, sans-serif;
                 font-size: 23px;
                 color: var(--headline);
+                margin-top: 10px;
                 line-height: 30px;
               }
 
@@ -235,7 +235,8 @@
                 text-align: left;
                 color: #858b96;
                 margin-top: 10px;
-                font-size: 18px;
+                margin-bottom: 10px;
+                font-size: 15px;
               }
             }
           }

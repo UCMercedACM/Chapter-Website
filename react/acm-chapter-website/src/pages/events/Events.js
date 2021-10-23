@@ -1,6 +1,7 @@
 import React from "react";
 import SectionTitle from "./../../components/SectionTitle/SectionTitle";
 import "./Events.scss";
+import Event from "../../components/Event/Event";
 
 const Events = () => {
   return (
@@ -63,58 +64,7 @@ const Events = () => {
               </div>
             </div>
             <div class="events__upcoming__content__upcoming-list__bottom">
-              <div class="events__upcoming__content__upcoming-list__bottom__event-item">
-                <div class="event-item-left-container">
-                  <p class="event-date">Oct 19</p>
-                  <p class="event-time">3-4pm</p>
-                </div>
-                <div class="event-item-middle-container">
-                  <h3 class="event-name">
-                    SWE SIG Intro to Databases Workshop
-                  </h3>
-                  <p class="event-description">
-                    Learn about Firebase and how to use it for the applications
-                    you're developing.
-                  </p>
-                </div>
-                <div class="event-item-right-container">
-                  <p class="event-location">COB 263</p>
-                </div>
-              </div>
-              <div class="events__upcoming__content__upcoming-list__bottom__event-item">
-                <div class="event-item-left-container">
-                  <p class="event-date">Oct 19</p>
-                  <p class="event-time">6:30-7:30pm</p>
-                </div>
-                <div class="event-item-middle-container">
-                  <h3 class="event-name">
-                    Cybersecurity SIG Intro to Web Exploitation Workshop
-                  </h3>
-                  <p class="event-description">
-                    Learn about web exploitation in our next cybersecurity
-                    workshop.
-                  </p>
-                </div>
-                <div class="event-item-right-container">
-                  <p class="event-location">COB 267</p>
-                </div>
-              </div>
-              <div class="events__upcoming__content__upcoming-list__bottom__event-item">
-                <div class="event-item-left-container">
-                  <p class="event-date">Oct 28</p>
-                  <p class="event-time">6-7pm</p>
-                </div>
-                <div class="event-item-middle-container">
-                  <h3 class="event-name">General Meeting 2</h3>
-                  <p class="event-description">
-                    Join us for our second general meeting of the semester where
-                    we'll be discussing the latest updates and upcoming events.
-                  </p>
-                </div>
-                <div class="event-item-right-container">
-                  <p class="event-location">COB 120</p>
-                </div>
-              </div>
+              <Event />
             </div>
           </div>
         </div>
