@@ -19,7 +19,17 @@ const Login = () => {
   if (auth.currentUser) {
     history.push("/");
   }
-  const { login } = useAuth();
+  const { login, authError } = useAuth();
+  console.log(authError);
+  // function submitHandler(values, setFieldError) {
+  //   const { email, password } = values;
+  //   try {
+  //     login(email, password);
+  //   } catch (err) {
+  //     setFieldError("authErrors", err.message);
+  //   }
+  // }
+
   return (
     <Formik
       initialValues={{
@@ -28,11 +38,12 @@ const Login = () => {
       }}
       validationSchema={LoginSchema}
       validateOnBlur
-      onSubmit={(values) => {
-        login(values.email, values.password);
+      onSubmit={async (values) => {
+        console.log("login");
+        await login(values.email, values.password);
       }}
     >
-      {({ errors, handleSubmit, handleChange, values }) => (
+      {({ handleSubmit, handleChange, values }) => (
         <main className="login">
           <Form onSubmit={handleSubmit} className="login__landing">
             <header>
@@ -67,6 +78,7 @@ const Login = () => {
                 <ErrorMessage name="password" />
               </div>
             </div>
+            {authError}
             <div className="footer-buttons">
               <div className="align-x">
                 <input id="c1d" type="checkbox" />

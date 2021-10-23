@@ -28,7 +28,17 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Register = () => {
-  const { signup } = useAuth();
+  const { signup, authError } = useAuth();
+
+  // function submitHandler(values, setFieldError) {
+  //   const { email, password, name } = values;
+  //   try {
+  //     signup(email, password, name);
+  //   } catch (err) {
+  //     setFieldError("authErrors", err.message);
+  //   }
+  // }
+
   return (
     <Formik
       initialValues={{
@@ -38,58 +48,62 @@ const Register = () => {
         confirmPassword: "",
       }}
       validationSchema={SignupSchema}
-      onSubmit={(values) => {
-        signup(values.email, values.password, values.name);
+      onSubmit={async (values) => {
+        console.log(signup, "signup");
+        await signup(values.email, values.password, values.name);
       }}
     >
-      <div>
-        <main className="login">
-          <Form className="login__landing">
-            <header>
-              <h2>Register</h2>
-              <p>Welcome to ACM @UCM</p>
-            </header>
+      {({ errors }) => (
+        <div>
+          <main className="login">
+            <Form className="login__landing">
+              <header>
+                <h2>Register</h2>
+                <p>Welcome to ACM @UCM</p>
+              </header>
 
-            <Field
-              className="input"
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Name"
-            />
-            <ErrorMessage name="name" />
+              <Field
+                className="input"
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Name"
+              />
+              <ErrorMessage name="name" />
 
-            <Field
-              className="input"
-              id="email"
-              placeholder="Email"
-              name="email"
-              type="email"
-            />
-            <ErrorMessage name="email" />
+              <Field
+                className="input"
+                id="email"
+                placeholder="Email"
+                name="email"
+                type="email"
+              />
+              <ErrorMessage name="email" />
 
-            <Field
-              className="input"
-              id="password"
-              placeholder="Password"
-              name="password"
-              type="password"
-            />
-            <ErrorMessage name="password" />
+              <Field
+                className="input"
+                id="password"
+                placeholder="Password"
+                name="password"
+                type="password"
+              />
+              <ErrorMessage name="password" />
 
-            <Field
-              className="input"
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm Password"
-            />
-            <ErrorMessage name="confirmPassword" />
+              <Field
+                className="input"
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+              />
+              <ErrorMessage name="confirmPassword" />
 
-            <button type="submit">Submit</button>
-          </Form>
-        </main>
-      </div>
+              <button type="submit">Submit</button>
+              {authError}
+            </Form>
+          </main>
+        </div>
+      )}
     </Formik>
   );
 };
