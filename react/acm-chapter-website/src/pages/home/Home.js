@@ -1,7 +1,5 @@
 import React from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import leaderships from "../../assets/data/leaderships.json";
-
 import acmLanParty from "../../assets/images/about-us.png";
 import projectManagement from "../../assets/images/project-management.png";
 import educationalTransperencyIcon from "../../assets/images/online-course.png";
@@ -16,6 +14,7 @@ import iotLogo from "../../assets/images/iot_logo_v2.png";
 
 import "./Home.scss";
 import { db } from "../../firebase/config";
+import Leadership from "../../components/Leadership/Leadership";
 const Home = () => {
   db.collection("test")
     .doc("test")
@@ -480,19 +479,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* <section class="home__leadership">
-        <SectionTitle text="ACM Board" />
-        <div class="home__leadership__members">
-          {leaderships.map((leadership) => {
-            console.log(leadership.picture);
-            return (
-              <div class="home__leadership__member__profile">
-                <img src={leadership.picture} alt={leadership.firstName} />
-              </div>
-            );
-          })}
-        </div>
-      </section> */}
+      {/* <Leadership /> */}
     </main>
   );
 };
