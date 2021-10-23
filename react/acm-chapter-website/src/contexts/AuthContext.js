@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth, firebase } from "../firebase/config";
 import { useHistory } from "react-router-dom";
-// import { getAuth, linkWithPopup, GithubAuthProvider } from "firebase/auth";
+import { getAuth, linkWithPopup, GithubAuthProvider } from "firebase/auth";
 
 const AuthContext = React.createContext();
 
@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   const [authError, setAuthError] = useState("");
   const history = useHistory();
 
-  // const githubProvider = new GithubAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
   function signup(email, password, name) {
     let data;
@@ -98,6 +98,30 @@ export function AuthProvider({ children }) {
       });
   }
 
+  function linkGithub() {
+    let data;
+    linkWithPopup(auth.currentUser, githubProvider).then((result) => {
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const user = result.user;
+      const usersRef = firebase.firestore().collection("users");
+      usersRef
+        .doc(user.uid)
+        .get()
+        .then((document) => {
+          data = document.data();
+          data.github = credential;
+        });
+      usersRef
+        .doc(user.uid)
+        .set(data)
+        .then(() => {
+          setTimeout(function () {
+            history.push("/dashboard");
+          }, 2000);
+        });
+    });
+  }
+
   function logout() {
     return auth.signOut();
   }
@@ -137,6 +161,7 @@ export function AuthProvider({ children }) {
     authError,
     login,
     signup,
+    linkGithub,
     logout,
     resetPassword,
     updateEmail,
