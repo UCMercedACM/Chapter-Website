@@ -1,4 +1,15 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGithub,
+  faLinkedin,
+  faTwitter,
+  faDiscord,
+  faInstagram,
+  faFacebook,
+  faSlack,
+} from "@fortawesome/free-brands-svg-icons";
+
 import "./Footer.scss";
 
 const Footer = () => {
@@ -24,7 +35,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faLinkedin} />
             </a>
           </button>
           <button class="footer__container__navigation__social">
@@ -33,7 +44,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faTwitter} />
             </a>
           </button>
           <button class="footer__container__navigation__social">
@@ -42,7 +53,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faInstagram} />
             </a>
           </button>
           <button class="footer__container__navigation__social">
@@ -51,7 +62,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faFacebook} />
             </a>
           </button>
           <button class="footer__container__navigation__social">
@@ -60,7 +71,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faGithub} />
             </a>
           </button>
           <button class="footer__container__navigation__social">
@@ -69,7 +80,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faDiscord} />
             </a>
           </button>
           <button class="footer__container__navigation__social">
@@ -78,7 +89,7 @@ const Footer = () => {
               // target="_blank"
               class="footer__container__navigation__social__link"
             >
-              <fa-icon></fa-icon>
+              <FontAwesomeIcon icon={faSlack} />
             </a>
           </button>
         </nav>
