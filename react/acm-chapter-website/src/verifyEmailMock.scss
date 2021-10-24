@@ -1,0 +1,60 @@
+.login {
+  background: var(--background);
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  &__landing{
+      background: var(--background);
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      overflow-y: hidden;
+      button{
+        font-size: 20px;
+        min-width: 150px;
+
+      }
+
+      header {
+        width: 75%;
+
+        h2 {
+          font-size: 2.5rem;
+        }
+        p {
+          margin-top: 0;
+          color: var(--secondary);
+        }
+      }
+
+      p {
+        margin-top: 3%;
+        font-size: 2.5rem;
+        color: brown;
+      }
+
+      .verified {
+        color: rgb(48, 172, 32)
+      }
+          a {
+            font-weight: 200;
+          }
+
+          a:hover {
+            color: rgb(160, 160, 160);
+          }
+
+          a:active {
+            color: black;
+          }
+
+          a:visited {
+            color: rgb(40, 61, 94);
+          }
+
+          p {
+            font-weight: 500;
+            font-size: 18px;
+          }
+    }
+
+  }
