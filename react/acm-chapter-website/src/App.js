@@ -13,7 +13,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
-import VerifyEmail from "./pages/verifiyEmail/verifyEmail";
+import VerifyEmail from "./pages/verifyEmail/verifyEmail";
 
 function App() {
   return (
