@@ -21,9 +21,7 @@ export function AuthProvider({ children }) {
       .createUserWithEmailAndPassword(email, password)
       .then((cred) => {
         if (cred.user.emailVerified === false) {
-          auth.signOut();
           cred.user.sendEmailVerification();
-          history.push("/verifyEmail");
         }
         const uid = cred.user.uid;
         data = {
@@ -36,9 +34,7 @@ export function AuthProvider({ children }) {
           .doc(uid)
           .set(data)
           .then(() => {
-            setTimeout(function () {
-              history.push("/dashboard");
-            }, 2000);
+            history.push("/dashboard");
           });
       })
       .catch((err) => {
@@ -72,7 +68,6 @@ export function AuthProvider({ children }) {
         } else if (cred.user) {
           history.push("/dashboard");
         }
-        history.push("/login");
       })
       .catch((err) => {
         console.log(err.code, "errCode");
@@ -122,8 +117,13 @@ export function AuthProvider({ children }) {
     });
   }
 
-  function logout() {
+  async function logout() {
     return auth.signOut();
+  }
+
+  function sendEmailVerif() {
+    console.log("email sent");
+    return auth.sendEmailVerification();
   }
 
   function resetPassword(email) {
@@ -149,6 +149,7 @@ export function AuthProvider({ children }) {
           .get()
           .then((document) => {
             setCurrentUser(document.data());
+            user.reload();
           });
       }
     });
@@ -157,6 +158,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const value = {
+    sendEmailVerif,
     currentUser,
     authError,
     login,

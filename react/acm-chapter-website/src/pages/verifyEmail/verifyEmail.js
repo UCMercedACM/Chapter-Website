@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import DelayRedirect from "../../components/CustomLink/DelayRedirect";
 import { auth } from "../../firebase/config";
 import "./verifyEmail.scss";
 
@@ -9,6 +10,8 @@ const VerifyEmail = () => {
   const [verified, setVerified] = useState();
 
   function sendEmail() {
+    const loadedUser = auth.currentUser;
+    setUser(loadedUser);
     user.sendEmailVerification();
   }
 
@@ -26,6 +29,9 @@ const VerifyEmail = () => {
       try {
         if (user) {
           await user.reload();
+          const loadedUser = auth.currentUser;
+          setUser(loadedUser);
+          setVerified(loadedUser.emailVerified);
         }
       } catch (error) {
         console.log(error);
@@ -46,16 +52,10 @@ const VerifyEmail = () => {
             {verified ? "Verified" : "Not Verified"}
           </p>
         ) : (
-          <p>"User unavailable"</p>
+          <p>User unavailable</p>
         )}
         <button onClick={sendEmail}>Send Verification Email</button>
-        {verified ? (
-          <Link to="/dashboard">Go to Dashboard</Link>
-        ) : (
-          setTimeout(() => {
-            <Redirect to="/dashboard" />;
-          }, 2000)
-        )}
+        {verified && <Link to="/dashboard">Go to Dashboard</Link>}
       </div>
     </div>
   );

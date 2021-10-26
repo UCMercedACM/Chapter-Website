@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../login/Login.scss";
+
 export default function Dashboard() {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
@@ -14,7 +14,8 @@ export default function Dashboard() {
     try {
       await logout();
       history.push("/login");
-    } catch {
+    } catch (err) {
+      console.log(err);
       setError("Failed to log out");
     }
   }
@@ -31,7 +32,7 @@ export default function Dashboard() {
           <button onClick={handleLogout} type="logout">
             Logout
           </button>
-          <p>{error}</p>
+          {error && <p>{error}</p>}
         </div>
       </main>
     </>
