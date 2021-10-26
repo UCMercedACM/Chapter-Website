@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import getEvents, { getPhoto } from "../../scripts/catLife";
 import { convertToTime, convertToMonthDate } from "../../helper/timeFunctions";
+import { Link } from "react-router-dom";
 
 const Event = () => {
   const [events, setEvents] = useState([]);
@@ -23,13 +24,14 @@ const Event = () => {
               <p class="event-time">
                 {convertToTime(event.startTime, event.endTime)}
               </p>
+              <p class="event-location">{`@ ${event.location}`}</p>
             </div>
             <div class="event-item-middle-container">
               <h3 class="event-name">{event.eventName}</h3>
               <p class="event-description">{event.description}</p>
             </div>
             <div class="event-item-right-container">
-              <p class="event-location">{event.location}</p>
+              <a href={event.htmlLink}>Add to Calendar</a>
             </div>
           </div>
         );
