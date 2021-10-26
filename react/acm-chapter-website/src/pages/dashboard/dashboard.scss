@@ -1,0 +1,110 @@
+.dashboard {
+    width: 100vw;
+    height: calc(100vh - 82px);
+    top: 82px; // navbar height is 82px
+    background-color: var(--background);
+    font-family: Hind, Arial, Helvetica, sans-serif;
+    position: relative;
+
+    &__content {
+        position: absolute;
+        width: 80%;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        &__heading {
+            text-transform: capitalize;
+        }
+    
+        &__navbar {
+            a {
+                text-decoration: none;
+                color: #276881;
+            }
+    
+            a:not(:last-child) {
+                margin-right: 3rem;
+            }
+        }
+
+        &__components {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 2rem;
+            height: 100%;
+
+            &__left {
+                display: grid;
+                grid-template-rows: 1fr 2fr;
+                gap: 2rem;
+            }
+
+            &__right {
+                
+            }
+        }
+    }
+}
+
+.dashboard-component {
+    padding: 2.5rem;
+    background-color: #F9F8F8;
+    border-radius: 1.5rem;
+    box-shadow: 0px 8px 25px rgba(112, 144, 176, 0.2);
+
+    &-heading {
+        text-transform: uppercase;
+        color: #084A7C;
+        font-size: 1.5rem;
+    }
+}
+
+.user-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &__left,
+    &__middle,
+    &__right {
+        text-align: center;
+    }
+
+    &__left {
+        text-align: left;
+
+        &__points-description h1 {
+            display: inline-block;
+        }
+    }
+
+    &__middle {
+
+    }
+
+    &__right {
+
+    }
+}
+
+.recent-events {
+    input {
+        border: transparent;
+        padding: 1rem 1.5rem;
+        background-color: #E6EDEF;
+        color: #93A3B6;
+        border-radius: 1rem;
+        font-family: Hind, Arial, Helvetica, sans-serif;
+        font-size: 1.25rem;
+    }
+
+    input:focus {
+        outline: none;
+    }
+}
+
+
+
