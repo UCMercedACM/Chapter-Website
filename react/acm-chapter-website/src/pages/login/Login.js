@@ -21,14 +21,6 @@ const Login = () => {
   }
   const { login, authError } = useAuth();
   console.log(authError);
-  // function submitHandler(values, setFieldError) {
-  //   const { email, password } = values;
-  //   try {
-  //     login(email, password);
-  //   } catch (err) {
-  //     setFieldError("authErrors", err.message);
-  //   }
-  // }
 
   return (
     <Formik
@@ -45,7 +37,7 @@ const Login = () => {
     >
       {({ handleSubmit, handleChange, values }) => (
         <main className="login">
-          <Form onSubmit={handleSubmit} className="login__landing">
+          <Form onSubmit={handleSubmit} className="landing">
             <header>
               <h2>Login</h2>
               <p>Welcome to ACM @UCM</p>
