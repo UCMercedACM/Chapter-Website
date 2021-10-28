@@ -1,5 +1,5 @@
 import "./App.scss";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch,HashRouter } from "react-router-dom";
 import React from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -17,7 +17,7 @@ import VerifyEmail from "./pages/verifyEmail/verifyEmail";
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <AuthProvider>
         <Header />
         <Switch>
@@ -33,7 +33,7 @@ function App() {
         </Switch>
         <Footer />
       </AuthProvider>
-    </Router>
+    </HashRouter>
   );
 }
 
