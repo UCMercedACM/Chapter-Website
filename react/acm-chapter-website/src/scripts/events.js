@@ -11,7 +11,7 @@ async function addFirebaseFieldsToEvent(event) {
   const category = categoryFinder(event.eventName);
   eventsRef
     .doc(event.apiID)
-    .ref.update({ pastEvent: isPast, attandanceCode: code, type: category });
+    .update({ pastEvent: isPast, attandanceCode: code, type: category });
 }
 
 async function uploadEventsToFirebase() {
@@ -20,7 +20,7 @@ async function uploadEventsToFirebase() {
   await Promise.all(
     events.forEach(async (event) => {
       const readyField = await addFirebaseFieldsToEvent(event);
-      eventsRef.doc(events.apiID).set(readyField);
+      eventsRef.doc(event.apiID).set(readyField);
     })
   );
 }

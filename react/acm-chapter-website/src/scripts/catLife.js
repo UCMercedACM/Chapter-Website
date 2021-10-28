@@ -1,4 +1,5 @@
 import axios from "axios";
+import { firebase } from "../firebase/config";
 
 export async function getPhoto(uri) {
   let photo;
@@ -16,7 +17,7 @@ function tagRemover(description) {
   return description.replace(/<\/?p[^>]*>/g, "");
 }
 
-async function getEvents() {
+async function uploadEventsToFirebase() {
   const response = await axios.get(
     "https://api.presence.io/ucmerced/v1/organizations/events/association-for-computing-machinery-uc-merced"
   );
@@ -33,7 +34,18 @@ async function getEvents() {
       return detailedEvent.data;
     })
   );
-  const formattedEvents = detailedEvents.map((event) => {
+
+  // const categories = ["workshop", "general", "talk", "koding kata"];
+
+  // function categoryFinder(eventName) {
+  //   const lowerName = eventName.toLowerCase();
+  //   categories.forEach((category) => {
+  //     if (lowerName.includes(category)) {
+  //       return category;
+  //     }
+  //   });
+  // }
+  detailedEvents.forEach((event) => {
     const formattedEvent = {
       apiID: event.apiId,
       eventName: event.eventName,
@@ -42,10 +54,20 @@ async function getEvents() {
       startTime: event.startDateTimeUtc,
       endTime: event.endDateTimeUtc,
       image: event.hasCoverImage ? event.photoUri : "null",
+      isPast: event.startTime < new Date(),
+      code: (Math.random() + 1).toString(36).substring(7),
+      // category: categoryFinder(event.eventName),
     };
-    return formattedEvent;
+    const code = {
+      apiID: event.apiId,
+      code: (Math.random() + 1).toString(36).substring(7),
+    };
+    const eventsRef = firebase.firestore().collection("events");
+    eventsRef.doc(formattedEvent.apiID).set(formattedEvent);
+
+    const codesRef = firebase.firestore().collection("codes");
+    codesRef.doc(code.apiID).set(code);
   });
-  return formattedEvents;
 }
 
-export default getEvents;
+export default uploadEventsToFirebase;
