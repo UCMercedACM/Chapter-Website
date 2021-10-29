@@ -30,7 +30,7 @@
         font-family: Bebas Neue;
         font-style: normal;
         letter-spacing: 0.08em;
-        padding-bottom: 1vh;
+        overflow-y: hidden;
       }
 
       &__text {
@@ -236,6 +236,7 @@
                 color: var(--headline);
                 margin-top: 10px;
                 line-height: 30px;
+                overflow-y: hidden;
               }
 
               .event-description {

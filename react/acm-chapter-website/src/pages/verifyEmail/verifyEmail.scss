@@ -1,44 +1,59 @@
 .login {
   background: var(--background);
-  text-align: center;
+  // text-align: center;
   display: flex;
-  align-items: center;
+  // align-items: center;
+  // flex-direction: column;
 
-  &__landing{
-      background: var(--background);
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  &__landing {
+    background: var(--background);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    overflow-y: hidden;
+    // position: relative;
+    button {
       overflow-y: hidden;
-      button{
-        font-size: 20px;
-        min-width: 150px;
-
-      }
-
-      header {
-        margin-top: 0;
-        width: 75%;
-
-        h2 {
-          margin-top: 0;
-          font-size: 2.5rem;
-        }
-        p {
-          margin-top: 0;
-          color: var(--secondary);
-        }
-      }
-
-      p {
-        margin-top: 3%;
-        font-size: 2.5rem;
-        color: brown;
-      }
-
-      .verified {
-        color: rgb(48, 172, 32);
-        margin-bottom: 5vh;
-      }
-
+      font-size: 20px;
+      min-width: 200px;
+      min-height: 100px;
+      // padding-bottom: 6vh;
+      // height: 50px;
+    }
+    a {
+      top: 275px;
+      position: absolute;
     }
 
+    p {
+      text-align: center;
+      margin-top: 2%;
+      font-size: 2.5rem;
+      color: brown;
+    }
+
+    .verified {
+      position: relative;
+      color: rgb(48, 172, 32);
+      margin-bottom: 5vh;
+      text-align: center;
+    }
   }
+}
+@media (max-width: 500px) {
+  .login {
+    // width: 90vw;
+  }
+
+  .login__landing {
+    p {
+      font-size: 1.5rem;
+      top: 20vh;
+      position: absolute;
+    }
+    // margin: 0 0 0 0;
+    padding: 10vh 40vw 0 40vw;
+    // padding-left: 50vw;
+    // margin-left: 5vw;
+    // margin-right: 5vw;
+    // width: 90vw;
+  }
+}

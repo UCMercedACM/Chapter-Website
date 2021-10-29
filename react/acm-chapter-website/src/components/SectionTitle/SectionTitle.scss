@@ -4,7 +4,7 @@
 
   &__content {
     &__text {
-      padding-bottom: 1.5vh;
+      padding-bottom: 1vh;
       font-family: "Montserrat", sans-serif;
       font-style: normal;
       font-weight: 600;
@@ -15,6 +15,7 @@
       text-align: center;
       letter-spacing: 0.08em;
       color: var(--section-title);
+      overflow-y:hidden;
     }
 
     &__bar {

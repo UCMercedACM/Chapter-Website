@@ -43,18 +43,16 @@ const VerifyEmail = () => {
   return (
     <div className="login">
       <div className="login__landing">
-        <header>
-          <h2>Verify Your Email</h2>
-          <p>Click the Link at the Email</p>
-        </header>
         {user ? (
           <p className={verified ? "verified" : ""}>
-            {verified ? "Verified" : "Not Verified"}
+            {verified ? "Verified" : "User Not Verified "}
           </p>
         ) : (
           <p>User unavailable</p>
         )}
-        <button onClick={sendEmail}>Send Verification Email</button>
+        {!verified && (
+          <button onClick={sendEmail}>Send Verification Email to verify</button>
+        )}
         {verified && <Link to="/dashboard">Go to Dashboard</Link>}
       </div>
     </div>

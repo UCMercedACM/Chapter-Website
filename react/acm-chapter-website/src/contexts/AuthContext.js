@@ -28,6 +28,7 @@ export function AuthProvider({ children }) {
           id: uid,
           email: email,
           name: name,
+          eventsAttended: [],
         };
         const usersRef = firebase.firestore().collection("users");
         usersRef
