@@ -1,12 +1,16 @@
 import "./App.scss";
-import { Route, BrowserRouter as Router, Switch,HashRouter } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  HashRouter,
+} from "react-router-dom";
 import React from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/home/Home";
 import Events from "./pages/events/Events";
 import Sigs from "./pages/sigs/Sigs";
-import Resources from "./pages/resources/Resources";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Dashboard from "./pages/dashboard/dashboard";
@@ -24,7 +28,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/events" component={Events} exact />
           <Route path="/sigs" component={Sigs} />
-          <Route path="/resources" component={Resources} />
+          {/* <Route path="/resources" component={Resources} /> */}
           <Route path="/reset" component={ResetPassword} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
