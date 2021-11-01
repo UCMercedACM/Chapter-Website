@@ -96,7 +96,6 @@ export default function Dashboard() {
 
   async function handleLogout() {
     setError("");
-
     try {
       await logout();
       history.push("/login");
@@ -104,6 +103,7 @@ export default function Dashboard() {
       console.log(err);
       setError("Failed to log out");
     }
+    window.location.reload(false);
   }
 
   let timeOfDay = getTimeOfDay();
@@ -116,7 +116,7 @@ export default function Dashboard() {
             Good {timeOfDay} {currentUser.name}
           </h1>
           <button 
-            onclick={handleLogout} 
+            onClick={handleLogout} 
             type="logout" 
             className="dashboard__content__top__log-out-btn"
           >
