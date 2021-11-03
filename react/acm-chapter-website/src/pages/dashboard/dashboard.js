@@ -31,7 +31,6 @@ export default function Dashboard() {
 
   async function handleLogout() {
     setError("");
-
     try {
       await logout();
       history.push("/login");
@@ -39,6 +38,7 @@ export default function Dashboard() {
       console.log(err);
       setError("Failed to log out");
     }
+    window.location.reload();
   }
 
   useEffect(() => {
