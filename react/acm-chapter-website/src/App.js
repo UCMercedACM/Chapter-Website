@@ -13,7 +13,7 @@ import Events from "./pages/events/Events";
 import Sigs from "./pages/sigs/Sigs";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
-import Dashboard from "./pages/dashboard/dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";

@@ -52,14 +52,14 @@
                 background-color: #084A7C;
                 color: #f9f8f8;
             }
-        
+
             &__navbar {
                 margin: 2rem 0;
                 a {
                     text-decoration: none;
                     color: #084A7C;
                 }
-        
+
                 a:not(:last-child) {
                     margin-right: 3rem;
                 }
@@ -142,7 +142,7 @@
     input:focus {
         outline: none;
     }
-    
+
     &__table {
         width: 100%;
         border-collapse: collapse;
@@ -161,7 +161,7 @@
             border: 1px solid #e0e7e9;
 
             td {
-                
+
             }
         }
     }

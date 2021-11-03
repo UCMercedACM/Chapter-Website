@@ -58,15 +58,39 @@ async function uploadEventsToFirebase() {
       code: (Math.random() + 1).toString(36).substring(7),
       // category: categoryFinder(event.eventName),
     };
-    const code = {
-      apiID: event.apiId,
-      code: (Math.random() + 1).toString(36).substring(7),
-    };
-    const eventsRef = firebase.firestore().collection("events");
-    eventsRef.doc(formattedEvent.apiID).set(formattedEvent);
-
-    const codesRef = firebase.firestore().collection("codes");
-    codesRef.doc(code.apiID).set(code);
+    // const code = {
+    //   apiID: event.apiId,
+    //   code: (Math.random() + 1).toString(36).substring(7),
+    // };
+    const eventRef = firebase
+      .firestore()
+      .collection("events")
+      .doc(formattedEvent.apiID);
+    eventRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          const eventWithoutCode = {
+            apiID: event.apiId,
+            eventName: event.eventName,
+            description: tagRemover(event.description),
+            location: event.isVirtualLink ? "Virtual" : event.location,
+            startTime: event.startDateTimeUtc,
+            endTime: event.endDateTimeUtc,
+            image: event.hasCoverImage ? event.photoUri : "null",
+            isPast: event.startTime < new Date(),
+            // category: categoryFinder(event.eventName),
+          };
+          eventRef.set(eventWithoutCode);
+        } else {
+          console.log("No such document!");
+          eventRef.set(formattedEvent);
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
   });
 }
 
