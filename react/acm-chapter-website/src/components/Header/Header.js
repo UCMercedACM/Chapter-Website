@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { useHistory } from "react-router-dom";
 import acmLogo from "../../assets/images/acm_logo_v2.png";
 
 export default function Header() {
   const { currentUser } = useAuth();
+  const [isActive, setIsActive] = useState(false);
+  const handleToggle = () => {
+    setIsActive(!isActive);
+  };
+
+  const history = useHistory();
+
   return (
     <header class="navbar">
-      <img src={acmLogo} alt="ACM Logo" class="navbar__logo" />
+      <img
+        src={acmLogo}
+        alt="ACM Logo"
+        class="navbar__logo"
+        onClick={history.push("/")}
+      />
       <nav>
         <ul class="navbar__links">
           <li>
@@ -34,16 +47,6 @@ export default function Header() {
               exact
             >
               SIGS
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/resources"
-              className="inactive"
-              activeClassName="active"
-              exact
-            >
-              RESOURCES
             </NavLink>
           </li>
           {!currentUser ? (
@@ -82,6 +85,16 @@ export default function Header() {
               </NavLink>
             </li>
           ) : null}
+          <div
+            id="nav-icon"
+            onClick={handleToggle}
+            className={`toggle inactive ${isActive ? "open" : ""}`}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </ul>
       </nav>
     </header>
