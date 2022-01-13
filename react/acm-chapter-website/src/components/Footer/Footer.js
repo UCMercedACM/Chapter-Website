@@ -94,10 +94,10 @@ const Footer = () => {
           </button>
         </nav>
         <div class="footer__container__copyright">
-          <fa-icon></fa-icon> Copyright 2021
+          <fa-icon></fa-icon> Copyright {new Date().getFullYear()}
         </div>
         <div class="footer__container__credits">
-          Written and Coded with <fa-icon></fa-icon> by ACM @ UCM
+          Written and coded with love by ACM @ UCM
         </div>
       </div>
     </footer>

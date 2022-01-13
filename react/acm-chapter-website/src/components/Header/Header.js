@@ -26,7 +26,7 @@ export default function Header() {
         <ul class="navbar__links">
           <li>
             <NavLink to="/" className="inactive" activeClassName="active" exact>
-              HOME
+              Home 
             </NavLink>
           </li>
           <li>
@@ -36,7 +36,7 @@ export default function Header() {
               activeClassName="active"
               exact
             >
-              EVENTS
+              Events
             </NavLink>
           </li>
           <li>
@@ -57,7 +57,7 @@ export default function Header() {
                 activeClassName="active"
                 exact
               >
-                LOGIN
+                Login
               </NavLink>
             </li>
           ) : null}
@@ -69,7 +69,7 @@ export default function Header() {
                 activeClassName="active"
                 exact
               >
-                REGISTER
+                Register
               </NavLink>
             </li>
           ) : null}
@@ -81,7 +81,7 @@ export default function Header() {
                 activeClassName="active"
                 exact
               >
-                DASHBOARD
+                Dashboard
               </NavLink>
             </li>
           ) : null}

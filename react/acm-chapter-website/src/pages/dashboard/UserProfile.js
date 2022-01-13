@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import userData from "./testUserData";
-import { fireStorage } from "../../firebase/config";
+// import { fireStorage } from "../../firebase/config";
 import { useAuth } from "../../contexts/AuthContext";
-import { createAvatar } from "@dicebear/avatars";
-import * as style from "@dicebear/miniavs";
+// import { createAvatar } from "@dicebear/avatars";
+// import * as style from "@dicebear/miniavs";
 import Condition from "yup/lib/Condition";
 
 const UserProfile = () => {
@@ -17,28 +17,28 @@ const UserProfile = () => {
 
   const { currentUser } = useAuth();
 
-  function handleUpload(e) {
-    e.preventDefault();
-    const ref = fireStorage.ref(currentUser + "/profilePicture/" + file.name);
-    const uploadTask = ref.put(file);
-    uploadTask.on("state_changed", console.log, console.error, () => {
-      ref.getDownloadURL().then((url) => {
-        setFile(null);
-        setURL(url);
-      });
-    });
-  }
+  // function handleUpload(e) {
+  //   e.preventDefault();
+  //   const ref = fireStorage.ref(currentUser + "/profilePicture/" + file.name);
+  //   const uploadTask = ref.put(file);
+  //   uploadTask.on("state_changed", console.log, console.error, () => {
+  //     ref.getDownloadURL().then((url) => {
+  //       setFile(null);
+  //       setURL(url);
+  //     });
+  //   });
+  // }
 
-  let generatedProfilePhoto = createAvatar(style, {
-    seed: currentUser.name,
-    // ... and other options
-  });
-  console.log(generatedProfilePhoto);
+  // let generatedProfilePhoto = createAvatar(style, {
+  //   seed: currentUser.name,
+  //   // ... and other options
+  // });
+  // console.log(generatedProfilePhoto);
 
-  const svgString = encodeURIComponent(
-    renderToStaticMarkup(generatedProfilePhoto)
-  );
-  const dataUri = `url("data:image/svg+xml,${svgString}")`;
+  // const svgString = encodeURIComponent(
+  //   renderToStaticMarkup(generatedProfilePhoto)
+  // );
+  // const dataUri = `url("data:image/svg+xml,${svgString}")`;
   return (
     <div className="user-profile dashboard-component">
       <section>

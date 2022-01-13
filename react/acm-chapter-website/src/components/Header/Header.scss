@@ -29,15 +29,13 @@
       padding: 2% 0% 0% 0%;
 
       .inactive {
-        font-family: "Montserrat", sans-serif;
+        font-family: "Hind", sans-serif;
         font-style: normal;
-        font-weight: 600;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 22px;
-        letter-spacing: 0.15em;
         text-align: center;
         text-decoration: none;
-        color: var(--background);
+        color: var(--headline);
         z-index: 1;
         display: inline-block;
       }
@@ -52,8 +50,9 @@
       // }
 
       .active {
-        border-bottom: 5px solid #29b6f6;
-        transition: border-bottom 0.5s ease-in-out;
+        // border-bottom: 5px solid #29b6f6;
+        font-weight: bold;
+        // transition: border-bottom 0.5s ease-in-out;
       }
     }
 

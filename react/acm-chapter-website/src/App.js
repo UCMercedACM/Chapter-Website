@@ -5,7 +5,10 @@ import {
   Switch,
   HashRouter,
 } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
+
+import WebFont from 'webfontloader';
+
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/home/Home";
@@ -20,6 +23,14 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import VerifyEmail from "./pages/verifyEmail/verifyEmail";
 
 function App() {
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Hind:400,700"]
+      }
+    })
+  }, []);
+
   return (
     <HashRouter>
       <AuthProvider>
@@ -35,7 +46,6 @@ function App() {
           <Route path="/verifyEmail" component={VerifyEmail} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
         </Switch>
-        <Footer />
       </AuthProvider>
     </HashRouter>
   );
