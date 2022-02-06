@@ -34,6 +34,7 @@ function App() {
   return (
     <HashRouter>
       <AuthProvider>
+      {/* test */}
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
