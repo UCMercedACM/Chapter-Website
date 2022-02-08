@@ -12,21 +12,14 @@ export default function Header() {
     setIsActive(!isActive);
   };
 
-  const history = useHistory();
-
   return (
     <header class="navbar">
-      <img
-        src={acmLogo}
-        alt="ACM Logo"
-        class="navbar__logo"
-        onClick={history.push("/")}
-      />
+      <img src={acmLogo} alt="ACM Logo" class="navbar__logo" />
       <nav>
         <ul class="navbar__links">
           <li>
             <NavLink to="/" className="inactive" activeClassName="active" exact>
-              Home 
+              Home
             </NavLink>
           </li>
           <li>

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import React, { useEffect } from "react";
 
-import WebFont from 'webfontloader';
+import WebFont from "webfontloader";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -26,15 +26,15 @@ function App() {
   useEffect(() => {
     WebFont.load({
       google: {
-        families: ["Hind:400,700"]
-      }
-    })
+        families: ["Hind:400,700"],
+      },
+    });
   }, []);
 
   return (
-    <HashRouter>
+    <Router>
       <AuthProvider>
-      {/* test */}
+        {/* test */}
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
@@ -48,7 +48,7 @@ function App() {
           <PrivateRoute path="/dashboard" component={Dashboard} />
         </Switch>
       </AuthProvider>
-    </HashRouter>
+    </Router>
   );
 }
 
