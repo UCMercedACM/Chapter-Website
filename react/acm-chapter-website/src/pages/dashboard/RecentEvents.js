@@ -20,36 +20,36 @@ const RecentEvents = ({ attendedEvents }) => {
 
   return (
     <div className="recent-events dashboard-component">
-      <h2 className="recent-events__heading dashboard-component-heading">
-        Events You Attended
-      </h2>
-      <form onSubmit={codeHandler}>
-        <input
-          type="text"
-          name="eventCodeInput"
-          id="eventCodeInput"
-          placeholder="Enter event code"
-          autoComplete="off"
-          value={code}
-          onChange={onCodeChange}
-        />
-      </form>
-      <table className="recent-events__table">
-        <tr>
-          <th>Name</th>
-          <th>Date</th>
-        </tr>
-        {attendedEvents.map((event) => {
-          console.log(attendedEvents, "RecentEvents");
-          console.log(event, "event");
-          return (
-            <tr>
-              <td>{event.eventName}</td>
-              <td>{convertToMonthDate(event.startTime)}</td>
-            </tr>
-          );
-        })}
-      </table>
+      <div>
+        <h2 className="recent-events__heading dashboard-component-heading">
+          Events You Attended
+        </h2>
+        <form onSubmit={codeHandler}>
+          <input
+            type="text"
+            name="eventCodeInput"
+            id="eventCodeInput"
+            placeholder="Enter event code"
+            autoComplete="off"
+            value={code}
+            onChange={onCodeChange}
+          />
+        </form>
+        <table className="recent-events__table">
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+          </tr>
+          {attendedEvents.map((event) => {
+            return (
+              <tr>
+                <td>{event.eventName}</td>
+                <td>{convertToMonthDate(event.startTime)}</td>
+              </tr>
+            );
+          })}
+        </table>
+      </div>
     </div>
   );
 };

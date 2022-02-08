@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DelayRedirect from "../../components/CustomLink/DelayRedirect";
+import {
+  getAuth,
+  onAuthStateChanged,
+  sendEmailVerification,
+} from "firebase/auth";
 import { auth } from "../../firebase/config";
 import "./verifyEmail.scss";
+import { useAuth } from "../../contexts/AuthContext";
 
 const VerifyEmail = () => {
   const [user, setUser] = useState();
@@ -12,16 +18,8 @@ const VerifyEmail = () => {
   function sendEmail() {
     const loadedUser = auth.currentUser;
     setUser(loadedUser);
-    user.sendEmailVerification();
+    sendEmailVerification(loadedUser);
   }
-
-  useEffect(() => {
-    const subscriber = auth.onAuthStateChanged((curUser) => {
-      setVerified(curUser.emailVerified);
-      setUser(curUser);
-    });
-    return subscriber; // unsubscribe on unmount
-  });
 
   useEffect(() => {
     const interval = setInterval(async () => {

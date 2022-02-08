@@ -1,5 +1,13 @@
 import axios from "axios";
-import { firebase } from "../firebase/config";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  updateDoc,
+  setDoc,
+} from "firebase/firestore";
+import { db } from "../firebase/config";
 
 export async function getPhoto(uri) {
   let photo;
@@ -22,6 +30,7 @@ async function uploadEventsToFirebase() {
     "https://api.presence.io/ucmerced/v1/organizations/events/association-for-computing-machinery-uc-merced"
   );
   if (!response.data) {
+    console.log("no data");
     return [];
   }
   const detailedEvents = await Promise.all(
@@ -34,6 +43,7 @@ async function uploadEventsToFirebase() {
       } catch (err) {
         return err;
       }
+      console.log(detailedEvent.data, "33");
       return detailedEvent.data;
     })
   );
@@ -48,7 +58,7 @@ async function uploadEventsToFirebase() {
   //     }
   //   });
   // }
-  detailedEvents.forEach((event) => {
+  detailedEvents.forEach(async (event) => {
     const code = (Math.random() + 1).toString(36).substring(7);
     const formattedEvent = {
       apiID: event.apiId,
@@ -65,37 +75,34 @@ async function uploadEventsToFirebase() {
       apiID: event.apiId,
       code: code,
     };
-    const codesRef = firebase.firestore().collection("codes");
-    const eventRef = firebase
-      .firestore()
-      .collection("events")
-      .doc(formattedEvent.apiID);
-    eventRef
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          console.log("Document data:", doc.data());
-          const eventWithoutCode = {
-            apiID: event.apiId,
-            eventName: event.eventName,
-            description: tagRemover(event.description),
-            location: event.isVirtualLink ? "Virtual" : event.location,
-            startTime: event.startDateTimeUtc,
-            endTime: event.endDateTimeUtc,
-            image: event.hasCoverImage ? event.photoUri : "null",
-            isPast: event.startTime < new Date(),
-            // category: categoryFinder(event.eventName),
-          };
-          eventRef.update(eventWithoutCode);
-        } else {
-          console.log("No such document!");
-          eventRef.set(formattedEvent);
-          codesRef.doc(formattedEvent.apiID).set(codeDoc);
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
+    const eventRef = doc(db, "events", formattedEvent.apiID);
+    const eventSnap = await getDoc(eventRef);
+    console.log(eventSnap.data(), "eventSnap");
+    if (eventSnap.exists()) {
+      updateDoc(eventRef, {
+        apiID: event.apiId,
+        eventName: event.eventName,
+        description: tagRemover(event.description),
+        location: event.isVirtualLink ? "Virtual" : event.location,
+        startTime: event.startDateTimeUtc,
+        endTime: event.endDateTimeUtc,
+        image: event.hasCoverImage ? event.photoUri : "null",
+        isPast: event.startTime < new Date(),
+        // category: categoryFinder(event.eventName),
       });
+    } else {
+      console.log("No such document!");
+      setDoc(eventRef, {
+        formattedEvent,
+      });
+      const codeRef = doc(db, "codes", formattedEvent.apiID);
+      const code = await getDoc(codeRef);
+
+      console.log(code.data());
+      setDoc(codeRef, {
+        codeDoc,
+      });
+    }
   });
 }
 

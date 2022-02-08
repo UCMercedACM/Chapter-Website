@@ -1,14 +1,10 @@
+import { auth } from "../firebase/config";
+import { useAuth } from "../contexts/AuthContext";
 import React from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { auth } from "../firebase/config";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   const { currentUser } = useAuth();
-  const history = useHistory();
-  if (!currentUser) {
-    history.push("/login");
-  }
 
   return (
     <Route
@@ -21,7 +17,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
             <Redirect to="/verifyEmail" />
           )
         ) : (
-          <Redirect to="/login" />
+          <Redirect to="/" />
         );
       }}
     ></Route>

@@ -13,23 +13,14 @@ import designLogo from "../../assets/images/design_logo_v2.png";
 import iotLogo from "../../assets/images/iot_logo_v2.png";
 
 import "./Home.scss";
-import { db } from "../../firebase/config";
 import Leadership from "../../components/Leadership/Leadership";
-
 
 import landingAnimation from "./landingAnimation.svg";
 import wave from "./wave.svg";
 
 import Footer from "../../components/Footer/Footer";
 
-const Home = () => {
-  db.collection("test")
-    .doc("test")
-    .get()
-    .then((documentSnapshot) => {
-      console.log(documentSnapshot.data());
-    });
-
+function Home() {
   return (
     <main class="home">
       <section class="home__landing">
@@ -41,9 +32,9 @@ const Home = () => {
             </h1>
             <p class="home__landing__content__left__text">
               ACM, the world’s largest educational and scientific computing
-              society, delivers resources that advance computing as a science and
-              a profession. We are just your friendly neighborhood student chapter
-              at UC Merced.
+              society, delivers resources that advance computing as a science
+              and a profession. We are just your friendly neighborhood student
+              chapter at UC Merced.
             </p>
             <a
               class="home__landing__content__left__button"
@@ -53,7 +44,11 @@ const Home = () => {
             </a>
           </div>
           <div className="home__landing__content__right">
-            <object className="home__landing__right__animation" type="image/svg+xml" data={landingAnimation}></object>
+            <object
+              className="home__landing__right__animation"
+              type="image/svg+xml"
+              data={landingAnimation}
+            ></object>
           </div>
         </div>
       </section>
@@ -206,6 +201,6 @@ const Home = () => {
       <Footer />
     </main>
   );
-};
+}
 
 export default Home;
