@@ -4,29 +4,22 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import acmLogo from "../../assets/images/acm_logo_v2.png";
+import { auth } from "../../firebase/config";
 
 export default function Header() {
-  const { currentUser } = useAuth();
   const [isActive, setIsActive] = useState(false);
   const handleToggle = () => {
     setIsActive(!isActive);
   };
 
-  const history = useHistory();
-
   return (
     <header class="navbar">
-      <img
-        src={acmLogo}
-        alt="ACM Logo"
-        class="navbar__logo"
-        onClick={history.push("/")}
-      />
+      <img src={acmLogo} alt="ACM Logo" class="navbar__logo" />
       <nav>
         <ul class="navbar__links">
           <li>
             <NavLink to="/" className="inactive" activeClassName="active" exact>
-              Home 
+              Home
             </NavLink>
           </li>
           <li>
@@ -49,7 +42,7 @@ export default function Header() {
               SIGS
             </NavLink>
           </li>
-          {!currentUser ? (
+          {!auth.currentUser ? (
             <li>
               <NavLink
                 to="/login"
@@ -61,7 +54,7 @@ export default function Header() {
               </NavLink>
             </li>
           ) : null}
-          {!currentUser ? (
+          {!auth.currentUser ? (
             <li>
               <NavLink
                 to="/register"
@@ -73,7 +66,7 @@ export default function Header() {
               </NavLink>
             </li>
           ) : null}
-          {currentUser ? (
+          {auth.currentUser ? (
             <li>
               <NavLink
                 to="/dashboard"
