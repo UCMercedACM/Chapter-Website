@@ -17,10 +17,10 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
   const history = useHistory();
   if (auth.currentUser) {
-    history.push("/");
+    history.push("/dashboard");
   }
   const { login, authError } = useAuth();
-  console.log(authError);
+  console.log(auth.currentUser);
 
   return (
     <Formik
