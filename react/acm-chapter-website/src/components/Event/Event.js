@@ -7,61 +7,51 @@ import { getEventsFromFirebase } from "../../scripts/events";
 
 const Event = () => {
   const [events, setEvents] = useState([]);
+  const [futureEvents, setFutureEvents] = useState([]);
+
+  // useEffect(() => {
+  //   uploadEventsToFirebase();
+  // }, []);
 
   useEffect(() => {
-    uploadEventsToFirebase();
+    getEventsFromFirebase()
+      .then((data) => {
+        setEvents(data);
+        const futureEventsData = data.filter((event) => {
+          return !event.isPast;
+        });
+        setFutureEvents(futureEventsData);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
-  useEffect(
-    () => {
-      uploadEventsToFirebase();
-      console.log(new Date().toISOString(), "date");
-      getEventsFromFirebase()
-        .then((data) => {
-          setEvents([data]);
-        })
-        .catch((err) => console.log(err));
-    },
-    [],
-    1
-  );
-
   return (
-    <>
-      {events.map((event) => {
-        console.log(event);
-        console.log(new Date(event.startTime).getTime(), "hello");
-        console.log(new Date().getTime(), "??");
-        console.log(
-          new Date(event.startTime).getTime() < new Date().getTime(),
-          "ok"
-        );
+    <div>
+      {futureEvents.map((event, i) => {
         return (
-          <div class="events__upcoming__content__upcoming-list__bottom__event-item">
-            {new Date(events.startTime).getTime() < new Date().getTime() ? (
-              <div>
-                <p>{event.location}</p>
-                <div class="event-item-left-container">
-                  <p class="event-date">
-                    {convertToMonthDate(event.startTime)}
-                  </p>
-                  <p class="event-time">
-                    {convertToTime(event.startTime, event.endTime)}
-                  </p>
-                </div>
-                <div class="event-item-middle-container">
-                  <h3 class="event-name">{event.eventName}</h3>
-                  <p class="event-description">{event.description}</p>
-                </div>
-                <div class="event-item-right-container">
-                  <p class="event-location">{event.location}</p>
-                </div>
-              </div>
-            ) : null}
+          <div
+            className="events__upcoming__content__upcoming-list__bottom__event-item"
+            key={i}
+          >
+            <div className="event-item-left-container">
+              <p className="event-date">
+                {convertToMonthDate(event.startTime)}
+              </p>
+              <p className="event-time">
+                {convertToTime(event.startTime, event.endTime)}
+              </p>
+            </div>
+            <div className="event-item-middle-container">
+              <h3 className="event-name">{event.eventName}</h3>
+              <p className="event-description">{event.description}</p>
+            </div>
+            <div className="event-item-right-container">
+              <p className="event-location">{event.location}</p>
+            </div>
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
