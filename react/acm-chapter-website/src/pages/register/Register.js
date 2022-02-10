@@ -1,7 +1,10 @@
 import React from "react";
 import "../login/Login.scss";
+import { useHistory } from "react-router-dom";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import { useAuth } from "../../contexts/AuthContext";
+import { auth } from "../../firebase/config";
+
 import * as Yup from "yup";
 
 const SignupSchema = Yup.object().shape({
@@ -29,6 +32,11 @@ const SignupSchema = Yup.object().shape({
 
 const Register = () => {
   const { signup, authError } = useAuth();
+
+  const history = useHistory();
+  if (auth.currentUser) {
+    history.push("/dashboard");
+  }
 
   // function submitHandler(values, setFieldError) {
   //   const { email, password, name } = values;
