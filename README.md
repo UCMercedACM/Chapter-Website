@@ -1,17 +1,28 @@
+# Association for Computing Machinery's UC Merced Chapter
+
 UC Merced's Association for Computing Machinery Club's development website  
 Created using React and Firebase
 
-## IF YOU’RE NEW TO CODING, READ THIS:
-If you don’t have much experience with JavaScript (which we will use for the backend) you can look into 
-working on front end (which is easier to learn) the front-end is in the languages html and css so you can 
-first start by learning html and css and to learn these 2 languages I’d recommend watching this video: https://youtu.be/mU6anWqZJcc
+Figma Mockup
+Created by Mary Delos Reyes [SIG Design Lead] - [mockup](https://www.figma.com/file/R63olIJGYgI6c0Exjelpze/Light-Mode-ACM)
 
 ## Getting Started
 Look in the [issues](https://github.com/UCMercedACM/Chapter-Website/issues) tab of this repository and look for an issue you'd like to work on
 (make sure the nobody else is working on the issue unless you want to work with another person) and make a pull request along with that issue.
 Don't know how to do this? keep on reading below.
 
-# Committing/Running the development server
+## Quick Setup
+Make sure you have the following:
+[Node.js](https://nodejs.org/en/download/) .... p.s. **v12.19.0** is a safe option, but really recommended to install [**nvm**](https://github.com/nvm-sh/nvm)
+[Yarn Classic](https://classic.yarnpkg.com/en/docs/install)  
+Run "npm i" then "npm start"
+
+## IF YOU’RE NEW TO CODING:
+If you don’t have much experience with JavaScript (which we will use for the backend) you can look into 
+working on front end (which is easier to learn) the front-end is in the languages html and css so you can 
+first start by learning html and css and to learn these 2 languages I’d recommend watching this video: https://youtu.be/mU6anWqZJcc
+
+# Committing/Running the development server for beginners
 ### Questions? Contact Sal#1867 or nayr#8772 on discord
 * Fork the this repository
 (If you're not planning on committing to the repository you can just clone the main repo and skip the first the next step (including this one))
@@ -36,7 +47,7 @@ Don't know how to do this? keep on reading below.
       * Or you can contact Sal#1867 or nayr#8772 on discord to get ACM's firebase key
 * Run the development website/server
   * How to run the development server:
-    * Type in npm start in your terminal and press enter
+    * Type in "npm start" in your terminal and press enter
       * Again, make sure you're in the correct folder (forked-repository\react\acm-chapter-website\)
 * **Code!**
 * Your last commit’s comment to this forked repository should include fixed and the issue number e.g: “fixed #123”
