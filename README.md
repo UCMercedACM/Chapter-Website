@@ -17,7 +17,7 @@ Make sure you have the following:
 [Yarn Classic](https://classic.yarnpkg.com/en/docs/install)  
 Run "npm i" then "npm start" (You will need your own Firebase Key, if you need the main key contact Sal#1867 or nayr#8772 on discord)
 
-## IF YOU’RE NEW TO CODING:
+## New to coding?:
 If you don’t have much experience with JavaScript (which we will use for the backend) you can look into 
 working on front end (which is easier to learn) the front-end is in the languages html and css so you can 
 first start by learning html and css and to learn these 2 languages I’d recommend watching this video: https://youtu.be/mU6anWqZJcc
