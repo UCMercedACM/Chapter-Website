@@ -53,5 +53,4 @@ first start by learning html and css and to learn these 2 languages I’d recomm
 * Your last commit’s comment to this forked repository should include fixed and the issue number e.g: “fixed #123”
 * Once you’ve fixed/finished the issue, make a pull request to the main repository https://github.com/UCMercedACM/Chapter-Website/pulls
 
-### Questions? Contact Sal#1867 or nayr#8772 on discord
 
