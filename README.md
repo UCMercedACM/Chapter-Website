@@ -25,7 +25,7 @@ first start by learning html and css and to learn these 2 languages I’d recomm
 # Committing/Running the development server for beginners
 ### Questions? Contact Sal#1867 or nayr#8772 on discord
 * Fork the this repository
-(If you're not planning on committing to the repository you can just clone the main repo and skip the first the next step (including this one))
+(If you're not planning on committing to the repository you can just clone the main repo and skip first the next step (including this one))
   * How to fork:
     * click on “Fork” on the top right
 * Then git clone that repository you just forked to your computer
