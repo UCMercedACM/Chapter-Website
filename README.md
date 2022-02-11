@@ -12,7 +12,7 @@ Look in the [issues](https://github.com/UCMercedACM/Chapter-Website/issues) tab 
 Don't know how to do this? keep on reading below.
 
 ## Quick Setup
-Make sure you have the following:
+Make sure you have the following:  
 [Node.js](https://nodejs.org/en/download/) .... p.s. **v12.19.0** is a safe option, but really recommended to install [**nvm**](https://github.com/nvm-sh/nvm)  
 [Yarn Classic](https://classic.yarnpkg.com/en/docs/install)  
 Run "npm i" then "npm start"
