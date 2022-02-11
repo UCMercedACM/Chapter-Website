@@ -41,9 +41,9 @@ first start by learning html and css and to learn these 2 languages I’d recomm
 * CD into .\react\acm-chapter-website\
 * Then, type in “npm i” in terminal and press enter
 * About Firebase
-  * You will need a Firebase key to run the server and connect to the database
+  * You will need a [Firebase](https://firebase.google.com/) key to run the server and connect to the database
     * There are two options to go about this
-      * You can either make your own Firebase instance and use your own key
+      * You can either make your own [Firebase](https://firebase.google.com/) instance and use your own key
       * Or you can contact Sal#1867 or nayr#8772 on discord to get ACM's firebase key
 * Run the development website/server
   * How to run the development server:
