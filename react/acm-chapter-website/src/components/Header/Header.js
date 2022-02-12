@@ -15,10 +15,10 @@ export default function Header() {
   };
 
   return (
-    <header class="navbar">
-      <img src={acmLogo} alt="ACM Logo" class="navbar__logo" />
+    <header className="navbar">
+      <img src={acmLogo} alt="ACM Logo" className="navbar__logo" />
       <nav>
-        <ul class="navbar__links">
+        <ul className="navbar__links">
           <li>
             <NavLink to="/" className="inactive" activeClassName="active" exact>
               Home

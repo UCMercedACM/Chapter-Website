@@ -14,7 +14,10 @@ const Events = () => {
           </h3>
           <div class="events__landing__content__button">
             <div class="events__landing__content__button__front">
-              <a href="#" class="events__landing__content__button__front__text">
+              <a
+                href="https://calendar.google.com/calendar/u/3/r?cid=YWNtQHVjbWVyY2VkLmVkdQ"
+                class="events__landing__content__button__front__text"
+              >
                 Join our mailing list!
               </a>
             </div>
