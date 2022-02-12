@@ -34,9 +34,6 @@ const Register = () => {
   const { signup, authError } = useAuth();
 
   const history = useHistory();
-  if (auth.currentUser) {
-    history.push("/dashboard");
-  }
 
   // function submitHandler(values, setFieldError) {
   //   const { email, password, name } = values;

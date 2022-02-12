@@ -8,6 +8,7 @@ import {
   signOut,
   sendPasswordResetEmail,
   onAuthStateChanged,
+  sendEmailVerification,
 } from "firebase/auth";
 
 import {
@@ -36,13 +37,10 @@ export function AuthProvider({ children }) {
     let data;
     console.log("signup");
     createUserWithEmailAndPassword(auth, email, password)
-      .then((cred) => {
-        if (cred.user.emailVerified === false) {
-          cred.user.sendEmailVerification();
-        }
+      .then(async (cred) => {
         const uid = cred.user.uid;
         const userRef = doc(db, "users", uid);
-        setDoc(userRef, {
+        await setDoc(userRef, {
           id: uid,
           email: email,
           name: name,
@@ -50,9 +48,10 @@ export function AuthProvider({ children }) {
         }).then(() => {
           history.push("/dashboard");
         });
+        console.log("signup2");
       })
       .catch((err) => {
-        console.log(err.code, "errCode");
+        console.log(err, "errCode");
         switch (err.code) {
           case "auth/email-already-in-use":
             setAuthError("Email is Already Used");
@@ -75,7 +74,7 @@ export function AuthProvider({ children }) {
     signInWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         if (cred.user.emailVerified === false) {
-          cred.user.sendEmailVerification();
+          sendEmailVerification(cred.user);
           history.push("/verifyEmail");
         } else if (cred.user) {
           console.log(cred.user);

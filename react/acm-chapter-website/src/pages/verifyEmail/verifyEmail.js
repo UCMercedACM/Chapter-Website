@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DelayRedirect from "../../components/CustomLink/DelayRedirect";
-import {
-  getAuth,
-  onAuthStateChanged,
-  sendEmailVerification,
-} from "firebase/auth";
+import { sendEmailVerification } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import "./verifyEmail.scss";
 import { useAuth } from "../../contexts/AuthContext";
@@ -41,15 +37,23 @@ const VerifyEmail = () => {
   return (
     <div className="login">
       <div className="login__landing">
-        {user ? (
-          <p className={verified ? "verified" : ""}>
-            {verified ? "Verified" : "User Not Verified "}
+        {user || auth.currentUser ? (
+          <p
+            className={
+              verified || auth.currentUser.emailVerified ? "verified" : ""
+            }
+          >
+            {verified || auth.currentUser.emailVerified
+              ? "Verified"
+              : "User Not Verified "}
           </p>
         ) : (
           <p>User unavailable</p>
         )}
-        {!verified && (
+        {!verified ? (
           <button onClick={sendEmail}>Send Verification Email to verify</button>
+        ) : (
+          ""
         )}
         {verified && <Link to="/dashboard">Go to Dashboard</Link>}
       </div>
