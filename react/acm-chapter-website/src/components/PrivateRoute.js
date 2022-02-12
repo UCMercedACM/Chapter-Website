@@ -1,16 +1,18 @@
+import React from "react";
 import { auth } from "../firebase/config";
 import { useAuth } from "../contexts/AuthContext";
-import React from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
   const { currentUser } = useAuth();
+  console.log(currentUser);
+  console.log(auth.currentUser);
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        return currentUser ? (
+        return currentUser || auth.currentUser ? (
           auth.currentUser.emailVerified ? (
             <Component {...props} />
           ) : (

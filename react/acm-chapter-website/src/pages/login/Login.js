@@ -17,6 +17,7 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
   const history = useHistory();
   if (auth.currentUser) {
+    console.log(auth.currentUser);
     history.push("/dashboard");
   }
   const { login, authError } = useAuth();
