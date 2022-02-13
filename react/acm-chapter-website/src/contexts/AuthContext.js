@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  linkWithPopup,
   GithubAuthProvider,
   signOut,
   sendPasswordResetEmail,
@@ -11,14 +10,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 
-import {
-  getFirestore,
-  collection,
-  doc,
-  updateDoc,
-  setDoc,
-  getDoc,
-} from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db, auth } from "../firebase/config";
 import useSessionStorage from "../hooks/useSessionStorage";
 
@@ -33,10 +25,7 @@ export function AuthProvider({ children }) {
   const [authError, setAuthError] = useState("");
   const history = useHistory();
 
-  const githubProvider = new GithubAuthProvider();
-
   function signup(email, password, name) {
-    let data;
     console.log("signup");
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (cred) => {
@@ -176,7 +165,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, authListener);
     return unsubscribe;
-  }, [currentUser]);
+  }, []);
 
   const value = {
     sendEmailVerif,
