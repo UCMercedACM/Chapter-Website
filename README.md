@@ -25,7 +25,7 @@ first start by learning html and css and to learn these 2 languages I’d recomm
 ## Committing/Running the development server for beginners
 ### Questions? Contact Sal#1867 or nayr#8772 on discord
 * Fork this repository
-(If you're not planning on committing to the repository you can just clone the main repo and skip first the next step (including this one))
+(If you're not planning on committing to the repository you can just clone the main repo and skip the next step (including this one))
   * How to fork:
     * click on “Fork” on the top right
 * Then git clone that repository you just forked to your computer
@@ -34,7 +34,10 @@ first start by learning html and css and to learn these 2 languages I’d recomm
     * CD into your desired location to clone the repository
     * Type in the command “git clone [link to your forked repository]” and press enter
       * e.g: “git clone https://github.com/ryanlee68/Chapter-Website”
+* CD into that clone you just made
 * Make sure you're in the react branch (Most likely you'll be in the right branch)
+  * How to make sure you're in the right branch:
+    *Type in "git branch -a" and make sure the asterisk * is right next to "react"
   * How to switch branches:
     * First, make sure that you're CD'd into the forked repository
     * Use the command “git checkout origin/react” in your terminal and press enter
@@ -50,7 +53,7 @@ first start by learning html and css and to learn these 2 languages I’d recomm
     * Type in "npm start" in your terminal and press enter
       * Again, make sure you're in the correct folder (forked-repository\react\acm-chapter-website\)
 * **Code!**
-* Your last commit’s comment to this forked repository should include fixed and the issue number e.g: “fixed #123”
-* Once you’ve fixed/finished the issue, make a pull request to the main repository https://github.com/UCMercedACM/Chapter-Website/pulls
+* If you've fixed a particular issue then your last commit’s comment to this forked repository should include fixed and the issue number e.g: “fixed #123”
+* Make a pull request to the main repository https://github.com/UCMercedACM/Chapter-Website/pulls
 
 
