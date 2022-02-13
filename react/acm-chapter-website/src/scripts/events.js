@@ -27,10 +27,12 @@ async function getEventsFromFirebase() {
 }
 
 async function attendEvent(user, joinedEventCode) {
+  console.log(user);
   console.log("attendEvent-start");
   let error = "";
-  const attendedEvents = await getDoc(doc(db, "users", "user.uid"));
-  console.log("attendEvent attendedEvents", attendedEvents.data());
+  const userRef = await getDoc(doc(db, "users", user.currentUser.uid));
+  const attendedEvents = userRef.data().eventsAttended;
+  console.log("attendEvent attendedEvents", attendedEvents);
 
   // const codesSnapshot = await firebase.firestore().collection("codes").get();
   let joinedEventID = [];
@@ -48,40 +50,48 @@ async function attendEvent(user, joinedEventCode) {
     return { error };
   }
   console.log(joinedEventID, "hmm");
-  if (attendedEvents.includes(joinedEventID)) {
-    console.log(user.name + " already joined the event: " + joinedEventID);
+  if (attendedEvents.length > 0 && attendedEvents.includes(joinedEventID)) {
+    console.log(
+      user.currentUser.email + " already joined the event: " + joinedEventID
+    );
     error = "alreadyJoined";
   } else {
     console.log("updating eventsAttended");
 
-    const userRef = doc(db, "users", user.id);
-    updateDoc(userRef, {
-      eventsAttended: [...attendedEvents, joinedEventID],
-    });
-    console.log("eventsAttended updated successfully");
+    const userRef = doc(db, "users", user.currentUser.uid);
+    if (attendedEvents.length !== 0) {
+      console.log(attendedEvents);
+      const newEvents = attendedEvents.concat(joinedEventID);
+      updateDoc(userRef, {
+        eventsAttended: newEvents,
+      });
+      console.log("eventsAttended updated successfully");
+    } else {
+      updateDoc(userRef, {
+        eventsAttended: joinedEventID,
+      });
+      console.log("eventsAttended updated successfully");
+    }
   }
   console.log("attendEvent-end");
   return { error };
 }
 
-async function getUsersAttendedEvents(user) {
-  console.log(user.uid, "userId");
-  const userRef = doc(db, "users", user.uid);
+async function getUsersAttendedEvents(uid) {
+  const userRef = doc(db, "users", uid);
   const userSnap = await getDoc(userRef);
   const attendedEvents = userSnap.data().eventsAttended;
-  console.log(attendedEvents, "attended events of user: " + user.name);
   return attendedEvents;
 }
 
 async function getAttendedEventsContent(ids) {
-  let attendedEvents = [];
-  ids.forEach(async (eventID) => {
-    const eventRef = doc(db, "events", eventID);
-    const eventAttended = await getDoc(eventRef);
-    console.log(eventAttended.data(), "eventAttended");
-    attendedEvents.push(eventAttended.data());
-  });
-  console.log(attendedEvents, "attendedEvents");
+  const attendedEvents = await Promise.all(
+    ids.map(async (eventID) => {
+      const eventRef = doc(db, "events", eventID);
+      const eventAttended = await getDoc(eventRef);
+      return eventAttended.data();
+    })
+  );
   return attendedEvents;
 }
 

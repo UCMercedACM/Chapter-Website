@@ -1,27 +1,29 @@
 import React from "react";
 import { auth } from "../firebase/config";
 import { useAuth } from "../contexts/AuthContext";
-import { Route, Redirect, useHistory } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
-export default function PrivateRoute({ component: Component, ...rest }) {
-  const { currentUser } = useAuth();
-  console.log(currentUser);
-  console.log(auth.currentUser);
-
+export default function PrivateRoute({ children, ...rest }) {
+  let { currentUser } = useAuth();
   return (
     <Route
       {...rest}
-      render={(props) => {
-        return currentUser || auth.currentUser ? (
+      render={({ location }) =>
+        currentUser || auth.currentUser ? (
           auth.currentUser.emailVerified ? (
-            <Component {...props} />
+            children
           ) : (
             <Redirect to="/verifyEmail" />
           )
         ) : (
-          <Redirect to="/" />
-        );
-      }}
-    ></Route>
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
   );
 }
