@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { convertToMonthDate } from "../../helper/timeFunctions";
 import { useAuth } from "../../contexts/AuthContext";
+import { auth } from "../../firebase/config";
 import { attendEvent } from "../../scripts/events";
 
 const RecentEvents = ({ attendedEvents }) => {
-  const { currentUser } = useAuth();
   const [code, setCode] = useState();
   function codeHandler(e) {
     e.preventDefault();
-    const { error } = attendEvent(currentUser, code);
+    const { error } = attendEvent(auth, code);
     if (error) {
       console.log(error);
     }
@@ -36,18 +36,21 @@ const RecentEvents = ({ attendedEvents }) => {
           />
         </form>
         <table className="recent-events__table">
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-          </tr>
-          {attendedEvents.map((event) => {
-            return (
-              <tr>
-                <td>{event.eventName}</td>
-                <td>{convertToMonthDate(event.startTime)}</td>
-              </tr>
-            );
-          })}
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+            </tr>
+            {attendedEvents.length > 0 &&
+              attendedEvents.map((event) => {
+                return (
+                  <tr>
+                    <td>{event.eventName}</td>
+                    <td>{convertToMonthDate(event.startTime)}</td>
+                  </tr>
+                );
+              })}
+          </tbody>
         </table>
       </div>
     </div>

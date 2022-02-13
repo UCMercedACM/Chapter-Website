@@ -20,6 +20,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db, auth } from "../firebase/config";
+import useSessionStorage from "../hooks/useSessionStorage";
 
 const AuthContext = React.createContext();
 
@@ -28,6 +29,7 @@ export function useAuth() {
 }
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [authUser, setAuthUser] = useSessionStorage("authUser");
   const [authError, setAuthError] = useState("");
   const history = useHistory();
 
@@ -46,6 +48,8 @@ export function AuthProvider({ children }) {
           name: name,
           eventsAttended: [],
         }).then(() => {
+          setAuthUser(cred.user);
+
           history.push("/dashboard");
         });
         console.log("signup2");
@@ -77,6 +81,7 @@ export function AuthProvider({ children }) {
           sendEmailVerification(cred.user);
           history.push("/verifyEmail");
         } else if (cred.user) {
+          setAuthUser(cred.user);
           console.log(cred.user);
           history.push("/");
         }
@@ -132,7 +137,11 @@ export function AuthProvider({ children }) {
   // }
 
   async function logout() {
-    signOut(auth);
+    signOut(auth).then(async () => {
+      history.push("/login");
+      setAuthUser("loggedOut");
+      window.location.reload();
+    });
   }
 
   function sendEmailVerif() {
@@ -157,6 +166,7 @@ export function AuthProvider({ children }) {
 
   async function authListener(user) {
     if (user) {
+      setAuthUser(user);
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
       setCurrentUser(userSnap.data());
@@ -171,6 +181,7 @@ export function AuthProvider({ children }) {
   const value = {
     sendEmailVerif,
     currentUser,
+    authUser,
     authError,
     login,
     signup,
