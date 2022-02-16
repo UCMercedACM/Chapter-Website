@@ -1,0 +1,26 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+  function isAuthAndEmailVerifiedAndSameUser(auth, id) {
+  	return auth != null && auth.token.email_verified && auth.uid == id;
+  }
+
+    match /events/{apiID} {
+      allow read: if true;
+    }
+    match /users/{id} {
+      allow read: if isAuthAndEmailVerifiedAndSameUser(request.auth, id);
+      allow update: if isAuthAndEmailVerifiedAndSameUser(request.auth, id) && request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(['eventsAttended']);
+      allow create: if request.auth != null && request.resource.data.keys().hasAll([
+  "name",
+  "email",
+  "id",
+  "eventsAttended"]) &&
+    ((request.resource.data.name.size() < 10 && request.resource.data.name.size() > 2) && request.resource.data.email == request.auth.token.email && request.resource.data.id == request.auth.uid && request.resource.data.eventsAttended.size() == 1 && request.resource.data.eventsAttended[0] == "");
+    }
+    match /codes/{apiID} {
+      allow read: if request.auth != null;
+    }
+  }
+}
