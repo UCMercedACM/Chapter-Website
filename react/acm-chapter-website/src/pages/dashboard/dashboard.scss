@@ -68,14 +68,11 @@
 
         &__components {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 2fr 3fr;
             gap: 1rem;
             position: relative;
 
             &__left {
-                display: grid;
-                grid-template-rows: 1fr 2fr;
-                gap: 1rem;
             }
 
             &__right {
@@ -100,21 +97,33 @@
 
 .user-stats {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     position: relative;
     overflow: visible;
+    height: 100%;
 
-    &__left,
-    &__middle,
-    &__right {
+    &__top {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10%;
+
+      h1 {
+        font-size: 2.75rem;
+      }
+    }
+    &__bottom {
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+              margin-top: 10%;
+
 
         h1 {
             font-size: 2.75rem;
@@ -246,6 +255,3 @@
         }
     }
 }
-
-
-
