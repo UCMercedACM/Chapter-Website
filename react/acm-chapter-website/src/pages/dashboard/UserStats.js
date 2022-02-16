@@ -5,7 +5,7 @@ const UserStats = ({ attendedEvents }) => {
   return (
     <div className="user-stats">
       <div>
-        <div className="user-stats__left dashboard-component">
+        <div className="user-stats__top dashboard-component">
           <h1>{attendedEvents.length * 50} pts</h1>
           <p>
             Level{" "}
@@ -15,13 +15,9 @@ const UserStats = ({ attendedEvents }) => {
           </p>
         </div>
 
-        <div className="user-stats__middle dashboard-component">
+        <div className="user-stats__bottom dashboard-component">
           <h1>{attendedEvents.length}</h1>
           <p>Events Attended</p>
-        </div>
-
-        <div className="user-stats__right dashboard-component">
-          <p>Leaderboard Coming Soon!</p>
         </div>
       </div>
     </div>

@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from "react";
-import getEvents, { getPhoto } from "../../scripts/catLife";
+import React from "react";
 import { convertToTime, convertToMonthDate } from "../../helper/timeFunctions";
-import { Link } from "react-router-dom";
-import uploadEventsToFirebase from "../../scripts/catLife";
-import { getEventsFromFirebase } from "../../scripts/events";
 
-const Event = () => {
-  const [events, setEvents] = useState([]);
-  const [futureEvents, setFutureEvents] = useState([]);
-
-  // useEffect(() => {
-  //   uploadEventsToFirebase();
-  // }, []);
-
-  useEffect(() => {
-    getEventsFromFirebase()
-      .then((data) => {
-        setEvents(data);
-        const futureEventsData = data.filter((event) => {
-          return !event.isPast;
-        });
-        setFutureEvents(futureEventsData);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+const Event = ({ events, type }) => {
+  function headerSwitch(type) {
+    switch (type) {
+      case "past":
+        return "Past Events";
+      case "now":
+        return "Events Live Right NOW!";
+      case "future":
+        return "Future Events";
+      default:
+        return "";
+    }
+  }
+  function bgSwitcher(type) {
+    switch (type) {
+      case "past":
+        return "#dbdbdb";
+      case "now":
+        return "#3da9fc";
+      case "future":
+        return "#f5f5f5";
+      default:
+        return "";
+    }
+  }
 
   return (
-    <div>
-      {futureEvents.map((event, i) => {
+    <div className="pastEvents">
+      <h1>{headerSwitch(type)}</h1>
+
+      {events.map((event, i) => {
         return (
           <div
             className="events__upcoming__content__upcoming-list__bottom__event-item"
             key={i}
+            style={{ backgroundColor: bgSwitcher(type) }}
           >
             <div className="event-item-left-container">
               <p className="event-date">
@@ -46,7 +51,17 @@ const Event = () => {
               <p className="event-description">{event.description}</p>
             </div>
             <div className="event-item-right-container">
-              <p className="event-location">{event.location}</p>
+              {event.location.includes("bit.ly/acm-ucm-discord") ? (
+                <a
+                  href="https://bit.ly/acm-ucm-discord"
+                  target="_blank"
+                  className="event-location-zoom"
+                >
+                  Zoom
+                </a>
+              ) : (
+                <p className="event-location">{event.location}</p>
+              )}
             </div>
           </div>
         );

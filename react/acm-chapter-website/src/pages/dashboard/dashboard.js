@@ -86,10 +86,9 @@ export default function Dashboard() {
           <div className="dashboard__content__components">
             <div className="dashboard__content__components__left">
               <UserStats attendedEvents={attendedEvents} />
-              <RecentEvents attendedEvents={attendedEvents} />
             </div>
             <div className="dashboard__content__components__right">
-              <UserProfile attendedEvents={attendedEvents} />
+              <RecentEvents attendedEvents={attendedEvents} />
             </div>
           </div>
         </section>
