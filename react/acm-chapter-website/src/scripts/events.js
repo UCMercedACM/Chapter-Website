@@ -40,39 +40,45 @@ async function attendEvent(user, joinedEventCode) {
   querySnapshot.forEach((doc) => {
     if (doc.data().code === joinedEventCode) {
       console.log(doc.data(), "CODE FOUND");
+      console.log(doc, "doc");
       joinedEventID.push(doc.data().apiID);
     }
   });
-
+  console.log(joinedEventID);
   if (!joinedEventID) {
     error = "noMatchingCode";
     console.error(error);
     return { error };
-  }
-  console.log(joinedEventID, "hmm");
-  if (attendedEvents.length > 0 && attendedEvents.includes(joinedEventID)) {
-    console.log(
-      user.currentUser.email + " already joined the event: " + joinedEventID
-    );
-    error = "alreadyJoined";
   } else {
-    console.log("updating eventsAttended");
-
-    const userRef = doc(db, "users", user.currentUser.uid);
-    if (attendedEvents.length !== 0) {
-      console.log(attendedEvents);
-      const newEvents = attendedEvents.concat(joinedEventID);
-      updateDoc(userRef, {
-        eventsAttended: newEvents,
-      });
-      console.log("eventsAttended updated successfully");
+    console.log(joinedEventID, "hmm");
+    if (
+      attendedEvents.length > 0 &&
+      attendedEvents.includes(joinedEventID[0])
+    ) {
+      console.log(
+        user.currentUser.email + " already joined the event: " + joinedEventID
+      );
+      error = "alreadyJoined";
     } else {
-      updateDoc(userRef, {
-        eventsAttended: joinedEventID,
-      });
-      console.log("eventsAttended updated successfully");
+      console.log("updating eventsAttended", joinedEventID);
+
+      const userRef = doc(db, "users", user.currentUser.uid);
+      if (attendedEvents.length !== 0) {
+        console.log(attendedEvents);
+        const newEvents = attendedEvents.concat(joinedEventID);
+        updateDoc(userRef, {
+          eventsAttended: newEvents,
+        });
+        console.log("eventsAttended updated successfully");
+      } else {
+        updateDoc(userRef, {
+          eventsAttended: joinedEventID,
+        });
+        console.log("eventsAttended updated successfully");
+      }
     }
   }
+
   console.log("attendEvent-end");
   return { error };
 }
