@@ -22,33 +22,45 @@ function convertToMonthDate(date) {
 function convertToTime(start, end) {
   let isStartHourPM = "";
   let isEndHourPM = "";
-  let startHour = new Date(start);
-  let endHour = new Date(end);
+  let startDate = new Date(start);
+  let endDate = new Date(end);
+  let startHour;
+  let startMinute;
+  let endHour;
+  let endMinute;
 
-  if (startHour === endHour)
+  if (startDate === endDate)
     throw new Error("Start Hour and End Hour are same.");
 
-  if (startHour.getHours() >= 12) {
+  if (startDate.getHours() >= 12) {
     isStartHourPM = "pm";
-    startHour = startHour.getHours() - 12;
-  } else if (startHour.getHours() < 12) {
+    startHour = startDate.getHours() - 12;
+    startMinute = startDate.getMinutes();
+    startMinute = startMinute == 0 ? "00" : startMinute;
+  } else if (startDate.getHours() < 12) {
     isStartHourPM = "am";
-    startHour = startHour.getHours();
+    startHour = startDate.getHours();
+    startMinute = startDate.getMinutes();
+    startMinute = startMinute == 0 ? "00" : startMinute;
   }
 
-  if (endHour.getHours() >= 12) {
+  if (endDate.getHours() >= 12) {
     isEndHourPM = "pm";
-    endHour = endHour.getHours() - 12;
-  } else if (endHour.getHours() < 12) {
+    endHour = endDate.getHours() - 12;
+    endMinute = startDate.getMinutes();
+    endMinute = endMinute == 0 ? "00" : endMinute;
+  } else if (endDate.getHours() < 12) {
     isEndHourPM = "am";
-    endHour = endHour.getHours();
+    endHour = endDate.getHours();
+    endMinute = startDate.getMinutes();
+    endMinute = endMinute == 0 ? "00" : endMinute;
   }
 
   if (isStartHourPM === isEndHourPM) {
-    const string = `${startHour}-${endHour}${isStartHourPM}`;
+    const string = `${startHour}:${startMinute}-${endHour}:${endMinute}${isStartHourPM}`;
     return string;
   } else {
-    const string = `${startHour}${isStartHourPM}-${endHour}${isEndHourPM}`;
+    const string = `${startHour}:${startMinute}${isStartHourPM}-${endHour}:${endMinute}${isEndHourPM}`;
     return string;
   }
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import SectionTitle from "./../../components/SectionTitle/SectionTitle";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import "./Events.scss";
-import Event from "../../components/Event/Event";
+import Events from "../../components/Event/Events";
 
-const Events = () => {
+const EventsPage = () => {
   return (
     <main class="events">
       <section class="events__landing">
@@ -67,7 +67,7 @@ const Events = () => {
               </div>
             </div>
             <div class="events__upcoming__content__upcoming-list__bottom">
-              <Event />
+              <Events />
             </div>
           </div>
         </div>
@@ -76,4 +76,4 @@ const Events = () => {
   );
 };
 
-export default Events;
+export default EventsPage;

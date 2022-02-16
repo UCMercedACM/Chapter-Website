@@ -6,7 +6,7 @@ import WebFont from "webfontloader";
 
 import Header from "./components/Header/Header";
 import Home from "./pages/home/Home";
-import Events from "./pages/events/Events";
+import EventsPage from "./pages/events/EventsPage";
 import Sigs from "./pages/sigs/Sigs";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/RouteComps/PrivateRoute";
@@ -48,7 +48,7 @@ function App() {
             </PublicRoute>
 
             <Route exact path="/" component={Home} />
-            <Route path="/events" component={Events} exact />
+            <Route path="/events" component={EventsPage} exact />
             <Route path="/sigs" component={Sigs} />
             {/* <Route path="/resources" component={Resources} /> */}
             <PrivateRoute path="/">
