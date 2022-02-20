@@ -2,10 +2,9 @@ import {
   doc,
   getDoc,
   collection,
-  onSnapshot,
   updateDoc,
-  getDocFromCache,
   getDocs,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
 
@@ -76,6 +75,16 @@ async function attendEvent(user, joinedEventCode) {
         });
         console.log("eventsAttended updated successfully");
       }
+      const eventRef = doc(db, "events", joinedEventID);
+      updateDoc(eventRef, {
+        attendees: arrayUnion(
+          user.currentUser.email.substring(
+            0,
+            user.currentUser.email.indexOf("@")
+          )
+        ),
+      });
+      console.log("event attendees are updated");
     }
   }
 
