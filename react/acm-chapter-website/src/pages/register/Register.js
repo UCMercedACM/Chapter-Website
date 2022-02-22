@@ -1,11 +1,10 @@
 import React from "react";
 import "./Login.scss";
-import { useHistory } from "react-router-dom";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import { useAuth } from "../../contexts/AuthContext";
-import { auth } from "../../firebase/config";
 
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -14,10 +13,10 @@ const SignupSchema = Yup.object().shape({
     .required("Required"),
   email: Yup.string()
     .email("Invalid email")
-    .matches(
-      /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@ucmerced([\.])edu/g,
-      "Not @ucmerced.edu Email"
-    )
+    // .matches(
+    //   /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@ucmerced([\.])edu/g,
+    //   'Not @ucmerced.edu Email'
+    // )
     .required("Required"),
   password: Yup.string()
     .min(6, "Too Short!")
@@ -50,58 +49,79 @@ const Register = () => {
         confirmPassword: "",
       }}
       validationSchema={SignupSchema}
+      validateOnBlur
       onSubmit={async (values) => {
         console.log(signup, "signup");
         await signup(values.email, values.password, values.name);
       }}
     >
-      {({ errors }) => (
+      {({ handleSubmit }) => (
         <div>
           <main className="login">
-            <Form className="login__landing">
+            <Form className="landing">
               <header>
                 <h2>Register</h2>
                 <p>Welcome to ACM @UCM</p>
               </header>
-
-              <Field
-                className="input"
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Name"
-              />
-              <ErrorMessage name="name" />
-
-              <Field
-                className="input"
-                id="email"
-                placeholder="Email"
-                name="email"
-                type="email"
-              />
-              <ErrorMessage name="email" />
-
-              <Field
-                className="input"
-                id="password"
-                placeholder="Password"
-                name="password"
-                type="password"
-              />
-              <ErrorMessage name="password" />
-
-              <Field
-                className="input"
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirm Password"
-              />
-              <ErrorMessage name="confirmPassword" />
-
-              <button type="submit">Submit</button>
+              <div className="field">
+                <Field
+                  className="input"
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                />
+                <div className="error">
+                  <ErrorMessage name="name" />
+                </div>
+              </div>
+              <div className="field">
+                <Field
+                  className="input"
+                  id="email"
+                  placeholder="Email"
+                  name="email"
+                  type="email"
+                />
+                <div className="error">
+                  <ErrorMessage name="email" />
+                </div>
+              </div>
+              <div className="field">
+                <Field
+                  className="input"
+                  id="password"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                />
+                <div className="error">
+                  <ErrorMessage name="password" />
+                </div>
+              </div>
+              <div className="field">
+                <Field
+                  className="input"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Confirm Password"
+                />
+                <div className="error">
+                  <ErrorMessage name="confirmPassword" />
+                </div>
+              </div>
               {authError}
+              <div className="footer-buttons">
+                <button type="submit" onClick={handleSubmit}>
+                  Submit
+                </button>
+
+                <div className="align-x createAcc">
+                  <p>Don't have an account?</p>
+                  <Link to="/register">Create an account</Link>
+                </div>
+              </div>
             </Form>
           </main>
         </div>
