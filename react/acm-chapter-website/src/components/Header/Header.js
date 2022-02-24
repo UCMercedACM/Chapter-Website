@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Header.scss";
+import "../../sass/components/Header.scss";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
@@ -15,83 +15,81 @@ export default function Header() {
   };
 
   return (
-    <header className="navbar">
-      <img src={acmLogo} alt="ACM Logo" className="navbar__logo" />
-      <nav>
-        <ul className="navbar__links">
-          <li>
-            <NavLink to="/" className="inactive" activeClassName="active" exact>
+    <header className="page-header">
+      <div className="page-header__content">
+        <img src={acmLogo} alt="ACM Logo" className="page-header__logo" />
+        <nav>
+          <div className="page-header__links">
+            <NavLink 
+              to="/" 
+              className="page-header__link page-header__link--inactive" 
+              activeClassName="page-header__link page-header__link--active" 
+              exact
+            >
               Home
             </NavLink>
-          </li>
-          <li>
+
             <NavLink
               to="/events"
-              className="inactive"
-              activeClassName="active"
+              className="page-header__link page-header__link--inactive"
+              activeClassName="page-header__link page-header__link--active"
               exact
             >
               Events
             </NavLink>
-          </li>
-          <li>
+
             <NavLink
               to="/sigs"
-              className="inactive"
-              activeClassName="active"
+              className="page-header__link page-header__link--inactive"
+              activeClassName="page-header__link page-header__link--active"
               exact
             >
               SIGS
             </NavLink>
-          </li>
-          {!currentUser ? (
-            <li>
+
+            {!currentUser ? (
               <NavLink
                 to="/login"
-                className="inactive"
-                activeClassName="active"
+                className="page-header__link page-header__link--inactive"
+                activeClassName="page-header__link page-header__link--active"
                 exact
               >
                 Login
               </NavLink>
-            </li>
-          ) : null}
-          {!currentUser ? (
-            <li>
+            ) : null}
+            {!currentUser ? (
               <NavLink
                 to="/register"
-                className="inactive"
-                activeClassName="active"
+                className="page-header__link page-header__link--inactive"
+                activeClassName="page-header__link page-header__link--active"
                 exact
               >
                 Register
               </NavLink>
-            </li>
-          ) : null}
-          {currentUser ? (
-            <li>
+            ) : null}
+            {currentUser ? (
               <NavLink
                 to="/dashboard"
-                className="inactive"
-                activeClassName="active"
+                className="page-header__link page-header__link--inactive"
+                activeClassName="page-header__link page-header__link--active"
                 exact
               >
                 Dashboard
               </NavLink>
-            </li>
-          ) : null}
-          <div
-            id="nav-icon"
-            onClick={handleToggle}
-            className={`toggle inactive ${isActive ? "open" : ""}`}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            ) : null}
+            <div
+              id="nav-icon"
+              onClick={handleToggle}
+              className={`toggle inactive ${isActive ? "open" : ""}`}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
-        </ul>
-      </nav>
+        </nav>
+        </div>
     </header>
   );
 }

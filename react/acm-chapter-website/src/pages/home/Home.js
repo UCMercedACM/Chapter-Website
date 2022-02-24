@@ -12,7 +12,7 @@ import cyberLogo from "../../assets/images/cyber_logo_v2.png";
 import designLogo from "../../assets/images/design_logo_v2.png";
 import iotLogo from "../../assets/images/iot_logo_v2.png";
 
-import "./Home.scss";
+import "../../sass/components/Home.scss";
 import Leadership from "../../components/Leadership/Leadership";
 
 import landingAnimation from "./landingAnimation.svg";

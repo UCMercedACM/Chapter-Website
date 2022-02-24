@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import "./Sigs.scss";
+import "../../sass/components/Sigs.scss";
 
 const Sigs = () => {
   return (

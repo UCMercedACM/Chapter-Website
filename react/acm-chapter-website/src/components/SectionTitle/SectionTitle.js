@@ -1,5 +1,5 @@
 import React from "react";
-import "./SectionTitle.scss";
+import "../../sass/components/SectionTitle.scss";
 
 const SectionTitle = ({ text }) => {
   return (

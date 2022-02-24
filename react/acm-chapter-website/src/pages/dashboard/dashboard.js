@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "../dashboard/dashboard.scss";
+import "../../sass/components/dashboard.scss";
 import {
   getAttendedEventsContent,
   getUsersAttendedEvents,

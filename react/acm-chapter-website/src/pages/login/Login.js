@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import "./Login.scss";
+import "../../sass/components/Login.scss";
 import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebase/config";
 import { Formik, Form, Field, ErrorMessage } from "formik";

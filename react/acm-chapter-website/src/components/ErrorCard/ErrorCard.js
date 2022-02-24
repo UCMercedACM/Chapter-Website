@@ -1,5 +1,5 @@
 import React from "react";
-import "./ErrorCard.scss";
+import "../../sass/components/ErrorCard.scss";
 import { ErrorMessage } from "formik";
 
 const ErrorCard = ({ errors, values }) => {

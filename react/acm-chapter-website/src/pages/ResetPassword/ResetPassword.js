@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Login.scss";
+import "../../sass/components/ResetPassword.scss";
 import { useAuth } from "../../contexts/AuthContext"
 import { useHistory } from "react-router-dom"
 import { useFormik } from 'formik';

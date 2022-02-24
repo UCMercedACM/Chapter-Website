@@ -1,5 +1,6 @@
 import React from "react";
-import "./Login.scss";
+import "../../sass/components/Login.scss"; // change to Register.scss later
+// import "../../sass/components/Register.scss";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import { useAuth } from "../../contexts/AuthContext";
 

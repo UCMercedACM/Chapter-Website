@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import DelayRedirect from "../../components/CustomLink/DelayRedirect";
 import { sendEmailVerification } from "firebase/auth";
 import { auth } from "../../firebase/config";
-import "./verifyEmail.scss";
+import "../../sass/components/verifyEmail.scss";
 import { useAuth } from "../../contexts/AuthContext";
 
 const VerifyEmail = () => {

@@ -6,7 +6,7 @@ $animation-duration: infinite;
   width: 100%;
   height: max-content;
   position: absolute;
-  top: 82px;
+  top: 64px;
 
   &__landing {
     background-color: var(--landing-background);
@@ -332,5 +332,11 @@ $animation-duration: infinite;
 
   50% {
     transform: translateY(0px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    top: 48px;
   }
 }

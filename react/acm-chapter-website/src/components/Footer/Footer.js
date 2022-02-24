@@ -1,4 +1,5 @@
 import React from "react";
+import "../../sass/components/Footer.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
@@ -9,8 +10,6 @@ import {
   faFacebook,
   faSlack,
 } from "@fortawesome/free-brands-svg-icons";
-
-import "./Footer.scss";
 
 const Footer = () => {
   return (

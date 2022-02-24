@@ -1,4 +1,5 @@
 import React from "react";
+import "../../sass/components/Leadership.scss";
 import SectionTitle from "../SectionTitle/SectionTitle";
 import leaderships from "../../assets/data/leaderships.json";
 
