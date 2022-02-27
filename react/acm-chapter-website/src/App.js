@@ -40,10 +40,10 @@ function App() {
             <PublicRoute path="/register" exact>
               <Register />
             </PublicRoute>
-            <PublicRoute path="verifyEmail">
+            <PublicRoute path="/verifyEmail">
               <VerifyEmail />
             </PublicRoute>
-            <PublicRoute path="reset">
+            <PublicRoute path="/reset">
               <ResetPassword />
             </PublicRoute>
 
