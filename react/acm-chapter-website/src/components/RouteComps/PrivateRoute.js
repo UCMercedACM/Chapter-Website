@@ -4,13 +4,13 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Route, Redirect } from "react-router-dom";
 
 export default function PrivateRoute({ children, ...rest }) {
-  let { currentUser } = useAuth();
   console.log("PrivateRoute");
+  console.log(auth.currentUser);
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        currentUser || auth.currentUser ? (
+        auth.currentUser ? (
           auth.currentUser.emailVerified ? (
             children
           ) : (

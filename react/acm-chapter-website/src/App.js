@@ -13,6 +13,7 @@ import PrivateRoute from "./components/RouteComps/PrivateRoute";
 import PublicRoute from "./components/RouteComps/PublicRoute";
 import ProtectedRoutes from "./components/RouteComps/ProtectedRoutes";
 import { MutatingDots } from "react-loader-spinner";
+import MiddleRoute from "./components/RouteComps/MiddleRoute";
 const Login = lazy(() => import("./pages/login/Login"));
 const Register = lazy(() => import("./pages/register/Register"));
 const VerifyEmail = lazy(() => import("./pages/verifyEmail/verifyEmail"));
@@ -40,14 +41,14 @@ function App() {
             <PublicRoute path="/register" exact>
               <Register />
             </PublicRoute>
-            <PublicRoute path="/verifyEmail">
-              <VerifyEmail />
-            </PublicRoute>
             <PublicRoute path="/reset">
               <ResetPassword />
             </PublicRoute>
 
             <Route exact path="/" component={Home} />
+            <MiddleRoute path="/verifyEmail">
+              <VerifyEmail />
+            </MiddleRoute>
             <Route path="/events" component={EventsPage} exact />
             <Route path="/sigs" component={Sigs} />
             {/* <Route path="/resources" component={Resources} /> */}

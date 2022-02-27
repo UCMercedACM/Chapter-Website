@@ -62,20 +62,11 @@ async function attendEvent(user, joinedEventCode) {
       console.log("updating eventsAttended", joinedEventID);
 
       const userRef = doc(db, "users", user.currentUser.uid);
-      if (attendedEvents.length !== 0) {
-        console.log(attendedEvents);
-        const newEvents = attendedEvents.concat(joinedEventID);
-        updateDoc(userRef, {
-          eventsAttended: newEvents,
-        });
-        console.log("eventsAttended updated successfully");
-      } else {
-        updateDoc(userRef, {
-          eventsAttended: joinedEventID,
-        });
-        console.log("eventsAttended updated successfully");
-      }
-      const eventRef = doc(db, "events", joinedEventID);
+      updateDoc(userRef, {
+        eventsAttended: arrayUnion(joinedEventID[0]),
+      });
+      console.log("eventsAttended updated successfully");
+      const eventRef = doc(db, "events", joinedEventID[0]);
       updateDoc(eventRef, {
         attendees: arrayUnion(
           user.currentUser.email.substring(

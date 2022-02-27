@@ -2,14 +2,15 @@ import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebase/config";
 
-function PublicRoute({ children, ...rest }) {
-  console.log("PUBLIC ROUTE");
+function MiddleRoute({ children, ...rest }) {
+  const { authUser } = useAuth();
+  console.log("MIDDLE ROUTE");
   console.log(auth.currentUser);
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        auth.currentUser ? (
+        auth.currentUser && auth.currentUser.emailVerified ? (
           <Redirect
             to={{
               pathname: "/",
@@ -24,4 +25,4 @@ function PublicRoute({ children, ...rest }) {
   );
 }
 
-export default PublicRoute;
+export default MiddleRoute;

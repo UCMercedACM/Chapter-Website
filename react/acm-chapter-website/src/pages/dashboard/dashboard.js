@@ -57,7 +57,7 @@ export default function Dashboard() {
     if (authUser === "loggedOut") {
       history.push("/login");
     }
-  }, [authUser]);
+  });
 
   let timeOfDay = getTimeOfDay();
 
