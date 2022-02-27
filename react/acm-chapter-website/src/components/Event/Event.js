@@ -28,39 +28,46 @@ const Event = ({ events, type }) => {
   }
 
   return (
-    <div className="pastEvents">
+    <div className="event-item">
       <h1>{headerSwitch(type)}</h1>
 
       {events.map((event, i) => {
         return (
           <div
-            className="events__upcoming__content__upcoming-list__bottom__event-item"
+            className="events-item"
             key={i}
             style={{ backgroundColor: bgSwitcher(type) }}
           >
-            <div className="event-item-left-container">
-              <p className="event-date">
+            <div className="event-item__left-container">
+              <p className="event-item__left-container__event-date">
                 {convertToMonthDate(event.startTime)}
               </p>
-              <p className="event-time">
+              <p className="event-item__left-container_event-time">
                 {convertToTime(event.startTime, event.endTime)}
               </p>
             </div>
-            <div className="event-item-middle-container">
-              <h3 className="event-name">{event.eventName}</h3>
-              <p className="event-description">{event.description}</p>
+            <div className="event-item__middle-container">
+              <h3 className="event-item__middle-container__event-name">
+                {event.eventName}
+              </h3>
+              <p className="event-item__middle-container__event-description">
+                {event.description}
+              </p>
             </div>
-            <div className="event-item-right-container">
+            <div className="event-item__right-container">
               {event.location.includes("bit.ly/acm-ucm-discord") ? (
+                // eslint-disable-next-line react/jsx-no-target-blank
                 <a
                   href="https://bit.ly/acm-ucm-discord"
                   target="_blank"
-                  className="event-location-zoom"
+                  className="event-item__right-container__event-location-zoom"
                 >
                   Zoom
                 </a>
               ) : (
-                <p className="event-location">{event.location}</p>
+                <p className="event-item__right-container__event-location">
+                  {event.location}
+                </p>
               )}
             </div>
           </div>
