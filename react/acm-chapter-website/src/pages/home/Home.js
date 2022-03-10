@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import acmLanParty from "../../assets/images/about-us.png";
+import workshopPhoto from "../../assets/images/about-us.png";
 import projectManagement from "../../assets/images/project-management.png";
 import educationalTransperencyIcon from "../../assets/images/online-course.png";
 import community from "../../assets/images/communities.png";
@@ -25,41 +25,42 @@ function Home() {
     <main className="home">
       <section className="home__landing">
         <div className="home__landing__content">
-          <div className="home__landing__content__left">
-            <h4 className="home__landing__content__left__sub-title">
-              Welcome to
-            </h4>
-            <h1 className="home__landing__content__left__title">
-              Association for Computing Machinery
-            </h1>
-            <p className="home__landing__content__left__text">
-              ACM, the world’s largest educational and scientific computing
-              society, delivers resources that advance computing as a science
-              and a profession. We are just your friendly neighborhood student
-              chapter at UC Merced.
-            </p>
-            <a
-              className="home__landing__content__left__button"
-              href="http://bit.ly/acm-ucm-discord"
-            >
-              Discord
-            </a>
-          </div>
-          <div className="home__landing__content__right">
+          <div className="home__landing__content__container">
+            <div className="home__landing__content__container__left">
+              {/* <h4 className="home__landing__content__left__sub-title">
+                Welcome to
+              </h4> */}
+              <h1 className="home__landing__content__container__left__title">
+                Association for Computing Machinery at UC Merced
+              </h1>
+              <p className="home__landing__content__container__left__text">
+                ACM, the world’s largest educational and scientific computing
+                society, delivers resources that advance computing as a science
+                and a profession. We are just your friendly neighborhood student
+                chapter at UC Merced.
+              </p>
+              <a
+                className="home__landing__content__container__left__button"
+                href="http://bit.ly/acm-ucm-discord"
+              >
+                Discord
+              </a>
+            </div>
             <object
-              className="home__landing__right__animation"
+              className="home__landing__content__container__right"
               type="image/svg+xml"
               data={landingAnimation}
             ></object>
           </div>
         </div>
+        <img src={wave} alt="wave" />
       </section>
 
-      <img src={wave} alt="wave" />
 
       <section className="home__about-us">
         <SectionTitle text="About Us" />
         <div className="home__about-us__container">
+          <img className="home__about-us__container__image" src={workshopPhoto} alt="ACM workshop"/>
           <p className="home__about-us__container__text">
             Association for Computing Machinery (ACM) is the biggest computing
             organization at University of California, Merced. We build a
@@ -76,12 +77,6 @@ function Home() {
             flag, movie nights, game nights, and Friday socials. Join our
             organization and get involved in our general meetings!
           </p>
-          <div className="home__about-us__container__image">
-            <div className="home__about-us__container__image__front">
-              <img src={acmLanParty} alt="ACM LAN Party" />
-            </div>
-            <div className="home__about-us__container__image__behind"></div>
-          </div>
         </div>
       </section>
       <section className="home__goals">
@@ -166,31 +161,6 @@ function Home() {
           </div>
           <div className="home__sigs__container__sig">
             <img src={aiLogo} alt="Artificial Intelligence SIG" />
-            <p>
-              <br></br>Lorem urna in ac cras sollicitudin integer. Feidn ekd
-              ekdno if ejornk kejei ineput. Lorem urna in ac cras foene
-              sollicitudin integer.<br></br>
-            </p>
-          </div>
-          <div className="home__sigs__container__sig">
-            <img src={cyberLogo} alt="Cyber Security SIG" />
-            <p>
-              <br></br>Lorem urna in ac cras sollicitudin integer. Feidn ekd
-              ekdno if ejornk kejei ineput. Lorem urna in ac cras foene
-              sollicitudin integer.<br></br>
-            </p>
-          </div>
-          <div className="home__sigs__container__sig">
-            <img src={designLogo} alt="Design SIG" />
-            <p>
-              <br></br>The ACM Special Interest Group on Design is all about
-              design with technology. <br></br>It is committed to advancing the
-              skills and knowledge of UI/UX, front-end, design trends, and any
-              creative design. <br></br>
-            </p>
-          </div>
-          <div className="home__sigs__container__sig">
-            <img src={iotLogo} alt="Internet of Things SIG" />
             <p>
               <br></br>Lorem urna in ac cras sollicitudin integer. Feidn ekd
               ekdno if ejornk kejei ineput. Lorem urna in ac cras foene

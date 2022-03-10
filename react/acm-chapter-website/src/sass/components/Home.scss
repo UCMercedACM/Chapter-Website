@@ -1,86 +1,103 @@
+@import "../abstracts/variables";
+
 $animation-time: 2s;
 $animation-duration: infinite;
 
 .home {
-  background-color: var(--background);
+  background-color: $background;
   width: 100%;
   height: max-content;
   position: absolute;
   top: 64px;
+  font-family: $primary-font-family;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 
   &__landing {
-    background-color: var(--landing-background);
     width: 100%;
-    height: 70vh;
-    padding: 30px 0; 
     display: flex;
-    justify-content: center;  
-    align-items: center;
-    overflow-y: hidden;
+    flex-direction: column;
 
     &__content {
-      width: 80%;
-      height: max-content;
+      padding: 32px 0;
+      background-color: $landing-background;
       display: flex;
       flex-direction: row;
-      align-items: center;
+      justify-content: center;
 
-      &__left {
-        width: 60%;
+      &__container {
+        width: 80%;
+        height: max-content;
         display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        &__sub-title {
-          font-family: "Hind", sans-serif;
-          font-size: 18px;
-          color: var(--headline);
-        }
-
-        &__title {
-          font-family: "Hind", sans-serif;
-          font-size: 42px;
-          font-weight: bold;
-          color: var(--headline);
-        }
-
-        &__text {
-          width: 80%;
-          font-family: "Hind", sans-serif;
-          font-size: 20px;
-          color: var(--text);
-        }
-
-        &__button {
-          width: max-content;
-          height: max-content;
-          padding: 16px 60px;
-
-          background-color: var(--button);
-          // box-shadow: -6px -6px 10px rgba(61, 169, 252, 0.2),
-          //   6px 6px 10px rgba(0, 29, 53, 0.25);
-          border-radius: 50px;
-          cursor: pointer;
-          z-index: 2;
-
-          font-family: "Hind", sans-serif;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 20px;
-          line-height: 30px;
-          color: var(--background);
-          text-decoration: none;
-        }
-      }
-
-      &__right {
-        width: 40%;
-        display: flex;
-        justify-content: flex-end;
+        flex-direction: row;
         align-items: center;
 
-      }
+        &__left {
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
 
+          &__sub-title {
+            color: var(--headline);
+          }
+
+          &__title {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--headline);
+
+            @media (max-width: 512px) {
+              font-size: 32px;
+            }
+
+          }
+
+          &__text {
+            width: 80%;
+            color: $text;
+          }
+
+          &__button {
+            width: max-content;
+            height: max-content;
+            padding: 8px 48px;
+
+            background-color: $button;
+            border-radius: 50px;
+
+            font-family: $primary-font-family; 
+            color: $background;
+            text-decoration: none;
+            cursor: pointer;
+          }
+
+          @media (max-width: 768px) {
+            width: 80%;
+            align-items: center;
+          }
+        }
+
+        &__right {
+          width: 40%;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+
+          @media (max-width: 768px) {
+            display: none;
+          }
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+          flex-direction: row;
+          justify-content: center;
+          text-align: center;
+        }
+      }
     }
 
     &__animation {
@@ -104,74 +121,43 @@ $animation-duration: infinite;
   // ----- ABOUT US -----
 
   &__about-us {
-    display: grid;
-    place-items: center;
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
 
     &__container {
-      display: grid;
-      grid-template-columns: 1fr minmax(535px, 25%);
-      padding: 10vh 10vw;
-      width: 100%;
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
 
       &__text {
-        font-family: "Hind", sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 40px;
         display: flex;
         align-items: center;
         color: var(--text-inverted);
-        padding-right: 3rem;
       }
 
       &__image {
-        width: 535px;
-        height: 420px;
-        position: relative;
+        width: 80%;
+        justify-self: center;
+        align-self: center;
 
-        &__front {
-          display: grid;
-          place-items: center;
-          border-radius: 30px;
-          z-index: 2;
-          overflow: hidden;
-        }
-
-        &__behind {
-          background-color: var(--landing-background);
-          backdrop-filter: blur(20px);
-          border-radius: 50px;
-          z-index: 1;
-          left: 35px;
-          top: 35px;
-        }
-
-        &__front,
-        &__behind {
-          width: 500px;
-          height: 385px;
-          position: absolute;
+        @media (max-width: 768px) {
+          width: 100%;
         }
       }
 
-      @media screen and (max-width: 1300px) {
-        grid-template-columns: 1fr;
-        place-items: center;
-
-        &__text {
-          padding: 0 0 2rem 0;
-        }
+      @media (min-width: 1200px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
 
-      @media screen and (max-width: 500px) {
-        padding: 5vh 5vw;
-        place-items: start;
-
-        &__image {
-          width: 535px;
-          height: 420px;
-        }
+      @media (max-width: 512px) {
+        width: 90%;
       }
     }
   }
@@ -179,21 +165,24 @@ $animation-duration: infinite;
   // ----- GOALS -----
 
   &__goals {
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
 
     &__grid {
+      width: 80%;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 10vh 10vw;
+      gap: 64px;
 
       &__cell {
         flex-grow: 0.25;
         width: calc(50% - 10vw);
         display: flex;
         flex-direction: row;
-        margin: 5vh 2vw;
 
         @media (max-width: 760px) {
           width: calc(100% - 10vw);
@@ -211,23 +200,20 @@ $animation-duration: infinite;
           flex-direction: column;
 
           &__heading {
-            font-family: "Hind", cursive;
             font-size: 20px;
-            line-height: 30px;
             color: var(--headline);
             padding-bottom: 10px;
           }
 
           &__text {
-            font-family: "Hind", sans-serif;
             font-size: 16px;
             line-height: 30px;
             color: var(--text-inverted);
           }
 
           &__heading {
-            font-style: normal;
-            font-weight: 600;
+            // font-style: normal;
+            // font-weight: 600;
           }
         }
       }
