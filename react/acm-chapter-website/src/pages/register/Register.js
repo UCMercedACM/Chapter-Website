@@ -117,11 +117,6 @@ const Register = () => {
                 <button type="submit" onClick={handleSubmit}>
                   Submit
                 </button>
-
-                <div className="align-x createAcc">
-                  <p>Don't have an account?</p>
-                  <Link to="/register">Create an account</Link>
-                </div>
               </div>
             </Form>
           </main>
