@@ -112,12 +112,14 @@ const Register = () => {
                   <ErrorMessage name="confirmPassword" />
                 </div>
               </div>
+              <br></br>
               {authError}
               <div className="footer-buttons">
                 <button type="submit" onClick={handleSubmit}>
                   Submit
                 </button>
               </div>
+              <br></br>
             </Form>
           </main>
         </div>
