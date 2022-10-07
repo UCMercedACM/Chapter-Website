@@ -112,17 +112,14 @@ const Register = () => {
                   <ErrorMessage name="confirmPassword" />
                 </div>
               </div>
+              <br></br>
               {authError}
               <div className="footer-buttons">
                 <button type="submit" onClick={handleSubmit}>
                   Submit
                 </button>
-
-                <div className="align-x createAcc">
-                  <p>Don't have an account?</p>
-                  <Link to="/register">Create an account</Link>
-                </div>
               </div>
+              <br></br>
             </Form>
           </main>
         </div>
