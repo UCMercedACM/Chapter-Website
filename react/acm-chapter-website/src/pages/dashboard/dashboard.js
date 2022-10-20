@@ -69,7 +69,7 @@ export default function Dashboard() {
         <section className="dashboard__content">
           <div className="dashboard__content__top">
             <h1 className="dashboard__content__top__heading">
-              Good {timeOfDay} {currentUser.name}
+              Good {timeOfDay}, {currentUser.name}
             </h1>
             <button
               onClick={handleLogout}
