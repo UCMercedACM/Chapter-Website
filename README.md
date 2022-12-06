@@ -42,6 +42,8 @@ first start by learning html and css and to learn these 2 languages I’d recomm
     * Use the command “git checkout origin/react” in your terminal and press enter
 * CD into .\react\acm-chapter-website\
 * Then, type in “npm i” in terminal and press enter
+  * If issues with vulnerabilities with packages
+  * Use "npm audit fix", and not "npm audit fix --force" as it causes functions to not exist anymore or have a different behaviour effectively breaking         applications 
 * About Firebase
   * You will need a [Firebase](https://firebase.google.com/) key to run the server and connect to the database
     * There are two options to go about this
