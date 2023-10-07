@@ -12,9 +12,12 @@ Look in the [issues](https://github.com/UCMercedACM/Chapter-Website/issues) tab 
 Don't know how to do this? keep on reading below.
 
 ## Quick Setup
-Make sure you have the following:  
-[Node.js](https://nodejs.org/en/download/) .... p.s. **v12.19.0** is a safe option, but really recommended to install [**nvm**](https://github.com/nvm-sh/nvm)   
-Run "npm i" then "npm start" (You will need your own Firebase Key, if you need the main key contact Sal#1867 or nayr#8772 on discord)
+
+Make sure you have the following:
+
+- [Node.js 20.x](https://nodejs.org/en/download/)
+
+Run `npm install`, then `npm run start` (You will need your own Firebase key, if you need the main key, contact Sal#1867 or nayr#8772 on discord (or Noelle once she gets the keys))
 
 ## New to coding?
 If you don’t have much experience with JavaScript (which we will use for the backend) you can look into 
@@ -22,7 +25,9 @@ working on front end (which is easier to learn) the front-end is in the language
 first start by learning html and css and to learn these 2 languages I’d recommend watching this video: https://youtu.be/mU6anWqZJcc
 
 ## Committing/Running the development server for beginners
-### Questions? Contact Sal#1867 or nayr#8772 on discord
+
+Any questions? Contact `noellieuwu` (Noelle, Webmaster) on Discord or put them on the `#acm-website` channel.
+
 * Fork this repository
 (If you're not planning on committing to the repository you can just clone the main repo and skip the next step (including this one))
   * How to fork:
@@ -46,7 +51,7 @@ first start by learning html and css and to learn these 2 languages I’d recomm
   * You will need a [Firebase](https://firebase.google.com/) key to run the server and connect to the database
     * There are two options to go about this
       * You can either make your own [Firebase](https://firebase.google.com/) instance and use your own key
-      * Or you can contact Sal#1867 or nayr#8772 on discord to get ACM's firebase key
+      * Or you can contact Sal#1867 or nayr#8772 on discord to get ACM's firebase key (or noelle later)
 * Run the development website/server
   * How to run the development server:
     * Type in "npm start" in your terminal and press enter
