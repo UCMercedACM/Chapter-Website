@@ -1,35 +1,53 @@
-name: Build CI
+name: Build
 
 on:
+  push:
+    branches:
+      - react-rewrite
+
   pull_request:
     branches:
-      - master
+      - react-rewrite
 
 jobs:
   build:
-    name: Test application and make sure it runs on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build (${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react/ucmacm-website
 
     strategy:
       matrix:
-        node-version: [12.x]
-        os: [ubuntu-latest]
+        node-version: [20]
 
     steps:
-      - name: Checkout to current branch
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Configure Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install Dependencies
-        run: |
-          echo 'Running Setup...'
-          yarn
+      - name: Get Yarn Cache Directory Path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
-      - name: Build Angular Application
+      - name: Cache Yarn
+        uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: |
-          echo 'Building Angular Application...'
+          yarn install
+
+      - name: Build Application
+        run: |
           yarn build
