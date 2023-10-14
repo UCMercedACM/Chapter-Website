@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Lint (${{ matrix.node-version }}))
+    name: Lint (${{ matrix.node-version }})
     runs-on: ubuntu-latest
     defaults:
       run:
