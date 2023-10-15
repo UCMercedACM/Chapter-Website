@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/react/ucmacm-website"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: "[yarn]"
+      include: "scope"
+    target-branch: "main"
