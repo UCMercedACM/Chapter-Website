@@ -10,12 +10,20 @@ export default {
       "primary": "#0FD5BA",
       "secondary": "#3DA9FC",
       "tertiary": "#084778",
-      "text": "#084778"
+      "text": "#084778",
+      "primary-background": "#f5f5f5",
+      "landing-background": "#00e1bf"
     },
     fontFamily: {
       "hind": ["Hind", "sans-serif"],
     },
     extend: {
+      minHeight: {
+        "40": "40%"
+      },
+      spacing: {
+        "neg4": "-4%"
+      }
     },
   },
   plugins: [],
