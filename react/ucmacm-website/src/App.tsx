@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       {/* <Navbar/> */}
-      <LandingPage/>
+      {/* <LandingPage/> */}
       <LandingInfoPage/>
     </>
   )
