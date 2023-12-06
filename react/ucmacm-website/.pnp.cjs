@@ -43,7 +43,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:18.2.0"],\
             ["tailwindcss", "npm:3.3.3"],\
             ["typescript", "patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
-            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.4.11"]\
+            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.5.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -911,7 +911,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react-swc", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:3.4.0"],\
             ["@swc/core", "virtual:b658d27d6f4a9dfd74628674bd389c4241019116771c8476002ac6cab9feaa5e26af31cb99c42c598de50a4f36ce9004583bf35de5d87ee978f953a8d4c1256c#npm:1.3.93"],\
             ["@types/vite", null],\
-            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.4.11"]\
+            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.5.1"]\
           ],\
           "packagePeers": [\
             "@types/vite",\
@@ -4535,7 +4535,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:18.2.0"],\
             ["tailwindcss", "npm:3.3.3"],\
             ["typescript", "patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"],\
-            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.4.11"]\
+            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.5.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -4617,17 +4617,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vite", [\
-        ["npm:4.4.11", {\
-          "packageLocation": "./.yarn/cache/vite-npm-4.4.11-e7ab057df9-c22145c838.zip/node_modules/vite/",\
+        ["npm:4.5.1", {\
+          "packageLocation": "./.yarn/cache/vite-npm-4.5.1-567bbcf9ff-72b3584b3d.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "npm:4.4.11"]\
+            ["vite", "npm:4.5.1"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.4.11", {\
-          "packageLocation": "./.yarn/__virtual__/vite-virtual-1331623d06/0/cache/vite-npm-4.4.11-e7ab057df9-c22145c838.zip/node_modules/vite/",\
+        ["virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.5.1", {\
+          "packageLocation": "./.yarn/__virtual__/vite-virtual-e0c09edb6e/0/cache/vite-npm-4.5.1-567bbcf9ff-72b3584b3d.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.4.11"],\
+            ["vite", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.5.1"],\
             ["@types/less", null],\
             ["@types/lightningcss", null],\
             ["@types/node", null],\
@@ -15317,7 +15317,7 @@ function makeManager(pnpapi, opts) {
     apiEntry.lastRefreshCheck = timeNow;
     const stats = opts.fakeFs.statSync(pnpApiPath);
     if (stats.mtime > apiEntry.stats.mtime) {
-      process.emitWarning(`[Warning] The runtime detected new informations in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`);
+      process.emitWarning(`[Warning] The runtime detected new information in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`);
       apiEntry.stats = stats;
       apiEntry.instance = loadApiInstance(pnpApiPath);
     }
