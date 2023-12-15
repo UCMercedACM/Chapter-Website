@@ -1,8 +1,10 @@
+
 interface CardProps {
-  description: string;
+  description: string,
+  logo: string
 }
 
-const Card = ({ description }: CardProps) => {
+const Card = ({ description, logo }: CardProps) => {
   return (
     // <div className="container 2xl bg-slate-100 rounded-xl">
     //   <p>hello world</p>
@@ -12,6 +14,7 @@ const Card = ({ description }: CardProps) => {
 
 {/* <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5> */}
 <p className="font-normal text-gray-700 dark:text-gray-400">{description}</p>
+<img src={logo}/>
 </div>
 </div>
   );
