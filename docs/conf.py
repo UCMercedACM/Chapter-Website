@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'UCMACM Website Docs'
+project = 'UCMACM Website'
 copyright = '2023, Noelle'
 author = 'Noelle'
 

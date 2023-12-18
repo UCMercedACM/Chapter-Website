@@ -9,4 +9,5 @@ This document goes over the onboarding of how to get started
 
    introduction
    frontend
+   backend
    contributing
