@@ -1,0 +1,384 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Contributing" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="onboarding/contributing.html" />
+<meta property="og:site_name" content="UCMACM Website Docs" />
+<meta property="og:description" content="Thank you for your interest in contributing to this project! The following is a set of guidelines for contributing to this project. These are just guidelines, not rules. Ways You Can Contribute: Th..." />
+<meta name="description" content="Thank you for your interest in contributing to this project! The following is a set of guidelines for contributing to this project. These are just guidelines, not rules. Ways You Can Contribute: Th..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Frontend" href="frontend.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>Contributing - UCMACM Website Docs</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">UCMACM Website Docs</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">UCMACM Website Docs</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Onboarding</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Onboarding</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend.html">Frontend</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h1>
+<p>Thank you for your interest in contributing to this project!</p>
+<p>The following is a set of guidelines for contributing to this project.
+These are just guidelines, not rules.</p>
+<section id="ways-you-can-contribute">
+<h2>Ways You Can Contribute<a class="headerlink" href="#ways-you-can-contribute" title="Link to this heading">#</a></h2>
+<p>The ways you can contribute are not only limited to code changes, but so much more.
+Some of the ways you can contribute are:</p>
+<ul class="simple">
+<li><p>Reporting a bug</p></li>
+<li><p>Discussing the current state and future of the project</p></li>
+<li><p>Submitting a fix</p></li>
+<li><p>Proposing new features</p></li>
+<li><p>Improving or editing documentation</p></li>
+</ul>
+<p>Note that if you plan on proposing new features, please first discuss them with the webmaster and the team on the issues page.</p>
+</section>
+<section id="writing-good-bug-reports">
+<h2>Writing Good Bug Reports<a class="headerlink" href="#writing-good-bug-reports" title="Link to this heading">#</a></h2>
+<p>Please be aware of the following when you submit a bug report:</p>
+<ol class="arabic simple">
+<li><p>Ask on the server first (this is preferred). If you are unsure about an issue, please contact the webmaster for clarification.</p></li>
+<li><p>Don’t open duplicate issues. Please search your issue to see if it has been asked already. Duplicate issues will be closed.</p></li>
+<li><p>When filing a bug about exceptions or stacktrace, please include the complete stacktrace. Without the complete stacktrace the issue might be unsolvable and you will be asked to provide more information.</p></li>
+</ol>
+<p>If a bug report is not clear enough, or missing these information, then more than likely
+it’ll take longer to fix the bug, or it’ll be closed. More than likely clarification will
+be asked in order to aid in this process.</p>
+</section>
+<section id="submitting-code">
+<h2>Submitting Code<a class="headerlink" href="#submitting-code" title="Link to this heading">#</a></h2>
+<p>Submitting code is done through pull requests. Please ensure that the pull request
+focuses on a single aspect and doesn’t leave the scope of that aspect. You’ll have to
+keep in mind about the following guidelines when submitting code.</p>
+<section id="programming-style">
+<h3>Programming Style<a class="headerlink" href="#programming-style" title="Link to this heading">#</a></h3>
+<p>In order to keep the code unified, <a class="reference external" href="https://github.com/prettier/prettier">Prettier</a> is used to format
+code to a consistent style. In addition, linters such as <a class="reference external" href="https://github.com/eslint/eslint">ESLint</a> and TSC
+are used to ensure that code quality is kept to its standards. The formatters are ran automatically within a pre-commit hook
+, which is ran before every commit. If you wish to run the pre-commit hook manually, you can run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>npm<span class="w"> </span>run<span class="w"> </span>pch
+</pre></div>
+</div>
+</section>
+<section id="static-code-analyzers">
+<h3>Static Code Analyzers<a class="headerlink" href="#static-code-analyzers" title="Link to this heading">#</a></h3>
+<p>In addition to the tools mentioned, <a class="reference external" href="https://sonarcloud.io/">SonarCloud</a> is also used to analyze the codebase.
+If there is a issue raised by SonarCloud, please fix it. If you are unsure about the issue,
+please contact the dev lead (Noelle) for clarification.</p>
+</section>
+<section id="pull-request-details">
+<h3>Pull Request Details<a class="headerlink" href="#pull-request-details" title="Link to this heading">#</a></h3>
+<section id="source-control-branching-model">
+<h4>Source Control Branching Model<a class="headerlink" href="#source-control-branching-model" title="Link to this heading">#</a></h4>
+<figure class="align-center">
+<img alt="Trunk Based Development Workflow" src="../_images/trunk-workflow.svg" /></figure>
+<p>The model used for source control branching is <a class="reference external" href="https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development">trunk-based</a>.
+The <code class="docutils literal notranslate"><span class="pre">react-rewrite</span></code> branch is known to contain in-progress code, thus it cannot be touched directly.</p>
+</section>
+<section id="branch-naming-convention">
+<span id="id1"></span><h4>Branch Naming Convention<a class="headerlink" href="#branch-naming-convention" title="Link to this heading">#</a></h4>
+<p>When you create a branch, please use the following naming convention:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;/&lt;</span><span class="nb">type</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> is your name (you can use your GitHub name) and <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> is a concise one to three word description of the branch.
+For example, if a pull request has the name <code class="docutils literal notranslate"><span class="pre">noelle/docs</span></code>, this indicates that the branch is created and owned by Noelle,
+and the purpose of the branch is to update documentation.</p>
+</section>
+<section id="pull-request-checklist">
+<h4>Pull Request Checklist<a class="headerlink" href="#pull-request-checklist" title="Link to this heading">#</a></h4>
+<p>When you create a pull request, please ensure that the following is done:</p>
+<ol class="arabic simple">
+<li><p>Ensure that you have forked the repository and created a branch from <code class="docutils literal notranslate"><span class="pre">react-rewite</span></code> with the correct naming conventions as mentioned <a class="reference internal" href="#branch-naming-convention"><span class="std std-ref">above</span></a>.</p></li>
+<li><p>Make sure that you have noted the changes in the <code class="docutils literal notranslate"><span class="pre">changelog.md</span></code> file.</p></li>
+<li><p>Make sure that your PR comments describe what the changes are and follow the template</p></li>
+<li><p>Your code is properly formatted and linted (and all workflows are passing).</p></li>
+</ol>
+</section>
+</section>
+<section id="git-commit-guidelines">
+<h3>Git Commit Guidelines<a class="headerlink" href="#git-commit-guidelines" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Use present tense and imperative mood when writing commit messages. For example, <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">new</span> <span class="pre">feature</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Added</span> <span class="pre">new</span> <span class="pre">feature</span></code>.</p></li>
+<li><dl class="simple">
+<dt>Reference issues or pull requests outside of the first line.</dt><dd><ol class="loweralpha simple">
+<li><p>Please use the shorthand <code class="docutils literal notranslate"><span class="pre">#123</span></code> and not the full URL.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>Commits that need to skip the CI workflows must be prefixed with <code class="docutils literal notranslate"><span class="pre">[skip</span> <span class="pre">ci]</span></code>.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="frontend.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Frontend</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2023, Noelle
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Contributing</a><ul>
+<li><a class="reference internal" href="#ways-you-can-contribute">Ways You Can Contribute</a></li>
+<li><a class="reference internal" href="#writing-good-bug-reports">Writing Good Bug Reports</a></li>
+<li><a class="reference internal" href="#submitting-code">Submitting Code</a><ul>
+<li><a class="reference internal" href="#programming-style">Programming Style</a></li>
+<li><a class="reference internal" href="#static-code-analyzers">Static Code Analyzers</a></li>
+<li><a class="reference internal" href="#pull-request-details">Pull Request Details</a><ul>
+<li><a class="reference internal" href="#source-control-branching-model">Source Control Branching Model</a></li>
+<li><a class="reference internal" href="#branch-naming-convention">Branch Naming Convention</a></li>
+<li><a class="reference internal" href="#pull-request-checklist">Pull Request Checklist</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#git-commit-guidelines">Git Commit Guidelines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    </body>
+</html>
