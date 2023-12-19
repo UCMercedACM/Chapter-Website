@@ -3053,6 +3053,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier@npm:3.1.1":
+  version: 3.1.1
+  resolution: "prettier@npm:3.1.1"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: e386855e3a1af86a748e16953f168be555ce66d6233f4ba54eb6449b88eb0c6b2ca79441b11eae6d28a7f9a5c96440ce50864b9d5f6356d331d39d6bb66c648e
+  languageName: node
+  linkType: hard
+
 "proc-log@npm:^3.0.0":
   version: 3.0.0
   resolution: "proc-log@npm:3.0.0"
@@ -3767,6 +3776,7 @@ __metadata:
     eslint-plugin-react-refresh: ^0.4.3
     husky: ^8.0.0
     postcss: ^8.4.31
+    prettier: 3.1.1
     react: ^18.2.0
     react-dom: ^18.2.0
     tailwindcss: ^3.3.3

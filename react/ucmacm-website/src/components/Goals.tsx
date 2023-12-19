@@ -1,8 +1,5 @@
 function Goals() {
-  return (
-    <>
-    </>
-  );
+  return <></>;
 }
 
 export default Goals;
