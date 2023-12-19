@@ -1,9 +1,10 @@
 // import { useState } from 'react'
 import './App.css'
 // import Navbar from './components/Navbar'
-import LandingPage from './components/LandingPage'
+// import LandingPage from './components/LandingPage'
 
-import LandingInfoPage from './components/LandingInfoPage'
+
+import ProjectShowcase from './components/ProjectShowcase'
 function App() {
   // const [count, setCount] = useState(0)
 
@@ -11,7 +12,13 @@ function App() {
     <>
       {/* <Navbar/> */}
       {/* <LandingPage/> */}
-      <LandingInfoPage/>
+      {/* <LandingInfoPage/> */}
+      {/* <Card description={"hello"}/>
+
+      <Card description={"hello"}/>
+      <Card description={"hello"}/> */}
+
+      <ProjectShowcase/>
     </>
   )
 }
