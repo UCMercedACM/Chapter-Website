@@ -59,6 +59,5 @@
       "not dead",
       "not op_mini all"
     ]
-  },
-  "packageManager": "yarn@3.6.4"
+  }
 }
