@@ -4,3 +4,5 @@ node_modules/
 .vscode/
 .yarn/
 public/
+.env
+.env.example
