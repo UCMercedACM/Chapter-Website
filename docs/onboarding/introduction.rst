@@ -120,3 +120,7 @@ on which one you wish to contribute to. If you wish to delve deeper into them,
 the relevant guides are listed below:
 
 - :doc:`frontend`
+- :doc:`backend`
+
+It is also important to read the :doc:`contributing` guidelines,
+as they are recommendations on how you should contribute.

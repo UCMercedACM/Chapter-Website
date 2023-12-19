@@ -2,7 +2,8 @@
 Onboarding
 ==========
 
-This document goes over the onboarding of how to get started
+This document goes over the onboarding process
+and what you should know to get started
 
 .. toctree::
    :maxdepth: 2
@@ -11,3 +12,4 @@ This document goes over the onboarding of how to get started
    frontend
    backend
    contributing
+   faq
