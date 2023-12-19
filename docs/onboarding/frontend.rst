@@ -3,9 +3,6 @@ Frontend
 ========
 
 This document delves deeper into the frontend
-<<<<<<< HEAD
-of the website. TODO - add more info
-=======
 of the website.
 
 Frameworks
@@ -61,4 +58,3 @@ to implement the website. All designs will be handled by SIG Design.
 
 
 
->>>>>>> react-rewrite
