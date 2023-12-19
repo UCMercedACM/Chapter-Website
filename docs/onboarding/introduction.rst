@@ -60,7 +60,7 @@ that forked the base repo)
 .. code:: bash
 
   npm install \
-  && npm run setup-pch
+  && npm run prepare
 
 3. Copy the ``.env.example`` file to ``.env`` and modify in the appropriate values
 
