@@ -3,8 +3,7 @@ import "./App.css";
 // import Navbar from './components/Navbar'
 // import LandingPage from './components/LandingPage'
 
-
-import ProjectShowcase from './components/ProjectShowcase'
+import ProjectShowcase from "./components/ProjectShowcase";
 function App() {
   // const [count, setCount] = useState(0)
 
@@ -18,7 +17,7 @@ function App() {
       <Card description={"hello"}/>
       <Card description={"hello"}/> */}
 
-      <ProjectShowcase/>
+      <ProjectShowcase />
     </>
   );
 }
