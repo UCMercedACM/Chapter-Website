@@ -3,9 +3,6 @@ Frontend
 ========
 
 This document delves deeper into the frontend
-<<<<<<< HEAD
-of the website. TODO - add more info
-=======
 of the website.
 
 Frameworks
@@ -59,6 +56,3 @@ The design of the website was done using `Figma <https://figma.com/>`_. Members 
 to know how to wireframe and design websites, but are expected to know how to use Figma in order
 to implement the website. All designs will be handled by SIG Design.
 
-
-
->>>>>>> react-rewrite
