@@ -38,6 +38,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.6.0"],\
             ["eslint-plugin-react-refresh", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:0.4.3"],\
+            ["husky", "npm:8.0.3"],\
             ["postcss", "npm:8.4.31"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:18.2.0"],\
@@ -2495,6 +2496,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["husky", [\
+        ["npm:8.0.3", {\
+          "packageLocation": "./.yarn/cache/husky-npm-8.0.3-b0b59c5127-837bc7e441.zip/node_modules/husky/",\
+          "packageDependencies": [\
+            ["husky", "npm:8.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["iconv-lite", [\
         ["npm:0.6.3", {\
           "packageLocation": "./.yarn/cache/iconv-lite-npm-0.6.3-24b8aae27e-3f60d47a5c.zip/node_modules/iconv-lite/",\
@@ -4530,6 +4540,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:7.33.2"],\
             ["eslint-plugin-react-hooks", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:4.6.0"],\
             ["eslint-plugin-react-refresh", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:0.4.3"],\
+            ["husky", "npm:8.0.3"],\
             ["postcss", "npm:8.4.31"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:99bbd010b36a4179c5d51c806c05732e0754183bf2a933111e49da3a0ceb763afddb85113722bf7ffdaaf4d036516cabd758d4939f93ec44d08392093bf18f8e#npm:18.2.0"],\
@@ -15317,7 +15328,7 @@ function makeManager(pnpapi, opts) {
     apiEntry.lastRefreshCheck = timeNow;
     const stats = opts.fakeFs.statSync(pnpApiPath);
     if (stats.mtime > apiEntry.stats.mtime) {
-      process.emitWarning(`[Warning] The runtime detected new information in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`);
+      process.emitWarning(`[Warning] The runtime detected new informations in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`);
       apiEntry.stats = stats;
       apiEntry.instance = loadApiInstance(pnpApiPath);
     }
