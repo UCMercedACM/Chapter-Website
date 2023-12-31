@@ -1,12 +1,11 @@
-import GlobalNavbar from "../components/GlobalNavbar"
+import GlobalNavbar from "../components/GlobalNavbar";
 
 function Front() {
   return (
     <>
-    <GlobalNavbar/>
+      <GlobalNavbar />
     </>
   );
 }
 
 export default Front;
-

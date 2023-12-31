@@ -1,11 +1,11 @@
-import {NextUIProvider} from '@nextui-org/react'
-import Front from "./pages/front.tsx"
+import { NextUIProvider } from "@nextui-org/react";
+import Front from "./pages/front.tsx";
 function App() {
   return (
     <>
-    <NextUIProvider>
-      <Front/>
-    </NextUIProvider>
+      <NextUIProvider>
+        <Front />
+      </NextUIProvider>
     </>
   );
 }
