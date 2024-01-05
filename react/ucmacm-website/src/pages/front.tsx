@@ -5,7 +5,7 @@ function Front() {
     <>
       <GlobalNavbar />
       <div className="h-max">
-<p>sdfsd</p>
+        <p>sdfsd</p>
       </div>
     </>
   );
