@@ -29,5 +29,29 @@ export default {
     },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [nextui({
+    themes: {
+      "blue-dark": {
+        extend: "dark",
+        colors: {
+          foreground: "#ECEFEF",
+          background: "#2C2828",
+          primary: {
+            100: "#E8F8FF",
+            200: "#D1F0FF",
+            300: "#BAE5FF",
+            400: "#A8DAFF",
+            500: "#8CC8FF",
+            600: "#669DDB",
+            700: "#4675B7",
+            800: "#2C5293",
+            900: "#1A387A",
+            DEFAULT: "#8CC8FF"
+
+          }
+        }
+      }
+    }
+  }
+  )],
 };

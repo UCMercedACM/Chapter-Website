@@ -4,6 +4,9 @@ function Front() {
   return (
     <>
       <GlobalNavbar />
+      <div className="h-max">
+<p>sdfsd</p>
+      </div>
     </>
   );
 }
