@@ -1,4 +1,11 @@
-import "../index.css";
+// import "../index.css";
+import {
+  SiInstagram,
+  SiGithub,
+  SiDiscord,
+} from "@icons-pack/react-simple-icons";
+import { Link } from "@nextui-org/react";
+
 function GlobalFooter() {
   return (
     <>
@@ -17,9 +24,26 @@ function GlobalFooter() {
           ></path>
         </svg>
 
-        <div className="bg-landing opacity-80 w-full max-h-max py-8 top-4 gap-16 flex-col flex">
-          <p>hi</p>
-          {/* <p className="top-64">hi</p> */}
+        <div className="bg-landing opacity-80 w-full max-h-max py-8 top-4 gap-16 text-center">
+          <div className="flex flex-row justify-center gap-x-12">
+            <div>
+              <Link href="https://www.instagram.com/ucmacm/" color="foreground">
+                <SiInstagram size={32} />
+              </Link>
+            </div>
+            <div>
+              <Link href="https://github.com/UCMercedACM" color="foreground">
+                <SiGithub size={32} />
+              </Link>
+            </div>
+            <div>
+              <Link href="https://bit.ly/acm_ucm-discord" color="foreground">
+                <SiDiscord size={32} />
+              </Link>
+            </div>
+          </div>
+          <p className="pt-8">Copyright 2024</p>
+          <p className="py-2">Written and programmed by ACM @ UCM</p>
         </div>
       </div>
     </>
