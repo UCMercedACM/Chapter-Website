@@ -3020,7 +3020,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^6.19.1":
+"@typescript-eslint/eslint-plugin@npm:^6.20.0":
   version: 6.20.0
   resolution: "@typescript-eslint/eslint-plugin@npm:6.20.0"
   dependencies:
@@ -3045,7 +3045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^6.19.1":
+"@typescript-eslint/parser@npm:^6.20.0":
   version: 6.20.0
   resolution: "@typescript-eslint/parser@npm:6.20.0"
   dependencies:
@@ -4578,7 +4578,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^9.0.6":
+"husky@npm:^9.0.7":
   version: 9.0.7
   resolution: "husky@npm:9.0.7"
   bin:
@@ -6575,8 +6575,8 @@ __metadata:
     "@nextui-org/react": "npm:^2.2.9"
     "@types/react": "npm:^18.2.48"
     "@types/react-dom": "npm:^18.2.7"
-    "@typescript-eslint/eslint-plugin": "npm:^6.19.1"
-    "@typescript-eslint/parser": "npm:^6.19.1"
+    "@typescript-eslint/eslint-plugin": "npm:^6.20.0"
+    "@typescript-eslint/parser": "npm:^6.20.0"
     "@vitejs/plugin-react-swc": "npm:^3.3.2"
     autoprefixer: "npm:^10.4.17"
     eslint: "npm:^8.51.0"
@@ -6584,7 +6584,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:^4.6.0"
     eslint-plugin-react-refresh: "npm:^0.4.3"
     framer-motion: "npm:^10.16.16"
-    husky: "npm:^9.0.6"
+    husky: "npm:^9.0.7"
     postcss: "npm:^8.4.33"
     prettier: "npm:3.2.4"
     react: "npm:^18.2.0"
