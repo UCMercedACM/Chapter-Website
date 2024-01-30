@@ -1,10 +1,13 @@
-import "../index.css"
+import "../index.css";
 function GlobalFooter() {
-
   return (
     <>
       <div>
-        <svg className="z-0 w-full h-full"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <svg
+          className="z-0 w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+        >
           <path
             width="100"
             height="100"
@@ -15,11 +18,10 @@ function GlobalFooter() {
         </svg>
 
         <div className="bg-landing opacity-80 w-full max-h-max py-8 top-4 gap-16 flex-col flex">
-<p>hi</p>
-{/* <p className="top-64">hi</p> */}
+          <p>hi</p>
+          {/* <p className="top-64">hi</p> */}
+        </div>
       </div>
-      </div>
-
     </>
   );
 }

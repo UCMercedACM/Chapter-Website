@@ -27,8 +27,8 @@ export default {
         neg4: "-4%",
       },
       colors: {
-        "landing": "#00e1bf",
-      }
+        landing: "#00e1bf",
+      },
     },
   },
   darkMode: "class",

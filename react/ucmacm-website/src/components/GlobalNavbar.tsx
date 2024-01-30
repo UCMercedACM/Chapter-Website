@@ -18,7 +18,11 @@ function GlobalNavbar() {
   const menuItems = ["SIGs", "Events"];
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-landing opacity-80 " position="static">
+      <Navbar
+        onMenuOpenChange={setIsMenuOpen}
+        className="bg-landing opacity-80 "
+        position="static"
+      >
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
