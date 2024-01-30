@@ -10,7 +10,6 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/react";
 import ACMLogo from "../assets/acm_logo_v2.png";
-
 function GlobalNavbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -19,11 +18,11 @@ function GlobalNavbar() {
   const menuItems = ["SIGs", "Events"];
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen} shouldHideOnScroll>
+      <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-landing opacity-80 " position="static">
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
+            className="lg:hidden"
           />
           <NavbarBrand>
             <Link href="/">
