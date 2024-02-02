@@ -614,14 +614,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.2.50":
-  version: 18.2.50
-  resolution: "@types/react@npm:18.2.50"
+"@types/react@npm:^18.2.51":
+  version: 18.2.51
+  resolution: "@types/react@npm:18.2.51"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: f7f5a5d0b73ddf5ec574e691039197ee91bf0addbbffa408ad2a33e4d085be5c8821758220ec64a214bd2aec42ef67fc4a7f322d1f81e87b98430d9510374b45
+  checksum: 1ab49e51e6314cefb9a162e9ac3a15a0474c82a0737f12f3a9628ccba555ab6645d2449152e7a5fc3ff650a7139a4718715af2c5ae9bc46b0533e98036706f84
   languageName: node
   linkType: hard
 
@@ -3934,7 +3934,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ucmacm-website@workspace:."
   dependencies:
-    "@types/react": ^18.2.50
+    "@types/react": ^18.2.51
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^6.20.0
     "@typescript-eslint/parser": ^6.20.0
