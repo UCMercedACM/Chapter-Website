@@ -20,22 +20,22 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.50",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.6.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.51.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "husky": "^9.0.7",
-    "postcss": "^8.4.33",
-    "prettier": "3.2.4",
+    "husky": "^9.0.10",
+    "postcss": "^8.4.35",
+    "prettier": "3.2.5",
     "tailwindcss": "^3.4.1",
     "typescript": "5.3.3",
-    "vite": "^5.0.12"
+    "vite": "^5.1.1"
   },
   "packageManager": "yarn@4.1.0"
 }
