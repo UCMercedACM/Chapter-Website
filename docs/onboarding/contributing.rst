@@ -51,14 +51,15 @@ are used to ensure that code quality is kept to its standards. The formatters ar
 
 .. code-block:: bash
 
-    npm run pch
+    npm run lint \
+    && npm run format
 
 Static Code Analyzers
 ---------------------
 
 In addition to the tools mentioned, `SonarCloud <https://sonarcloud.io/>`_ is also used to analyze the codebase.
 If there is a issue raised by SonarCloud, please fix it. If you are unsure about the issue,
-please contact the dev lead (Noelle) for clarification.
+please contact the webmaster for clarification.
 
 Pull Request Details
 --------------------
@@ -95,9 +96,8 @@ Pull Request Checklist
 When you create a pull request, please ensure that the following is done:
 
 1. Ensure that you have forked the repository and created a branch from ``react-rewite`` with the correct naming conventions as mentioned :ref:`above <Branch Naming Convention>`.
-2. Make sure that you have noted the changes in the ``changelog.md`` file.
-3. Make sure that your PR comments describe what the changes are and follow the template
-4. Your code is properly formatted and linted (and all workflows are passing).
+2. Make sure that your PR comments describe what the changes are and follow the template
+3. Your code is properly formatted and linted (and all workflows are passing).
 
 Git Commit Guidelines
 ---------------------

@@ -54,4 +54,4 @@ Design and Wireframing
 
 The design of the website was done using `Figma <https://figma.com/>`_. Members are not required
 to know how to wireframe and design websites, but are expected to know how to use Figma in order
-to implement the website. All designs will be handled by SIG Design.
+to implement the website.

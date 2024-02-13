@@ -14,7 +14,7 @@ that you need to be familiar with and have installed. These are noted below.
 - `Git <https://git-scm.com/>`_ and `GitHub <https://github.com>`_
 - `TypeScript <https://www.typescriptlang.org/>`_
 - `Node.js <https://nodejs.org/en>`_
-- `npm <https://www.npmjs.com/>`_ (v9) or `yarn <https://yarnpkg.com/>`_ (v4)
+- `npm <https://www.npmjs.com/>`_ (v10) or `yarn <https://yarnpkg.com/>`_ (v4)
 
 .. note::
 
@@ -26,7 +26,6 @@ that you need to be familiar with and have installed. These are noted below.
   ``npm`` comes bundled with Node.js. If you want to use ``yarn``
   (cannot use both; must be one or the other), you can install it
   `here <https://yarnpkg.com/getting-started/install>`_
-
 
 Setup
 =====
@@ -89,8 +88,8 @@ is not bound to a strict schema (e.g the columns on a Excel spreadsheet or a tab
 .. important::
 
   The previous database used on the old website
-  is Firebase. Chances are, the database used will more than likely
-  change for the rewrite.
+  is Firebase. In lieu of this, the new website will use the same
+  services.
 
 Obtaining the Firebase key
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -103,6 +102,11 @@ Obtaining the Firebase key
 .. code:: bash
 
   FIREBASE_KEY=<your key>
+
+.. note::
+
+  As of writing this on 2/13/2024, the Firebase
+  keys are not deployed yet.
 
 Basic Concepts
 ==============
