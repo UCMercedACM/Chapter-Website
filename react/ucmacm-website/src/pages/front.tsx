@@ -48,7 +48,7 @@ function Front() {
         </div>
       </section>
       <section className="mx-24">
-        <h1 className="font-bold text-center text-4xl text-tertiary pb-16">
+        <h1 className="font-bold text-center text-4xl text-tertiary pt-16 pb-16">
           Goals
         </h1>
         <div className="columns-2 grid-rows-2 gap-x-24">
