@@ -1,4 +1,3 @@
-import React from 'react'
 import { SectionTitle } from './SectionTitle'
 import {
     Table,
@@ -9,7 +8,7 @@ import {
     TableCell
   } from "@nextui-org/react";
 
-type Event = {
+interface Event {
     title: string,
     date: string,
     time: string,
@@ -17,7 +16,7 @@ type Event = {
     location: string
 }
 
-type SigTopicProps = {
+interface SigTopicProps {
     title: string,
     description: string,
     events: Event[]

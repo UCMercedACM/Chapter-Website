@@ -1,4 +1,3 @@
-import React from "react";
 import SigTopic from "../components/SigTopic";
 
 const placeholderEvents = [
@@ -35,7 +34,7 @@ const Sigs = () => {
         <div className="flex flex-col content-end">
           <h1 className="text-[72px] text-center font-normal tracking-wider text-tertiary font-bebas">Special Interest Groups</h1>
           <p className="px-80 text-white font-montserrat tracking-wider text-left text-[21px] leading-10">
-            ACM's Special Interest Groups (SIGs) represent major areas of
+            ACM&apos;s Special Interest Groups (SIGs) represent major areas of
             computing, addressing the interests of technical communities that
             drive innovation. SIGs offer a wealth of conferences, publications
             and activities focused on specific computing sub-disciplines. They
