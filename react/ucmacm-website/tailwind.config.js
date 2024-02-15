@@ -7,27 +7,27 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {
-      // These are all light mode
-      primary: "#0FD5BA",
-      secondary: "#3DA9FC",
-      tertiary: "#084778",
-      text: "#084778",
-      "primary-background": "#f5f5f5",
-      landing: "#00e1bf",
-    },
     fontFamily: {
       hind: ["Hind", "sans-serif"],
+      montserrat: ["Montserrat", "sans-serif"],
+      bebas: ["Bebas Neue", "sans-serif"],
     },
     extend: {
+      colors: {
+        // These are all light mode
+        primary: "#0FD5BA",
+        secondary: "#3DA9FC",
+        tertiary: "#084778",
+        text: "#084778",
+        "primary-background": "#f5f5f5",
+        landing: "#00e1bf",
+        "landing-secondary": "#00e1bfcc",
+      },
       minHeight: {
         40: "40%",
       },
       spacing: {
         neg4: "-4%",
-      },
-      colors: {
-        landing: "#00e1bf",
       },
     },
   },
