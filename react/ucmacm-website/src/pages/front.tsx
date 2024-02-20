@@ -59,26 +59,57 @@ function Front() {
 
         {/*TEST THIS AGAINST MOBILE UI - Noelle*/}
         <div className="grid-rows-2 grid-cols-2 md:columns-1 gap-y-8 justify-center flex flex-row gap-x-24 text-tertiary">
-              <div className="flex flex-col items-center text-center text-wrap max-w-md">
-                <img className="py-2" src={ProjectManagement} width="100" height="100"/>
-                <p className="font-semibold text-xl pb-4">Technical Excellence</p>
-                <p className="text-md">Preparing the club and its members for work in the industry, at the highest quality of efficiency and scalability.</p>
-              </div>
-              <div className="flex flex-col items-center text-center text-wrap max-w-md">
-                <img className="py-2" src={OnlineCourses} width="100" height="100"/>
-                <p className="font-semibold text-xl pb-4">Educational Transparency</p>
-                <p className="text-md">Allowing ease of access for all academic topics related to computer science and in our course materials.</p>
-              </div>
-              <div className="flex flex-col items-center text-center text-wrap max-w-md">
-                <img className="py-2" src={Communities} width="100" height="100"/>
-                <p className="font-semibold text-xl pb-4">Community</p>
-                <p className="text-md">Providing a welcoming environment for computer scientists from all areas of technical knowledge and tying that back to a sense of campus culture.</p>
-              </div>
-              <div className="flex flex-col items-center text-center text-wrap max-w-md">
-                <img className="py-2" src={SocialResponsibility} width="100" height="100"/>
-                <p className="font-semibold text-xl pb-4">Social Responsibility</p>
-                <p className="text-md">Ensuring that our members are involved in social and corporate environments that uphold high standards of ethical and moral responsibility.</p>
-              </div>
+          <div className="flex flex-col items-center text-center text-wrap max-w-md">
+            <img
+              className="py-2"
+              src={ProjectManagement}
+              width="100"
+              height="100"
+            />
+            <p className="font-semibold text-xl pb-4">Technical Excellence</p>
+            <p className="text-md">
+              Preparing the club and its members for work in the industry, at
+              the highest quality of efficiency and scalability.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center text-wrap max-w-md">
+            <img
+              className="py-2"
+              src={OnlineCourses}
+              width="100"
+              height="100"
+            />
+            <p className="font-semibold text-xl pb-4">
+              Educational Transparency
+            </p>
+            <p className="text-md">
+              Allowing ease of access for all academic topics related to
+              computer science and in our course materials.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center text-wrap max-w-md">
+            <img className="py-2" src={Communities} width="100" height="100" />
+            <p className="font-semibold text-xl pb-4">Community</p>
+            <p className="text-md">
+              Providing a welcoming environment for computer scientists from all
+              areas of technical knowledge and tying that back to a sense of
+              campus culture.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center text-wrap max-w-md">
+            <img
+              className="py-2"
+              src={SocialResponsibility}
+              width="100"
+              height="100"
+            />
+            <p className="font-semibold text-xl pb-4">Social Responsibility</p>
+            <p className="text-md">
+              Ensuring that our members are involved in social and corporate
+              environments that uphold high standards of ethical and moral
+              responsibility.
+            </p>
+          </div>
         </div>
       </section>
       <GlobalFooter />
