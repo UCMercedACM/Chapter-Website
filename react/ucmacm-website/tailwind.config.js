@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
+const { nextui } = require("@nextui-org/react");
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     colors: {
       // These are all light mode
@@ -9,7 +14,7 @@ export default {
       tertiary: "#084778",
       text: "#084778",
       "primary-background": "#f5f5f5",
-      "landing-background": "#00e1bf",
+      landing: "#00e1bf",
     },
     fontFamily: {
       hind: ["Hind", "sans-serif"],
@@ -21,7 +26,35 @@ export default {
       spacing: {
         neg4: "-4%",
       },
+      colors: {
+        landing: "#00e1bf",
+      },
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [
+    nextui({
+      themes: {
+        "blue-dark": {
+          extend: "dark",
+          colors: {
+            foreground: "#ECEFEF",
+            background: "#2C2828",
+            primary: {
+              100: "#E8F8FF",
+              200: "#D1F0FF",
+              300: "#BAE5FF",
+              400: "#A8DAFF",
+              500: "#8CC8FF",
+              600: "#669DDB",
+              700: "#4675B7",
+              800: "#2C5293",
+              900: "#1A387A",
+              DEFAULT: "#8CC8FF",
+            },
+          },
+        },
+      },
+    }),
+  ],
 };
