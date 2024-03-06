@@ -14,20 +14,20 @@
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^9.3.0",
-    "@nextui-org/react": "^2.2.9",
+    "@nextui-org/react": "^2.2.10",
     "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.60",
+    "@types/react": "^18.2.63",
     "@types/react-dom": "^18.2.19",
-    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.0.2",
     "@vitejs/plugin-react-swc": "^3.6.0",
-    "autoprefixer": "^10.4.17",
+    "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^9.0.11",
@@ -35,7 +35,6 @@
     "prettier": "3.2.5",
     "tailwindcss": "^3.4.1",
     "typescript": "5.3.3",
-    "vite": "^5.1.4"
+    "vite": "^5.1.5"
   },
-  "packageManager": "yarn@4.1.0"
 }
