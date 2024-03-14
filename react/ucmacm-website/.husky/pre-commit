@@ -1,6 +1,2 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-cd react/ucmacm-website
 npm run lint
 npm run format
