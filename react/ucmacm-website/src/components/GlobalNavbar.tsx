@@ -15,7 +15,16 @@ function GlobalNavbar() {
 
   const UCMACMLogo = () => <img src={ACMLogo} width={76} height={76} />;
   // Come back later for the others
-  const menuItems = ["SIGs", "Events"];
+  const menuItems = [
+    {
+      title: "SIGs",
+      path: "/sigs"
+    },
+    {
+      title: "Events",
+      path: "/events"
+    }
+  ]
   return (
     <>
       <Navbar
@@ -36,22 +45,19 @@ function GlobalNavbar() {
         </NavbarContent>
 
         <NavbarContent className="hidden sm:flex gap-6" justify="center">
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              SIGs
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Events
-            </Link>
-          </NavbarItem>
+          {menuItems.map((item, index) => (
+            <NavbarItem key={`${item}-${index}`}>
+              <Link color="foreground" className="w-full" href={item.path} size="lg">
+                {item.title}
+              </Link>
+            </NavbarItem>
+          ))}
         </NavbarContent>
         <NavbarMenu>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link color="foreground" className="w-full" href="#" size="lg">
-                {item}
+              <Link color="foreground" className="w-full" href={item.path} size="lg">
+                {item.title}
               </Link>
             </NavbarMenuItem>
           ))}
