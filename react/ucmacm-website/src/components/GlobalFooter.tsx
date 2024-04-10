@@ -28,16 +28,22 @@ function GlobalFooter() {
           <div className="flex flex-row justify-center gap-x-12">
             <div>
               <Link href="https://www.instagram.com/ucmacm/" color="foreground">
+                {/*
+                // @ts-ignore */}
                 <SiInstagram size={32} />
               </Link>
             </div>
             <div>
               <Link href="https://github.com/UCMercedACM" color="foreground">
+                {/*
+                // @ts-ignore */}
                 <SiGithub size={32} />
               </Link>
             </div>
             <div>
               <Link href="https://bit.ly/acm_ucm-discord" color="foreground">
+                {/*
+                // @ts-ignore */}
                 <SiDiscord size={32} />
               </Link>
             </div>
