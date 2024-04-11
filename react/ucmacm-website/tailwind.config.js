@@ -29,6 +29,9 @@ export default {
       spacing: {
         neg4: "-4%",
       },
+      boxShadow: {
+        'base-white': '0 8px 20px rgba(112, 144, 172, .2)',
+      }
     },
   },
   darkMode: "class",

@@ -9,3 +9,21 @@
 .home {
   background-color: rgba(0, 225, 191, 0.8);
 }
+
+.events__maillist__button {
+  height: 4.25rem;
+  width: 20rem;
+  color: white;
+  font-size: 1.35rem;
+  background-color: #084778;
+  border-radius: 7rem;
+  box-shadow: -6px -6px 10px rgba(61,169,252,.2),6px 6px 10px rgba(0,29,53,.25);
+  filter: drop-shadow(15px 15px 2px #fff);
+}
+
+
+@layer components {
+  .events__overview {
+    @apply lg:grid lg:grid-cols-2 lg:gap-4 flex flex-col items-center justify-center;
+  }
+}

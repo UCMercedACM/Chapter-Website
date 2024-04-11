@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import GlobalFooter from "../components/GlobalFooter";
 import GlobalNavbar from "../components/GlobalNavbar";
 import SigTopic from "../components/SigTopic";
+import { fetchEvents } from "../hooks/events";
 
 const placeholderEvents = [
   {
@@ -30,6 +32,7 @@ const placeholderEvents = [
 ]
 
 const Sigs = () => {
+
   return (
     <>
       <GlobalNavbar />
@@ -48,7 +51,7 @@ const Sigs = () => {
         </section>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
+          viewBox="0 0 1440 280"
           className="home__wave"
         >
           <path
