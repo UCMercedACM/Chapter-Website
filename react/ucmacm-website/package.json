@@ -7,15 +7,15 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prepare": "cd ../../ && husky init",
+    "prepare": "husky",
     "preview": "vite preview",
     "check": "prettier . --check",
-    "format": "prettier . --write",
-    "prepare": "husky"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^9.4.1",
     "@nextui-org/react": "^2.3.6",
+    "dotenv": "^16.4.5",
     "framer-motion": "^11.1.7",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
