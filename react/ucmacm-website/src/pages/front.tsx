@@ -1,6 +1,6 @@
-import GlobalNavbar from '../components/GlobalNavbar'
-import GlobalFooter from '../components/GlobalFooter'
 import AboutUsImage from '../assets/images/about-us.png'
+import GlobalFooter from '../components/GlobalFooter'
+import GlobalNavbar from '../components/GlobalNavbar'
 import '../index.css'
 function Front() {
   return (

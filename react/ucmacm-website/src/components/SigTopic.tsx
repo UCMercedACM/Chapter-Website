@@ -1,12 +1,12 @@
-import { SectionTitle } from './SectionTitle'
 import {
   Table,
-  TableHeader,
   TableBody,
-  TableColumn,
-  TableRow,
   TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
 } from '@nextui-org/react'
+import { SectionTitle } from './SectionTitle'
 
 interface Event {
   title: string

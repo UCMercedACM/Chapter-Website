@@ -1,14 +1,14 @@
-import React from 'react'
 import {
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarMenuToggle,
   NavbarItem,
-  Link,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarMenuToggle,
 } from '@nextui-org/react'
+import React from 'react'
 import ACMLogo from '../assets/acm_logo_v2.png'
 function GlobalNavbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)

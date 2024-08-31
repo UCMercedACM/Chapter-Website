@@ -1,8 +1,8 @@
 // import "../index.css";
 import {
-  SiInstagram,
-  SiGithub,
   SiDiscord,
+  SiGithub,
+  SiInstagram,
 } from '@icons-pack/react-simple-icons'
 import { Link } from '@nextui-org/react'
 
