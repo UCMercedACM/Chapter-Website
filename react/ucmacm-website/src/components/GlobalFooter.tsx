@@ -3,8 +3,8 @@ import {
   SiInstagram,
   SiGithub,
   SiDiscord,
-} from "@icons-pack/react-simple-icons";
-import { Link } from "@nextui-org/react";
+} from '@icons-pack/react-simple-icons'
+import { Link } from '@nextui-org/react'
 
 function GlobalFooter() {
   return (
@@ -53,7 +53,7 @@ function GlobalFooter() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default GlobalFooter;
+export default GlobalFooter

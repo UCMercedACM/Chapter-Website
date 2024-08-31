@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -8,22 +8,22 @@ import {
   Link,
   NavbarMenu,
   NavbarMenuItem,
-} from "@nextui-org/react";
-import ACMLogo from "../assets/acm_logo_v2.png";
+} from '@nextui-org/react'
+import ACMLogo from '../assets/acm_logo_v2.png'
 function GlobalNavbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
-  const UCMACMLogo = () => <img src={ACMLogo} width={76} height={76} />;
+  const UCMACMLogo = () => <img src={ACMLogo} width={76} height={76} />
   // Come back later for the others
   const menuItems = [
     {
-      title: "SIGs",
-      path: "/sigs"
+      title: 'SIGs',
+      path: '/sigs',
     },
     {
-      title: "Events",
-      path: "/events"
-    }
+      title: 'Events',
+      path: '/events',
+    },
   ]
   return (
     <>
@@ -34,7 +34,7 @@ function GlobalNavbar() {
       >
         <NavbarContent>
           <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             className="lg:hidden"
           />
           <NavbarBrand>
@@ -47,7 +47,12 @@ function GlobalNavbar() {
         <NavbarContent className="hidden sm:flex gap-6" justify="center">
           {menuItems.map((item, index) => (
             <NavbarItem key={`${item}-${index}`}>
-              <Link color="foreground" className="w-full" href={item.path} size="lg">
+              <Link
+                color="foreground"
+                className="w-full"
+                href={item.path}
+                size="lg"
+              >
                 {item.title}
               </Link>
             </NavbarItem>
@@ -56,7 +61,12 @@ function GlobalNavbar() {
         <NavbarMenu>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link color="foreground" className="w-full" href={item.path} size="lg">
+              <Link
+                color="foreground"
+                className="w-full"
+                href={item.path}
+                size="lg"
+              >
                 {item.title}
               </Link>
             </NavbarMenuItem>
@@ -64,7 +74,7 @@ function GlobalNavbar() {
         </NavbarMenu>
       </Navbar>
     </>
-  );
+  )
 }
 
-export default GlobalNavbar;
+export default GlobalNavbar

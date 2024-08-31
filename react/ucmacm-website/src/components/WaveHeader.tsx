@@ -1,4 +1,4 @@
-import "../index.css";
+import '../index.css'
 function WaveHeader() {
   return (
     <>
@@ -15,7 +15,7 @@ function WaveHeader() {
         </svg>
       </div>
     </>
-  );
+  )
 }
 
-export default WaveHeader;
+export default WaveHeader
