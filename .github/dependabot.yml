@@ -3,8 +3,8 @@ updates:
   - package-ecosystem: "npm"
     directory: "/react/ucmacm-website"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     commit-message:
-      prefix: "[yarn]"
+      prefix: "[npm]"
       include: "scope"
     target-branch: "react-rewrite"
