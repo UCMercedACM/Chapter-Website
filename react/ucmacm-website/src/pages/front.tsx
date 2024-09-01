@@ -1,7 +1,7 @@
-import GlobalNavbar from "../components/GlobalNavbar";
-import GlobalFooter from "../components/GlobalFooter";
-import AboutUsImage from "../assets/images/about-us.png";
-import "../index.css";
+import AboutUsImage from '../assets/images/about-us.png'
+import GlobalFooter from '../components/GlobalFooter'
+import GlobalNavbar from '../components/GlobalNavbar'
+import '../index.css'
 function Front() {
   return (
     <>
@@ -71,7 +71,7 @@ function Front() {
       </section>
       <GlobalFooter />
     </>
-  );
+  )
 }
 
-export default Front;
+export default Front

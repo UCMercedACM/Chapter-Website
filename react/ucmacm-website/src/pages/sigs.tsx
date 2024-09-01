@@ -1,32 +1,32 @@
-import GlobalFooter from "../components/GlobalFooter";
-import GlobalNavbar from "../components/GlobalNavbar";
-import SigTopic from "../components/SigTopic";
+import GlobalFooter from '../components/GlobalFooter'
+import GlobalNavbar from '../components/GlobalNavbar'
+import SigTopic from '../components/SigTopic'
 
 const placeholderEvents = [
   {
-    title: "Introduction to React",
-    date: "2021-10-01",
-    time: "5:00 PM",
+    title: 'Introduction to React',
+    date: '2021-10-01',
+    time: '5:00 PM',
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.",
-    location: "COB 267"
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.',
+    location: 'COB 267',
   },
   {
-    title: "Introduction to SQL",
-    date: "2021-10-01",
-    time: "6:45 PM",
+    title: 'Introduction to SQL',
+    date: '2021-10-01',
+    time: '6:45 PM',
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.",
-    location: "KL 128"
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.',
+    location: 'KL 128',
   },
   {
-    title: "Introduction to NextUI",
-    date: "2021-10-01",
-    time: "7:00 PM",
+    title: 'Introduction to NextUI',
+    date: '2021-10-01',
+    time: '7:00 PM',
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.",
-    location: "SE 100"
-  }
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel faucibus non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Platea maecenas consequat congue elit lectus tristique eget sapien a. Tortor ullamcorper nibh sed orci eget vel non.',
+    location: 'SE 100',
+  },
 ]
 
 const Sigs = () => {
@@ -36,7 +36,9 @@ const Sigs = () => {
       <div className="sigs">
         <section className="h-full pt-36 lg:pb-24 bg-landing-secondary">
           <div className="flex flex-col content-end">
-            <h1 className="text-[72px] text-center font-normal tracking-wider text-tertiary font-bebas">Special Interest Groups</h1>
+            <h1 className="text-[72px] text-center font-normal tracking-wider text-tertiary font-bebas">
+              Special Interest Groups
+            </h1>
             <p className="px-80 text-white font-montserrat tracking-wider text-left text-[21px] leading-10">
               ACM&apos;s Special Interest Groups (SIGs) represent major areas of
               computing, addressing the interests of technical communities that
@@ -71,8 +73,7 @@ const Sigs = () => {
       </div>
       <GlobalFooter />
     </>
+  )
+}
 
-  );
-};
-
-export default Sigs;
+export default Sigs

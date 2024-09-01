@@ -1,0 +1,30 @@
+name: Lint
+on:
+  push:
+    branches:
+      - react-rewrite
+
+  pull_request:
+    branches:
+      - react-rewrite
+
+jobs:
+  Analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Setup Biome CLI
+        uses: biomejs/setup-biome@v2
+
+      - name: Run Biome
+        run: biome ci --error-on-warnings --formatter-enabled=false --organize-imports-enabled=false react/ucmacm-website/src
+
+
