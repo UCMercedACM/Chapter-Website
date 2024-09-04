@@ -1,8 +1,0 @@
-node_modules/
-.husky/
-.vim/
-.vscode/
-.yarn/
-public/
-.env
-.env.example
