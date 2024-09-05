@@ -3,7 +3,7 @@ workflows:
   - .github/workflows/*
 
 components:
-  - react/ucmacm-website/src/components/*
+  - react/src/components/*
 
 # Add the 'documentation' label to any changes in either of the documented files
 documentation:
