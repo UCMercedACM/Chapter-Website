@@ -1,7 +1,7 @@
 # Association for Computing Machinery's UC Merced Chapter
 
 UC Merced's Association for Computing Machinery Club's development website  
-Created using React and Firebase
+Created using React. Backend created with FastAPI.
 
 Figma Mockup
 Created by Mary Delos Reyes [SIG Design Lead] - [mockup](https://www.figma.com/file/R63olIJGYgI6c0Exjelpze/Light-Mode-ACM)
@@ -18,14 +18,12 @@ Don't know how to do this? keep on reading below.
 
 Make sure you have the following:
 
-- [Node.js 20.x](https://nodejs.org/en/download/)
-- [Yarn 4](https://yarnpkg.com/getting-started/install)
+- [Node.js 22](https://nodejs.org/en/download/)
 
-Run `yarn install`, then `yarn dev` (You will need your own Firebase key). If you plan on using `npm`
-instead, adjust the commands accordingly (e.g. `npm install`)
+Run `npm install && lefthook install`, then `npm run dev`.
 
-A more in-depth introduction (recommended to read) can be found [here](https://ucmacm-website.readthedocs.io/en/latest/onboarding/introduction.html)
+A more in-depth introduction (recommended to read) can be found [here](https://ucmacm-docs.netlify.app)
 
 ## Contributing
 
-For more information on how you can get started, please see the [onboarding guide](https://ucmacm-website.readthedocs.io/en/latest/onboarding/index.html).
+For more information on how you can get started, please see the [onboarding guide](https://ucmacm-docs.netlify.app/website/contributing).
