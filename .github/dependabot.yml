@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/react/ucmacm-website"
+    directory: "/react/"
     schedule:
       interval: "weekly"
     commit-message:
