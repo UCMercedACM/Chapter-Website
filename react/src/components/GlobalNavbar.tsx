@@ -13,7 +13,9 @@ import ACMLogo from "../assets/acm_logo_v2.png";
 function GlobalNavbar() {
 	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-	const UCMACMLogo = () => <img src={ACMLogo} width={76} height={76} />;
+	const UCMACMLogo = () => (
+		<img src={ACMLogo} width={76} height={76} alt="ACM Logo" />
+	);
 	// Come back later for the others
 	const menuItems = [
 		{
@@ -45,8 +47,8 @@ function GlobalNavbar() {
 				</NavbarContent>
 
 				<NavbarContent className="hidden sm:flex gap-6" justify="center">
-					{menuItems.map((item, index) => (
-						<NavbarItem key={`${item}-${index}`}>
+					{menuItems.map((item) => (
+						<NavbarItem key={`${item}-${item.title}`}>
 							<Link
 								color="foreground"
 								className="w-full"
@@ -59,8 +61,8 @@ function GlobalNavbar() {
 					))}
 				</NavbarContent>
 				<NavbarMenu>
-					{menuItems.map((item, index) => (
-						<NavbarMenuItem key={`${item}-${index}`}>
+					{menuItems.map((item) => (
+						<NavbarMenuItem key={`${item}-${item.title}`}>
 							<Link
 								color="foreground"
 								className="w-full"
