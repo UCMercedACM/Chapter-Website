@@ -4,8 +4,8 @@ on:
     types:
       - opened
   workflow_run:
-    workflows: ["Lint", "Build", "Test (E2E)"]
-    branches: [main]
+    workflows: ["Lint", "Build"]
+    branches: [react-rewrite]
     types:
       - completed
 
@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Dependabot metadata
         id: metadata
-        uses: dependabot/fetch-metadata@v1
+        uses: dependabot/fetch-metadata@v2
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Enable auto-merge for Dependabot PRs
@@ -28,4 +28,4 @@ jobs:
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{  secrets.GITHUB_TOKEN  }}
