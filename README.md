@@ -20,7 +20,7 @@ Make sure you have the following:
 
 - [Node.js 22](https://nodejs.org/en/download/)
 
-Run `npm install && lefthook install`, then `npm run dev`.
+Run `npm install`, then `npm run dev`.
 
 A more in-depth introduction (recommended to read) can be found [here](https://ucmacm-docs.netlify.app)
 
