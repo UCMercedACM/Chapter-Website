@@ -8,3 +8,8 @@ updates:
       prefix: "[npm]"
       include: "scope"
     target-branch: "react-rewrite"
+    groups:
+      dev-deps:
+        dependency-type: "development"
+      prod-deps:
+        dependency-type: "production"
