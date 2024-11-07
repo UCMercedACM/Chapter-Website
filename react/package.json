@@ -11,26 +11,26 @@
 		"prepare": "lefthook install"
 	},
 	"dependencies": {
-		"@icons-pack/react-simple-icons": ">=10.0 <11",
-		"@nextui-org/react": ">=2.4 <3",
-		"framer-motion": ">=11.3 <12",
-		"react": ">=18.3 <19",
-		"react-dom": ">=18.3 <19",
-		"react-router-dom": ">=6.24 <7"
+		"@icons-pack/react-simple-icons": "^10.1.0",
+		"@nextui-org/react": "^2.4.8",
+		"framer-motion": "^11.11.11",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-router-dom": "^6.28.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/react": ">=18.3 <19",
-		"@types/react-dom": ">=18.3 <19",
-		"@vitejs/plugin-react-swc": ">=3.7 <4",
-		"autoprefixer": ">=10.4 <11",
-		"lefthook": ">=1.7 <2",
-		"postcss": ">=8.4 <9",
-		"tailwindcss": ">=3.4 <4",
-		"typescript": ">=5.5 <6",
-		"vite": ">=5.4 <6"
+		"@types/react": "^18.3.12",
+		"@types/react-dom": "^18.3.1",
+		"@vitejs/plugin-react-swc": "^3.7.1",
+		"autoprefixer": "^10.4.20",
+		"lefthook": "^1.8.2",
+		"postcss": "^8.4.47",
+		"tailwindcss": "^3.4.14",
+		"typescript": "^5.6.3",
+		"vite": "^5.4.10"
 	},
 	"volta": {
-		"node": "22.8.0"
+		"node": "22.11.0"
 	}
 }
