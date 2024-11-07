@@ -4,7 +4,7 @@ on:
     types:
       - opened
   workflow_run:
-    workflows: ["Lint", "Build"]
+    workflows: ["CodeQL", "Lint", "Build"]
     branches: [react-rewrite]
     types:
       - completed
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   dependabot:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.actor == 'dependabot[bot]'}}
     steps:
       - name: Dependabot metadata
