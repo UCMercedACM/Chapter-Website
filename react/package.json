@@ -27,7 +27,7 @@
 		"lefthook": "^1.8.4",
 		"postcss": "^8.4.49",
 		"tailwindcss": "^3.4.15",
-		"typescript": "^5.6.3",
+		"typescript": "^5.7.2",
 		"vite": "^5.4.11"
 	},
 	"volta": {
