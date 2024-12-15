@@ -8,7 +8,8 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"check": "biome check --write src",
-		"prepare": "lefthook install"
+		"prepare": "lefthook install",
+		"serve": "serve /website/dist --no-clipboard"
 	},
 	"dependencies": {
 		"@icons-pack/react-simple-icons": "^10.2.0",
@@ -26,6 +27,7 @@
 		"autoprefixer": "^10.4.20",
 		"lefthook": "^1.9.2",
 		"postcss": "^8.4.49",
+		"serve": "^14.2.4",
 		"tailwindcss": "^3.4.16",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.3"
