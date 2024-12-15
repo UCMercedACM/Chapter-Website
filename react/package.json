@@ -12,8 +12,8 @@
 	},
 	"dependencies": {
 		"@icons-pack/react-simple-icons": "^10.2.0",
-		"@nextui-org/react": "^2.6.5",
-		"framer-motion": "^11.13.1",
+		"@nextui-org/react": "^2.6.8",
+		"framer-motion": "^11.14.4",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router-dom": "^7.0.2"
@@ -24,13 +24,13 @@
 		"@types/react-dom": "^19.0.1",
 		"@vitejs/plugin-react-swc": "^3.7.2",
 		"autoprefixer": "^10.4.20",
-		"lefthook": "^1.9.0",
+		"lefthook": "^1.9.2",
 		"postcss": "^8.4.49",
 		"tailwindcss": "^3.4.16",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.3"
 	},
 	"volta": {
-		"node": "22.11.0"
+		"node": "22.12.0"
 	}
 }
