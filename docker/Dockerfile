@@ -15,8 +15,8 @@ RUN adduser --disabled-password --gecos "" website \
 
 USER website
 
-RUN npm ci --ignore-scripts
-RUN npm run build
+RUN npm ci --ignore-scripts \
+  && npm run build
 
 EXPOSE 3000
 
@@ -26,7 +26,7 @@ CMD ["npm", "run", "serve"]
 
 STOPSIGNAL SIGTERM
 
-HEALTHCHECK --interval=5m --timeout=3s CMD curl -f http://localhost:3000/ || exit 1
+HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:3000/", "||", "exit 1"]
 
 LABEL org.opencontainers.image.title="Chapter-Website"
 LABEL org.opencontainers.image.description="ACM @ UC Merced's website"
