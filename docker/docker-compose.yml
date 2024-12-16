@@ -1,0 +1,14 @@
+name: chapter-website
+
+services:
+  chapter-website:
+    container_name: chapter-website
+    image: ghcr.io/ucmercedacm/chapter-website:edge
+    ports:
+      - 3000:3000
+    healthcheck:
+      test: curl -f http://localhost:3000/ || exit 1
+      interval: 5m
+      start_interval: 30s
+      start_period: 5m
+    restart: always

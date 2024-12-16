@@ -26,6 +26,8 @@ CMD ["npm", "run", "serve"]
 
 STOPSIGNAL SIGTERM
 
+HEALTHCHECK --interval=5m --timeout=3s CMD curl -f http://localhost:3000/ || exit 1
+
 LABEL org.opencontainers.image.title="Chapter-Website"
 LABEL org.opencontainers.image.description="ACM @ UC Merced's website"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
