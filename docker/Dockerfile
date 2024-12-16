@@ -15,7 +15,7 @@ RUN adduser --disabled-password --gecos "" website \
 
 USER website
 
-RUN npm ci --ignore-scripts=true
+RUN npm ci --ignore-scripts
 RUN npm run build
 
 EXPOSE 3000
