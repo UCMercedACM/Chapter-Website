@@ -47,7 +47,7 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          cache-from: type=registry,ref=ghcr.io/ucmercedacm/chapter-website-build-cache:server
-          cache-to: type=registry,mode=max,ref=ghcr.io/ucmercedacm/chapter-website-build-cache:server
+          cache-from: type=registry,ref=ghcr.io/ucmercedacm/chapter-website-build-cache:app
+          cache-to: type=registry,mode=max,ref=ghcr.io/ucmercedacm/chapter-website-build-cache:app
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
