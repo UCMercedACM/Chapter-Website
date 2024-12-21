@@ -1,6 +1,6 @@
-import GlobalFooter from "../components/GlobalFooter";
-import GlobalNavbar from "../components/GlobalNavbar";
-import SigTopic from "../components/SigTopic";
+import GlobalFooter from "./components/GlobalFooter";
+import GlobalNavbar from "./components/GlobalNavbar";
+import SigTopic from "./components/SigTopic";
 
 const placeholderEvents = [
 	{

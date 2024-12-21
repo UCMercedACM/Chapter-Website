@@ -5,7 +5,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.home {
-  background-color: rgba(0, 225, 191, 0.8);
-}
