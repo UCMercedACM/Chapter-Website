@@ -1,7 +1,6 @@
 import AboutUsImage from "../assets/images/about-us.png";
-import GlobalFooter from "../components/GlobalFooter";
-import GlobalNavbar from "../components/GlobalNavbar";
-import "../index.css";
+import GlobalFooter from "./components/GlobalFooter";
+import GlobalNavbar from "./components/GlobalNavbar";
 function Front() {
 	return (
 		<>
