@@ -9,7 +9,7 @@ import {
 	NavbarMenuToggle,
 } from "@nextui-org/react";
 import React from "react";
-import ACMLogo from "/logo.png";
+import ACMLogo from "../../assets/logo.png";
 function GlobalNavbar() {
 	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
