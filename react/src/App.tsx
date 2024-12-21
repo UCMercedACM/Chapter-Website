@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
-import Passwordless from "supertokens-auth-react/recipe/passwordless";
+import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import { PasswordlessPreBuiltUI } from "supertokens-auth-react/recipe/passwordless/prebuiltui";
 import Session from "supertokens-auth-react/recipe/session";
 import ThirdParty from "supertokens-auth-react/recipe/thirdparty";
@@ -19,12 +19,10 @@ SuperTokens.init({
 		websiteBasePath: "/auth",
 	},
 	recipeList: [
-		Passwordless.init({
-			contactMethod: "EMAIL",
-		}),
+		EmailPassword.init(),
 		ThirdParty.init({
 			signInAndUpFeature: {
-				providers: [ThirdParty.Github.init(), ThirdParty.Google.init()],
+				providers: [ThirdParty.Google.init()],
 			},
 		}),
 		Session.init(),
