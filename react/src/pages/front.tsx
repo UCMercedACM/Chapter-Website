@@ -1,13 +1,7 @@
-import { signOut } from "supertokens-auth-react/recipe/session";
 import AboutUsImage from "../assets/images/about-us.png";
 import GlobalFooter from "./components/GlobalFooter";
 import GlobalNavbar from "./components/GlobalNavbar";
 function Front() {
-	async function onLogout() {
-		await signOut();
-		window.location.href = "/";
-		window.location.reload();
-	}
 	return (
 		<>
 			<GlobalNavbar />
