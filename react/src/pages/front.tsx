@@ -6,14 +6,15 @@ import GlobalNavbar from "./components/GlobalNavbar";
 function Front() {
 	async function onLogout() {
 		await signOut();
-		window.location.href = "/"; // or to wherever your logic page is
+		window.location.href = "/";
+		window.location.reload();
 	}
 	return (
 		<>
 			<GlobalNavbar />
 			<div className="bg-landing opacity-80 py-8 w-full max-h-max top-16 gap-16 flex-col flex">
 				<p>hi</p>
-				<Button onPress={onLogout}>logout for testing</Button>
+				{/* <Button onPress={onLogout}>logout for testing</Button> */}
 			</div>
 			<div className="z-0 gap-16 flex">
 				<svg

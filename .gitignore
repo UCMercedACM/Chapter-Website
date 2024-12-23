@@ -9,7 +9,8 @@ lerna-debug.log*
 .yarn
 
 # ENV files
-react/.env
+react/*.env
+*.env
 
 react/node_modules
 react/dist
