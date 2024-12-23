@@ -8,16 +8,7 @@
     "lineEnding": "lf",
     "lineWidth": 80,
     "attributePosition": "auto",
-    "ignore": [
-      "**/node_modules/",
-      "**/.husky/",
-      "**/.vim/",
-      "**/.vscode/",
-      "**/.yarn/",
-      "**/public/",
-      "**/.env",
-      "**/.env.example"
-    ]
+    "ignore": ["**/node_modules/", "**/.vscode/", "**/public/", "**/*.env"]
   },
   "organizeImports": { "enabled": true },
   "linter": {
