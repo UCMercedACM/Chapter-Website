@@ -8,9 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 .yarn
 
+<<<<<<< Updated upstream
 # ENV files
 react/.env
 
+=======
+node_modules
+>>>>>>> Stashed changes
 react/node_modules
 react/dist
 react/dist-ssr
