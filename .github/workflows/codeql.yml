@@ -19,9 +19,6 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    defaults:
-      run:
-        working-directory: react/
 
     steps:
     - name: Checkout Repository

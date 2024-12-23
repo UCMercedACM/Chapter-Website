@@ -13,9 +13,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-24.04
-    defaults:
-      run:
-        working-directory: react/
 
     steps:
       - name: Checkout
