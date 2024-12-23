@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 import { signOut } from "supertokens-auth-react/recipe/session";
 import AboutUsImage from "../assets/images/about-us.png";
 import GlobalFooter from "./components/GlobalFooter";
