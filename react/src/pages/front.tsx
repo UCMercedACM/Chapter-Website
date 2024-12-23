@@ -1,12 +1,19 @@
+import { Button } from "@nextui-org/react";
+import { signOut } from "supertokens-auth-react/recipe/session";
 import AboutUsImage from "../assets/images/about-us.png";
 import GlobalFooter from "./components/GlobalFooter";
 import GlobalNavbar from "./components/GlobalNavbar";
 function Front() {
+	async function onLogout() {
+		await signOut();
+		window.location.href = "/"; // or to wherever your logic page is
+	}
 	return (
 		<>
 			<GlobalNavbar />
 			<div className="bg-landing opacity-80 py-8 w-full max-h-max top-16 gap-16 flex-col flex">
 				<p>hi</p>
+				<Button onPress={onLogout}>logout for testing</Button>
 			</div>
 			<div className="z-0 gap-16 flex">
 				<svg

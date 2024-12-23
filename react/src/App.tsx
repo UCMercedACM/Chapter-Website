@@ -3,7 +3,6 @@ import * as reactRouterDom from "react-router-dom";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import { EmailPasswordPreBuiltUI } from "supertokens-auth-react/recipe/emailpassword/prebuiltui";
-import { PasswordlessPreBuiltUI } from "supertokens-auth-react/recipe/passwordless/prebuiltui";
 import Session from "supertokens-auth-react/recipe/session";
 import ThirdParty from "supertokens-auth-react/recipe/thirdparty";
 import { ThirdPartyPreBuiltUI } from "supertokens-auth-react/recipe/thirdparty/prebuiltui";
@@ -16,7 +15,7 @@ SuperTokens.init({
 		appName: "ucmacm-website",
 		apiDomain: import.meta.env.VITE_API_DOMAIN,
 		websiteDomain: import.meta.env.VITE_WEBSITE_DOMAIN,
-		apiBasePath: "/api-auth",
+		apiBasePath: "/auth",
 		websiteBasePath: "/auth",
 	},
 	recipeList: [
