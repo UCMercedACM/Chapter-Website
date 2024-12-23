@@ -7,6 +7,7 @@ function Front() {
 			<GlobalNavbar />
 			<div className="bg-landing opacity-80 py-8 w-full max-h-max top-16 gap-16 flex-col flex">
 				<p>hi</p>
+				{/* <Button onPress={onLogout}>logout for testing</Button> */}
 			</div>
 			<div className="z-0 gap-16 flex">
 				<svg

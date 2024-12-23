@@ -8,6 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 .yarn
 
+# ENV files
+react/*.env
+*.env
+
 react/node_modules
 react/dist
 react/dist-ssr
