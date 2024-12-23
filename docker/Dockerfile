@@ -8,7 +8,7 @@ RUN apt-get update \
   && apt-get clean
 
 WORKDIR /website
-COPY ./ /website
+COPY . /website
 
 RUN adduser --disabled-password --gecos "" website \
   && chown -R website:website /website/
