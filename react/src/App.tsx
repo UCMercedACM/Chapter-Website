@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import * as reactRouterDom from "react-router-dom";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
+import { EmailPasswordPreBuiltUI } from "supertokens-auth-react/recipe/emailpassword/prebuiltui";
 import { PasswordlessPreBuiltUI } from "supertokens-auth-react/recipe/passwordless/prebuiltui";
 import Session from "supertokens-auth-react/recipe/session";
 import ThirdParty from "supertokens-auth-react/recipe/thirdparty";
@@ -36,7 +37,7 @@ function App() {
 				<Routes>
 					{getSuperTokensRoutesForReactRouterDom(reactRouterDom, [
 						ThirdPartyPreBuiltUI,
-						PasswordlessPreBuiltUI,
+						EmailPasswordPreBuiltUI,
 					])}
 					<Route path="/" element={<Front />} />
 					<Route path="/sigs" element={<Sigs />} />
