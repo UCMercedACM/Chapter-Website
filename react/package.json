@@ -12,9 +12,9 @@
 		"serve": "serve /website/dist --no-clipboard"
 	},
 	"dependencies": {
-		"@icons-pack/react-simple-icons": "^10.2.0",
+		"@icons-pack/react-simple-icons": "^11.0.1",
 		"@nextui-org/react": "^2.6.11",
-		"framer-motion": "^11.14.4",
+		"framer-motion": "^11.17.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router-dom": "^7.1.1",
