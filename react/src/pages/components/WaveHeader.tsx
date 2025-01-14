@@ -1,10 +1,10 @@
 function WaveHeader() {
 	return (
 		<>
-			<div className="bg-landing opacity-80 py-8 w-full max-h-max top-16 gap-16 flex-col flex">
+			<div className="flex top-16 flex-col gap-16 py-8 w-full opacity-80 bg-landing max-h-max">
 				<p>hi</p>
 			</div>
-			<div className="z-0 gap-16 flex">
+			<div className="flex z-0 gap-16">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 1440 320"

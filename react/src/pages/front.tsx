@@ -5,11 +5,11 @@ function Front() {
 	return (
 		<>
 			<GlobalNavbar />
-			<div className="bg-landing opacity-80 py-8 w-full max-h-max top-16 gap-16 flex-col flex">
+			<div className="flex top-16 flex-col gap-16 py-8 w-full opacity-80 bg-landing max-h-max">
 				<p>hi</p>
 				{/* <Button onPress={onLogout}>logout for testing</Button> */}
 			</div>
-			<div className="z-0 gap-16 flex">
+			<div className="flex z-0 gap-16">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 1440 320"
@@ -25,12 +25,12 @@ function Front() {
 			</div>
 
 			<section className="mx-24">
-				<h1 className="font-bold text-center text-4xl text-tertiary pb-16">
+				<h1 className="pb-16 text-4xl font-bold text-center text-tertiary">
 					About Us
 				</h1>
-				<div className="columns-2 gap-x-24">
+				<div className="gap-x-24 columns-2">
 					<div className="container-2xl">
-						<p className="text-tertiary text-xl">
+						<p className="text-xl text-tertiary">
 							Association for Computing Machinery (ACM) is the biggest computing
 							organization at University of California, Merced. We build a
 							community of students, developers, designers, and professionals.
@@ -53,23 +53,23 @@ function Front() {
 				</div>
 			</section>
 			<section className="mx-24">
-				<h1 className="font-bold text-center text-4xl text-tertiary pt-16 pb-16">
+				<h1 className="pt-16 pb-16 text-4xl font-bold text-center text-tertiary">
 					Goals
 				</h1>
-				<div className="columns-2 grid-rows-2 gap-x-24">
+				<div className="grid-rows-2 gap-x-24 columns-2">
 					<div className="container-2xl">
 						<div>
-							<p className="text-tertiary text-xl">yes</p>
+							<p className="text-xl text-tertiary">yes</p>
 						</div>
 						<div>
-							<p className="text-tertiary text-xl">yes</p>
+							<p className="text-xl text-tertiary">yes</p>
 						</div>
 
 						<div>
-							<p className="text-tertiary text-xl">yes</p>
+							<p className="text-xl text-tertiary">yes</p>
 						</div>
 						<div>
-							<p className="text-tertiary text-xl">yes</p>
+							<p className="text-xl text-tertiary">yes</p>
 						</div>
 					</div>
 				</div>

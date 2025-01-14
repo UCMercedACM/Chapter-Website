@@ -25,8 +25,8 @@ function GlobalFooter() {
 					/>
 				</svg>
 
-				<div className="bg-landing opacity-80 w-full max-h-max py-8 top-4 gap-16 text-center">
-					<div className="flex flex-row justify-center gap-x-12">
+				<div className="top-4 gap-16 py-8 w-full text-center opacity-80 bg-landing max-h-max">
+					<div className="flex flex-row gap-x-12 justify-center">
 						<div>
 							<Link href="https://www.instagram.com/ucmacm/" color="foreground">
 								{/*
