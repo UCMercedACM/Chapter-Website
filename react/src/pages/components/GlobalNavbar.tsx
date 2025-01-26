@@ -31,7 +31,7 @@ function GlobalNavbar() {
 		<>
 			<Navbar
 				onMenuOpenChange={setIsMenuOpen}
-				className="bg-landing opacity-80 "
+				className="opacity-80 bg-landing"
 				position="static"
 			>
 				<NavbarContent>
@@ -46,7 +46,7 @@ function GlobalNavbar() {
 					</NavbarBrand>
 				</NavbarContent>
 
-				<NavbarContent className="hidden sm:flex gap-6" justify="center">
+				<NavbarContent className="hidden gap-6 sm:flex" justify="center">
 					{menuItems.map((item) => (
 						<NavbarItem key={`${item}-${item.title}`}>
 							<Link

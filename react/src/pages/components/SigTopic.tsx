@@ -27,8 +27,8 @@ const SigTopic = ({ title, description, events }: SigTopicProps) => {
 		<>
 			<SectionTitle title={title} />
 			<p className="">{description}</p>
-			<h3 className="text-tertiary font-bold mt-8">UPCOMING EVENTS:</h3>
-			<div className="mx-4 my-8">
+			<h3 className="mt-8 font-bold text-tertiary">UPCOMING EVENTS:</h3>
+			<div className="my-8 mx-4">
 				<Table aria-label="SIG Event list" fullWidth={false}>
 					<TableHeader>
 						<TableColumn>Date & Time</TableColumn>

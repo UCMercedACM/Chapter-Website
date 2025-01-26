@@ -34,12 +34,12 @@ const Sigs = () => {
 		<>
 			<GlobalNavbar />
 			<div className="sigs">
-				<section className="h-full pt-36 lg:pb-24 bg-landing-secondary">
+				<section className="pt-36 h-full lg:pb-24 bg-landing-secondary">
 					<div className="flex flex-col content-end">
-						<h1 className="text-[72px] text-center font-normal tracking-wider text-tertiary font-bebas">
+						<h1 className="font-normal tracking-wider text-center text-[72px] text-tertiary font-bebas">
 							Special Interest Groups
 						</h1>
-						<p className="px-80 text-white font-montserrat tracking-wider text-left text-[21px] leading-10">
+						<p className="px-80 tracking-wider leading-10 text-left text-white font-montserrat text-[21px]">
 							ACM&apos;s Special Interest Groups (SIGs) represent major areas of
 							computing, addressing the interests of technical communities that
 							drive innovation. SIGs offer a wealth of conferences, publications
@@ -62,7 +62,7 @@ const Sigs = () => {
 					/>
 				</svg>
 				<section>
-					<ul className="mx-28 font-montseratt tracking-wider text-[20px]">
+					<ul className="mx-28 tracking-wider font-montseratt text-[20px]">
 						<li className="mx-60">
 							<SigTopic
 								title="Software Engineering (SWE)"

@@ -8,7 +8,7 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"check": "biome check --write src",
-		"prepare": "lefthook install",
+		"postinstall": "lefthook install",
 		"serve": "serve /website/dist --no-clipboard"
 	},
 	"dependencies": {
@@ -26,6 +26,7 @@
 		"@types/react-dom": "^19.0.3",
 		"@vitejs/plugin-react-swc": "^3.7.2",
 		"autoprefixer": "^10.4.20",
+		"rustywind": "^0.23.1",
 		"lefthook": "^1.10.9",
 		"postcss": "^8.5.1",
 		"serve": "^14.2.4",
@@ -34,6 +35,6 @@
 		"vite": "^6.0.9"
 	},
 	"volta": {
-		"node": "22.12.0"
+		"node": "22.13.1"
 	}
 }
