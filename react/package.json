@@ -8,33 +8,33 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"check": "biome check --write src",
-		"prepare": "lefthook install",
+		"postinstall": "lefthook install",
 		"serve": "serve /website/dist --no-clipboard"
 	},
 	"dependencies": {
-		"@icons-pack/react-simple-icons": "^11.0.1",
+		"@icons-pack/react-simple-icons": "^11.1.0",
 		"@nextui-org/react": "^2.6.11",
-		"framer-motion": "^11.17.0",
+		"framer-motion": "^11.18.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
-		"react-router-dom": "^7.1.1",
+		"react-router-dom": "^7.1.3",
 		"supertokens-auth-react": "^0.48.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@types/react": "^19.0.6",
+		"@types/react": "^19.0.7",
 		"@types/react-dom": "^19.0.3",
 		"@vitejs/plugin-react-swc": "^3.7.2",
 		"autoprefixer": "^10.4.20",
-		"lefthook": "^1.10.3",
-		"postcss": "^8.4.49",
 		"rustywind": "^0.23.1",
+		"lefthook": "^1.10.9",
+		"postcss": "^8.5.1",
 		"serve": "^14.2.4",
 		"tailwindcss": "^3.4.16",
 		"typescript": "^5.7.3",
-		"vite": "^6.0.7"
+		"vite": "^6.0.9"
 	},
 	"volta": {
-		"node": "22.12.0"
+		"node": "22.13.1"
 	}
 }
