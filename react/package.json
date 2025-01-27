@@ -7,9 +7,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"check": "biome check --write src",
-		"postinstall": "lefthook install",
-		"serve": "serve /website/dist --no-clipboard"
+		"postinstall": "lefthook install"
 	},
 	"dependencies": {
 		"react": "^19.0.0",
@@ -24,7 +22,6 @@
 		"@vitejs/plugin-react-swc": "^3.7.2",
 		"rustywind": "^0.23.1",
 		"lefthook": "^1.10.9",
-		"serve": "^14.2.4",
 		"typescript": "^5.7.3",
 		"vite": "^6.0.9"
 	},
