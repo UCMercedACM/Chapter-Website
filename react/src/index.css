@@ -1,0 +1,46 @@
+/* Temporary fonts based on old website */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat&display=swap')
+layer(base);
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;700&display=swap')
+layer(base);
+
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-*: initial;
+  --font-hind: Hind, sans-serif;
+  --font-montserrat: Montserrat, sans-serif;
+  --font-bebas: Bebas Neue, sans-serif;
+
+  --color-primary: #0fd5ba;
+  --color-secondary: #3da9fc;
+  --color-tertiary: #084778;
+  --color-text: #084778;
+  --color-primary-background: #f5f5f5;
+  --color-landing: #00e1bf;
+  --color-landing-secondary: #00e1bfcc;
+
+  --min-height-40: 40%;
+
+  --spacing-neg4: -4%;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
