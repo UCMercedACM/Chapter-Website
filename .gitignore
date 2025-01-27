@@ -17,6 +17,7 @@ react/dist
 react/dist-ssr
 react/*.local
 *.local
+node_modules
 
 # Editor directories and files
 .vscode/*
