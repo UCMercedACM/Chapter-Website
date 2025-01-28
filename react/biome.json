@@ -16,7 +16,8 @@
 			"**/.yarn/",
 			"**/public/",
 			"**/.env",
-			"**/.env.example"
+			"**/.env.example",
+			"src/index.css"
 		]
 	},
 	"organizeImports": { "enabled": true },
@@ -114,7 +115,7 @@
 				"useValidTypeof": "error"
 			}
 		},
-		"ignore": ["**/dist", "**/.eslintrc.cjs"]
+		"ignore": ["**/dist", "**/.eslintrc.cjs", "src/index.css"]
 	},
 	"javascript": {
 		"formatter": {
