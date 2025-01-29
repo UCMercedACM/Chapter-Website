@@ -7,7 +7,7 @@ import {
 	NavbarMenu,
 	NavbarMenuItem,
 	NavbarMenuToggle,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import ACMLogo from "../../assets/logo.png";
 function GlobalNavbar() {

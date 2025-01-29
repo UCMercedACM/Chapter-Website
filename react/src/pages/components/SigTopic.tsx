@@ -5,7 +5,7 @@ import {
 	TableColumn,
 	TableHeader,
 	TableRow,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { SectionTitle } from "./SectionTitle";
 
 interface Event {
