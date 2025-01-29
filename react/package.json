@@ -8,8 +8,7 @@
 		"build": "tsc && vite build",
 		"preview": "vite preview",
 		"check": "biome check --write --error-on-warnings --no-errors-on-unmatched src",
-		"postinstall": "lefthook install",
-		"serve": "serve /website/dist --no-clipboard"
+		"postinstall": "lefthook install"
 	},
 	"dependencies": {
 		"@heroui/react": "2.6.14",
@@ -28,7 +27,6 @@
 		"@vitejs/plugin-react-swc": "^3.7.2",
 		"lefthook": "^1.10.9",
 		"rustywind": "^0.23.1",
-		"serve": "^14.2.4",
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.7.3",
 		"vite": "^6.0.9"
