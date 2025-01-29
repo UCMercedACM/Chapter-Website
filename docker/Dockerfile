@@ -22,7 +22,7 @@ EXPOSE 3000
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
-CMD ["npm", "run", "serve"]
+CMD ["npx", "--yes", "serve", "/website/dist", "--no-clipboard"]
 
 STOPSIGNAL SIGTERM
 
