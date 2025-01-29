@@ -1,9 +1,9 @@
+import { Link } from "@heroui/react";
 import {
 	SiDiscord,
 	SiGithub,
 	SiInstagram,
 } from "@icons-pack/react-simple-icons";
-import { Link } from "@nextui-org/react";
 
 function GlobalFooter() {
 	return (
