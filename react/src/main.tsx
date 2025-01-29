@@ -5,7 +5,7 @@ import App from "./App.tsx";
 import "./index.css";
 
 import { HeroUIProvider } from "@heroui/react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 // biome-ignore lint/style/noNonNullAssertion: Provided by React. Nothing we can do
 ReactDOM.createRoot(document.getElementById("root")!).render(
