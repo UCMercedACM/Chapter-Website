@@ -7,7 +7,7 @@
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview",
-		"check": "biome check --write src",
+		"check": "biome check --write --error-on-warnings --no-errors-on-unmatched src",
 		"postinstall": "lefthook install",
 		"serve": "serve /website/dist --no-clipboard"
 	},
