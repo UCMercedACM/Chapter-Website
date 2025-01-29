@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import * as reactRouterDom from "react-router-dom";
+import { Route, Routes } from "react-router";
+import * as reactRouterDom from "react-router";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import { EmailPasswordPreBuiltUI } from "supertokens-auth-react/recipe/emailpassword/prebuiltui";
