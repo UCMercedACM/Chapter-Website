@@ -17,7 +17,7 @@
 			"**/public/",
 			"**/.env",
 			"**/.env.example",
-			"src/index.css"
+			"react/src/index.css"
 		]
 	},
 	"organizeImports": { "enabled": true },
