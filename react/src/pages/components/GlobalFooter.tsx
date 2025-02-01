@@ -1,9 +1,5 @@
 import { Link } from "@heroui/react";
-import {
-	SiDiscord,
-	SiGithub,
-	SiInstagram,
-} from "@icons-pack/react-simple-icons";
+import { Icon } from "@iconify/react";
 
 function GlobalFooter() {
 	return (
@@ -29,23 +25,17 @@ function GlobalFooter() {
 					<div className="flex flex-row gap-x-12 justify-center">
 						<div>
 							<Link href="https://www.instagram.com/ucmacm/" color="foreground">
-								{/*
-                // @ts-ignore */}
-								<SiInstagram size={32} />
+								<Icon icon="simple-icons:instagram" width="32" height="32" />
 							</Link>
 						</div>
 						<div>
 							<Link href="https://github.com/UCMercedACM" color="foreground">
-								{/*
-                // @ts-ignore */}
-								<SiGithub size={32} />
+								<Icon icon="simple-icons:github" width="32" height="32" />
 							</Link>
 						</div>
 						<div>
 							<Link href="https://bit.ly/acm_ucm-discord" color="foreground">
-								{/*
-                // @ts-ignore */}
-								<SiDiscord size={32} />
+								<Icon icon="simple-icons:discord" width="32" height="32" />
 							</Link>
 						</div>
 					</div>
