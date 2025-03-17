@@ -12,11 +12,11 @@
 	},
 	"dependencies": {
 		"@heroui/react": "2.7.5",
-		"framer-motion": "^12.4.10",
+		"framer-motion": "^12.5.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router": "^7.3.0",
-		"react-scan": "^0.2.14",
+		"react-scan": "^0.3.2",
 		"supertokens-auth-react": "^0.48.0"
 	},
 	"devDependencies": {
