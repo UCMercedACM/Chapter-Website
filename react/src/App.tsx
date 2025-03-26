@@ -1,3 +1,4 @@
+import { Index } from "@/routes/index.tsx";
 import { Route, Routes } from "react-router";
 import * as reactRouterDom from "react-router";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
@@ -7,9 +8,6 @@ import Session from "supertokens-auth-react/recipe/session";
 import ThirdParty from "supertokens-auth-react/recipe/thirdparty";
 import { ThirdPartyPreBuiltUI } from "supertokens-auth-react/recipe/thirdparty/prebuiltui";
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
-import Front from "./pages/front.tsx";
-import Sigs from "./pages/sigs.tsx";
-
 SuperTokens.init({
 	appInfo: {
 		appName: "ucmacm-website",
@@ -38,8 +36,7 @@ function App() {
 						ThirdPartyPreBuiltUI,
 						EmailPasswordPreBuiltUI,
 					])}
-					<Route path="/" element={<Front />} />
-					<Route path="/sigs" element={<Sigs />} />
+					<Route path="/" element={<Index />} />
 				</Routes>
 			</SuperTokensWrapper>
 		</>
