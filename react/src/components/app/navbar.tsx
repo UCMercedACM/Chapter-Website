@@ -5,29 +5,39 @@ import {
 	NavigationMenuLink,
 	NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 
 function Navbar() {
 	return (
 		<header className="w-full bg-opacity-80 shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
 			<section className="flex flex-row justify-between items-center py-3 px-16">
 				<section>
-					<Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+					<NavLink to="/">
 						<img src={Logo} alt="ACM @ UC Merced Logo" loading="lazy" />
-					</Link>
+					</NavLink>
 				</section>
 				<section>
 					<NavigationMenu>
-						<NavigationMenuList>
+						<NavigationMenuList className="gap-4">
 							<NavigationMenuItem>
-								<Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-									<NavigationMenuLink>Documentation 2</NavigationMenuLink>
-								</Link>
+								<NavLink to="/events">
+									<NavigationMenuLink>Events</NavigationMenuLink>
+								</NavLink>
 							</NavigationMenuItem>
 							<NavigationMenuItem>
-								<Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-									<NavigationMenuLink>Documentation</NavigationMenuLink>
-								</Link>
+								<NavLink to="/projects">
+									<NavigationMenuLink>Projects</NavigationMenuLink>
+								</NavLink>
+							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavLink to="/sigs">
+									<NavigationMenuLink>SIGs</NavigationMenuLink>
+								</NavLink>
+							</NavigationMenuItem>
+							<NavigationMenuItem>
+								<NavLink to="/register">
+									<NavigationMenuLink>Register</NavigationMenuLink>
+								</NavLink>
 							</NavigationMenuItem>
 						</NavigationMenuList>
 					</NavigationMenu>
