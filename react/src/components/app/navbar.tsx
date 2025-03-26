@@ -1,26 +1,20 @@
+import Logo from "@/assets/logo-48x-48x.png";
 import {
 	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuIndicator,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
-	NavigationMenuTrigger,
-	NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-
-import { Aperture } from "lucide-react";
-
 import { Link } from "react-router";
-
-import { cn } from "@/lib/utils";
 
 function Navbar() {
 	return (
 		<header className="w-full bg-opacity-80 shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
-			<section className="flex flex-row justify-between items-center py-3 px-8">
+			<section className="flex flex-row justify-between items-center py-3 px-16">
 				<section>
-					<Aperture />
+					<Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+						<img src={Logo} alt="ACM @ UC Merced Logo" loading="lazy" />
+					</Link>
 				</section>
 				<section>
 					<NavigationMenu>
