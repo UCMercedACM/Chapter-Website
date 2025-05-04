@@ -11,6 +11,7 @@
 		"postinstall": "lefthook install"
 	},
 	"dependencies": {
+		"@radix-ui/react-dialog": "^1.1.11",
 		"@radix-ui/react-navigation-menu": "^1.2.5",
 		"@radix-ui/react-slot": "^1.1.2",
 		"class-variance-authority": "^0.7.1",
@@ -28,8 +29,8 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@iconify/react": "^5.2.1",
-		"@types/node": "^22.13.11",
 		"@tailwindcss/vite": "^4.1.4",
+		"@types/node": "^22.13.11",
 		"@types/react": "^19.1.2",
 		"@types/react-dom": "^19.1.2",
 		"@vitejs/plugin-react-swc": "^3.9.0",
