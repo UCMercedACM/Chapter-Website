@@ -8,26 +8,27 @@ import Session from "supertokens-auth-react/recipe/session";
 import ThirdParty from "supertokens-auth-react/recipe/thirdparty";
 import { ThirdPartyPreBuiltUI } from "supertokens-auth-react/recipe/thirdparty/prebuiltui";
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
-SuperTokens.init({
-	appInfo: {
-		appName: "ucmacm-website",
-		apiDomain: import.meta.env.VITE_API_DOMAIN,
-		websiteDomain: import.meta.env.VITE_WEBSITE_DOMAIN,
-		apiBasePath: "/auth",
-		websiteBasePath: "/auth",
-	},
-	recipeList: [
-		EmailPassword.init(),
-		ThirdParty.init({
-			signInAndUpFeature: {
-				providers: [ThirdParty.Google.init()],
-			},
-		}),
-		Session.init(),
-	],
-});
 
 function App() {
+	SuperTokens.init({
+		appInfo: {
+			appName: "ucmacm-website",
+			apiDomain: import.meta.env.VITE_API_DOMAIN,
+			websiteDomain: import.meta.env.VITE_WEBSITE_DOMAIN,
+			apiBasePath: "/auth",
+			websiteBasePath: "/auth",
+		},
+		recipeList: [
+			EmailPassword.init(),
+			ThirdParty.init({
+				signInAndUpFeature: {
+					providers: [ThirdParty.Google.init()],
+				},
+			}),
+			Session.init(),
+		],
+	});
+
 	return (
 		<>
 			<SuperTokensWrapper>
