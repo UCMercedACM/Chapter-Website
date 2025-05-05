@@ -1,24 +1,16 @@
 import Logo from "@/assets/logo-48x-48x.png";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
-import { use, useCallback, useEffect, useState } from "react";
-import { NavLink } from "react-router";
-import {
-	doesSessionExist,
-	useSessionContext,
-} from "supertokens-auth-react/recipe/session";
-import { signOut } from "supertokens-auth-react/recipe/session";
-import Session from "supertokens-auth-react/recipe/session";
-
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router";
+import { doesSessionExist } from "supertokens-auth-react/recipe/session";
 
 interface ItemProps {
 	href: string;
