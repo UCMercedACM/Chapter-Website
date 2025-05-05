@@ -25,7 +25,6 @@ const navItems: ItemProps[] = [
 	{ href: "/events", label: "Events" },
 	{ href: "/projects", label: "Projects" },
 	{ href: "/resources", label: "Resources" },
-	{ href: "/auth/login", label: "Member Login" }, // separate button
 ];
 
 const aboutItems: ItemProps[] = [
@@ -71,7 +70,7 @@ export function Navbar() {
 	useEffect(() => {
 		const checkLogged = async () => {
 			if (await doesSessionExist()) {
-				return setIsLogged(true);
+				setIsLogged(true);
 			}
 		};
 		checkLogged();
@@ -107,9 +106,9 @@ export function Navbar() {
 						<span className="sr-only">Toggle menu</span>
 					</Button>
 				</SheetTrigger>
-				<SheetContent side="top">
-					<section className="flex flex-col pt-6 space-y-4">
-						<AboutMenu items={aboutItems} />
+				<SheetContent side="right">
+					<section className="flex flex-col px-4 pt-6 space-y-7">
+						{/* <AboutMenu items={aboutItems} /> */}
 						{navItems.map((item) => (
 							<NavLink
 								key={item.label}
