@@ -34,7 +34,7 @@ const aboutItems: ItemProps[] = [
 	{ href: "/about-us/contact", label: "Contact" },
 ];
 
-const LINK_STYLES = "text-sm font-medium transition-colors hover:text-primary";
+const LINK_STYLES = "text-sm font-regular hover:text-primary";
 
 function AboutMenu({ items }: AboutMenuProps) {
 	const [openDropdown, setOpenDropdown] = useState(false);
@@ -66,6 +66,7 @@ function AboutMenu({ items }: AboutMenuProps) {
 export function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLogged, setIsLogged] = useState(false); // pls optimize state?
+	const [openDropdown, setOpenDropdown] = useState(false);
 
 	useEffect(() => {
 		const checkLogged = async () => {
@@ -81,12 +82,14 @@ export function Navbar() {
 			<section className="justify-center items-center">
 				<NavLink to="/" className="">
 					<img src={Logo} alt="ACM @ UC Merced Logo" loading="lazy" />
+					<span className="justify-center w-32 text-xl font-extrabold text-center text-neutral-900 font-['Raleway'] leading-normal tracking-tight">
+						at UC Merced
+					</span>
 				</NavLink>
 			</section>
 
 			{/* Desktop Navigation */}
 			<section className="hidden items-center space-x-7 md:flex">
-				{/* <AboutMenu props={aboutItems}/> */}
 				<AboutMenu items={aboutItems} />
 				{navItems.map((item) => (
 					<NavLink key={item.label} to={item.href} className={LINK_STYLES}>
@@ -107,8 +110,22 @@ export function Navbar() {
 					</Button>
 				</SheetTrigger>
 				<SheetContent side="right">
-					<section className="flex flex-col px-4 pt-6 space-y-7">
+					<section className="flex flex-col px-4 pt-6 space-y-6">
 						{/* <AboutMenu items={aboutItems} /> */}
+						{/* <NavLink to="/about-us" className={LINK_STYLES} onClick={() => setIsOpen(false)}>About us</NavLink> */}
+						<DropdownMenu
+							open={openDropdown}
+							onOpenChange={() => setOpenDropdown(false)}
+						>
+							<DropdownMenuTrigger onMouseEnter={() => setOpenDropdown(true)}>
+								About
+							</DropdownMenuTrigger>
+							<DropdownMenuContent onMouseLeave={() => setOpenDropdown(false)}>
+								<DropdownMenuItem>
+									<NavLink to="/about-us/hi" className="" />
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
 						{navItems.map((item) => (
 							<NavLink
 								key={item.label}
@@ -119,6 +136,9 @@ export function Navbar() {
 								{item.label}
 							</NavLink>
 						))}
+						<Button asChild>
+							<NavLink to="/auth">{isLogged ? "Dashboard" : "Login"}</NavLink>
+						</Button>
 					</section>
 				</SheetContent>
 			</Sheet>
