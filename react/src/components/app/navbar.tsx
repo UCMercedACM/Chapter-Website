@@ -80,11 +80,9 @@ export function Navbar() {
 	return (
 		<nav className="flex justify-between items-center px-14 w-full bg-opacity-80 md:px-16 h-18 shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
 			<section className="justify-center items-center">
-				<NavLink to="/" className="">
+				<NavLink to="/" className="flex gap-2 items-center">
 					<img src={Logo} alt="ACM @ UC Merced Logo" loading="lazy" />
-					<span className="justify-center w-32 text-xl font-extrabold text-center text-neutral-900 font-['Raleway'] leading-normal tracking-tight">
-						at UC Merced
-					</span>
+					<span className="font-semibold">at UC Merced</span>
 				</NavLink>
 			</section>
 
