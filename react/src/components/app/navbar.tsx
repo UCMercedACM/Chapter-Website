@@ -109,8 +109,6 @@ export function Navbar() {
 				</SheetTrigger>
 				<SheetContent side="right">
 					<section className="flex flex-col px-4 pt-6 space-y-6">
-						{/* <AboutMenu items={aboutItems} /> */}
-						{/* <NavLink to="/about-us" className={LINK_STYLES} onClick={() => setIsOpen(false)}>About us</NavLink> */}
 						<DropdownMenu
 							open={openDropdown}
 							onOpenChange={() => setOpenDropdown(false)}
