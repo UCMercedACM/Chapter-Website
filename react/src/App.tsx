@@ -1,4 +1,4 @@
-import { Index } from "@/routes/index.tsx";
+import { Index } from "@/routes/index";
 import { Route, Routes } from "react-router";
 import * as reactRouterDom from "react-router";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
