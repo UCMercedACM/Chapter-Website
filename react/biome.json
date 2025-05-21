@@ -1,7 +1,15 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
 	"files": {
-		"ignoreUnknown": true
+		"ignoreUnknown": true,
+		"ignore": [
+			"**/node_modules/",
+			"**/.vscode",
+			"**/.idea",
+			"**/public/",
+			"**/dist",
+			"**/package-lock.json"
+		]
 	},
 	"formatter": {
 		"enabled": true,
@@ -9,15 +17,13 @@
 		"indentWidth": 2,
 		"lineEnding": "lf",
 		"lineWidth": 80,
-		"attributePosition": "auto",
-		"ignore": ["**/node_modules/", "**/.vscode/", "**/.idea", "**/public/"]
+		"attributePosition": "auto"
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
 			"recommended": true
-		},
-		"ignore": ["**/node_modules/", "**/dist", "**/.eslintrc.cjs"]
+		}
 	},
 	"organizeImports": { "enabled": true },
 	"json": {
@@ -28,12 +34,6 @@
 	"css": {
 		"parser": {
 			"cssModules": true
-		},
-		"linter": {
-			"enabled": false
-		},
-		"formatter": {
-			"enabled": false
 		}
 	},
 	"overrides": [
@@ -43,7 +43,11 @@
 				"rules": {
 					"recommended": true
 				}
-			}
+			},
+			"formatter": {
+				"enabled": true
+			},
+			"organizeImports": { "enabled": true }
 		}
 	]
 }

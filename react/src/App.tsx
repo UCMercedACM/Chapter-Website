@@ -1,3 +1,4 @@
+import { Index } from "@/routes/index";
 import { Route, Routes } from "react-router";
 import * as reactRouterDom from "react-router";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
@@ -7,29 +8,27 @@ import Session from "supertokens-auth-react/recipe/session";
 import ThirdParty from "supertokens-auth-react/recipe/thirdparty";
 import { ThirdPartyPreBuiltUI } from "supertokens-auth-react/recipe/thirdparty/prebuiltui";
 import { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react/ui";
-import Front from "./pages/front.tsx";
-import Sigs from "./pages/sigs.tsx";
-
-SuperTokens.init({
-	appInfo: {
-		appName: "ucmacm-website",
-		apiDomain: import.meta.env.VITE_API_DOMAIN,
-		websiteDomain: import.meta.env.VITE_WEBSITE_DOMAIN,
-		apiBasePath: "/auth",
-		websiteBasePath: "/auth",
-	},
-	recipeList: [
-		EmailPassword.init(),
-		ThirdParty.init({
-			signInAndUpFeature: {
-				providers: [ThirdParty.Google.init()],
-			},
-		}),
-		Session.init(),
-	],
-});
 
 function App() {
+	SuperTokens.init({
+		appInfo: {
+			appName: "ucmacm-website",
+			apiDomain: import.meta.env.VITE_API_DOMAIN,
+			websiteDomain: import.meta.env.VITE_WEBSITE_DOMAIN,
+			apiBasePath: "/auth",
+			websiteBasePath: "/auth",
+		},
+		recipeList: [
+			EmailPassword.init(),
+			ThirdParty.init({
+				signInAndUpFeature: {
+					providers: [ThirdParty.Google.init()],
+				},
+			}),
+			Session.init(),
+		],
+	});
+
 	return (
 		<>
 			<SuperTokensWrapper>
@@ -38,8 +37,7 @@ function App() {
 						ThirdPartyPreBuiltUI,
 						EmailPasswordPreBuiltUI,
 					])}
-					<Route path="/" element={<Front />} />
-					<Route path="/sigs" element={<Sigs />} />
+					<Route path="/" element={<Index />} />
 				</Routes>
 			</SuperTokensWrapper>
 		</>
