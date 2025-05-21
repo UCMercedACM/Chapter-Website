@@ -36,7 +36,7 @@ const aboutItems: ItemProps[] = [
 
 const LINK_STYLES = "text-sm font-regular hover:text-primary";
 
-function AboutMenu({ items }: AboutMenuProps) {
+function AboutMenu({ items }: Readonly<AboutMenuProps>) {
 	const [openDropdown, setOpenDropdown] = useState(false);
 
 	return (

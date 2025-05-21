@@ -1,11 +1,7 @@
 import { Navbar } from "@/components/app/navbar";
 
 function Index() {
-	return (
-		<>
-			<Navbar />
-		</>
-	);
+	return <Navbar />;
 }
 
 export { Index };

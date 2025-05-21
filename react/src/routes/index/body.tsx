@@ -1,11 +1,7 @@
 import { FrontBanner } from "@/routes/index/banners";
 
 function Body() {
-	return (
-		<>
-			<FrontBanner />
-		</>
-	);
+	return <FrontBanner />;
 }
 
 export { Body };
