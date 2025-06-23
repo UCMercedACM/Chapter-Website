@@ -9,8 +9,12 @@ on:
       - react-rewrite
 
 jobs:
-  Analyze:
+  Check:
     runs-on: ubuntu-24.04
+
+    defaults:
+      run:
+        working-directory: react
 
     steps:
       - name: Checkout Repository
@@ -25,6 +29,6 @@ jobs:
         uses: biomejs/setup-biome@v2
 
       - name: Run Biome
-        run: biome ci --error-on-warnings --formatter-enabled=false --assist-enabled=false --enforce-assist=false --css-linter-enabled=false react/src
+        run: biome ci --error-on-warnings --formatter-enabled=false --assist-enabled=false --enforce-assist=false --css-linter-enabled=false src
 
 
