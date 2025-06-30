@@ -2,9 +2,9 @@ pre-commit:
   commands:
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: npx --yes @biomejs/biome check --write --error-on-warnings --colors=off {staged_files}
+      run: bunx --bun biome check --write --error-on-warnings --colors=off {staged_files}
       stage_fixed: true
     rustywind:
       glob: "*.{js,ts,jsx,tsx}"
-      run: npx --yes rustywind {staged_files} --write
+      run: bunx --bun rustywind {staged_files} --write
       stage_fixed: true
