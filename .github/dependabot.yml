@@ -1,11 +1,11 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "bun"
     directory: "/react/"
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "[npm]"
+      prefix: "[bun]"
       include: "scope"
     target-branch: "react-rewrite"
     groups:
