@@ -6,5 +6,5 @@ pre-commit:
       stage_fixed: true
     rustywind:
       glob: "*.{js,ts,jsx,tsx}"
-      run: bunx --bun rustywind {staged_files} --write
+      run: bunx rustywind {staged_files} --write
       stage_fixed: true
