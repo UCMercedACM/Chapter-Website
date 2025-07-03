@@ -34,7 +34,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        bun install --frozen-lockfile
+        bun install --frozen-lockfile --ignore-scripts
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3

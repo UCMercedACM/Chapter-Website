@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          bun install --frozen-lockfile
+          bun install --frozen-lockfile --ignore-scripts
 
       - name: Build Website
         run: bun run build
