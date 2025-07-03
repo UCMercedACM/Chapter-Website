@@ -5,7 +5,7 @@ services:
     container_name: chapter-website
     image: ghcr.io/ucmercedacm/chapter-website:edge
     ports:
-      - 3000:3000
+      - 3000:80
     healthcheck:
       test: curl -f http://localhost:3000/ || exit 1
       interval: 5m
