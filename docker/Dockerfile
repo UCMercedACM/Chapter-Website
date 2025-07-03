@@ -1,11 +1,6 @@
-FROM node:22-bookworm-slim
+FROM oven/bun:1-slim AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-  tini \
-  && apt-get clean
 
 WORKDIR /website
 COPY /react /website
@@ -15,16 +10,16 @@ RUN adduser --disabled-password --gecos "" website \
 
 USER website
 
-RUN npm ci --ignore-scripts \
-  && npm run build
+RUN bun install --frozen-lockfile --ignore-scripts \
+  && bun run build
 
-EXPOSE 3000
+FROM nginx:stable-alpine
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
+COPY --from=build /website/dist /usr/share/nginx/html
 
-CMD ["npx", "--yes", "serve", "/website/dist", "--no-clipboard"]
+EXPOSE 80
 
-STOPSIGNAL SIGTERM
+CMD ["nginx", "-g", "daemon off;"]
 
 HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:3000/", "||", "exit 1"]
 

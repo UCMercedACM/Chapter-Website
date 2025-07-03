@@ -33,6 +33,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
+    "bun-plugin-tailwind": "^0.0.15",
     "lefthook": "^1.11.14",
     "rustywind": "^0.24.0",
     "tailwindcss": "^4.1.5",
