@@ -6,5 +6,6 @@ pre-commit:
       stage_fixed: true
     rustywind:
       glob: "*.{js,ts,jsx,tsx}"
+      root: "react/"
       run: bunx --bun rustywind --write {staged_files}
       stage_fixed: true
