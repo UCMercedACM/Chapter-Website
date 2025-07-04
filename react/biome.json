@@ -9,7 +9,7 @@
       "!**/.idea",
       "!**/public/",
       "!**/dist",
-      "!**bun.lock/"
+      "!**/bun.lock"
     ]
   },
   "formatter": {
