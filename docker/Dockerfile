@@ -21,7 +21,7 @@ EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 
-HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:3000/", "||", "exit 1"]
+HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:8080/", "||", "exit 1"]
 
 LABEL org.opencontainers.image.title="Chapter-Website"
 LABEL org.opencontainers.image.description="ACM @ UC Merced's website"
