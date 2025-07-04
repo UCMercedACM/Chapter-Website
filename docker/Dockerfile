@@ -13,11 +13,11 @@ USER website
 RUN bun install --frozen-lockfile --ignore-scripts \
   && bun run build
 
-FROM nginx:stable-alpine
+FROM nginxinc/nginx-unprivileged:stable-alpine-perl
 
 COPY --from=build /website/dist /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 
