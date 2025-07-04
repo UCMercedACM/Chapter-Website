@@ -44,6 +44,8 @@
     "@swc/core",
     "@tailwindcss/oxide",
     "browser-tabs-lock",
+    "esbuild",
+    "lefthook",
     "rustywind"
   ]
 }

@@ -36,8 +36,10 @@
   },
   "trustedDependencies": [
     "@tailwindcss/oxide",
+    "esbuild",
     "rustywind",
     "browser-tabs-lock",
+    "lefthook",
     "@swc/core",
   ],
   "packages": {
