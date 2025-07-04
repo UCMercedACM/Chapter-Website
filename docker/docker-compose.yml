@@ -7,7 +7,7 @@ services:
     ports:
       - 3000:8080
     healthcheck:
-      test: curl -f http://localhost:3000/ || exit 1
+      test: curl -f http://localhost:8080/ || exit 1
       interval: 5m
       start_interval: 30s
       start_period: 5m
