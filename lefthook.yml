@@ -2,6 +2,7 @@ pre-commit:
   commands:
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+      root: "react/"
       run: bunx --bun biome check --write --error-on-warnings --colors=off {staged_files}
       stage_fixed: true
     rustywind:
