@@ -27,7 +27,7 @@ function App() {
       }),
       Session.init(),
     ],
-    disableAuthRoute: false,
+    disableAuthRoute: true,
   });
 
   return (
