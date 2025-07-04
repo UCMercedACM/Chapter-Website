@@ -8,6 +8,7 @@ function Index() {
     <>
       <Navbar />
 
+      {/* Hero section */}
       <section className="container py-16 mx-auto md:py-28 px-18">
         <div className="flex flex-col items-center md:flex-row">
           <div className="mb-12 font-bold leading-8 text-center md:mb-0 md:w-1/2 lg:w-2/5">
