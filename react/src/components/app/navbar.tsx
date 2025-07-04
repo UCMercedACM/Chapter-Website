@@ -2,7 +2,9 @@ import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { doesSessionExist } from "supertokens-auth-react/recipe/session";
-import Logo from "@/assets/logo-48x-48x.png";
+
+import Logo from "@/assets/logo-full.svg";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -81,7 +83,13 @@ export function Navbar() {
     <nav className="flex justify-between items-center px-14 w-full bg-opacity-80 md:px-16 h-18 shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
       <section className="justify-center items-center">
         <NavLink to="/" className="flex gap-2 items-center">
-          <img src={Logo} alt="ACM @ UC Merced Logo" loading="lazy" />
+          <img
+            src={Logo}
+            alt="ACM @ UC Merced Logo"
+            loading="lazy"
+            width={48}
+            height={48}
+          />
           <span className="font-semibold">at UC Merced</span>
         </NavLink>
       </section>
