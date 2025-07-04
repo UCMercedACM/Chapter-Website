@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+
 import { Navbar } from "@/components/app/navbar";
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +18,7 @@ function Index() {
             <Button
               variant="default"
               size="xl"
-              className="text-lg font-bold outline-black bg-primary-alt hover:bg-primary-alt/90 hover:outline-solid"
+              className="text-lg outline-black bg-primary-alt hover:bg-primary-alt/90 hover:outline-solid"
               asChild
             >
               <Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
