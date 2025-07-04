@@ -5,8 +5,6 @@ import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
 import "./index.css";
 
-
-
 // biome-ignore lint/style/noNonNullAssertion: Provided by React. Nothing we can do
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

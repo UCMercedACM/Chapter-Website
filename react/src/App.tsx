@@ -30,17 +30,15 @@ function App() {
   });
 
   return (
-    <>
-      <SuperTokensWrapper>
-        <Routes>
-          {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [
-            ThirdPartyPreBuiltUI,
-            EmailPasswordPreBuiltUI,
-          ])}
-          <Route path="/" element={<Index />} />
-        </Routes>
-      </SuperTokensWrapper>
-    </>
+    <SuperTokensWrapper>
+      <Routes>
+        {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [
+          ThirdPartyPreBuiltUI,
+          EmailPasswordPreBuiltUI,
+        ])}
+        <Route path="/" element={<Index />} />
+      </Routes>
+    </SuperTokensWrapper>
   );
 }
 

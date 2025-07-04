@@ -7,7 +7,7 @@
     "dev": "bunx --bun vite",
     "build": "tsc && bunx --bun vite build",
     "preview": "bunx --bun vite preview",
-    "check": "biome check --write --error-on-warnings .",
+    "check": "biome check --write --unsafe --error-on-warnings .",
     "migrate": "biome migrate --write",
     "postinstall": "lefthook install"
   },
