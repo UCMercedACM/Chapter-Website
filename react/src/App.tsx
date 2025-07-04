@@ -1,4 +1,4 @@
-import * as reactRouterDom from "react-router";
+import * as reactRouter from "react-router";
 import { Route, Routes } from "react-router";
 import SuperTokens, { SuperTokensWrapper } from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
@@ -27,20 +27,19 @@ function App() {
       }),
       Session.init(),
     ],
+    disableAuthRoute: true,
   });
 
   return (
-    <>
-      <SuperTokensWrapper>
-        <Routes>
-          {getSuperTokensRoutesForReactRouterDom(reactRouterDom, [
-            ThirdPartyPreBuiltUI,
-            EmailPasswordPreBuiltUI,
-          ])}
-          <Route path="/" element={<Index />} />
-        </Routes>
-      </SuperTokensWrapper>
-    </>
+    <SuperTokensWrapper>
+      <Routes>
+        {getSuperTokensRoutesForReactRouterDom(reactRouter, [
+          ThirdPartyPreBuiltUI,
+          EmailPasswordPreBuiltUI,
+        ])}
+        <Route path="/" element={<Index />} />
+      </Routes>
+    </SuperTokensWrapper>
   );
 }
 

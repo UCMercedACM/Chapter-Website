@@ -1,11 +1,6 @@
-FROM node:22-bookworm-slim
+FROM oven/bun:1-slim AS build
 
 ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-  tini \
-  && apt-get clean
 
 WORKDIR /website
 COPY /react /website
@@ -15,18 +10,18 @@ RUN adduser --disabled-password --gecos "" website \
 
 USER website
 
-RUN npm ci --ignore-scripts \
-  && npm run build
+RUN bun install --frozen-lockfile --ignore-scripts \
+  && bun run build
 
-EXPOSE 3000
+FROM nginxinc/nginx-unprivileged:stable-alpine-perl
 
-ENTRYPOINT ["/usr/bin/tini", "--"]
+COPY --from=build /website/dist /usr/share/nginx/html
 
-CMD ["npx", "--yes", "serve", "/website/dist", "--no-clipboard"]
+EXPOSE 8080
 
-STOPSIGNAL SIGTERM
+CMD ["nginx", "-g", "daemon off;"]
 
-HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:3000/", "||", "exit 1"]
+HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:8080/", "||", "exit 1"]
 
 LABEL org.opencontainers.image.title="Chapter-Website"
 LABEL org.opencontainers.image.description="ACM @ UC Merced's website"

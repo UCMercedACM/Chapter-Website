@@ -10,12 +10,12 @@ Created by Mary Delos Reyes [SIG Design Lead] - [mockup](https://www.figma.com/f
 
 Make sure you have the following:
 
-- [Node.js 22](https://nodejs.org/en/download/)
+- [Bun](<https://bun.sh/>)
 
-Run `npm install`, then `npm run dev`.
+Run `bun install --save-dev`, then `bun run dev`.
 
-A more in-depth introduction (recommended to read) can be found [here](https://docs.ucmacm.com)
+A more in-depth introduction (recommended to read) can be found in the [documentation](https://docs.ucmacm.dev).
 
 ## Contributing
 
-For more information on how you can get started, please see the [onboarding guide](https://docs.ucmacm.com/website/contributing).
+For more information on how you can get started, please see the [onboarding guide](https://docs.ucmacm.dev/docs/projects/chapter-website/).
