@@ -32,7 +32,7 @@ function MenuAnchorButton({ targetId, className }: Readonly<MenuAnchorProps>) {
       variant="ghost"
       size="icon"
       className={cn(
-        "group size-24 bg-transparent hover:bg-transparent text-black hover:text-gray-500 transition-colors duration-200 ease-in-out",
+        "group size-24 bg-transparent hover:bg-transparent opacity-10 hover:opacity-75 text-gray-300 hover:text-gray-500 transition-colors duration-200 ease-in-out",
         className,
       )}
       onClick={handleClick}
@@ -80,8 +80,8 @@ function Index() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center md:py-3">
-          <MenuAnchorButton targetId="about-section" className="" />
+        <div className="flex flex-col items-center md:pt-7">
+          <MenuAnchorButton targetId="about-section" />
         </div>
       </section>
 
