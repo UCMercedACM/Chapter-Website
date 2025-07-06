@@ -18,7 +18,7 @@ interface MenuAnchorProps {
   className?: string;
 }
 
-function MenuAnchorButton({ targetId, className }: MenuAnchorProps) {
+function MenuAnchorButton({ targetId, className }: Readonly<MenuAnchorProps>) {
   const handleClick = () => {
     const targetElement = document.getElementById(targetId);
 
@@ -85,6 +85,7 @@ function Index() {
         </div>
       </section>
 
+      {/* Introduction section */}
       <section
         id="about-section"
         className="container py-8 mx-auto md:py-12 px-18"
@@ -138,6 +139,7 @@ function Index() {
         </div>
       </section>
 
+      {/* FAQ section */}
       <section className="container py-16 px-1 mx-auto md:py-28">
         <div className="flex flex-col gap-y-12 items-center">
           <h2 className="mb-6 text-3xl font-bold">
