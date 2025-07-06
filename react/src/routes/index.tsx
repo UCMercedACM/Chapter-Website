@@ -2,6 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { Link } from "react-router";
 
 import { Navbar } from "@/components/app/navbar";
+
 import {
   Accordion,
   AccordionContent,
@@ -13,14 +14,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface MenuAnchorProps {
-  // The component now accepts a ref object instead of an ID string.
   targetId: string;
   className?: string;
 }
 
 function MenuAnchorButton({ targetId, className }: MenuAnchorProps) {
   const handleClick = () => {
-    // We now access the element via the .current property of the ref.
     const targetElement = document.getElementById(targetId);
 
     if (targetElement) {
@@ -30,7 +29,7 @@ function MenuAnchorButton({ targetId, className }: MenuAnchorProps) {
   return (
     <Button
       asChild
-      variant="ghost" // Using ghost variant for a clean look
+      variant="ghost"
       size="icon"
       className={cn(
         "group size-24 bg-transparent hover:bg-transparent text-black hover:text-gray-500 transition-colors duration-200 ease-in-out",
@@ -49,8 +48,6 @@ function Index() {
   return (
     <>
       <Navbar />
-
-      {/* <body className="container flex flex-col gap-y-24 md:gap-y-32"> */}
 
       {/* Hero section */}
       <section className="container py-8 mx-auto px-18 md:py-18">
@@ -166,8 +163,6 @@ function Index() {
           </Accordion>
         </div>
       </section>
-
-      {/* </body> */}
     </>
   );
 }
