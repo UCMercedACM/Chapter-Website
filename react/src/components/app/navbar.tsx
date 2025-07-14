@@ -69,7 +69,6 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogged, setIsLogged] = useState(false); // pls optimize state?
   const [openDropdown, setOpenDropdown] = useState(false);
-
   useEffect(() => {
     const checkLogged = async () => {
       if (await doesSessionExist()) {
