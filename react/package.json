@@ -28,18 +28,18 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
+    "@biomejs/biome": "2.1.1",
     "@tailwindcss/vite": "^4.1.11",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.13",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
     "bun-plugin-tailwind": "^0.0.15",
-    "lefthook": "^1.11.16",
+    "lefthook": "^1.12.2",
     "rustywind": "^0.24.0",
     "tailwindcss": "^4.1.5",
     "typescript": "^5.8.3",
-    "vite": "^7.0.2"
+    "vite": "^7.0.4"
   },
   "trustedDependencies": [
     "@swc/core",
