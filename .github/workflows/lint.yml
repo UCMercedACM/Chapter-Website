@@ -24,6 +24,5 @@ jobs:
         uses: biomejs/setup-biome@v2
 
       - name: Run Biome
-        run: biome ci --error-on-warnings --formatter-enabled=false --assist-enabled=false --enforce-assist=false --css-linter-enabled=false src
-
-
+        run: |
+          bun ci --error-on-warnings src
