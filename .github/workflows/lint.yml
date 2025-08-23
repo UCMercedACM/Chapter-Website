@@ -25,4 +25,4 @@ jobs:
 
       - name: Run Biome
         run: |
-          bun ci --error-on-warnings src
+          biome ci --error-on-warnings src
