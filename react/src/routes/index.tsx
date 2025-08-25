@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react";
+import { useId } from "react";
 import { Link } from "react-router";
 
 import { Navbar } from "@/components/app/navbar";
@@ -45,6 +46,8 @@ function MenuAnchorButton({ targetId, className }: Readonly<MenuAnchorProps>) {
   );
 }
 function Index() {
+  const aboutSection = useId();
+
   return (
     <>
       <Navbar />
@@ -81,13 +84,13 @@ function Index() {
         </div>
 
         <div className="flex flex-col items-center md:pt-7">
-          <MenuAnchorButton targetId="about-section" />
+          <MenuAnchorButton targetId={aboutSection} />
         </div>
       </section>
 
       {/* Introduction section */}
       <section
-        id="about-section"
+        id={aboutSection}
         className="container py-8 mx-auto md:py-12 px-18"
       >
         <div className="flex flex-col items-center md:flex-row">
