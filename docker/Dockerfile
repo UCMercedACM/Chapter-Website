@@ -8,7 +8,7 @@ COPY /react /website
 
 RUN corepack enable
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile \
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts \
     && pnpm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine-perl

@@ -37,6 +37,7 @@ jobs:
       with:
         node-version: 24
         cache: "pnpm"
+        cache-dependency-path: '**/pnpm-lock.yaml'
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
