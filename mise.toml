@@ -1,0 +1,37 @@
+[tools]
+node = "24.9.0"
+pnpm = "10.18.0"
+
+lefthook = "latest"
+
+[settings]
+experimental = true
+pin = true
+
+[hooks]
+postinstall = "lefthook install"
+
+[tasks."web:dev"]
+alias = ["web:dev", "web:up"]
+description = "Start frontend development server. Save file(s) to see changes"
+env._.path = "./react/node_modules/.bin"
+dir = "{{ config_root }}/react"
+run = "vite"
+
+[tasks."web:build"]
+description = "Builds the frontend for distribution/preview"
+env._.path = "./react/node_modules/.bin"
+dir = "{{ config_root }}/react"
+run = "tsc && vite build"
+
+[tasks."web:preview"]
+description = "Previews frontend"
+env._.path = "./react/node_modules/.bin"
+dir = "{{ config_root }}/react"
+run = "vite preview"
+
+[tasks."web:check"]
+description = "Lints and formats the react codebase "
+env._.path = "./react/node_modules/.bin"
+dir = "{{ config_root }}/react"
+run = "biome check --error-on-warnings --write ."
