@@ -10,9 +10,9 @@ Created by Mary Delos Reyes [SIG Design Lead] - [mockup](https://www.figma.com/f
 
 Make sure you have the following:
 
-- [Bun](<https://bun.sh/>)
+- [mise](https://mise.jdx.dev/)
 
-Run `bun install --save-dev`, then `bun run dev`.
+Run `mise en && mise install`, `pnpm install`, and `pnpm run dev`
 
 A more in-depth introduction (recommended to read) can be found in the [documentation](https://docs.ucmacm.dev).
 

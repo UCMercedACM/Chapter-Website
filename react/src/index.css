@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 @import "tailwindcss";
-@plugin 'tailwindcss-animate';
+@import "tw-animate-css";
 
 /*
   ---break---
