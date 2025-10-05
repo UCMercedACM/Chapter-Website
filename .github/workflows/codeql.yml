@@ -39,6 +39,10 @@ jobs:
         cache: "pnpm"
         cache-dependency-path: '**/pnpm-lock.yaml'
 
+    - name: Install Dependencies
+      run: |
+        pnpm install --frozen-lockfile --ignore-scripts
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
