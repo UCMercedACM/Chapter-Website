@@ -1,17 +1,15 @@
-FROM oven/bun:1-slim AS build
+FROM node:24-trixie-slim AS build
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /website
 COPY /react /website
 
-RUN adduser --disabled-password --gecos "" website \
-  && chown -R website:website /website/
+RUN corepack enable
 
-USER website
-
-RUN bun install --frozen-lockfile --ignore-scripts \
-  && bun run build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile \
+    && pnpm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine-perl
 

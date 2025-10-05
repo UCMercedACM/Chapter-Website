@@ -12,7 +12,7 @@ pin = true
 postinstall = "lefthook install"
 
 [tasks."web:dev"]
-alias = ["web:dev", "web:up"]
+alias = ["web:up"]
 description = "Start frontend development server. Save file(s) to see changes"
 env._.path = "./react/node_modules/.bin"
 dir = "{{ config_root }}/react"
