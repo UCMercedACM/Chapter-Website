@@ -53,10 +53,10 @@ importers:
         version: 2.2.5
       '@tailwindcss/vite':
         specifier: ^4.1.13
-        version: 4.1.14(rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1))
+        version: 4.1.14(rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1))
       '@types/node':
-        specifier: ^24.5.2
-        version: 24.6.2
+        specifier: ^24.7.0
+        version: 24.7.0
       '@types/react':
         specifier: ^19.1.15
         version: 19.2.0
@@ -65,7 +65,7 @@ importers:
         version: 19.2.0(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1))
+        version: 5.0.4(rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1))
       tailwindcss:
         specifier: ^4.1.13
         version: 4.1.14
@@ -77,7 +77,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: npm:rolldown-vite@latest
-        version: rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1)
+        version: rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1)
 
 packages:
 
@@ -812,8 +812,8 @@ packages:
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
 
-  '@types/node@24.6.2':
-    resolution: {integrity: sha512-d2L25Y4j+W3ZlNAeMKcy7yDsK425ibcAOO2t7aPTz6gNMH0z2GThtwENCDc0d/Pw9wgyRqE5Px1wkV7naz8ang==}
+  '@types/node@24.7.0':
+    resolution: {integrity: sha512-IbKooQVqUBrlzWTi79E8Fw78l8k1RNtlDDNWsFZs7XonuQSJ8oNYfEeclhprUldXISRMLzBpILuKgPlIxm+/Yw==}
 
   '@types/react-dom@19.2.0':
     resolution: {integrity: sha512-brtBs0MnE9SMx7px208g39lRmC5uHZs96caOJfTjFcYSLHNamvaSMfJNagChVNkup2SdtOxKX1FDBkRSJe1ZAg==}
@@ -1303,8 +1303,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.13.0:
-    resolution: {integrity: sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==}
+  undici-types@7.14.0:
+    resolution: {integrity: sha512-QQiYxHuyZ9gQUIrmPo3IA+hUl4KYk8uSA7cHrcKd/l3p1OTpZcM0Tbp9x7FAtXdAYhlasd60ncPpgu6ihG6TOA==}
 
   update-browserslist-db@1.1.3:
     resolution: {integrity: sha512-UxhIZQ+QInVdunkDAaiazvvT/+fXL5Osr0JZlJulepYu6Jd7qJtDZjlur0emRlT71EN3ScPoE7gvsuIKKNavKw==}
@@ -2003,12 +2003,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.1.14
       '@tailwindcss/oxide-win32-x64-msvc': 4.1.14
 
-  '@tailwindcss/vite@4.1.14(rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1))':
+  '@tailwindcss/vite@4.1.14(rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1))':
     dependencies:
       '@tailwindcss/node': 4.1.14
       '@tailwindcss/oxide': 4.1.14
       tailwindcss: 4.1.14
-      vite: rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1)
+      vite: rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1)
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
@@ -2036,9 +2036,9 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.4
 
-  '@types/node@24.6.2':
+  '@types/node@24.7.0':
     dependencies:
-      undici-types: 7.13.0
+      undici-types: 7.14.0
 
   '@types/react-dom@19.2.0(@types/react@19.2.0)':
     dependencies:
@@ -2048,7 +2048,7 @@ snapshots:
     dependencies:
       csstype: 3.1.3
 
-  '@vitejs/plugin-react@5.0.4(rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1))':
+  '@vitejs/plugin-react@5.0.4(rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -2056,7 +2056,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1)
+      vite: rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -2332,7 +2332,7 @@ snapshots:
 
   react@19.2.0: {}
 
-  rolldown-vite@7.1.15(@types/node@24.6.2)(jiti@2.6.1):
+  rolldown-vite@7.1.15(@types/node@24.7.0)(jiti@2.6.1):
     dependencies:
       '@oxc-project/runtime': 0.92.0
       fdir: 6.5.0(picomatch@4.0.3)
@@ -2342,7 +2342,7 @@ snapshots:
       rolldown: 1.0.0-beta.41
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 24.6.2
+      '@types/node': 24.7.0
       fsevents: 2.3.3
       jiti: 2.6.1
 
@@ -2424,7 +2424,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici-types@7.13.0: {}
+  undici-types@7.14.0: {}
 
   update-browserslist-db@1.1.3(browserslist@4.26.3):
     dependencies:
