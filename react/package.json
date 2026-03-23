@@ -26,12 +26,12 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.8",
-    "@tailwindcss/vite": "^4.2.1",
-    "@types/node": "^25.3.5",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
-    "tailwindcss": "^4.2.1",
+    "@vitejs/plugin-react": "^6.0.1",
+    "tailwindcss": "^4.2.2",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5.9.2",
     "vite": "npm:rolldown-vite@latest"
