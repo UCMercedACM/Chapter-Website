@@ -9,13 +9,12 @@ lerna-debug.log*
 .yarn
 
 # ENV files
-react/*.env
 *.env
 
-react/node_modules
-react/dist
-react/dist-ssr
-react/*.local
+node_modules
+dev-dist
+dist
+dist-ssr
 *.local
 
 # Editor directories and files
