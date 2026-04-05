@@ -1,6 +1,5 @@
 import { ChevronDown } from "lucide-react";
 import { useId } from "react";
-import { Link } from "react-router";
 
 import { Navbar } from "@/components/app/navbar";
 
@@ -39,9 +38,9 @@ function MenuAnchorButton({ targetId, className }: Readonly<MenuAnchorProps>) {
       onClick={handleClick}
       aria-label="Scroll to next section"
     >
-      <Link to={`#${targetId}`} aria-label="Scroll to next section">
+      <a href={`#${targetId}`} aria-label="Scroll to next section">
         <ChevronDown className="size-24 animate-in fade-in" />
-      </Link>
+      </a>
     </Button>
   );
 }
@@ -68,9 +67,9 @@ function Index() {
               className="text-lg outline-black bg-primary-alt hover:bg-primary-alt/90 hover:outline-solid"
               asChild
             >
-              <Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+              <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
                 Join Today!
-              </Link>
+              </a>
             </Button>
           </div>
 
@@ -135,9 +134,9 @@ function Index() {
             className="text-lg outline-black bg-primary-alt hover:bg-primary-alt/90 hover:outline-solid"
             asChild
           >
-            <Link to="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
               Discover More
-            </Link>
+            </a>
           </Button>
         </div>
       </section>
