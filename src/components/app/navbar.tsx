@@ -1,151 +1,170 @@
-import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router";
-import { doesSessionExist } from "supertokens-auth-react/recipe/session";
+import { Link } from "@tanstack/react-router";
+import { ChevronDown, Menu } from "lucide-react";
+import { memo, useCallback, useState } from "react";
 
 import Logo from "@/assets/logo-full.svg";
-
 import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 
-interface ItemProps {
+interface NavItem {
   href: string;
   label: string;
 }
 
-interface AboutMenuProps {
-  items: ItemProps[];
+interface NavGroup {
+  label: string;
+  items: NavItem[];
 }
 
-const navItems: ItemProps[] = [
+type NavEntry = NavItem | NavGroup;
+
+const NAVIGATION_ENTRIES: NavEntry[] = [
   { href: "/events", label: "Events" },
-  { href: "/projects", label: "Projects" },
-  { href: "/resources", label: "Resources" },
-];
-
-const aboutItems: ItemProps[] = [
-  { href: "/about-us/overview", label: "Overview" },
   { href: "/about-us/sigs", label: "SIGs" },
-  { href: "/about-us/leadership", label: "Leadership" },
-  { href: "/about-us/contact", label: "Contact" },
-];
+  { href: "/resources", label: "Resources" },
+] as const;
 
-const LINK_STYLES = "text-sm font-regular hover:text-primary";
+function isNavGroup(entry: NavEntry): entry is NavGroup {
+  return "items" in entry;
+}
 
-function AboutMenu({ items }: Readonly<AboutMenuProps>) {
-  const [openDropdown, setOpenDropdown] = useState(false);
+function MobileNav() {
+  const [open, setOpen] = useState(false);
+  const closeSheet = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   return (
-    <DropdownMenu
-      open={openDropdown}
-      onOpenChange={() => setOpenDropdown(false)}
-    >
-      <DropdownMenuTrigger
-        onMouseEnter={() => setOpenDropdown(true)}
-        className={LINK_STYLES}
-      >
-        About
-      </DropdownMenuTrigger>
-      <DropdownMenuContent onMouseLeave={() => setOpenDropdown(false)}>
-        {items.map((item) => (
-          <DropdownMenuItem key={item.label}>
-            <NavLink to={item.href} className={LINK_STYLES}>
-              {item.label}
-            </NavLink>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="md:hidden"
+        >
+          <Menu className="size-5" />
+          <span className="sr-only">Open menu</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="right" className="w-72">
+        <SheetHeader />
+        <nav className="flex flex-col gap-2 px-4">
+          {NAVIGATION_ENTRIES.map((entry) => {
+            if (isNavGroup(entry)) {
+              return (
+                <Collapsible key={entry.label}>
+                  <CollapsibleTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between text-sm font-semibold px-2 py-1.5 rounded-md hover:bg-accent transition-colors"
+                    >
+                      {entry.label}
+                      <ChevronDown className="size-4 transition-transform duration-200 [[data-state=open]>&]:rotate-180" />
+                    </button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="flex flex-col gap-0.5 pl-2 mt-1">
+                    {entry.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        onClick={closeSheet}
+                        className="text-sm font-medium px-2 py-1.5 rounded-md hover:bg-accent transition-colors text-muted-foreground"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </CollapsibleContent>
+                </Collapsible>
+              );
+            }
+            return (
+              <Link
+                key={entry.href}
+                to={entry.href}
+                onClick={closeSheet}
+                className="text-sm font-semibold px-2 py-1.5 rounded-md hover:bg-accent transition-colors"
+              >
+                {entry.label}
+              </Link>
+            );
+          })}
+        </nav>
+      </SheetContent>
+    </Sheet>
   );
 }
 
-export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLogged, setIsLogged] = useState(false); // pls optimize state?
-  const [openDropdown, setOpenDropdown] = useState(false);
-
-  useEffect(() => {
-    const checkLogged = async () => {
-      if (await doesSessionExist()) {
-        setIsLogged(true);
-      }
-    };
-    checkLogged();
-  });
-
+const DesktopNavItems = memo(function DesktopNavItems() {
   return (
-    <nav className="flex justify-between items-center px-14 w-full bg-opacity-80 md:px-16 h-18 shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
-      <section className="justify-center items-center">
-        <NavLink to="/" className="flex gap-2 items-center">
+    <NavigationMenuList>
+      {NAVIGATION_ENTRIES.map((entry) => {
+        if (isNavGroup(entry)) {
+          return (
+            <NavigationMenuItem key={entry.label}>
+              <NavigationMenuTrigger>{entry.label}</NavigationMenuTrigger>
+              <NavigationMenuContent className="z-50 group-data-[viewport=false]/navigation-menu:border-0 group-data-[viewport=false]/navigation-menu:shadow-md">
+                <ul className="grid w-48 gap-1 p-2">
+                  {entry.items.map((item) => (
+                    <li key={item.href}>
+                      <NavigationMenuLink asChild>
+                        <Link to={item.href}>{item.label}</Link>
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          );
+        }
+        return (
+          <NavigationMenuItem key={entry.href}>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link to={entry.href}>{entry.label}</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        );
+      })}
+    </NavigationMenuList>
+  );
+});
+
+export function Navbar() {
+  return (
+    <nav className="sticky top-0 z-50 w-full bg-background shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
+      <div className="flex h-18 items-center justify-between px-14 md:px-16">
+        <Link to="/" className="flex items-center gap-2">
           <img
             src={Logo}
             alt="ACM @ UC Merced Logo"
+            className="size-12"
             loading="lazy"
-            width={48}
-            height={48}
           />
           <span className="font-semibold">at UC Merced</span>
-        </NavLink>
-      </section>
+        </Link>
 
-      {/* Desktop Navigation */}
-      <section className="hidden items-center space-x-7 md:flex">
-        <AboutMenu items={aboutItems} />
-        {navItems.map((item) => (
-          <NavLink key={item.label} to={item.href} className={LINK_STYLES}>
-            {item.label}
-          </NavLink>
-        ))}
-        <Button asChild>
-          <NavLink to="/auth">{isLogged ? "Dashboard" : "Login"}</NavLink>
-        </Button>
-      </section>
+        <div className="hidden md:flex">
+          <NavigationMenu viewport={false}>
+            <DesktopNavItems />
+          </NavigationMenu>
+        </div>
 
-      {/* Mobile Navigation */}
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetTrigger asChild className="md:hidden">
-          <Button variant="outline" size="icon">
-            <Menu className="w-6 h-6" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="right">
-          <section className="flex flex-col px-4 pt-6 space-y-6">
-            <DropdownMenu
-              open={openDropdown}
-              onOpenChange={() => setOpenDropdown(false)}
-            >
-              <DropdownMenuTrigger onMouseEnter={() => setOpenDropdown(true)}>
-                About
-              </DropdownMenuTrigger>
-              <DropdownMenuContent onMouseLeave={() => setOpenDropdown(false)}>
-                <DropdownMenuItem>
-                  <NavLink to="/about-us/hi" className="" />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            {navItems.map((item) => (
-              <NavLink
-                key={item.label}
-                to={item.href}
-                className={LINK_STYLES}
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </NavLink>
-            ))}
-            <Button asChild>
-              <NavLink to="/auth">{isLogged ? "Dashboard" : "Login"}</NavLink>
-            </Button>
-          </section>
-        </SheetContent>
-      </Sheet>
+        <div className="md:hidden">
+          <MobileNav />
+        </div>
+      </div>
     </nav>
   );
 }
