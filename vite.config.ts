@@ -20,4 +20,18 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            { name: "vendor-react", test: /[\\/]react(-dom)?[\\/]/ },
+            { name: "vendor-base-ui", test: /[\\/]@base-ui[\\/]/ },
+            { name: "vendor-tanstack", test: /[\\/]@tanstack[\\/]/ },
+            { name: "vendor-misc", test: /node_modules[\\/]/ },
+          ],
+        },
+      },
+    },
+  },
 });
