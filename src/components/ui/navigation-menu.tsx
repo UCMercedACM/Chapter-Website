@@ -8,12 +8,16 @@ function NavigationMenu({
   align = "start",
   className,
   children,
+  viewport,
   ...props
 }: NavigationMenuPrimitive.Root.Props &
-  Pick<NavigationMenuPrimitive.Positioner.Props, "align">) {
+  Pick<NavigationMenuPrimitive.Positioner.Props, "align"> & {
+    viewport?: boolean;
+  }) {
   return (
     <NavigationMenuPrimitive.Root
       data-slot="navigation-menu"
+      data-viewport={viewport}
       className={cn(
         "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center",
         className

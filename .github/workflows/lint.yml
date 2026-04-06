@@ -12,17 +12,45 @@ jobs:
   Check:
     runs-on: ubuntu-24.04
 
-    defaults:
-      run:
-        working-directory: react
+    env:
+      ESLINT_CACHE_DIR: /tmp/.eslintcache
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v5
+      - name: Checkout Repository  
+        uses: actions/checkout@v6
 
-      - name: Setup Biome CLI
-        uses: biomejs/setup-biome@v2
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
 
-      - name: Run Biome
+      - name: Install pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: latest
+
+      - name: Restore ESLint cache
+        uses: actions/cache@v5
+        with:
+          path: ${{ env.ESLINT_CACHE_DIR }}
+          key: eslint-${{ runner.os }}-${{ hashFiles('eslint.config.js') }}
+          restore-keys: |
+            eslint-${{ runner.os }}-${{ hashFiles('eslint.config.js') }}
+            eslint-${{ runner.os }}
+
+      - name: Install dependencies
         run: |
-          biome ci --error-on-warnings src
+          pnpm install --frozen-lockfile
+      
+      - name: Check codebase via Oxlint
+        run: |
+          pnpm exec oxlint --type-check --type-aware --deny-warnings src
+
+      - name: Check codebase via ESLint
+        run: |
+          pnpm exec eslint src --cache --cache-location $ESLINT_CACHE_DIR
+
+      - name: Check for formatting
+        run: |
+          pnpm exec oxfmt --check src
+

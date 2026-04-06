@@ -12,24 +12,43 @@ pin = true
 [tasks."web:dev"]
 alias = ["web:up"]
 description = "Start frontend development server. Save file(s) to see changes"
-env._.path = "./react/node_modules/.bin"
-dir = "{{ config_root }}/react"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
 run = "vite"
+
+[tasks."web:install"]
+description = "Pulls dependencies through pnpm"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
+run = "pnpm install"
 
 [tasks."web:build"]
 description = "Builds the frontend for distribution/preview"
-env._.path = "./react/node_modules/.bin"
-dir = "{{ config_root }}/react"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
 run = "tsc && vite build"
 
 [tasks."web:preview"]
 description = "Previews frontend"
-env._.path = "./react/node_modules/.bin"
-dir = "{{ config_root }}/react"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
 run = "vite preview"
 
+
+[tasks."web:lint"]
+description = "Lints the react codebase"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
+run = ["oxlint --type-aware --type-check --deny-warnings src", "eslint src --cache --cache-location .eslintcache"]
+
+[tasks."web:format"]
+description = "Formats the react codebase"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
+run = "oxfmt --write src"
+
 [tasks."web:check"]
-description = "Lints and formats the react codebase "
-env._.path = "./react/node_modules/.bin"
-dir = "{{ config_root }}/react"
-run = "biome check --error-on-warnings --write ."
+description = "Lints and formats the react codebase"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
+run = [{"task" = "web:lint"}, { "task" = "web:format"}]
