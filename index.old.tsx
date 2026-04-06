@@ -1,7 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useId } from "react";
 
-import { Navbar } from "@/components/app/navigation-bar";
 
 import {
   Accordion,
