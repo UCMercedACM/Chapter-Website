@@ -4,12 +4,21 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /website
-COPY /react /website
 
 RUN corepack enable
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts \
-    && pnpm run build
+# Install dependencies first (cached unless manifests change)
+COPY package.json pnpm-lock.yaml /website/
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile --ignore-scripts
+
+# Copy necessary build configurations
+COPY vite.config.ts index.html tsconfig.* /website/
+COPY public /website/public
+COPY src /website/src
+
+# Now build for optimal caching
+RUN pnpm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine-perl
 
