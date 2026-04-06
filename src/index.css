@@ -127,7 +127,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --default-font-family: "Raleway", sans-serif;
   --font-heading: var(--font-sans);
-  --font-sans: 'Raleway Variable', sans-serif;
+  --font-sans: "Raleway Variable", sans-serif;
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);

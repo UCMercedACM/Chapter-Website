@@ -46,15 +46,9 @@ function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="md:hidden"
-        >
-          <Menu className="size-5" />
-          <span className="sr-only">Open menu</span>
-        </Button>
+      <SheetTrigger render={<Button variant="outline" size="icon" className="md:hidden" />}>
+        <Menu className="size-5" />
+        <span className="sr-only">Open menu</span>
       </SheetTrigger>
       <SheetContent side="right" className="w-72">
         <SheetHeader />
@@ -63,14 +57,12 @@ function MobileNav() {
             if (isNavGroup(entry)) {
               return (
                 <Collapsible key={entry.label}>
-                  <CollapsibleTrigger asChild>
-                    <button
-                      type="button"
-                      className="flex w-full items-center justify-between text-sm font-semibold px-2 py-1.5 rounded-md hover:bg-accent transition-colors"
-                    >
-                      {entry.label}
-                      <ChevronDown className="size-4 transition-transform duration-200 [[data-state=open]>&]:rotate-180" />
-                    </button>
+                  <CollapsibleTrigger
+                    type="button"
+                    className="flex w-full items-center justify-between text-sm font-semibold px-2 py-1.5 rounded-md hover:bg-accent transition-colors"
+                  >
+                    {entry.label}
+                    <ChevronDown className="size-4 transition-transform duration-200 [[data-state=open]>&]:rotate-180" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="flex flex-col gap-0.5 pl-2 mt-1">
                     {entry.items.map((item) => (
@@ -116,8 +108,8 @@ const DesktopNavItems = memo(function DesktopNavItems() {
                 <ul className="grid w-48 gap-1 p-2">
                   {entry.items.map((item) => (
                     <li key={item.href}>
-                      <NavigationMenuLink asChild>
-                        <Link to={item.href}>{item.label}</Link>
+                      <NavigationMenuLink render={<Link to={item.href} />}>
+                        {item.label}
                       </NavigationMenuLink>
                     </li>
                   ))}
@@ -129,10 +121,10 @@ const DesktopNavItems = memo(function DesktopNavItems() {
         return (
           <NavigationMenuItem key={entry.href}>
             <NavigationMenuLink
-              asChild
+              render={<Link to={entry.href} />}
               className={navigationMenuTriggerStyle()}
             >
-              <Link to={entry.href}>{entry.label}</Link>
+              {entry.label}
             </NavigationMenuLink>
           </NavigationMenuItem>
         );
@@ -146,12 +138,7 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 w-full bg-background shadow-[0px_10px_30px_0px_rgba(112,144,176,0.20)]">
       <div className="flex h-18 items-center justify-between px-14 md:px-16">
         <Link to="/" className="flex items-center gap-2">
-          <img
-            src={Logo}
-            alt="ACM @ UC Merced Logo"
-            className="size-12"
-            loading="lazy"
-          />
+          <img src={Logo} alt="ACM @ UC Merced Logo" className="size-12" loading="lazy" />
           <span className="font-semibold">at UC Merced</span>
         </Link>
 

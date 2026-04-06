@@ -11,13 +11,18 @@ lerna-debug.log*
 # ENV files
 *.env
 
+# Node modules and .local
 node_modules
+*.local
+
+# Vite dist directories
 dev-dist
 dist
 dist-ssr
-*.local
 
-routeTree.gen.ts
+# Cache directories and files
+.eslintcache
+.tanstack
 
 # Editor directories and files
 .vscode/*
