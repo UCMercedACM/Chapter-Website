@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Index,
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(eventsQueryOptions),
+  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(eventsQueryOptions),
 });
 
 /// Interfaces & Types
@@ -139,6 +139,13 @@ const eventsQueryOptions = queryOptions({
   // Events don't change minute-to-minute; treat the cache as fresh for a minute so
   // navigating back/forward doesn't refetch immediately.
   staleTime: 60_000,
+
+  // Once Kanae is live, then these will be removed
+  // So we don't send out a ton of API requests for no reason
+  retry: false,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
+  refetchOnMount: false,
 });
 
 function Index() {
