@@ -31,5 +31,10 @@
       ["alias-imports", "internal", "type-internal"],
       "unknown"
     ]
+  },
+  "sortTailwindcss": {
+    "stylesheet": "src/index.css",
+    "functions": ["clsx", "cn"],
+    "preserveWhitespace": true
   }
 }
