@@ -3,6 +3,7 @@ import "./../index.css";
 import type { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Link, Outlet } from "@tanstack/react-router";
 
+import { Footer } from "@/components/app/footer";
 import { Navbar } from "@/components/app/navigation-bar";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
@@ -23,13 +24,14 @@ export const Route = createRootRouteWithContext<{
 
 function RootComponent() {
   return (
-    <ThemeProvider defaultTheme="system" storageKey="vite-theme">
+    <ThemeProvider defaultTheme="light" storageKey="vite-theme">
       <Navbar />
       {/* This only exists to prevent overflow issues on mobile */}
       <div className="overflow-x-hidden">
         <main className="flex-1">
           <Outlet />
         </main>
+        <Footer />
         <Toaster />
       </div>
     </ThemeProvider>

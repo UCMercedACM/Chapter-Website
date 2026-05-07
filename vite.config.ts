@@ -32,6 +32,10 @@ export default defineConfig({
             { name: "vendor-react", test: /[\\/]react(-dom)?[\\/]/ },
             { name: "vendor-base-ui", test: /[\\/]@base-ui[\\/]/ },
             { name: "vendor-tanstack", test: /[\\/]@tanstack[\\/]/ },
+            {
+              name: "vendor-icons",
+              test: /[\\/](@icons-pack[\\/]react-simple-icons|lucide-react)[\\/]/,
+            },
             { name: "vendor-misc", test: /node_modules[\\/]/ },
           ],
         },
