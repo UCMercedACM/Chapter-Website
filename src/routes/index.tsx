@@ -24,7 +24,10 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Index,
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(eventsQueryOptions),
+  // `prefetchQuery` warms the cache without rejecting on fetch errors. If the API is down,
+  // the route still renders and `useQuery` falls into the error state, which the carousel
+  // gracefully degrades to an empty list — instead of taking the whole page down.
+  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(eventsQueryOptions),
 });
 
 /// Interfaces & Types
