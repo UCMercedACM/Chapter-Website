@@ -24,9 +24,6 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Index,
-  // `prefetchQuery` warms the cache without rejecting on fetch errors. If the API is down,
-  // the route still renders and `useQuery` falls into the error state, which the carousel
-  // gracefully degrades to an empty list — instead of taking the whole page down.
   loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(eventsQueryOptions),
 });
 
@@ -142,6 +139,13 @@ const eventsQueryOptions = queryOptions({
   // Events don't change minute-to-minute; treat the cache as fresh for a minute so
   // navigating back/forward doesn't refetch immediately.
   staleTime: 60_000,
+
+  // Once Kanae is live, then these will be removed
+  // So we don't send out a ton of API requests for no reason
+  retry: false,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
+  refetchOnMount: false,
 });
 
 function Index() {
