@@ -16,7 +16,6 @@ const NAV_LINKS: NavEntry[] = [
   { href: "/events", label: "Events" },
   { href: "/sigs", label: "SIGs" },
   { href: "/projects", label: "Projects" },
-  { href: "/resources", label: "Resources" },
 ];
 
 const NAV_LINK_CLASSES =
