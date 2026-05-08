@@ -54,6 +54,14 @@
   --brand-text-hero: #ebf2f1;
   --brand-navbar: #00e1bf;
   --brand-footer: rgba(0, 225, 191, 0.85);
+
+  /* Per-SIG accent colors. Funneled into `--sig-color` on each SIG section. */
+  --sig-swe: #3da9fc;
+  --sig-ai: #00c9a7;
+  --sig-cyber: #ff6b6b;
+  --sig-data: #f7b731;
+  --sig-graph: #a55eea;
+  --sig-arch: #fc5c7d;
 }
 /*
   ---break---
@@ -137,6 +145,12 @@
   --color-brand-text-hero: var(--brand-text-hero);
   --color-brand-navbar: var(--brand-navbar);
   --color-brand-footer: var(--brand-footer);
+  --color-sig-swe: var(--sig-swe);
+  --color-sig-ai: var(--sig-ai);
+  --color-sig-cyber: var(--sig-cyber);
+  --color-sig-data: var(--sig-data);
+  --color-sig-graph: var(--sig-graph);
+  --color-sig-arch: var(--sig-arch);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
