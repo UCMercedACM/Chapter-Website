@@ -88,12 +88,48 @@ const TILE_BASE_CLASSES = cn(
 /// Static page data
 
 const SIGS = [
-  { name: "Software Engineering", abbrev: "SWE", logoSrc: sigSweLogo },
-  { name: "Artificial Intelligence", abbrev: "AI", logoSrc: sigAiLogo },
-  { name: "Cybersecurity", abbrev: "Cyber", logoSrc: sigCyberLogo },
-  { name: "Data Science", abbrev: "Data", logoSrc: sigDataLogo },
-  { name: "Graphics", abbrev: "Graph", logoSrc: sigGraphLogo },
-  { name: "Architecture", abbrev: "Arch", logoSrc: sigArchLogo },
+  {
+    slug: "swe",
+    abbrev: "SWE",
+    name: "Software Engineering",
+    description: "Hands-on workshops in React, Python, APIs, and modern dev practices.",
+    logoSrc: sigSweLogo,
+  },
+  {
+    slug: "ai",
+    abbrev: "AI",
+    name: "Artificial Intelligence",
+    description: "Explore ML models, neural networks, and AI applications.",
+    logoSrc: sigAiLogo,
+  },
+  {
+    slug: "cyber",
+    abbrev: "Cyber",
+    name: "Cybersecurity",
+    description: "CTF competitions, penetration testing, and security fundamentals.",
+    logoSrc: sigCyberLogo,
+  },
+  {
+    slug: "data",
+    abbrev: "Data",
+    name: "Data Science",
+    description: "Data analysis, visualization, and applied statistics projects.",
+    logoSrc: sigDataLogo,
+  },
+  {
+    slug: "graph",
+    abbrev: "Graph",
+    name: "Computer Graphics",
+    description: "Computer graphics, rendering, and visual computing topics.",
+    logoSrc: sigGraphLogo,
+  },
+  {
+    slug: "arch",
+    abbrev: "Arch",
+    name: "Systems Architecture",
+    description: "Systems architecture, hardware design, and low-level programming.",
+    logoSrc: sigArchLogo,
+  },
 ] as const;
 
 const STATS = [
@@ -440,8 +476,9 @@ function Index() {
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {SIGS.map((sig) => (
               <Link
-                key={sig.abbrev}
-                to="/"
+                key={sig.slug}
+                to="/sigs"
+                hash={`sig-${sig.slug}`}
                 className={cn(
                   "flex cursor-pointer items-center gap-4",
                   "rounded-2xl bg-background",
@@ -460,8 +497,8 @@ function Index() {
                   <div className="text-[13px] font-bold text-foreground md:text-base">
                     SIG {sig.abbrev}
                   </div>
-                  <div className="mt-0.5 text-[11px] text-brand-text-sub md:text-[13px]">
-                    {sig.name}
+                  <div className="mt-0.5 text-[11px] leading-snug text-brand-text-sub md:text-[13px]">
+                    {sig.description}
                   </div>
                 </div>
               </Link>
