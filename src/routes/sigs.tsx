@@ -154,9 +154,12 @@ function Sigs() {
       >
         <nav
           className={cn(
-            "mx-auto flex max-w-300 items-center justify-center overflow-x-auto",
-            "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
-            "gap-2 px-3 py-2.5 md:gap-6 md:px-10 md:py-3.5",
+            "mx-auto max-w-300",
+            // Mobile: 3-column grid (so the 6 SIGs wrap to 2 rows of 3 instead of
+            // horizontally overflowing the viewport).
+            "grid grid-cols-3 gap-x-2 gap-y-2 px-3 py-2.5",
+            // Desktop: single horizontal row, centered.
+            "md:flex md:items-center md:justify-center md:gap-6 md:px-10 md:py-3.5",
           )}
         >
           {SIG_DETAILS.map((sig) => (
@@ -165,18 +168,18 @@ function Sigs() {
               href={`#sig-${sig.slug}`}
               className={cn(
                 sig.accentClass,
-                "flex shrink-0 flex-col items-center gap-1 rounded-xl px-2 py-1 md:px-2.5",
+                "flex flex-col items-center gap-1 rounded-xl px-2 py-1 md:px-2.5",
                 "transition-colors hover:bg-(--sig-color)/10 focus-visible:bg-(--sig-color)/10",
               )}
             >
-              <img src={sig.logoSrc} alt="" className="size-7 object-contain md:size-10" />
+              <img src={sig.logoSrc} alt="" className="size-10 object-contain md:size-12" />
               <span
                 className={cn(
                   "font-bold tracking-wider text-foreground",
-                  "text-[9px] md:text-[11px]",
+                  "text-[10px] md:text-[12px]",
                 )}
               >
-                ACM {sig.slug.toUpperCase()}
+                SIG {sig.slug.toUpperCase()}
               </span>
             </a>
           ))}
@@ -234,7 +237,7 @@ function Sigs() {
                       "text-[22px] md:text-[32px]",
                     )}
                   >
-                    ACM {sig.slug.toUpperCase()}
+                    SIG {sig.slug.toUpperCase()}
                   </h2>
                 </div>
               </div>

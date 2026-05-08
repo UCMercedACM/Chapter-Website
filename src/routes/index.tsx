@@ -458,7 +458,7 @@ function Index() {
                 />
                 <div>
                   <div className="text-[13px] font-bold text-foreground md:text-base">
-                    ACM {sig.abbrev}
+                    SIG {sig.abbrev}
                   </div>
                   <div className="mt-0.5 text-[11px] text-brand-text-sub md:text-[13px]">
                     {sig.name}
