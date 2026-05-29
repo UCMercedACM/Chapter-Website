@@ -18,7 +18,15 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
-/// Types & Interfaces — mirror openapi.json schemas.
+export const Route = createFileRoute("/project/$projectId")({
+  component: Project,
+  loader: async ({ context: { queryClient }, params: { projectId } }) => {
+    await queryClient.ensureQueryData(projectDetailQueryOptions(projectId));
+    await queryClient.ensureQueryData(projectMediaQueryOptions(projectId));
+  },
+});
+
+/// Types and Interfaces
 
 type ProjectType =
   | "independent"
@@ -63,15 +71,6 @@ interface MediaRecord {
 
 /// Module-scoped constants
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-
-const FULL_DATE_FMT = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long" });
-
-// Hoisted so the Carousel `opts` prop is a stable reference across renders —
-// `react-perf/jsx-no-new-object-as-prop` flags object literals at the JSX site.
-const CAROUSEL_OPTS = { align: "start" } as const;
-
 const PROJECT_TYPES: Record<ProjectType, { label: string; colorClass: string }> = {
   independent: { label: "Independent", colorClass: "[--type-color:var(--foreground)]" },
   sig_swe: { label: "SWE", colorClass: "[--type-color:var(--sig-swe)]" },
@@ -82,8 +81,14 @@ const PROJECT_TYPES: Record<ProjectType, { label: string; colorClass: string }> 
   sig_arch: { label: "Arch", colorClass: "[--type-color:var(--sig-arch)]" },
 };
 
-/// Helpers — Tanstack Query hierarchical keys + per-id option factories.
-/// (https://tkdodo.eu/blog/effective-react-query-keys)
+const API_BASE_URL =
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
+
+const CAROUSEL_OPTS = { align: "start" } as const;
+
+const FULL_DATE_FMT = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long" });
+
+/// Tanstack Query keys
 
 const projectKeys = {
   all: ["project"] as const,
@@ -98,7 +103,6 @@ const projectDetailQueryOptions = (projectId: string) =>
       const { data } = await axios.get<FullProject>(`${API_BASE_URL}/projects/${projectId}`);
       return data;
     },
-    // Project details rarely change mid-session; keep the cache fresh for a minute.
     staleTime: 60_000,
 
     // Once Kanae is live, then these will be removed
@@ -119,43 +123,23 @@ const projectMediaQueryOptions = (projectId: string) =>
       return data;
     },
     staleTime: 60_000,
-
-    // Once Kanae is live, then these will be removed
-    // So we don't send out a ton of API requests for no reason
     retry: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchOnMount: false,
   });
 
-/// Route
+/// Route Component
 
-export const Route = createFileRoute("/project/$projectId")({
-  component: ProjectOverview,
-  // Warm both caches before the component renders. ensureQueryData mirrors the
-  // BeakleVision matches loader — it returns the cached/fetched data and lets a
-  // failed request surface to the router.
-  loader: async ({ context: { queryClient }, params: { projectId } }) => {
-    await queryClient.ensureQueryData(projectDetailQueryOptions(projectId));
-    await queryClient.ensureQueryData(projectMediaQueryOptions(projectId));
-  },
-});
-
-function ProjectOverview() {
+function Project() {
   const { projectId } = Route.useParams();
   const { data: project, isLoading: isProjectLoading } = useQuery(
     projectDetailQueryOptions(projectId),
   );
   const { data: media, isLoading: isMediaLoading } = useQuery(projectMediaQueryOptions(projectId));
 
-  const meta = project ? PROJECT_TYPES[project.type] : undefined;
-
   const [openMedia, setOpenMedia] = useState<MediaRecord>();
 
-  // Per-tile open handler baked into each entry — JSX reads `entry.onSelect`
-  // (a stable property access) instead of an inline closure, mirroring the
-  // pattern used elsewhere in the codebase. Dep is `media` (not a derived
-  // `media ?? []`) so a fresh empty array every render doesn't invalidate.
   const mediaEntries = useMemo(
     () =>
       (media ?? []).map((item) => ({
@@ -167,13 +151,12 @@ function ProjectOverview() {
     [media],
   );
 
-  // Hide the media section entirely (heading included) when the project has
-  // no media. Keep it visible while loading so the skeleton can stand in.
-  const showMediaSection = isMediaLoading || mediaEntries.length > 0;
-
   const handleMediaDialogOpenChange = useCallback((open: boolean) => {
     if (!open) setOpenMedia(undefined);
   }, []);
+
+  const meta = project ? PROJECT_TYPES[project.type] : undefined;
+  const showMediaSection = isMediaLoading || mediaEntries.length > 0;
 
   return (
     <div className="bg-background">
@@ -224,9 +207,6 @@ function ProjectOverview() {
 
         {!isProjectLoading && project && meta && (
           <>
-            {/* Top metadata row:
-                  Row 1 — type badge + active status (left), GitHub icon (right).
-                  Row 2 — member chips (they wrap below on narrow viewports). */}
             <header className="flex flex-col gap-2.5">
               <div className="flex flex-wrap items-center gap-2.5">
                 <span
@@ -238,8 +218,6 @@ function ProjectOverview() {
                 >
                   {meta.label}
                 </span>
-                {/* Status now reads as a pill badge matching the type label —
-                    a leading dot replaces the old inline "●" glyph. */}
                 <span
                   className={cn(
                     "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.75",
@@ -252,9 +230,6 @@ function ProjectOverview() {
                   <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
                   {project.active ? "Active" : "Archived"}
                 </span>
-                {/* GitHub link sits at the end of the badge row. Ghost variant
-                    + muted colouring keeps the solid mark from competing with
-                    the title; it warms to the foreground on hover. */}
                 <Button
                   variant="ghost"
                   size="icon-sm"
@@ -307,7 +282,6 @@ function ProjectOverview() {
               {project.name}
             </h1>
 
-            {/* Tech tags sit immediately below the title as part of its block. */}
             {project.tags && project.tags.length > 0 ? (
               <ul aria-label="Technologies" className="mt-3 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
@@ -335,17 +309,8 @@ function ProjectOverview() {
               </p>
             </section>
 
-            {/* Media moved right below the description per the new layout. */}
             {showMediaSection ? (
               <section className="mt-8">
-                {/*
-                  Embla carousel. `basis-full md:basis-1/2 xl:basis-1/3` drives
-                  1 / 2 / 3 items-per-view at mobile / tablet / desktop. Pairing
-                  `-ml-4` on CarouselContent with `pl-4` per item gives the
-                  visual gap without breaking embla's slide math. The Prev/Next
-                  buttons sit in the header row beside the section label —
-                  overrode `absolute`/`-translate-y-1/2` so they flow inline.
-                */}
                 <Carousel opts={CAROUSEL_OPTS} className="w-full">
                   <header className="mb-4 flex items-center justify-between gap-3">
                     <div className="text-[11px] font-bold tracking-[0.08em] text-muted-foreground uppercase">
@@ -372,9 +337,6 @@ function ProjectOverview() {
                             className="basis-full pl-4 md:basis-1/2 xl:basis-1/3"
                           >
                             {item.kind === "video" ? (
-                              // Videos keep their own controls intact — the expand
-                              // affordance is a small overlay Button so the video's
-                              // play/pause click is never hijacked by it.
                               <div className="group relative overflow-hidden rounded-2xl border border-border bg-card">
                                 <video
                                   src={item.url}
@@ -382,9 +344,6 @@ function ProjectOverview() {
                                   preload="metadata"
                                   className="aspect-video w-full bg-black object-contain"
                                 >
-                                  {/* Placeholder captions track — the API doesn't yet expose
-                                      caption files, so we ship an empty default to satisfy
-                                      a11y tooling. */}
                                   <track
                                     default
                                     kind="captions"
@@ -416,9 +375,6 @@ function ProjectOverview() {
                                 </Button>
                               </div>
                             ) : (
-                              // Whole image is the click target. shadcn Button
-                              // with overrides — h-auto / p-0 strip default
-                              // sizing so it wraps the image flush.
                               <Button
                                 variant="ghost"
                                 onClick={onSelect}
@@ -466,10 +422,6 @@ function ProjectOverview() {
       <Dialog open={openMedia !== undefined} onOpenChange={handleMediaDialogOpenChange}>
         {openMedia ? (
           <DialogContent
-            // Override shadcn defaults: drop the sm:max-w-md cap, shrink to the
-            // asset's natural size (w-auto), constrain to the viewport with a
-            // small breathing margin, and remove the inner padding/gap so the
-            // media reads edge-to-edge.
             className={cn(
               "max-h-[95vh] w-auto max-w-[95vw] gap-0 p-2 sm:max-w-[95vw]",
               "overflow-hidden bg-card",

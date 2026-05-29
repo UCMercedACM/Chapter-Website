@@ -4,9 +4,6 @@ import axios from "axios";
 import { Search } from "lucide-react";
 import { useCallback, useMemo, useState, type ChangeEvent } from "react";
 
-import sigCard1 from "@/assets/images/sig-card-1.png";
-import sigCard2 from "@/assets/images/sig-card-2.png";
-import sigCard3 from "@/assets/images/sig-card-3.png";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -21,9 +18,13 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
-/// Types & Interfaces
+export const Route = createFileRoute("/projects")({
+  component: Projects,
+  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(projectsQueryOptions),
+});
 
-// Mirrors the FullProjects model exposed by the Kanae /projects endpoint.
+/// Types and Interfaces
+
 type ProjectType =
   | "independent"
   | "sig_ai"
@@ -41,11 +42,17 @@ interface ProjectMember {
   name: string;
 }
 
+interface ProjectThumbnail {
+  hash: string;
+  url: string;
+}
+
 interface ApiProject {
   id: string;
   name: string;
   description: string;
   link: string;
+  thumbnail?: ProjectThumbnail;
   members: ProjectMember[];
   type: ProjectType;
   tags?: string[];
@@ -60,21 +67,12 @@ interface ProjectsPage {
 
 /// Module-scoped constants
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-
-const SHORT_DATE_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
-
 const ACTIVE_FILTER_OPTIONS: readonly { value: ActiveFilter; label: string }[] = [
   { value: "all", label: "All" },
   { value: "active", label: "● Active" },
   { value: "archived", label: "○ Archived" },
 ];
 
-// Single source of truth for filter pills (iteration order) AND per-type
-// meta lookups in cards/dialogs (via .find on the key). The "all" entry only
-// appears in filter pills — `project.type` is always one of the SIG keys, so
-// lookups against it always resolve to a real entry.
 const PROJECT_TYPES = [
   { key: "all", label: "All Projects", colorClass: "[--type-color:var(--foreground)]" },
   { key: "independent", label: "Independent", colorClass: "[--type-color:var(--foreground)]" },
@@ -90,20 +88,18 @@ const PROJECT_TYPES = [
   readonly colorClass: string;
 }[];
 
-// Cycled across projects so each card gets a different cover. Cover images are a
-// UI-only concern — the API does not return one.
-const CARD_IMGS = [sigCard1, sigCard2, sigCard3] as const;
+const API_BASE_URL =
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
+
+const SHORT_DATE_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
 
 const GRID_CLASSES = cn("grid grid-cols-1 gap-3.5", "md:grid-cols-2 md:gap-5 lg:grid-cols-3");
-// Overrides on top of shadcn Card defaults (gap-6, rounded-xl, py-6, shadow-xs)
-// so the project tiles match the chapter design tokens.
 const CARD_VISUAL_CLASSES = cn(
   "gap-3.5 rounded-3xl py-0",
   "shadow-[0px_16px_40px_rgba(112,144,176,0.2)]",
 );
 
-/// Helpers — Tanstack Query hierarchical key factory + shared options
-/// (https://tkdodo.eu/blog/effective-react-query-keys)
+/// Tanstack Query keys
 
 const projectsKeys = {
   all: ["projects"] as const,
@@ -117,8 +113,6 @@ const projectsQueryOptions = queryOptions({
     const { data } = await axios.get<ProjectsPage>(`${API_BASE_URL}/projects`);
     return data;
   },
-  // Projects don't change minute-to-minute; treat the cache as fresh for a minute so
-  // navigating back/forward doesn't refetch immediately.
   staleTime: 60_000,
 
   // Once Kanae is live, then these will be removed
@@ -129,12 +123,7 @@ const projectsQueryOptions = queryOptions({
   refetchOnMount: false,
 });
 
-/// Route
-
-export const Route = createFileRoute("/projects")({
-  component: Projects,
-  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(projectsQueryOptions),
-});
+/// Route Component
 
 function Projects() {
   const { data: projectsPage, isLoading } = useQuery(projectsQueryOptions);
@@ -144,10 +133,6 @@ function Projects() {
   const [activeFilter, setActiveFilter] = useState<ActiveFilter>("active");
   const [search, setSearch] = useState("");
 
-  // Each entry carries a pre-built `linkParams` object so the per-card <Link>'s
-  // `params` prop is a stable reference — avoids `react-perf/jsx-no-new-object-as-prop`
-  // without inline closures or `event.currentTarget` lookups. Rebuilds only when
-  // the underlying projects or filter inputs change.
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
     return (projects ?? [])
@@ -166,8 +151,6 @@ function Projects() {
       }));
   }, [projects, filter, activeFilter, search]);
 
-  // One stable handler per filter key, built once. JSX references
-  // `entry.onSelect` directly — no inline closures, no data-attribute lookups.
   const filterEntries = useMemo(
     () =>
       PROJECT_TYPES.map((option) => ({
@@ -183,9 +166,6 @@ function Projects() {
     setSearch(event.target.value);
   }, []);
 
-  // Widened to `unknown` because base-ui's Select types its `onValueChange`
-  // value as `Value | null` and the `unicorn/no-null` rule forbids the literal.
-  // Contravariant parameters let this satisfy the prop's narrower signature.
   const handleActiveFilterChange = useCallback((value: unknown) => {
     if (value === "all" || value === "active" || value === "archived") {
       setActiveFilter(value);
@@ -243,9 +223,6 @@ function Projects() {
                   onClick={onSelect}
                   className={cn(
                     option.colorClass,
-                    // Overrides on shadcn Button defaults — h-auto + bg-transparent
-                    // peel the variant styles back, then we layer the original
-                    // filter-pill look on top so this matches the previous <button>.
                     "h-auto cursor-pointer rounded-full border border-transparent bg-transparent",
                     "px-3.5 py-1.5 text-[11px] font-bold tracking-wider md:text-xs",
                     "text-brand-text-sub hover:bg-transparent hover:text-foreground",
@@ -271,13 +248,7 @@ function Projects() {
                 className="h-9 rounded-full border border-border bg-input pl-8.5 text-[13px]"
               />
             </div>
-            <Select
-              value={activeFilter}
-              onValueChange={handleActiveFilterChange}
-              // Non-modal: base-ui skips the body scroll-lock + padding-right
-              // compensation that was exposing a strip of html on the right.
-              modal={false}
-            >
+            <Select value={activeFilter} onValueChange={handleActiveFilterChange} modal={false}>
               <SelectTrigger
                 aria-label="Status filter"
                 className={cn(
@@ -291,12 +262,7 @@ function Projects() {
                   }
                 </SelectValue>
               </SelectTrigger>
-              <SelectContent
-                // Drop straight below the trigger instead of vertically centring
-                // the selected item over it (base-ui's default behaviour).
-                alignItemWithTrigger={false}
-                className="min-w-32 rounded-xl p-1"
-              >
+              <SelectContent alignItemWithTrigger={false} className="min-w-32 rounded-xl p-1">
                 {ACTIVE_FILTER_OPTIONS.map((option) => (
                   <SelectItem
                     key={option.value}
@@ -349,15 +315,11 @@ function Projects() {
 
         {!isLoading && hasResults && (
           <div className={GRID_CLASSES}>
-            {filtered.map(({ project, linkParams }, index) => {
+            {filtered.map(({ project, linkParams }) => {
               const meta =
                 PROJECT_TYPES.find((type) => type.key === project.type) ?? PROJECT_TYPES[0];
               const extraMembers = project.members.length - 3;
-              const coverSrc = CARD_IMGS[index % CARD_IMGS.length];
               return (
-                // <Link> handles Enter/Space activation + focus rings natively;
-                // `group` lets the inner Card mirror this link's focus-visible
-                // state for the hover-lift animation.
                 <Link
                   key={project.id}
                   to="/project/$projectId"
@@ -372,31 +334,25 @@ function Projects() {
                     className={cn(
                       meta.colorClass,
                       CARD_VISUAL_CLASSES,
-                      // Transform-only transition keeps the hover-lift on the compositor;
-                      // box-shadow snaps instantly (transitioning it forces a paint per
-                      // frame). No permanent `will-change` — promoting every grid card to
-                      // its own layer inflates layerization/compositing on each filter
-                      // change for no real benefit (transforms composite without the hint).
                       "transition-transform duration-200",
                       "hover:-translate-y-0.5 hover:shadow-[0px_24px_50px_rgba(112,144,176,0.3)]",
                       "group-focus-visible:-translate-y-0.5 group-focus-visible:shadow-[0px_24px_50px_rgba(112,144,176,0.3)]",
                     )}
                   >
                     <div className="relative h-32 w-full overflow-hidden bg-(--type-color)/15 md:h-37">
-                      <img
-                        src={coverSrc}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
+                      {project.thumbnail ? (
+                        <img
+                          src={project.thumbnail.url}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : undefined}
                       <span
                         className={cn(
                           "absolute top-2.5 right-2.5 rounded-full px-2.5 py-0.75",
                           "text-[10px] font-bold tracking-wide",
-                          // Solid bg instead of backdrop-blur — blur per badge × 9 cards
-                          // forces a paint region per badge whenever underlying pixels
-                          // shift (e.g. when a modal opens and a scrollbar reflows).
                           "bg-black/70",
                           project.active ? "text-sig-ai" : "text-muted-foreground",
                         )}
