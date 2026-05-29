@@ -173,6 +173,7 @@ function Projects() {
   }, []);
 
   const hasResults = filtered.length > 0;
+  const projectCountLabel = `${String(filtered.length)} ${filtered.length === 1 ? "project" : "projects"} found`;
 
   return (
     <div className="bg-background">
@@ -285,9 +286,7 @@ function Projects() {
         )}
       >
         <div className="mb-6 text-[13px] text-muted-foreground">
-          {isLoading
-            ? "Loading projects…"
-            : `${String(filtered.length)} project${filtered.length === 1 ? "" : "s"} found`}
+          {isLoading ? "Loading projects…" : projectCountLabel}
         </div>
 
         {isLoading && (
