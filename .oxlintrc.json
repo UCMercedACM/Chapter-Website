@@ -24,9 +24,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "**/*.{ts,tsx}"
-      ],
+      "files": ["**/*.{ts,tsx}"],
       "rules": {
         "constructor-super": "error",
         "for-direction": "error",
@@ -179,10 +177,7 @@
             "allowRegExp": false
           }
         ],
-        "typescript/return-await": [
-          "error",
-          "error-handling-correctness-only"
-        ],
+        "typescript/return-await": ["error", "error-handling-correctness-only"],
         "typescript/triple-slash-reference": "error",
         "typescript/unbound-method": "error",
         "typescript/unified-signatures": "error",
@@ -283,9 +278,7 @@
           "error",
           {
             "tags": [],
-            "roles": [
-              "tabpanel"
-            ],
+            "roles": ["tabpanel"],
             "allowExpressionValues": true
           }
         ],
@@ -322,7 +315,12 @@
         "unicorn/error-message": "error",
         "unicorn/escape-case": "error",
         "unicorn/explicit-length-check": "error",
-        "unicorn/filename-case": "error",
+        "unicorn/filename-case": [
+          "error",
+          {
+            "ignore": "\\$.*[A-Z]"
+          }
+        ],
         "unicorn/new-for-builtins": "error",
         "unicorn/no-abusive-eslint-disable": "error",
         "unicorn/no-accessor-recursion": "error",
@@ -448,14 +446,7 @@
         "@tanstack/router/create-route-property-order": "warn",
         "@tanstack/router/route-param-names": "error"
       },
-      "plugins": [
-        "typescript",
-        "react",
-        "import",
-        "react-perf",
-        "jsx-a11y",
-        "unicorn"
-      ],
+      "plugins": ["typescript", "react", "import", "react-perf", "jsx-a11y", "unicorn"],
       "jsPlugins": [
         "eslint-plugin-react-x",
         "eslint-plugin-react-dom",
