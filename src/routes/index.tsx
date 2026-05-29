@@ -6,13 +6,13 @@ import { ChevronDown } from "lucide-react";
 import { useMemo, type CSSProperties } from "react";
 
 import aboutUsImg from "@/assets/images/about-us.png";
-import beginningsLogo from "@/assets/images/beginnings_logo.png";
-import sigAiLogo from "@/assets/images/sig-ai-logo.svg";
-import sigArchLogo from "@/assets/images/sig-arch-logo.svg";
-import sigCyberLogo from "@/assets/images/sig-cyber-logo.svg";
-import sigDataLogo from "@/assets/images/sig-data-logo.svg";
-import sigGraphLogo from "@/assets/images/sig-graph-logo.svg";
-import sigSweLogo from "@/assets/images/sig-swe-logo.svg";
+import beginningsLogo from "@/assets/images/beginnings-logo.png";
+import sigAiLogo from "@/assets/logos/sigs/ai.svg";
+import sigArchLogo from "@/assets/logos/sigs/arch.svg";
+import sigCyberLogo from "@/assets/logos/sigs/cyber.svg";
+import sigDataLogo from "@/assets/logos/sigs/data.svg";
+import sigGraphLogo from "@/assets/logos/sigs/graph.svg";
+import sigSweLogo from "@/assets/logos/sigs/swe.svg";
 import {
   Carousel,
   CarouselContent,

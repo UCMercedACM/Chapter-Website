@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { memo, useCallback, useState } from "react";
 
-import acmLogo from "@/assets/images/acm-logo-v2.svg";
+import acmLogo from "@/assets/logos/acm.svg";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 
