@@ -1,8 +1,8 @@
-
 # trustLockfile effectively breaks out automated workflows
 # as pnpm will check on each fresh install. We use Renovate to handle
 # our lockfiles, and with proper protections as well. So, this is just annoying
 trustLockfile: true
 
 allowBuilds:
+  msgpackr-extract: false
   msw: false
