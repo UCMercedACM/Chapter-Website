@@ -177,7 +177,7 @@
             "allowRegExp": false
           }
         ],
-        "typescript/return-await": "error",
+        "typescript/return-await": ["error", "error-handling-correctness-only"],
         "typescript/triple-slash-reference": "error",
         "typescript/unbound-method": "error",
         "typescript/unified-signatures": "error",
@@ -278,9 +278,7 @@
           "error",
           {
             "tags": [],
-            "roles": [
-              "tabpanel"
-            ],
+            "roles": ["tabpanel"],
             "allowExpressionValues": true
           }
         ],
