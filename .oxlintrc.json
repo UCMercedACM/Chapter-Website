@@ -278,6 +278,9 @@
           "error",
           {
             "tags": [],
+            "roles": [
+              "tabpanel"
+            ],
             "allowExpressionValues": true
           }
         ],
