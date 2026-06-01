@@ -29,12 +29,18 @@ export default defineConfig({
       output: {
         codeSplitting: {
           groups: [
-            { name: "vendor-react", test: /[\\/]react(-dom)?[\\/]/ },
-            { name: "vendor-base-ui", test: /[\\/]@base-ui[\\/]/ },
+            // Schedule-X's renderer uses @preact/signals, so we send it into its own vendor chunk
+            { name: "vendor-preact", test: /[\\/](preact|@preact)[\\/]/ },
+            { name: "vendor-react", test: /[\\/]node_modules[\\/]react(-dom)?[\\/]/ },
+            { name: "vendor-base-ui", test: /[\\/](@base-ui|@floating-ui)[\\/]/ },
             { name: "vendor-tanstack", test: /[\\/]@tanstack[\\/]/ },
             {
               name: "vendor-icons",
               test: /[\\/](@icons-pack[\\/]react-simple-icons|lucide-react)[\\/]/,
+            },
+            {
+              name: "vendor-schedule-x",
+              test: /[\\/](@schedule-x|temporal-polyfill)[\\/]/,
             },
             { name: "vendor-misc", test: /node_modules[\\/]/ },
           ],

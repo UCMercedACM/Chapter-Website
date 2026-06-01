@@ -17,6 +17,18 @@ importers:
       '@icons-pack/react-simple-icons':
         specifier: ^13.13.0
         version: 13.13.0(react@19.2.6)
+      '@schedule-x/calendar':
+        specifier: ^4.6.0
+        version: 4.6.0(@preact/signals@2.9.1(preact@10.29.2))(preact@10.29.2)(temporal-polyfill@0.3.2)
+      '@schedule-x/react':
+        specifier: ^4.1.0
+        version: 4.1.0(@schedule-x/calendar@4.6.0(@preact/signals@2.9.1(preact@10.29.2))(preact@10.29.2)(temporal-polyfill@0.3.2))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@schedule-x/scroll-controller':
+        specifier: ^4.6.0
+        version: 4.6.0(@preact/signals@2.9.1(preact@10.29.2))
+      '@schedule-x/theme-shadcn':
+        specifier: ^4.6.0
+        version: 4.6.0
       '@tanstack/react-query':
         specifier: ^5.100.14
         version: 5.100.14(react@19.2.6)
@@ -53,6 +65,9 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
+      temporal-polyfill:
+        specifier: ^0.3.2
+        version: 0.3.2
     devDependencies:
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
@@ -1106,8 +1121,8 @@ packages:
     peerDependencies:
       preact: '>= 10.25.0 || >=11.0.0-0'
 
-  '@react-grab/cli@0.1.42':
-    resolution: {integrity: sha512-yfK2tmRxCbigM5NQ3IW/1abTOUxhAkmpLopWLtdRGPfUw5liVyKjy5yb7VJZa9nj/v9RDl3+VfqgRmFASYJCdg==}
+  '@react-grab/cli@0.1.43':
+    resolution: {integrity: sha512-S+UBB0Mwu1g0Cjhff5YzsA33YFYu91DmazPL9uVvF1wDjsO2Lu9hKN/OzBCHYjWlxdBT7TLy2A6pNTS3Sx8o9w==}
     hasBin: true
 
   '@rolldown/binding-android-arm64@1.0.2':
@@ -1233,6 +1248,28 @@ packages:
     peerDependenciesMeta:
       rollup:
         optional: true
+
+  '@schedule-x/calendar@4.6.0':
+    resolution: {integrity: sha512-8Rf5bUf0DVphJB2BaudtG4IHkw21wgMJiiuk5o+7SIOq6YH4hkVJo+Kk12pWSfp2KTZ9mnnUuLV+szBVhiEPlg==}
+    peerDependencies:
+      '@preact/signals': ^2.0.2
+      preact: ^10.19.2
+      temporal-polyfill: 0.3.0
+
+  '@schedule-x/react@4.1.0':
+    resolution: {integrity: sha512-l2hn1kdTModk4Lbt+nEr/VAcuNMA+w+hAAtgz8VLOj5UeieM7PWoK+cDapzPHCjUKisCSPd8QZfAX966Ma82kQ==}
+    peerDependencies:
+      '@schedule-x/calendar': ^3.1.0 || ^4.0.0
+      react: ^16.7.0 || ^17 || ^18 || ^19
+      react-dom: ^16.7.0 || ^17 || ^18 || ^19
+
+  '@schedule-x/scroll-controller@4.6.0':
+    resolution: {integrity: sha512-bJsNrwdX3KD6/vsovZgCNeGBboa++RgXg6ZJTKEAFOcNb/SeMYf4EhX66+pEhCe0JPfvzjoWEBpSj0fSCcoUcg==}
+    peerDependencies:
+      '@preact/signals': ^2.0.2
+
+  '@schedule-x/theme-shadcn@4.6.0':
+    resolution: {integrity: sha512-MwEBne7fPeN88Xa1mXxPQFkVIqs7Xi0zWMIHyppCgrPncfhDt1Gid4I7GqjsB3SnOyHWLbb5sL5Ab2ZaQesgtQ==}
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -2921,8 +2958,8 @@ packages:
     peerDependencies:
       react: ^19.2.6
 
-  react-grab@0.1.42:
-    resolution: {integrity: sha512-U4a0UXnuB0oJm/1c2aSjFCuifVlkWB4lStrMEh1V4iWsvhZln69Sf4ISH5pJah3N27zjiCc+CGcla9wZp9Hc6A==}
+  react-grab@0.1.43:
+    resolution: {integrity: sha512-3wplt0CobZE5k1Vf3PBqBm3vlNQnVWEpSGBMHRnnFcj/khYYwGXSMSTedW1s8MI5FqkdhU/CFoJ7hQqGwzqFIA==}
     hasBin: true
     peerDependencies:
       react: '>=17.0.0'
@@ -3163,6 +3200,12 @@ packages:
   tapable@2.3.3:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
+
+  temporal-polyfill@0.3.2:
+    resolution: {integrity: sha512-TzHthD/heRK947GNiSu3Y5gSPpeUDH34+LESnfsq8bqpFhsB79HFBX8+Z834IVX68P3EUyRPZK5bL/1fh437Eg==}
+
+  temporal-spec@0.3.1:
+    resolution: {integrity: sha512-B4TUhezh9knfSIMwt7RVggApDRJZo73uZdj8AacL2mZ8RP5KtLianh2MXxL06GN9ESYiIsiuoLQhgVfwe55Yhw==}
 
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
@@ -4249,7 +4292,7 @@ snapshots:
       '@preact/signals-core': 1.14.2
       preact: 10.29.2
 
-  '@react-grab/cli@0.1.42':
+  '@react-grab/cli@0.1.43':
     dependencies:
       agent-install: 0.0.5
       commander: 14.0.3
@@ -4327,6 +4370,24 @@ snapshots:
       '@types/estree': 1.0.9
       estree-walker: 2.0.2
       picomatch: 4.0.4
+
+  '@schedule-x/calendar@4.6.0(@preact/signals@2.9.1(preact@10.29.2))(preact@10.29.2)(temporal-polyfill@0.3.2)':
+    dependencies:
+      '@preact/signals': 2.9.1(preact@10.29.2)
+      preact: 10.29.2
+      temporal-polyfill: 0.3.2
+
+  '@schedule-x/react@4.1.0(@schedule-x/calendar@4.6.0(@preact/signals@2.9.1(preact@10.29.2))(preact@10.29.2)(temporal-polyfill@0.3.2))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+    dependencies:
+      '@schedule-x/calendar': 4.6.0(@preact/signals@2.9.1(preact@10.29.2))(preact@10.29.2)(temporal-polyfill@0.3.2)
+      react: 19.2.6
+      react-dom: 19.2.6(react@19.2.6)
+
+  '@schedule-x/scroll-controller@4.6.0(@preact/signals@2.9.1(preact@10.29.2))':
+    dependencies:
+      '@preact/signals': 2.9.1(preact@10.29.2)
+
+  '@schedule-x/theme-shadcn@4.6.0': {}
 
   '@sec-ant/readable-stream@0.4.1': {}
 
@@ -6099,9 +6160,9 @@ snapshots:
       react: 19.2.6
       scheduler: 0.27.0
 
-  react-grab@0.1.42(react@19.2.6):
+  react-grab@0.1.43(react@19.2.6):
     dependencies:
-      '@react-grab/cli': 0.1.42
+      '@react-grab/cli': 0.1.43
       bippy: 0.5.41(react@19.2.6)
     optionalDependencies:
       react: 19.2.6
@@ -6120,7 +6181,7 @@ snapshots:
       react: 19.2.6
       react-doctor: 0.2.14(eslint@10.4.1(jiti@2.7.0))(oxlint-tsgolint@0.23.0)
       react-dom: 19.2.6(react@19.2.6)
-      react-grab: 0.1.42(react@19.2.6)
+      react-grab: 0.1.43(react@19.2.6)
     optionalDependencies:
       unplugin: 3.0.0
     transitivePeerDependencies:
@@ -6395,6 +6456,12 @@ snapshots:
   tailwindcss@4.3.0: {}
 
   tapable@2.3.3: {}
+
+  temporal-polyfill@0.3.2:
+    dependencies:
+      temporal-spec: 0.3.1
+
+  temporal-spec@0.3.1: {}
 
   tiny-invariant@1.3.3: {}
 

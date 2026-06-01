@@ -108,6 +108,8 @@
   --brand-text-hero: #cde8f0;
   --brand-navbar: #0d3b4a;
   --brand-footer: rgba(8, 71, 80, 0.95);
+
+  scrollbar-color: var(--muted-foreground) transparent;
 }
 /*
   ---break---
@@ -183,6 +185,22 @@
   html {
     @apply scroll-smooth font-sans;
   }
+}
+
+/* Weird CSS stuff/fixes we have to modify thanks to Schedule-X */
+.sx__time-grid-event-inner .sx__time-grid-event-time,
+.sx__time-grid-event-inner .sx__time-grid-event-location {
+  display: inline;
+}
+.sx__time-grid-event-inner .sx__time-grid-event-time .sx__event-icon,
+.sx__time-grid-event-inner .sx__time-grid-event-location .sx__event-icon {
+  display: none;
+}
+.sx__time-grid-event-inner .sx__time-grid-event-location::before {
+  content: ", ";
+}
+.sx__date-picker-popup.sx__date-picker-popup {
+  overflow: auto;
 }
 
 /* Hero scroll cue: pulses opacity and offsets vertically (CSS animation, not motion-react,
