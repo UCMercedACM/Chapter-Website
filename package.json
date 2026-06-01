@@ -12,6 +12,10 @@
     "@base-ui/react": "^1.5.0",
     "@fontsource-variable/raleway": "^5.2.8",
     "@icons-pack/react-simple-icons": "^13.13.0",
+    "@schedule-x/calendar": "^4.6.0",
+    "@schedule-x/react": "^4.1.0",
+    "@schedule-x/scroll-controller": "^4.6.0",
+    "@schedule-x/theme-shadcn": "^4.6.0",
     "@tanstack/react-query": "^5.100.14",
     "@tanstack/react-router": "^1.170.8",
     "axios": "^1.16.1",
@@ -23,7 +27,8 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "temporal-polyfill": "^0.3.2"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "^0.2.3",
