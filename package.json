@@ -50,7 +50,7 @@
     "eslint-plugin-react-naming-convention": "^5.8.6",
     "eslint-plugin-react-x": "^5.8.6",
     "globals": "^17.6.0",
-    "oxfmt": "^0.52.0",
+    "oxfmt": "^0.53.0",
     "oxlint": "^1.67.0",
     "oxlint-tsgolint": "^0.23.0",
     "react-scan": "^0.5.7",
