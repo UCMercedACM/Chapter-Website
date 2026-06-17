@@ -32,14 +32,14 @@ export const Route = createFileRoute("/")({
 // Once we fully switch to using openapi-ts, this can be removed
 type EventType =
   | "general"
+  | "misc"
   | "sig_ai"
-  | "sig_swe"
+  | "sig_arch"
   | "sig_cyber"
   | "sig_data"
-  | "sig_arch"
   | "sig_graph"
-  | "social"
-  | "misc";
+  | "sig_swe"
+  | "social";
 
 interface ApiEvent {
   id: string;
@@ -81,8 +81,8 @@ const TIME_RANGE_FMT = new Intl.DateTimeFormat("en-US", {
 // the orbital position relative to --orbit-size.
 const TILE_BASE_CLASSES = cn(
   "absolute top-1/2 left-1/2 flex items-center justify-center rounded-2xl border-2 border-brand-teal/40 bg-card/95 p-1",
-  "size-[calc(var(--orbit-size)*0.20)] shadow-[0_8px_32px_rgba(0,0,0,0.3)]",
-  "[transform:translate(calc(-50%_+_cos(var(--tile-angle))*var(--orbit-size)*0.44),calc(-50%_+_sin(var(--tile-angle))*var(--orbit-size)*0.44))]",
+  "size-[calc(var(--orbit-size)*0.2)] shadow-[0_8px_32px_rgba(0,0,0,0.3)]",
+  "transform-[translate(calc(-50%+cos(var(--tile-angle))*var(--orbit-size)*0.44),calc(-50%+sin(var(--tile-angle))*var(--orbit-size)*0.44))]",
 );
 
 /// Static page data
@@ -217,7 +217,7 @@ function Index() {
           className={cn(
             // stacked layout (default + portrait of any size)
             "relative z-2 mx-auto flex w-full max-w-360 flex-col items-center justify-center",
-            "gap-8 px-6 py-6",
+            "gap-8 p-6",
             // side-by-side grid (landscape >= md)
             "md:landscape:grid md:landscape:grid-cols-2 md:landscape:items-center",
             "md:landscape:gap-20 md:landscape:px-20 md:landscape:py-0",
@@ -235,7 +235,7 @@ function Index() {
             >
               <div
                 className={cn(
-                  "absolute top-1/2 left-1/2 z-2 -translate-x-1/2 -translate-y-1/2",
+                  "absolute top-1/2 left-1/2 z-2 -translate-1/2",
                   "h-[calc(var(--orbit-size)*0.5)] w-[calc(var(--orbit-size)*0.357)]",
                   "flex items-center justify-center",
                 )}
@@ -243,13 +243,13 @@ function Index() {
                 <img
                   src={beginningsLogo}
                   alt="UC Merced Beginnings"
-                  className="h-full w-full object-contain"
+                  className="size-full object-contain"
                 />
               </div>
 
               <div
                 className={cn(
-                  "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+                  "absolute top-1/2 left-1/2 -translate-1/2",
                   "size-[calc(var(--orbit-size)*0.857)]",
                 )}
               >
@@ -260,7 +260,7 @@ function Index() {
                         src={tile.logo}
                         alt=""
                         loading="lazy"
-                        className="h-full w-full animate-[spin_20s_linear_infinite_reverse] object-contain"
+                        className="size-full animate-[spin_20s_linear_infinite_reverse] object-contain"
                       />
                     </div>
                   ))}
@@ -364,7 +364,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-300 px-5 py-12 md:px-20 md:py-20">
+      <section className="mx-auto max-w-300 px-5 py-12 md:p-20">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="mb-2 text-[26px] font-bold text-foreground md:text-[42px]">Events</h2>
@@ -391,10 +391,10 @@ function Index() {
                   <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-border">
                     <div className="aspect-16/10 w-full animate-pulse bg-muted" />
                     <div className="flex flex-1 flex-col gap-3 p-5">
-                      <div className="h-3 w-1/2 animate-pulse rounded bg-muted" />
-                      <div className="h-4 w-3/4 animate-pulse rounded bg-muted" />
-                      <div className="h-3 w-full animate-pulse rounded bg-muted" />
-                      <div className="h-3 w-5/6 animate-pulse rounded bg-muted" />
+                      <div className="h-3 w-1/2 animate-pulse rounded-sm bg-muted" />
+                      <div className="h-4 w-3/4 animate-pulse rounded-sm bg-muted" />
+                      <div className="h-3 w-full animate-pulse rounded-sm bg-muted" />
+                      <div className="h-3 w-5/6 animate-pulse rounded-sm bg-muted" />
                     </div>
                   </div>
                 </CarouselItem>
@@ -418,7 +418,7 @@ function Index() {
                       <img
                         src={aboutUsImg}
                         alt=""
-                        className="h-full w-full object-contain p-6"
+                        className="size-full object-contain p-6"
                         loading="lazy"
                       />
                       <div className="absolute top-3 left-3 flex flex-col items-center rounded-2xl bg-card/95 px-3 py-1.5 shadow-md backdrop-blur-sm">
@@ -438,7 +438,7 @@ function Index() {
                       <h3 className="mb-2 text-[17px] leading-snug font-bold text-foreground">
                         {event.name}
                       </h3>
-                      <p className="mb-4 flex-1 text-sm leading-relaxed text-brand-text-sub">
+                      <p className="mb-4 flex-1 text-sm/relaxed text-brand-text-sub">
                         {event.description}
                       </p>
                       <button
@@ -464,7 +464,7 @@ function Index() {
         </Carousel>
       </section>
 
-      <section className="bg-card px-5 py-12 md:px-20 md:py-20">
+      <section className="bg-card px-5 py-12 md:p-20">
         <div className="mx-auto max-w-300">
           <h2 className="mb-2.5 text-[26px] font-bold text-foreground md:text-[42px]">
             Communities
@@ -507,7 +507,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="px-5 py-12 text-center md:px-20 md:py-20">
+      <section className="px-5 py-12 text-center md:p-20">
         <div className="mx-auto max-w-175">
           <h2 className="mb-2.5 text-[26px] font-bold text-foreground md:text-[42px]">
             Connect With Us!

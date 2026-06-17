@@ -1,3 +1,4 @@
+import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import oxlint from "eslint-plugin-oxlint";
 import reactHooks from "eslint-plugin-react-hooks";
 import { defineConfig, globalIgnores } from "eslint/config";
@@ -15,7 +16,9 @@ export default defineConfig([
     // Shadcn/ui components
     "src/components/ui",
     "!src/components/ui/theme-provider.tsx",
+    "!src/components/ui/carousel.tsx",
   ]),
+
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
@@ -23,9 +26,21 @@ export default defineConfig([
 
       // React-specific configurations
       reactHooks.configs.flat.recommended,
+      eslintPluginBetterTailwindcss.configs.recommended,
 
       oxlint.configs["flat/recommended"],
     ],
+    rules: {
+      // TailwindCSS - Oxfmt handles these already
+      "better-tailwindcss/enforce-consistent-class-order": "off",
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
+      "better-tailwindcss/no-unnecessary-whitespace": "off",
+    },
+    settings: {
+      "better-tailwindcss": {
+        entryPoint: "src/index.css",
+      },
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

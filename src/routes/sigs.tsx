@@ -14,7 +14,7 @@ export const Route = createFileRoute("/sigs")({
 
 /// Types and Interfaces
 
-type SigSlug = "swe" | "ai" | "cyber" | "data" | "graph" | "arch";
+type SigSlug = "ai" | "arch" | "cyber" | "data" | "graph" | "swe";
 
 interface SigDetail {
   slug: SigSlug;
@@ -157,7 +157,7 @@ function Sigs() {
             "mx-auto max-w-300",
             // Mobile: 3-column grid (so the 6 SIGs wrap to 2 rows of 3 instead of
             // horizontally overflowing the viewport).
-            "grid grid-cols-3 gap-x-2 gap-y-2 px-3 py-2.5",
+            "grid grid-cols-3 gap-2 px-3 py-2.5",
             // Desktop: single horizontal row, centered.
             "md:flex md:items-center md:justify-center md:gap-6 md:px-10 md:py-3.5",
           )}

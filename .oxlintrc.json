@@ -89,6 +89,7 @@
         "use-isnan": "error",
         "valid-typeof": "error",
         "no-array-constructor": "error",
+        "no-implied-eval": "off",
         "no-unused-expressions": "error",
         "no-useless-constructor": "error",
         "no-throw-literal": "off",
@@ -184,65 +185,6 @@
         "typescript/use-unknown-in-catch-callback-variable": "error",
         "react/rules-of-hooks": "error",
         "react/exhaustive-deps": "warn",
-        "react-x/error-boundaries": "error",
-        "react-x/exhaustive-deps": "warn",
-        "react-x/no-access-state-in-setstate": "error",
-        "react-x/no-array-index-key": "warn",
-        "react-x/no-children-count": "warn",
-        "react-x/no-children-for-each": "warn",
-        "react-x/no-children-map": "warn",
-        "react-x/no-children-only": "warn",
-        "react-x/no-children-to-array": "warn",
-        "react-x/no-clone-element": "warn",
-        "react-x/no-component-will-mount": "error",
-        "react-x/no-component-will-receive-props": "error",
-        "react-x/no-component-will-update": "error",
-        "react-x/no-context-provider": "warn",
-        "react-x/no-create-ref": "error",
-        "react-x/no-direct-mutation-state": "error",
-        "react-x/no-forward-ref": "warn",
-        "react-x/no-missing-key": "error",
-        "react-x/no-nested-component-definitions": "error",
-        "react-x/no-nested-lazy-component-declarations": "error",
-        "react-x/no-set-state-in-component-did-mount": "warn",
-        "react-x/no-set-state-in-component-did-update": "warn",
-        "react-x/no-set-state-in-component-will-update": "warn",
-        "react-x/no-unnecessary-use-prefix": "warn",
-        "react-x/no-unsafe-component-will-mount": "warn",
-        "react-x/no-unsafe-component-will-receive-props": "warn",
-        "react-x/no-unsafe-component-will-update": "warn",
-        "react-x/no-unused-class-component-members": "warn",
-        "react-x/no-unused-state": "warn",
-        "react-x/no-use-context": "warn",
-        "react-x/purity": "warn",
-        "react-x/rules-of-hooks": "error",
-        "react-x/set-state-in-effect": "warn",
-        "react-x/set-state-in-render": "error",
-        "react-x/static-components": "error",
-        "react-x/unsupported-syntax": "error",
-        "react-x/use-memo": "error",
-        "react-x/use-state": "warn",
-        "react-dom/no-dangerously-set-innerhtml": "warn",
-        "react-dom/no-dangerously-set-innerhtml-with-children": "error",
-        "react-dom/no-find-dom-node": "error",
-        "react-dom/no-flush-sync": "error",
-        "react-dom/no-hydrate": "error",
-        "react-dom/no-render": "error",
-        "react-dom/no-render-return-value": "error",
-        "react-dom/no-script-url": "warn",
-        "react-dom/no-unsafe-iframe-sandbox": "warn",
-        "react-dom/no-use-form-state": "error",
-        "react-dom/no-void-elements-with-children": "error",
-        "react-naming-convention/context-name": "warn",
-        "react-naming-convention/id-name": "warn",
-        "react-naming-convention/ref-name": "warn",
-        "react-jsx/no-children-prop": "warn",
-        "react-jsx/no-children-prop-with-children": "error",
-        "react-jsx/no-comment-textnodes": "warn",
-        "react-jsx/no-key-after-spread": "error",
-        "react-jsx/no-leaked-dollar": "warn",
-        "react-jsx/no-leaked-semicolon": "warn",
-        "react-jsx/no-namespace": "error",
         "import/named": "off",
         "import/namespace": "error",
         "import/default": "error",
@@ -250,11 +192,7 @@
         "import/no-named-as-default": "warn",
         "import/no-named-as-default-member": "warn",
         "import/no-duplicates": "warn",
-        "react-perf/jsx-no-new-object-as-prop": "error",
-        "react-perf/jsx-no-new-array-as-prop": "error",
-        "react-perf/jsx-no-new-function-as-prop": "error",
         "jsx-a11y/alt-text": "error",
-        "jsx-a11y/anchor-ambiguous-text": "off",
         "jsx-a11y/anchor-has-content": "error",
         "jsx-a11y/anchor-is-valid": "error",
         "jsx-a11y/aria-activedescendant-has-tabindex": "error",
@@ -264,43 +202,53 @@
         "jsx-a11y/aria-unsupported-elements": "error",
         "jsx-a11y/autocomplete-valid": "error",
         "jsx-a11y/click-events-have-key-events": "error",
+        "jsx-a11y/control-has-associated-label": "off",
         "jsx-a11y/heading-has-content": "error",
         "jsx-a11y/html-has-lang": "error",
         "jsx-a11y/iframe-has-title": "error",
         "jsx-a11y/img-redundant-alt": "error",
+        "jsx-a11y/interactive-supports-focus": [
+          "error",
+          {
+            "tabbable": [
+              "button",
+              "checkbox",
+              "link",
+              "progressbar",
+              "searchbox",
+              "slider",
+              "spinbutton",
+              "switch",
+              "textbox"
+            ]
+          }
+        ],
         "jsx-a11y/label-has-associated-control": "error",
         "jsx-a11y/media-has-caption": "error",
         "jsx-a11y/mouse-events-have-key-events": "error",
         "jsx-a11y/no-access-key": "error",
         "jsx-a11y/no-autofocus": "error",
         "jsx-a11y/no-distracting-elements": "error",
-        "jsx-a11y/no-noninteractive-tabindex": [
+        "jsx-a11y/no-interactive-element-to-noninteractive-role": "error",
+        "jsx-a11y/no-noninteractive-element-interactions": [
           "error",
           {
-            "tags": [],
-            "roles": ["tabpanel"],
-            "allowExpressionValues": true
+            "body": ["onError", "onLoad"],
+            "iframe": ["onError", "onLoad"],
+            "img": ["onError", "onLoad"]
           }
         ],
+        "jsx-a11y/no-noninteractive-element-to-interactive-role": "error",
+        "jsx-a11y/no-noninteractive-tabindex": "error",
         "jsx-a11y/no-redundant-roles": "error",
-        "jsx-a11y/no-static-element-interactions": [
-          "error",
-          {
-            "allowExpressionValues": true,
-            "handlers": [
-              "onClick",
-              "onMouseDown",
-              "onMouseUp",
-              "onKeyPress",
-              "onKeyDown",
-              "onKeyUp"
-            ]
-          }
-        ],
+        "jsx-a11y/no-static-element-interactions": "error",
         "jsx-a11y/role-has-required-aria-props": "error",
         "jsx-a11y/role-supports-aria-props": "error",
         "jsx-a11y/scope": "error",
         "jsx-a11y/tabindex-no-positive": "error",
+        "react-perf/jsx-no-new-object-as-prop": "error",
+        "react-perf/jsx-no-new-array-as-prop": "error",
+        "react-perf/jsx-no-new-function-as-prop": "error",
         "no-negated-condition": "off",
         "no-nested-ternary": "off",
         "unicorn/catch-error-name": "error",
@@ -318,15 +266,16 @@
         "unicorn/filename-case": [
           "error",
           {
-            "ignore": "\\$.*[A-Z]"
+            "ignore": ["\\$.*[A-Z]"]
           }
         ],
+        "unicorn/import-style": "error",
         "unicorn/new-for-builtins": "error",
         "unicorn/no-abusive-eslint-disable": "error",
         "unicorn/no-accessor-recursion": "error",
         "unicorn/no-anonymous-default-export": "error",
         "unicorn/no-array-callback-reference": "error",
-        "unicorn/no-array-for-each": "error",
+        "unicorn/no-array-fill-with-reference-type": "error",
         "unicorn/no-array-method-this-argument": "error",
         "unicorn/no-array-reduce": "error",
         "unicorn/no-array-reverse": "error",
@@ -336,7 +285,6 @@
         "unicorn/no-console-spaces": "error",
         "unicorn/no-document-cookie": "error",
         "unicorn/no-empty-file": "error",
-        "unicorn/no-hex-escape": "error",
         "unicorn/no-immediate-mutation": "error",
         "unicorn/no-instanceof-builtins": "error",
         "unicorn/no-invalid-fetch-options": "error",
@@ -389,10 +337,10 @@
         "unicorn/prefer-date-now": "error",
         "unicorn/prefer-default-parameters": "error",
         "unicorn/prefer-dom-node-append": "error",
-        "unicorn/prefer-dom-node-dataset": "error",
         "unicorn/prefer-dom-node-remove": "error",
         "unicorn/prefer-dom-node-text-content": "error",
         "unicorn/prefer-event-target": "error",
+        "unicorn/prefer-export-from": "error",
         "unicorn/prefer-global-this": "error",
         "unicorn/prefer-import-meta-properties": "off",
         "unicorn/prefer-includes": "error",
@@ -416,6 +364,7 @@
         "unicorn/prefer-response-static-json": "error",
         "unicorn/prefer-set-has": "error",
         "unicorn/prefer-set-size": "error",
+        "unicorn/prefer-single-call": "error",
         "unicorn/prefer-spread": "error",
         "unicorn/prefer-string-raw": "error",
         "unicorn/prefer-string-replace-all": "error",
@@ -436,6 +385,164 @@
         "unicorn/switch-case-break-position": "error",
         "unicorn/text-encoding-identifier-case": "error",
         "unicorn/throw-new-error": "error",
+        "react-x/error-boundaries": "error",
+        "react-x/exhaustive-deps": "warn",
+        "react-x/no-access-state-in-setstate": "error",
+        "react-x/no-array-index-key": "warn",
+        "react-x/no-children-count": "warn",
+        "react-x/no-children-for-each": "warn",
+        "react-x/no-children-map": "warn",
+        "react-x/no-children-only": "warn",
+        "react-x/no-children-to-array": "warn",
+        "react-x/no-clone-element": "warn",
+        "react-x/no-component-will-mount": "error",
+        "react-x/no-component-will-receive-props": "error",
+        "react-x/no-component-will-update": "error",
+        "react-x/no-context-provider": "warn",
+        "react-x/no-create-ref": "error",
+        "react-x/no-direct-mutation-state": "error",
+        "react-x/no-forward-ref": "warn",
+        "react-x/no-missing-key": "error",
+        "react-x/no-nested-component-definitions": "error",
+        "react-x/no-nested-lazy-component-declarations": "error",
+        "react-x/no-set-state-in-component-did-mount": "warn",
+        "react-x/no-set-state-in-component-did-update": "warn",
+        "react-x/no-set-state-in-component-will-update": "warn",
+        "react-x/no-unnecessary-use-prefix": "warn",
+        "react-x/no-unsafe-component-will-mount": "warn",
+        "react-x/no-unsafe-component-will-receive-props": "warn",
+        "react-x/no-unsafe-component-will-update": "warn",
+        "react-x/no-unused-class-component-members": "warn",
+        "react-x/no-use-context": "warn",
+        "react-x/purity": "warn",
+        "react-x/rules-of-hooks": "error",
+        "react-x/set-state-in-effect": "warn",
+        "react-x/set-state-in-render": "error",
+        "react-x/static-components": "error",
+        "react-x/unsupported-syntax": "error",
+        "react-x/use-memo": "error",
+        "react-x/use-state": "warn",
+        "react-dom/no-dangerously-set-innerhtml": "warn",
+        "react-dom/no-dangerously-set-innerhtml-with-children": "error",
+        "react-dom/no-find-dom-node": "error",
+        "react-dom/no-flush-sync": "error",
+        "react-dom/no-hydrate": "error",
+        "react-dom/no-render": "error",
+        "react-dom/no-render-return-value": "error",
+        "react-dom/no-script-url": "warn",
+        "react-dom/no-unsafe-iframe-sandbox": "warn",
+        "react-dom/no-use-form-state": "error",
+        "react-dom/no-void-elements-with-children": "error",
+        "react-naming-convention/context-name": "warn",
+        "react-naming-convention/id-name": "warn",
+        "react-naming-convention/ref-name": "warn",
+        "react-jsx/no-children-prop": "warn",
+        "react-jsx/no-children-prop-with-children": "error",
+        "react-jsx/no-comment-textnodes": "warn",
+        "react-jsx/no-key-after-spread": "error",
+        "react-jsx/no-leaked-dollar": "warn",
+        "react-jsx/no-leaked-semicolon": "warn",
+        "react-jsx/no-namespace": "error",
+        "react/only-export-components": "off",
+        "perfectionist/sort-variable-declarations": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-intersection-types": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-import-attributes": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-export-attributes": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-heritage-clauses": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-array-includes": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-named-imports": "off",
+        "perfectionist/sort-named-exports": "off",
+        "perfectionist/sort-object-types": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-union-types": "off",
+        "perfectionist/sort-switch-case": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-decorators": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-interfaces": "off",
+        "perfectionist/sort-jsx-props": "off",
+        "perfectionist/sort-modules": "off",
+        "perfectionist/sort-classes": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-exports": "off",
+        "perfectionist/sort-objects": "off",
+        "perfectionist/sort-enums": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-sets": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
+        "perfectionist/sort-maps": [
+          "error",
+          {
+            "type": "natural",
+            "order": "asc"
+          }
+        ],
         "@tanstack/query/exhaustive-deps": "error",
         "@tanstack/query/no-rest-destructuring": "warn",
         "@tanstack/query/stable-query-client": "error",
@@ -443,23 +550,25 @@
         "@tanstack/query/infinite-query-property-order": "error",
         "@tanstack/query/no-void-query-fn": "error",
         "@tanstack/query/mutation-property-order": "error",
+        "@tanstack/query/prefer-query-options": "error",
         "@tanstack/router/create-route-property-order": "warn",
         "@tanstack/router/route-param-names": "error"
       },
-      "plugins": ["typescript", "react", "import", "react-perf", "jsx-a11y", "unicorn"],
+      "plugins": ["typescript", "react", "import", "jsx-a11y", "react-perf", "unicorn"],
+      "env": {
+        "es2026": true,
+        "es2020": true,
+        "browser": true
+      },
       "jsPlugins": [
         "eslint-plugin-react-x",
         "eslint-plugin-react-dom",
         "eslint-plugin-react-naming-convention",
         "eslint-plugin-react-jsx",
+        "eslint-plugin-perfectionist",
         "@tanstack/eslint-plugin-query",
         "@tanstack/eslint-plugin-router"
-      ],
-      "env": {
-        "es2026": true,
-        "es2020": true,
-        "browser": true
-      }
+      ]
     }
   ]
 }

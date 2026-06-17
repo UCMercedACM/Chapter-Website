@@ -37,14 +37,14 @@ type ResolvedTheme = "dark" | "light";
 
 type EventType =
   | "general"
+  | "misc"
   | "sig_ai"
-  | "sig_swe"
+  | "sig_arch"
   | "sig_cyber"
   | "sig_data"
-  | "sig_arch"
   | "sig_graph"
-  | "social"
-  | "misc";
+  | "sig_swe"
+  | "social";
 
 interface ApiEvent {
   id: string;
@@ -87,10 +87,10 @@ const EVENT_TYPES = [
   { key: "social", label: "Social", color: "#00e1bf", darkColor: "#3df0d6" },
   { key: "misc", label: "Misc", color: "#93a3b6", darkColor: "#b4c2d2" },
 ] as const satisfies readonly {
-  readonly key: EventType;
-  readonly label: string;
   readonly color: string;
   readonly darkColor: string;
+  readonly key: EventType;
+  readonly label: string;
 }[];
 
 const EVENT_TYPE_BADGE_CLASSES: Record<EventType, string> = {
@@ -140,7 +140,7 @@ const TIME_FMT = new Intl.DateTimeFormat("en-US", {
 
 const CALENDAR_SECTION_CLASSES = cn(
   "mx-auto flex w-full max-w-[1700px] flex-col",
-  "h-[calc(100svh-4rem)] px-4 py-4 md:h-[calc(100svh-5.125rem)] md:px-8 md:py-6",
+  "h-[calc(100svh-4rem)] p-4 md:h-[calc(100svh-5.125rem)] md:px-8 md:py-6",
 );
 const CALENDAR_SHELL_CLASSES = cn(
   "min-h-0 w-full flex-1 rounded-3xl border border-border bg-card",
@@ -388,7 +388,7 @@ function Events() {
                       {selectedEventType.label}
                     </span>
 
-                    <h3 className="text-sm leading-tight font-extrabold text-foreground">
+                    <h3 className="text-sm/tight font-extrabold text-foreground">
                       {selectedEvent.name}
                     </h3>
 
@@ -406,7 +406,7 @@ function Events() {
                       </span>
                     </div>
 
-                    <p className="line-clamp-3 text-xs leading-snug text-brand-text-sub">
+                    <p className="line-clamp-3 text-xs/snug text-brand-text-sub">
                       {selectedEvent.description}
                     </p>
 
@@ -429,7 +429,7 @@ function Events() {
         <div
           className={cn(
             "flex flex-wrap items-center justify-between gap-4 rounded-3xl bg-card",
-            "border-l-5 border-brand-teal px-6 py-6 md:px-10 md:py-8",
+            "border-l-5 border-brand-teal p-6 md:px-10 md:py-8",
             "shadow-[0px_16px_40px_rgba(112,144,176,0.2)]",
           )}
         >

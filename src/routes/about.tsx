@@ -216,7 +216,7 @@ function About() {
                 alt="ACM members"
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover"
+                className="size-full object-cover"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_60%,rgba(8,71,120,0.4)_100%)]" />
             </div>
@@ -327,7 +327,7 @@ function About() {
                     onClick={handleTabClick}
                     className={cn(
                       "flex w-full cursor-pointer items-center gap-4 rounded-2xl text-left",
-                      "border-l-4 px-5 py-5 transition-all",
+                      "border-l-4 p-5 transition-all",
                       isActive
                         ? "border-brand-teal bg-background shadow-[0px_16px_40px_rgba(112,144,176,0.2)]"
                         : "border-transparent bg-transparent hover:bg-background/50",
