@@ -28,14 +28,14 @@ export const Route = createFileRoute("/projects")({
 type ProjectType =
   | "independent"
   | "sig_ai"
-  | "sig_swe"
+  | "sig_arch"
   | "sig_cyber"
   | "sig_data"
-  | "sig_arch"
-  | "sig_graph";
+  | "sig_graph"
+  | "sig_swe";
 
 type FilterKey = "all" | ProjectType;
-type ActiveFilter = "all" | "active" | "archived";
+type ActiveFilter = "active" | "all" | "archived";
 
 interface ProjectMember {
   id: string;
@@ -67,7 +67,7 @@ interface ProjectsPage {
 
 /// Module-scoped constants
 
-const ACTIVE_FILTER_OPTIONS: readonly { value: ActiveFilter; label: string }[] = [
+const ACTIVE_FILTER_OPTIONS: readonly { label: string; value: ActiveFilter }[] = [
   { value: "all", label: "All" },
   { value: "active", label: "● Active" },
   { value: "archived", label: "○ Archived" },
@@ -83,9 +83,9 @@ const PROJECT_TYPES = [
   { key: "sig_graph", label: "Graph", colorClass: "[--type-color:var(--sig-graph)]" },
   { key: "sig_arch", label: "Arch", colorClass: "[--type-color:var(--sig-arch)]" },
 ] as const satisfies readonly {
+  readonly colorClass: string;
   readonly key: FilterKey;
   readonly label: string;
-  readonly colorClass: string;
 }[];
 
 const API_BASE_URL =
@@ -206,7 +206,7 @@ function Projects() {
       </section>
 
       <div className="border-b-2 border-border bg-card shadow-[0_4px_20px_rgba(112,144,176,0.1)]">
-        <div className={cn("mx-auto flex max-w-300 flex-col gap-5", "px-4 py-4 md:px-12 md:py-5")}>
+        <div className={cn("mx-auto flex max-w-300 flex-col gap-5", "p-4 md:px-12 md:py-5")}>
           <div
             role="tablist"
             aria-label="Filter by type"
@@ -219,6 +219,7 @@ function Projects() {
                   key={option.key}
                   variant="ghost"
                   role="tab"
+                  tabIndex={0}
                   aria-selected={isActive}
                   data-active={isActive}
                   onClick={onSelect}
@@ -345,7 +346,7 @@ function Projects() {
                           alt=""
                           loading="lazy"
                           decoding="async"
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="size-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                       ) : undefined}
                       <span
@@ -371,7 +372,7 @@ function Projects() {
                         {meta.label}
                       </span>
 
-                      <h3 className="text-base leading-tight font-extrabold text-foreground md:text-lg">
+                      <h3 className="text-base/tight font-extrabold text-foreground md:text-lg">
                         {project.name}
                       </h3>
 

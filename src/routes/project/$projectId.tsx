@@ -31,11 +31,11 @@ export const Route = createFileRoute("/project/$projectId")({
 type ProjectType =
   | "independent"
   | "sig_ai"
-  | "sig_swe"
+  | "sig_arch"
   | "sig_cyber"
   | "sig_data"
-  | "sig_arch"
-  | "sig_graph";
+  | "sig_graph"
+  | "sig_swe";
 
 interface ProjectMember {
   id: string;
@@ -71,7 +71,7 @@ interface MediaRecord {
 
 /// Module-scoped constants
 
-const PROJECT_TYPES: Record<ProjectType, { label: string; colorClass: string }> = {
+const PROJECT_TYPES: Record<ProjectType, { colorClass: string; label: string }> = {
   independent: { label: "Independent", colorClass: "[--type-color:var(--foreground)]" },
   sig_swe: { label: "SWE", colorClass: "[--type-color:var(--sig-swe)]" },
   sig_ai: { label: "AI", colorClass: "[--type-color:var(--sig-ai)]" },
@@ -175,7 +175,7 @@ function Project() {
 
       <article
         className={cn(
-          "mx-auto max-w-225 px-4 py-8 md:px-12 md:py-12",
+          "mx-auto max-w-225 px-4 py-8 md:p-12",
           "[contain-intrinsic-size:auto_900px] [content-visibility:auto]",
           meta?.colorClass,
         )}
@@ -192,9 +192,9 @@ function Project() {
             <Skeleton className="mt-2 h-9 w-2/3 rounded-md" />
             <Skeleton className="h-1 w-12 rounded-full" />
             <div className="mt-2 flex flex-col gap-2">
-              <Skeleton className="h-4 w-full rounded" />
-              <Skeleton className="h-4 w-11/12 rounded" />
-              <Skeleton className="h-4 w-3/4 rounded" />
+              <Skeleton className="h-4 w-full rounded-sm" />
+              <Skeleton className="h-4 w-11/12 rounded-sm" />
+              <Skeleton className="h-4 w-3/4 rounded-sm" />
             </div>
           </div>
         )}

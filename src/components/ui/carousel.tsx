@@ -14,8 +14,8 @@ type CarouselPlugin = UseCarouselParameters[1]
 
 type CarouselProps = {
   opts?: CarouselOptions
-  plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
+  plugins?: CarouselPlugin
   setApi?: (api: CarouselApi) => void
 }
 
@@ -23,12 +23,12 @@ type CarouselProps = {
 // - ApiContext holds values that are stable after Embla initializes (refs, api, callbacks, orientation).
 // - CanScrollPrev/Next are primitive booleans in their own contexts so each Button only re-renders
 //   when its specific edge-of-track flag flips.
-type CarouselApiContextProps = {
-  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
+type CarouselApiContextProps = CarouselProps & {
   api: ReturnType<typeof useEmblaCarousel>[1]
-  scrollPrev: () => void
+  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
   scrollNext: () => void
-} & CarouselProps
+  scrollPrev: () => void
+}
 
 const CarouselApiContext = React.createContext<CarouselApiContextProps | undefined>(
   undefined,
@@ -54,7 +54,7 @@ function Carousel({
   className,
   children,
   ...props
-}: React.ComponentProps<"div"> & CarouselProps) {
+}: CarouselProps & React.ComponentProps<"div">) {
   const emblaOptions = React.useMemo(
     () => ({
       ...opts,
