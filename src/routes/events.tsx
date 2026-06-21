@@ -1,4 +1,4 @@
-import "temporal-polyfill/global";
+import "temporal-polyfill/full/global";
 import "@schedule-x/theme-shadcn/dist/index.css";
 
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
