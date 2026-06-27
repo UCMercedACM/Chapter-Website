@@ -12,6 +12,7 @@ export default defineConfig([
 
     // Automatically generated code
     "src/routeTree.gen.ts",
+    "src/hooks/use-mobile.ts",
 
     // Shadcn/ui components
     "src/components/ui",

@@ -1,7 +1,7 @@
 import "./../index.css";
 
 import type { QueryClient } from "@tanstack/react-query";
-import { createRootRouteWithContext, Link, Outlet } from "@tanstack/react-router";
+import { createRootRouteWithContext, Link, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { Footer } from "@/components/app/footer";
 import { Navbar } from "@/components/app/navigation-bar";
@@ -23,6 +23,10 @@ export const Route = createRootRouteWithContext<{
 });
 
 function RootComponent() {
+  const isDashboard = useRouterState({
+    select: (state) => state.location.pathname.startsWith("/dashboard"),
+  });
+
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-theme">
       <Navbar />
@@ -31,7 +35,7 @@ function RootComponent() {
         <main className="flex-1">
           <Outlet />
         </main>
-        <Footer />
+        {!isDashboard && <Footer />}
         <Toaster />
       </div>
     </ThemeProvider>

@@ -160,7 +160,11 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   const { carouselRef, orientation } = useCarouselApi()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
+    <div
+      ref={carouselRef}
+      className="-mx-4 overflow-x-clip px-4"
+      data-slot="carousel-content"
+    >
       <div
         className={cn(
           "flex",

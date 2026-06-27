@@ -41,8 +41,8 @@
   --sidebar-foreground: #084778;
   --sidebar-primary: #084778;
   --sidebar-primary-foreground: #f5f5f5;
-  --sidebar-accent: #00e1bf;
-  --sidebar-accent-foreground: #084778;
+  --sidebar-accent: oklch(0.773 0.137 183.98 / 0.1);
+  --sidebar-accent-foreground: #067a69;
   --sidebar-border: #dfe3e8;
   --sidebar-ring: #3da9fc;
 
@@ -53,7 +53,7 @@
   --brand-text-sub: #276881;
   --brand-text-hero: #ebf2f1;
   --brand-navbar: #00e1bf;
-  --brand-footer: rgba(0, 225, 191, 0.85);
+  --brand-footer: oklch(0.813 0.151 176.46 / 0.85);
 
   /* Per-SIG accent colors. Funneled into `--sig-color` on each SIG section. */
   --sig-swe: #3da9fc;
@@ -107,7 +107,7 @@
   --brand-text-sub: #7ec8d8;
   --brand-text-hero: #cde8f0;
   --brand-navbar: #0d3b4a;
-  --brand-footer: rgba(8, 71, 80, 0.95);
+  --brand-footer: oklch(0.366 0.06 209.95 / 0.95);
 
   scrollbar-color: var(--muted-foreground) transparent;
 }
