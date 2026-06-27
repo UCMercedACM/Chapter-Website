@@ -25,6 +25,12 @@ declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
+  interface StaticDataRouteOption {
+    area?: string;
+    title?: string;
+    sub?: string;
+    home?: boolean;
+  }
 }
 
 // React Scan to find UI issues — only loaded in dev to avoid bundling in production

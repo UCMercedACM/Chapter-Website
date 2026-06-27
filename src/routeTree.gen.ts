@@ -13,8 +13,13 @@ import { Route as SigsRouteImport } from './routes/sigs'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as ProjectProjectIdRouteImport } from './routes/project/$projectId'
+import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
+import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
+import { Route as DashboardEventsPastRouteImport } from './routes/dashboard/events_.past'
 
 const SigsRoute = SigsRouteImport.update({
   id: '/sigs',
@@ -36,24 +41,54 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRouteRoute,
 } as any)
 const ProjectProjectIdRoute = ProjectProjectIdRouteImport.update({
   id: '/project/$projectId',
   path: '/project/$projectId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardEventsRoute = DashboardEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardEventsPastRoute = DashboardEventsPastRouteImport.update({
+  id: '/events_/past',
+  path: '/events/past',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
   '/projects': typeof ProjectsRoute
   '/sigs': typeof SigsRoute
+  '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/events/past': typeof DashboardEventsPastRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,40 +96,70 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/projects': typeof ProjectsRoute
   '/sigs': typeof SigsRoute
+  '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/events/past': typeof DashboardEventsPastRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/events': typeof EventsRoute
   '/projects': typeof ProjectsRoute
   '/sigs': typeof SigsRoute
+  '/dashboard/events': typeof DashboardEventsRoute
+  '/dashboard/projects': typeof DashboardProjectsRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/events_/past': typeof DashboardEventsPastRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/dashboard'
     | '/about'
     | '/events'
     | '/projects'
     | '/sigs'
+    | '/dashboard/events'
+    | '/dashboard/projects'
     | '/project/$projectId'
+    | '/dashboard/'
+    | '/dashboard/events/past'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/events' | '/projects' | '/sigs' | '/project/$projectId'
-  id:
-    | '__root__'
+  to:
     | '/'
     | '/about'
     | '/events'
     | '/projects'
     | '/sigs'
+    | '/dashboard/events'
+    | '/dashboard/projects'
     | '/project/$projectId'
+    | '/dashboard'
+    | '/dashboard/events/past'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/about'
+    | '/events'
+    | '/projects'
+    | '/sigs'
+    | '/dashboard/events'
+    | '/dashboard/projects'
+    | '/project/$projectId'
+    | '/dashboard/'
+    | '/dashboard/events_/past'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   EventsRoute: typeof EventsRoute
   ProjectsRoute: typeof ProjectsRoute
@@ -132,12 +197,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
     '/project/$projectId': {
       id: '/project/$projectId'
@@ -146,11 +225,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectProjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/projects': {
+      id: '/dashboard/projects'
+      path: '/projects'
+      fullPath: '/dashboard/projects'
+      preLoaderRoute: typeof DashboardProjectsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/events': {
+      id: '/dashboard/events'
+      path: '/events'
+      fullPath: '/dashboard/events'
+      preLoaderRoute: typeof DashboardEventsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/events_/past': {
+      id: '/dashboard/events_/past'
+      path: '/events/past'
+      fullPath: '/dashboard/events/past'
+      preLoaderRoute: typeof DashboardEventsPastRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
+interface DashboardRouteRouteChildren {
+  DashboardEventsRoute: typeof DashboardEventsRoute
+  DashboardProjectsRoute: typeof DashboardProjectsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardEventsPastRoute: typeof DashboardEventsPastRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardEventsRoute: DashboardEventsRoute,
+  DashboardProjectsRoute: DashboardProjectsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardEventsPastRoute: DashboardEventsPastRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   EventsRoute: EventsRoute,
   ProjectsRoute: ProjectsRoute,
