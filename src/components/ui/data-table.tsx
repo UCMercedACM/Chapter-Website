@@ -1,24 +1,15 @@
 import {
   type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
   type Row,
   type RowData,
   type SortingState,
   type TableMeta,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { memo, useState } from "react";
-
-// Per-column class hook so a table can drive responsive column visibility
-// (container-query classes like `hidden @lg:table-cell`) without the generic
-// DataTable having to know its columns. Applied to both the head and body cell.
-declare module "@tanstack/react-table" {
-  interface ColumnMeta<TData extends RowData, TValue> {
-    className?: string;
-  }
-}
 
 import {
   Table,
@@ -29,22 +20,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+declare module "@tanstack/react-table" {
+  interface ColumnMeta<TData extends RowData, TValue> {
+    className?: string;
+  }
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   meta?: TableMeta<TData>;
 }
 
-// TanStack's `flexRender(cell, cell.getContext())` hands every cell a fresh context
-// object each render (table/column/row/getValue/renderValue), so the React Compiler's
-// reference-equality memoization never bails a cell out — one table render re-renders
-// all cells (and their Base UI dropdown menus). This boundary bails on the *semantic*
-// keys instead: `row.original` is referentially stable for unchanged rows (React Query
-// structural sharing), and `meta` only changes when the shared invite list does, so a
-// mutation re-renders just the row(s) whose data actually changed.
 function DataTableRowImpl<TData>({
   row,
-}: Readonly<{ row: Row<TData>; meta: TableMeta<TData> | undefined }>) {
+}: Readonly<{ meta: TableMeta<TData> | undefined ; row: Row<TData> }>) {
   return (
     <TableRow>
       {row.getVisibleCells().map((cell) => (
@@ -79,9 +69,6 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    // `@container` so columns hide/show against the card's own width (which the
-    // dashboard sidebar shrinks), not the viewport — a viewport `md:` breakpoint
-    // would keep columns while the open sidebar squeezes the table into a scroll.
     <div className="@container">
       <Table>
         <TableHeader>
