@@ -93,7 +93,9 @@ export const Route = createFileRoute("/dashboard/events")({
 
 type RosterStatus = "checked_in" | "expected" | "no_show" | "walk_in";
 
-interface AttendanceMember {
+// GET /events/{id}/attendance → KanaePages<AttendanceMember>. The seed data in
+// dashboard-mocks (mockAttendance) imports this back to type its roster.
+export interface AttendanceMember {
   id: string;
   name: string;
   planned?: boolean | null;

@@ -42,7 +42,11 @@ export default defineConfig({
               name: "vendor-schedule-x",
               test: /[\\/](@schedule-x|temporal-polyfill)[\\/]/,
             },
-            { name: "vendor-misc", test: /node_modules[\\/]/ },
+            // All shared utils get used at first paint, so throw them into their own vendor chunk
+            {
+              name: "vendor-utils",
+              test: /[\\/](zod|axios|sonner|clsx|class-variance-authority|tailwind-merge|next-themes)[\\/]/,
+            },
           ],
         },
       },

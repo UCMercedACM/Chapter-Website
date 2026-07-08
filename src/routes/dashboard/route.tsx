@@ -62,7 +62,12 @@ export interface ClientMember {
 }
 
 interface NavItem {
-  to: "/dashboard" | "/dashboard/events" | "/dashboard/events/past" | "/dashboard/projects";
+  to:
+    | "/dashboard"
+    | "/dashboard/events"
+    | "/dashboard/events/past"
+    | "/dashboard/projects"
+    | "/dashboard/manage/projects";
   label: string;
   icon: LucideIcon;
   sub?: boolean;
@@ -100,6 +105,12 @@ const NAV_ITEMS: NavItem[] = [
   { to: "/dashboard/projects", label: "Projects", icon: Folder },
 ];
 
+const MANAGE_NAV_ITEMS: NavItem[] = [
+  { to: "/dashboard/manage/projects", label: "Projects", icon: Folder },
+];
+
+const MANAGE_ROLES: Role[] = ["root", "admin", "manager"];
+
 export const ROLES_BY_RANK: Role[] = ["root", "admin", "manager", "leads"];
 
 const API_BASE_URL =
@@ -127,7 +138,7 @@ const meQueryOptions = queryOptions({
 
 /// Route-based components
 
-function SidebarNav({ pathname }: Readonly<{ pathname: string }>) {
+function SidebarNav({ items, pathname }: Readonly<{ items: NavItem[]; pathname: string }>) {
   const { setOpenMobile } = useSidebar();
   const closeMobile = useCallback(() => {
     setOpenMobile(false);
@@ -135,7 +146,7 @@ function SidebarNav({ pathname }: Readonly<{ pathname: string }>) {
 
   return (
     <SidebarMenu className="group-data-[collapsible=icon]:items-center">
-      {NAV_ITEMS.map((item) => (
+      {items.map((item) => (
         <SidebarMenuItem
           key={item.to}
           className={cn(item.sub && "ml-4 group-data-[collapsible=icon]:ml-0")}
@@ -175,6 +186,7 @@ function DashboardLayout() {
 
   const access = ROLES_BY_RANK.find((role) => me?.roles.includes(role));
   const accessLabel = access ? ROLE_META[access].label : "Member";
+  const canManage = MANAGE_ROLES.some((role) => me?.roles.includes(role));
   const initials =
     me?.name
       .match(/\S+/g)
@@ -218,9 +230,19 @@ function DashboardLayout() {
               Member
             </SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarNav pathname={pathname} />
+              <SidebarNav items={NAV_ITEMS} pathname={pathname} />
             </SidebarGroupContent>
           </SidebarGroup>
+          {canManage && (
+            <SidebarGroup>
+              <SidebarGroupLabel className="font-extrabold tracking-[0.12em] uppercase">
+                Manage
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarNav items={MANAGE_NAV_ITEMS} pathname={pathname} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
         </SidebarContent>
 
         <SidebarFooter className="border-t border-border">

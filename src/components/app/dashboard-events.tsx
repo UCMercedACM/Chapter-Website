@@ -281,7 +281,7 @@ function EventThumbnail({ event, className }: Readonly<EventThumbnailProps>) {
 interface EventActionsProps extends EventCallbacks {
   event: DashboardEvent;
   now: Date;
-  size?: ComponentProps<typeof Button>["size"];
+  size?: NonNullable<ComponentProps<typeof Button>["size"]>;
 }
 
 function EventActions({ event, now, onRsvp, onCheckin, size = "sm" }: Readonly<EventActionsProps>) {

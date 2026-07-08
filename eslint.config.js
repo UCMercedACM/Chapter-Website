@@ -18,6 +18,7 @@ export default defineConfig([
     "src/components/ui",
     "!src/components/ui/theme-provider.tsx",
     "!src/components/ui/carousel.tsx",
+    "!src/components/ui/data-table.tsx"
   ]),
 
   {
