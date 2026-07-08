@@ -44,7 +44,7 @@ export function MediaLightbox({
   }, [current]);
   const toggleFullscreen = useCallback(() => {
     if (document.fullscreenElement) void document.exitFullscreen();
-    else void container?.requestFullscreen();
+    else container?.requestFullscreen().catch(() => {}); // Sonarcloud complains so...
   }, [container]);
   const focusBackdrop = useCallback<RefCallback<HTMLButtonElement>>((node) => {
     node?.focus();
