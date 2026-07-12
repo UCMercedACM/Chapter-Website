@@ -134,7 +134,7 @@ const SIDEBAR_STYLE = {
 
 /// Tanstack Query options
 
-const meQueryOptions = queryOptions({
+export const meQueryOptions = queryOptions({
   queryKey: ["members", "me"],
   queryFn: async () => {
     const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);

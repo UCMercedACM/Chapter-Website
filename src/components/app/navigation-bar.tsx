@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import { memo, useCallback, useState } from "react";
@@ -5,6 +6,7 @@ import { memo, useCallback, useState } from "react";
 import acmLogo from "@/assets/logos/acm.svg";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
+import { meQueryOptions } from "@/routes/dashboard/route";
 
 interface NavEntry {
   href: string;
@@ -17,6 +19,9 @@ const NAV_LINKS: NavEntry[] = [
   { href: "/sigs", label: "SIGs" },
   { href: "/projects", label: "Projects" },
 ];
+
+const DASHBOARD_ENTRY: NavEntry = { href: "/dashboard", label: "Dashboard" };
+const GUEST_ENTRY: NavEntry = { href: "/login", label: "Login" };
 
 const NAV_LINK_CLASSES =
   "relative cursor-pointer pb-1 text-[15px] font-bold tracking-[0.02em] transition-colors text-brand-text-sub hover:text-foreground data-[status=active]:text-foreground";
@@ -53,10 +58,15 @@ const SheetNavLink = memo(function SheetNavLink({
 });
 
 function MobileNav() {
+  const { data: member } = useQuery(meQueryOptions);
+
   const [open, setOpen] = useState(false);
+
   const closeSheet = useCallback(() => {
     setOpen(false);
   }, []);
+
+  const entries = [...NAV_LINKS, member ? DASHBOARD_ENTRY : GUEST_ENTRY];
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -75,7 +85,7 @@ function MobileNav() {
       <SheetContent side="right" className="w-72 bg-brand-navbar">
         <SheetHeader />
         <nav className="flex flex-col gap-2 px-4">
-          {NAV_LINKS.map((entry) => (
+          {entries.map((entry) => (
             <SheetNavLink key={entry.href} entry={entry} onNavigate={closeSheet} />
           ))}
         </nav>
@@ -85,6 +95,10 @@ function MobileNav() {
 }
 
 export function Navbar() {
+  const { data: member } = useQuery(meQueryOptions);
+
+  const entries = [...NAV_LINKS, member ? DASHBOARD_ENTRY : GUEST_ENTRY];
+
   return (
     <nav className="sticky top-0 z-50 flex h-16 w-full items-center justify-between bg-brand-navbar px-5 shadow-[0px_10px_30px_rgba(112,144,176,0.2)] md:h-20.5 md:px-14">
       <Link to="/" className="flex cursor-pointer items-center gap-2">
@@ -100,7 +114,7 @@ export function Navbar() {
       </Link>
 
       <div className="hidden gap-9 md:flex">
-        {NAV_LINKS.map((entry) => (
+        {entries.map((entry) => (
           <DesktopNavLink key={entry.href} entry={entry} />
         ))}
       </div>
