@@ -16,7 +16,7 @@ export const Route = createFileRoute("/error")({
     if (response.status !== 200) redirect({ to: "/", throw: true });
     return response.data;
   },
-  component: Error,
+  component: ErrorRoute,
 });
 
 /// Types and Interfaces
@@ -27,7 +27,7 @@ interface SelfServiceError {
 
 /// Route
 
-function Error() {
+function ErrorRoute() {
   const { error } = Route.useLoaderData();
 
   return (
