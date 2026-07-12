@@ -1,5 +1,12 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { createFileRoute, Link, Outlet, useLocation, useMatches } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  redirect,
+  useLocation,
+  useMatches,
+} from "@tanstack/react-router";
 import axios from "axios";
 import {
   type LucideIcon,
@@ -34,7 +41,11 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
-  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(meQueryOptions),
+  beforeLoad: async ({ context: { queryClient } }) => {
+    await queryClient.ensureQueryData(meQueryOptions).catch(() => {
+      redirect({ to: "/login", search: {}, throw: true });
+    });
+  },
 });
 
 /// Types and Interfaces
@@ -123,7 +134,7 @@ const SIDEBAR_STYLE = {
 
 /// Tanstack Query options
 
-const meQueryOptions = queryOptions({
+export const meQueryOptions = queryOptions({
   queryKey: ["members", "me"],
   queryFn: async () => {
     const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);

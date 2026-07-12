@@ -2,8 +2,11 @@ import { routeTree } from "./routeTree.gen";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import axios from "axios";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+
+axios.defaults.withCredentials = true;
 
 const queryClient = new QueryClient();
 
