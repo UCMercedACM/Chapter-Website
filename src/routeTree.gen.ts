@@ -10,8 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SigsRouteImport } from './routes/sigs'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as ErrorRouteImport } from './routes/error'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -28,14 +31,29 @@ const SigsRoute = SigsRouteImport.update({
   path: '/sigs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorRoute = ErrorRouteImport.update({
+  id: '/error',
+  path: '/error',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -94,8 +112,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/error': typeof ErrorRoute
   '/events': typeof EventsRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
+  '/register': typeof RegisterRoute
   '/sigs': typeof SigsRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
@@ -108,8 +129,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/error': typeof ErrorRoute
   '/events': typeof EventsRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
+  '/register': typeof RegisterRoute
   '/sigs': typeof SigsRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
@@ -124,8 +148,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/error': typeof ErrorRoute
   '/events': typeof EventsRoute
+  '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
+  '/register': typeof RegisterRoute
   '/sigs': typeof SigsRoute
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
@@ -141,8 +168,11 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/about'
+    | '/error'
     | '/events'
+    | '/login'
     | '/projects'
+    | '/register'
     | '/sigs'
     | '/dashboard/events'
     | '/dashboard/projects'
@@ -155,8 +185,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/error'
     | '/events'
+    | '/login'
     | '/projects'
+    | '/register'
     | '/sigs'
     | '/dashboard/events'
     | '/dashboard/projects'
@@ -170,8 +203,11 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/about'
+    | '/error'
     | '/events'
+    | '/login'
     | '/projects'
+    | '/register'
     | '/sigs'
     | '/dashboard/events'
     | '/dashboard/projects'
@@ -186,8 +222,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  ErrorRoute: typeof ErrorRoute
   EventsRoute: typeof EventsRoute
+  LoginRoute: typeof LoginRoute
   ProjectsRoute: typeof ProjectsRoute
+  RegisterRoute: typeof RegisterRoute
   SigsRoute: typeof SigsRoute
   ProjectProjectIdRoute: typeof ProjectProjectIdRoute
 }
@@ -201,6 +240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SigsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
@@ -208,11 +254,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events': {
       id: '/events'
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/error': {
+      id: '/error'
+      path: '/error'
+      fullPath: '/error'
+      preLoaderRoute: typeof ErrorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -315,8 +375,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  ErrorRoute: ErrorRoute,
   EventsRoute: EventsRoute,
+  LoginRoute: LoginRoute,
   ProjectsRoute: ProjectsRoute,
+  RegisterRoute: RegisterRoute,
   SigsRoute: SigsRoute,
   ProjectProjectIdRoute: ProjectProjectIdRoute,
 }

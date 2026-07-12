@@ -264,7 +264,10 @@ function ProjectGalleryPage() {
           commit.chunks = [];
           let offset = 0;
           for (const { index, url, size } of uploadResponse.chunks) {
-            const part = await axios.put(url, file.slice(offset, offset + size));
+            // These are presigned S3 urls, so forcing auth breaks it
+            const part = await axios.put(url, file.slice(offset, offset + size), {
+              withCredentials: false,
+            });
             commit.chunks.push({
               number: index,
               etag: String(part.headers.etag).replaceAll('"', ""),
@@ -274,6 +277,7 @@ function ProjectGalleryPage() {
         } else {
           await axios.put(uploadResponse.url, file, {
             headers: { "Content-Type": record.content_type },
+            withCredentials: false,
           });
         }
         await axios.post(`${API_BASE_URL}/projects/${projectId}/media/commit`, commit);
