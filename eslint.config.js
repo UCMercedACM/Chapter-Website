@@ -18,7 +18,7 @@ export default defineConfig([
     "src/components/ui",
     "!src/components/ui/theme-provider.tsx",
     "!src/components/ui/carousel.tsx",
-    "!src/components/ui/data-table.tsx"
+    "!src/components/ui/data-table.tsx",
   ]),
 
   {
@@ -47,6 +47,7 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
+        parser: tseslint.parser,
         project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },

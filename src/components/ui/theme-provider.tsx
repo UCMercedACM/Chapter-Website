@@ -2,20 +2,20 @@ import { createContext, use, useCallback, useEffect, useMemo, useState } from "r
 
 type Theme = "dark" | "light" | "system";
 
-type ThemeProviderProps = {
+interface ThemeProviderProps {
   children: React.ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
-};
+}
 
-type ThemeProviderState = {
+interface ThemeProviderState {
   setTheme: (theme: Theme) => void;
   theme: Theme;
-};
+}
 
 const initialState: ThemeProviderState = {
   theme: "system",
-  setTheme: () => { /* noop */ },
+  setTheme: () => {},
 };
 
 const ThemeProviderContext = createContext(initialState);

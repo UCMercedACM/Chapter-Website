@@ -225,7 +225,6 @@ function Register() {
             <span className="h-px flex-1 bg-border" />
           </div>
 
-          {/* TODO: Wire up Google Oauth2 and SSO (if needed)*/}
           <div className="flex flex-col gap-3">
             <Button type="button" variant="outline" size="lg" className="w-full font-semibold">
               <SiGoogle />

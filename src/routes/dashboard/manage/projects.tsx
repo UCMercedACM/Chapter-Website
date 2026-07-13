@@ -106,10 +106,6 @@ export const Route = createFileRoute("/dashboard/manage/projects")({
 type ManageStatus = "all" | "active" | "archived";
 type DetailTab = "details" | "team";
 type InviteAction = "accept" | "decline" | "revoke";
-type RespondVars = { action: InviteAction; invite: ProjectInvite };
-type InviteVars = { member: ProjectMember; projectId: string };
-type SaveVars = { creating: boolean; project: FullProject };
-type Editor = { creating: boolean; founded_at: string; id: string };
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
 
 interface ProjectPageParams {
@@ -125,6 +121,24 @@ interface ManageProjectsMeta {
   onDetail: RowHandler;
   onEditor: RowHandler;
   onGallery: RowHandler;
+}
+
+interface RespondVars {
+  action: InviteAction;
+  invite: ProjectInvite;
+}
+interface InviteVars {
+  member: ProjectMember;
+  projectId: string;
+}
+interface SaveVars {
+  creating: boolean;
+  project: FullProject;
+}
+interface Editor {
+  creating: boolean;
+  founded_at: string;
+  id: string;
 }
 
 declare module "@tanstack/react-table" {
@@ -790,7 +804,7 @@ function ManageProjectsPage() {
   /// Editor field handlers
 
   const handleSubmit = useCallback(() => {
-    form.handleSubmit().catch(() => {});
+    void form.handleSubmit();
   }, [form]);
   const handleText = useCallback(
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
