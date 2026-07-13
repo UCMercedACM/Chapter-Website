@@ -125,7 +125,7 @@ const MANAGE_ROLES: Role[] = ["root", "admin", "manager"];
 export const ROLES_BY_RANK: Role[] = ["root", "admin", "manager", "leads"];
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) || "http://localhost:8000";
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
 const SIDEBAR_STYLE = {
   "--sidebar-width": "16.5rem",

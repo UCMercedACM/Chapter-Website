@@ -41,7 +41,7 @@ export const Route = createFileRoute("/dashboard/events_/past")({
 /// Constants
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) || "http://localhost:8000";
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const PAST_VIEWS: EventView[] = ["list", "grid"];
 
 const SHARED_QUERY_OPTIONS = {

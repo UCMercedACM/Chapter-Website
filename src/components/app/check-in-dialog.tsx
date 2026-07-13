@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
 /// Constants
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) || "http://localhost:8000";
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
 const STATUS_GREEN = "text-[#15a66e] bg-[#15a66e]/15 dark:text-[#3fd68c] dark:bg-[#3fd68c]/15";
 const STATUS_MUTED = "text-muted-foreground bg-muted";

@@ -121,7 +121,7 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
 );
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) || "http://localhost:8000";
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
 const EVENTS_PAGE_SIZE = 50;
 const PACIFIC_TZ = "America/Los_Angeles";

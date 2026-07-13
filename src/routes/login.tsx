@@ -145,7 +145,6 @@ function Login() {
                 <div className="flex flex-col gap-1.5">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="password">Password</Label>
-                    {/* TODO: wire to the Ory recovery flow (/recovery route, not built yet). */}
                     <Button
                       type="button"
                       variant="link"
@@ -191,7 +190,6 @@ function Login() {
             <span className="h-px flex-1 bg-border" />
           </div>
 
-          {/* TODO: Wire up Google Oauth2 and SSO (if needed)*/}
           <div className="flex flex-col gap-3">
             <Button type="button" variant="outline" size="lg" className="w-full font-semibold">
               <SiGoogle />

@@ -146,7 +146,7 @@ const ROSTER_STATUS = {
 } satisfies Record<RosterStatus, { className: string; icon: LucideIcon; label: string }>;
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) || "http://localhost:8000";
+  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const PACIFIC_TZ = "America/Los_Angeles";
 const EVENTS_VIEWS: EventView[] = ["calendar", "grid", "list"];
 
@@ -452,11 +452,17 @@ function DashboardEvents() {
 
   const code = (codeQuery.data?.code ?? "").slice(0, 8);
   const copyCode = useCallback(() => {
-    void navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 1800);
+    navigator.clipboard
+      .writeText(code)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => {
+          setCopied(false);
+        }, 1800);
+      })
+      .catch(() => {
+        toast.error("Couldn't copy the code.");
+      });
   }, [code]);
 
   const dashboardEvents = useMemo<DashboardEvent[]>(
