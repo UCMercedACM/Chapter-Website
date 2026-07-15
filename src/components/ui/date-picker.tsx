@@ -23,7 +23,7 @@ export function DatePicker({
   id,
   placeholder = "Select date",
   className,
-}: DatePickerProps) {
+}: Readonly<DatePickerProps>) {
   const [open, setOpen] = useState(false)
 
   const handleSelect = useCallback(
