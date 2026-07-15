@@ -103,14 +103,14 @@ export const eventsListQueryOptions = queryOptions({
         params: { page, size: EVENTS_PAGE_SIZE },
       });
     const first = await fetchPage(1);
-    const events = [...first.data.data];
+    const events = [...(first.data.data ?? [])];
     const pending = Array.from(
       { length: Math.ceil(first.data.total / EVENTS_PAGE_SIZE) - 1 },
       (_, index) => fetchPage(index + 2),
     );
     for (const request of pending) {
       const page = await request;
-      events.push(...page.data.data);
+      events.push(...(page.data.data ?? []));
     }
     return events;
   },

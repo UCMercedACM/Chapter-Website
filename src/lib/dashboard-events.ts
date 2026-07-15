@@ -19,6 +19,13 @@ export interface EventThumbnailData {
   url: string;
 }
 
+export interface AttendanceMember {
+  id: string;
+  name: string;
+  planned?: boolean | null;
+  attended: boolean;
+}
+
 export interface FullEvent {
   id: string;
   name: string;
@@ -38,8 +45,10 @@ export interface DashboardEvent extends FullEvent {
   attended: boolean;
 }
 
+// Kanae returns `data: null` for an empty page (e.g. a brand-new member's
+// first dashboard load), so it could be both T[] or undefined
 export interface KanaePage<T> {
-  data: T[];
+  data: T[] | undefined;
   total: number;
 }
 

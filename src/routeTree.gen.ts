@@ -23,6 +23,7 @@ import { Route as ProjectProjectIdRouteImport } from './routes/project/$projectI
 import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardManageProjectsRouteImport } from './routes/dashboard/manage/projects'
+import { Route as DashboardManageEventsRouteImport } from './routes/dashboard/manage/events'
 import { Route as DashboardEventsPastRouteImport } from './routes/dashboard/events_.past'
 import { Route as DashboardManageProjectsProjectIdGalleryRouteImport } from './routes/dashboard/manage/projects_.$projectId.gallery'
 
@@ -96,6 +97,11 @@ const DashboardManageProjectsRoute = DashboardManageProjectsRouteImport.update({
   path: '/manage/projects',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardManageEventsRoute = DashboardManageEventsRouteImport.update({
+  id: '/manage/events',
+  path: '/manage/events',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 const DashboardEventsPastRoute = DashboardEventsPastRouteImport.update({
   id: '/events_/past',
   path: '/events/past',
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/events/past': typeof DashboardEventsPastRoute
+  '/dashboard/manage/events': typeof DashboardManageEventsRoute
   '/dashboard/manage/projects': typeof DashboardManageProjectsRoute
   '/dashboard/manage/projects/$projectId/gallery': typeof DashboardManageProjectsProjectIdGalleryRoute
 }
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/events/past': typeof DashboardEventsPastRoute
+  '/dashboard/manage/events': typeof DashboardManageEventsRoute
   '/dashboard/manage/projects': typeof DashboardManageProjectsRoute
   '/dashboard/manage/projects/$projectId/gallery': typeof DashboardManageProjectsProjectIdGalleryRoute
 }
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/events_/past': typeof DashboardEventsPastRoute
+  '/dashboard/manage/events': typeof DashboardManageEventsRoute
   '/dashboard/manage/projects': typeof DashboardManageProjectsRoute
   '/dashboard/manage/projects_/$projectId/gallery': typeof DashboardManageProjectsProjectIdGalleryRoute
 }
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/project/$projectId'
     | '/dashboard/'
     | '/dashboard/events/past'
+    | '/dashboard/manage/events'
     | '/dashboard/manage/projects'
     | '/dashboard/manage/projects/$projectId/gallery'
   fileRoutesByTo: FileRoutesByTo
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/project/$projectId'
     | '/dashboard'
     | '/dashboard/events/past'
+    | '/dashboard/manage/events'
     | '/dashboard/manage/projects'
     | '/dashboard/manage/projects/$projectId/gallery'
   id:
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/project/$projectId'
     | '/dashboard/'
     | '/dashboard/events_/past'
+    | '/dashboard/manage/events'
     | '/dashboard/manage/projects'
     | '/dashboard/manage/projects_/$projectId/gallery'
   fileRoutesById: FileRoutesById
@@ -331,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardManageProjectsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/manage/events': {
+      id: '/dashboard/manage/events'
+      path: '/manage/events'
+      fullPath: '/dashboard/manage/events'
+      preLoaderRoute: typeof DashboardManageEventsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/events_/past': {
       id: '/dashboard/events_/past'
       path: '/events/past'
@@ -353,6 +372,7 @@ interface DashboardRouteRouteChildren {
   DashboardProjectsRoute: typeof DashboardProjectsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardEventsPastRoute: typeof DashboardEventsPastRoute
+  DashboardManageEventsRoute: typeof DashboardManageEventsRoute
   DashboardManageProjectsRoute: typeof DashboardManageProjectsRoute
   DashboardManageProjectsProjectIdGalleryRoute: typeof DashboardManageProjectsProjectIdGalleryRoute
 }
@@ -362,6 +382,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardProjectsRoute: DashboardProjectsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardEventsPastRoute: DashboardEventsPastRoute,
+  DashboardManageEventsRoute: DashboardManageEventsRoute,
   DashboardManageProjectsRoute: DashboardManageProjectsRoute,
   DashboardManageProjectsProjectIdGalleryRoute:
     DashboardManageProjectsProjectIdGalleryRoute,

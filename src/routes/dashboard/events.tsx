@@ -61,6 +61,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "@/components/ui/theme-provider";
 import {
+  type AttendanceMember,
   type CheckInState,
   type DashboardEvent,
   type KanaePage,
@@ -92,15 +93,6 @@ export const Route = createFileRoute("/dashboard/events")({
 /// Types and Interfaces
 
 type RosterStatus = "checked_in" | "expected" | "no_show" | "walk_in";
-
-// GET /events/{id}/attendance → KanaePages<AttendanceMember>. The seed data in
-// dashboard-mocks (mockAttendance) imports this back to type its roster.
-export interface AttendanceMember {
-  id: string;
-  name: string;
-  planned?: boolean | null;
-  attended: boolean;
-}
 
 // Constants
 
@@ -293,12 +285,12 @@ function EventsCalendar({
   );
 }
 
-function getRosterStatus(member: AttendanceMember): RosterStatus {
+export function getRosterStatus(member: AttendanceMember): RosterStatus {
   if (member.attended) return member.planned ? "checked_in" : "walk_in";
   return member.planned ? "expected" : "no_show";
 }
 
-function RosterRow({
+export function RosterRow({
   disabled,
   member,
   onUndo,
