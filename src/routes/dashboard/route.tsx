@@ -17,7 +17,7 @@ import {
   Home,
   Settings,
 } from "lucide-react";
-import { type CSSProperties, useCallback, useState } from "react";
+import { type CSSProperties, useCallback, useMemo, useState } from "react";
 
 import { Footer } from "@/components/app/footer";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -78,10 +78,12 @@ interface NavItem {
     | "/dashboard/events"
     | "/dashboard/events/past"
     | "/dashboard/projects"
+    | "/dashboard/manage/events"
     | "/dashboard/manage/projects";
   label: string;
   icon: LucideIcon;
   sub?: boolean;
+  roles?: Role[];
 }
 
 interface DashboardStaticData {
@@ -117,10 +119,19 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const MANAGE_NAV_ITEMS: NavItem[] = [
-  { to: "/dashboard/manage/projects", label: "Projects", icon: Folder },
+  {
+    to: "/dashboard/manage/events",
+    label: "Events",
+    icon: Calendar,
+    roles: ["root", "admin", "leads"],
+  },
+  {
+    to: "/dashboard/manage/projects",
+    label: "Projects",
+    icon: Folder,
+    roles: ["root", "admin", "manager"],
+  },
 ];
-
-const MANAGE_ROLES: Role[] = ["root", "admin", "manager"];
 
 export const ROLES_BY_RANK: Role[] = ["root", "admin", "manager", "leads"];
 
@@ -197,7 +208,10 @@ function DashboardLayout() {
 
   const access = ROLES_BY_RANK.find((role) => me?.roles.includes(role));
   const accessLabel = access ? ROLE_META[access].label : "Member";
-  const canManage = MANAGE_ROLES.some((role) => me?.roles.includes(role));
+  const manageItems = useMemo(
+    () => MANAGE_NAV_ITEMS.filter((item) => item.roles?.some((role) => me?.roles.includes(role))),
+    [me],
+  );
   const initials =
     me?.name
       .match(/\S+/g)
@@ -244,13 +258,13 @@ function DashboardLayout() {
               <SidebarNav items={NAV_ITEMS} pathname={pathname} />
             </SidebarGroupContent>
           </SidebarGroup>
-          {canManage && (
+          {manageItems.length > 0 && (
             <SidebarGroup>
               <SidebarGroupLabel className="font-extrabold tracking-[0.12em] uppercase">
                 Manage
               </SidebarGroupLabel>
               <SidebarGroupContent>
-                <SidebarNav items={MANAGE_NAV_ITEMS} pathname={pathname} />
+                <SidebarNav items={manageItems} pathname={pathname} />
               </SidebarGroupContent>
             </SidebarGroup>
           )}

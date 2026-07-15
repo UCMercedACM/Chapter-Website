@@ -27,14 +27,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  Copy,
-  Info,
-  Lock,
-  LockOpen,
   MapPin,
   MinusCircle,
   MoreHorizontal,
-  QrCode,
   RotateCcw,
   ScanLine,
   UserPlus,
@@ -43,6 +38,7 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { CheckInDialog } from "@/components/app/check-in-dialog";
+import { CheckInPanel } from "@/components/app/check-in-panel";
 import { EventDetailDialog, EventResults, EventToolbar } from "@/components/app/dashboard-events";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,7 +57,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "@/components/ui/theme-provider";
 import {
-  type CheckInState,
+  type AttendanceMember,
   type DashboardEvent,
   type KanaePage,
   type EventType,
@@ -92,15 +88,6 @@ export const Route = createFileRoute("/dashboard/events")({
 /// Types and Interfaces
 
 type RosterStatus = "checked_in" | "expected" | "no_show" | "walk_in";
-
-// GET /events/{id}/attendance → KanaePages<AttendanceMember>. The seed data in
-// dashboard-mocks (mockAttendance) imports this back to type its roster.
-export interface AttendanceMember {
-  id: string;
-  name: string;
-  planned?: boolean | null;
-  attended: boolean;
-}
 
 // Constants
 
@@ -149,12 +136,6 @@ const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const PACIFIC_TZ = "America/Los_Angeles";
 const EVENTS_VIEWS: EventView[] = ["calendar", "grid", "list"];
-
-const CHECK_IN_WINDOW_LABEL: Record<CheckInState, string> = {
-  ended: "Check-in closed",
-  open: "Check-in open",
-  too_early: "Opens 1 hour before start",
-};
 
 const SHARED_QUERY_OPTIONS = {
   staleTime: 60_000,
@@ -293,12 +274,12 @@ function EventsCalendar({
   );
 }
 
-function getRosterStatus(member: AttendanceMember): RosterStatus {
+export function getRosterStatus(member: AttendanceMember): RosterStatus {
   if (member.attended) return member.planned ? "checked_in" : "walk_in";
   return member.planned ? "expected" : "no_show";
 }
 
-function RosterRow({
+export function RosterRow({
   disabled,
   member,
   onUndo,
@@ -507,9 +488,6 @@ function DashboardEvents() {
   const plannedCount = rosterMembers.filter((member) => member.planned).length;
   const attendedCount = rosterMembers.filter((member) => member.attended).length;
   const checkIn = roster ? determineCheckIn(roster, now) : "ended";
-  const windowLabel = CHECK_IN_WINDOW_LABEL[checkIn];
-
-  const WindowIcon = checkIn === "open" ? LockOpen : Lock;
 
   return (
     <div className="flex flex-col gap-5">
@@ -647,50 +625,13 @@ function DashboardEvents() {
               </TabsList>
 
               <TabsContent value="qr" className="flex flex-col items-center gap-4.5">
-                <span
-                  className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold",
-                    checkIn === "open"
-                      ? "bg-[#15a66e]/15 text-[#15a66e] dark:text-[#3fd68c]"
-                      : "bg-muted text-muted-foreground",
-                  )}
-                >
-                  <WindowIcon className="size-3.5" />
-                  {windowLabel}
-                </span>
-
-                <div className="flex size-49 items-center justify-center rounded-2xl border-2 border-dashed border-border bg-muted text-center text-[12px] font-semibold text-muted-foreground">
-                  <span className="flex flex-col items-center gap-2">
-                    <QrCode className="size-7" />
-                    QR preview unavailable
-                  </span>
-                </div>
-
-                <div className="text-center">
-                  <div className="font-mono text-[26px] font-extrabold tracking-[0.16em] text-foreground">
-                    {code ? `${code.slice(0, 4)} · ${code.slice(4)}` : "—— · ——"}
-                  </div>
-                  <div className="mt-1.5 text-xs text-muted-foreground">
-                    Attendees submit these 8 characters
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={code.length === 0}
-                  onClick={copyCode}
-                  className={cn(copied && "border-brand-teal/45 bg-brand-teal/15")}
-                >
-                  {copied ? <Check /> : <Copy />}
-                  {copied ? "Copied" : "Copy code"}
-                </Button>
-                <div className="flex w-full items-start gap-2.5 rounded-xl border border-border bg-muted px-3.5 py-3">
-                  <Info className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                  <p className="text-xs/relaxed text-muted-foreground">
-                    Project this code at the door. The window opens 1 hour before start and closes
-                    at {fmtClock(roster.end_at, roster.timezone)}.
-                  </p>
-                </div>
+                <CheckInPanel
+                  code={code}
+                  copied={copied}
+                  onCopy={copyCode}
+                  state={checkIn}
+                  closesAt={fmtClock(roster.end_at, roster.timezone)}
+                />
               </TabsContent>
 
               <TabsContent value="roster" className="flex flex-col gap-3">

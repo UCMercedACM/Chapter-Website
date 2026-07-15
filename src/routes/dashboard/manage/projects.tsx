@@ -15,8 +15,6 @@ import {
   ArchiveRestore,
   Calendar,
   Check,
-  ChevronLeft,
-  ChevronRight,
   ExternalLink,
   ImageIcon,
   Lock,
@@ -27,7 +25,6 @@ import {
   Plus,
   Search,
   Trash2,
-  Upload,
   UserPlus,
   Users,
   X,
@@ -37,6 +34,8 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { DataPagination } from "@/components/app/data-pagination";
+import { ThumbnailDropzone } from "@/components/app/thumbnail-dropzone";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -58,13 +57,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-} from "@/components/ui/pagination";
 import {
   Select,
   SelectContent,
@@ -386,7 +378,6 @@ const API_BASE_URL =
 const THUMBNAIL_ACCEPT = { "image/*": [] };
 const THUMBNAIL_MAX_BYTES = 32 * 1024 * 1024;
 const MANAGE_PAGE_SIZE = 25;
-const PAGE_WINDOW = 3;
 const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 const TEAL_BUTTON_CLASS = "bg-brand-teal font-bold text-primary hover:bg-brand-teal/85";
@@ -527,7 +518,7 @@ function ManageProjectsPage() {
       for (const [, page] of queryClient.getQueriesData<KanaePage<FullProject>>({
         queryKey: MANAGE_PROJECTS_KEY,
       })) {
-        const hit = page?.data.find((item) => item.id === id);
+        const hit = (page?.data ?? []).find((item) => item.id === id);
         if (hit) return hit;
       }
     },
@@ -688,25 +679,19 @@ function ManageProjectsPage() {
     setStatus(value as ManageStatus);
     setPage(1);
   }, []);
-  const goToPage = useCallback((event: MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-    const next = Number(event.currentTarget.dataset.page);
-    if (next) {
-      setPage(next);
-      topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  const goToPage = useCallback((next: number) => {
+    setPage(next);
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
   const prefetchPage = useCallback(
-    (event: MouseEvent<HTMLElement>) => {
-      const next = Number(event.currentTarget.dataset.page);
-      if (next >= 1 && next <= pageCount)
-        queryClient
-          .prefetchQuery(
-            manageProjectsQueryOptions({ active: activeFilter, name: search, page: next }),
-          )
-          .catch(() => {});
+    (next: number) => {
+      queryClient
+        .prefetchQuery(
+          manageProjectsQueryOptions({ active: activeFilter, name: search, page: next }),
+        )
+        .catch(() => {});
     },
-    [queryClient, activeFilter, search, pageCount],
+    [queryClient, activeFilter, search],
   );
   const changeTab = useCallback((value: string) => {
     setTab(value as DetailTab);
@@ -863,17 +848,6 @@ function ManageProjectsPage() {
   /// Derived data
 
   const rows = projects ?? EMPTY_PROJECTS;
-  const rangeStart = (page - 1) * MANAGE_PAGE_SIZE + 1;
-  const rangeEnd = rangeStart + rows.length - 1;
-
-  const windowStart = Math.max(1, Math.min(page - 1, pageCount - PAGE_WINDOW + 1));
-  const windowEnd = Math.min(windowStart + PAGE_WINDOW - 1, pageCount);
-  const pageNumbers = Array.from(
-    { length: windowEnd - windowStart + 1 },
-    (_, index) => windowStart + index,
-  );
-  const showLeadingEllipsis = windowStart > 1;
-  const showTrailingEllipsis = windowEnd < pageCount;
 
   const editingMember = editor && !editor.creating ? editor.id : undefined;
   const live = editingMember
@@ -954,67 +928,15 @@ function ManageProjectsPage() {
       </div>
 
       {!isPending && total > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="text-[13px] font-semibold text-muted-foreground">
-            Showing {rangeStart}-{rangeEnd} of {total}
-          </div>
-          {pageCount > 1 && (
-            <Pagination className="mx-0 w-auto justify-end">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationLink
-                    href="#"
-                    aria-label="Go to previous page"
-                    data-page={page - 1}
-                    onClick={goToPage}
-                    onMouseEnter={prefetchPage}
-                    aria-disabled={page === 1}
-                    className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-                  >
-                    <ChevronLeft />
-                  </PaginationLink>
-                </PaginationItem>
-
-                {showLeadingEllipsis && (
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                )}
-                {pageNumbers.map((number) => (
-                  <PaginationItem key={number}>
-                    <PaginationLink
-                      href="#"
-                      data-page={number}
-                      onClick={goToPage}
-                      onMouseEnter={prefetchPage}
-                      isActive={number === page}
-                    >
-                      {number}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                {showTrailingEllipsis && (
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                )}
-                <PaginationItem>
-                  <PaginationLink
-                    href="#"
-                    aria-label="Go to next page"
-                    data-page={page + 1}
-                    onClick={goToPage}
-                    onMouseEnter={prefetchPage}
-                    aria-disabled={page === pageCount}
-                    className="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-                  >
-                    <ChevronRight />
-                  </PaginationLink>
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          )}
-        </div>
+        <DataPagination
+          page={page}
+          pageCount={pageCount}
+          total={total}
+          pageSize={MANAGE_PAGE_SIZE}
+          itemCount={rows.length}
+          onPageChange={goToPage}
+          onPrefetchPage={prefetchPage}
+        />
       )}
 
       <Dialog open={editor !== undefined} onOpenChange={closeEditor}>
@@ -1060,47 +982,14 @@ function ManageProjectsPage() {
               <TabsContent value="details" className="flex flex-col gap-4 p-5">
                 <form.Field name="thumbnail">
                   {(field) => (
-                    <div className="flex flex-col gap-1.5">
-                      <Label className={SECTION_LABEL_CLASS}>Thumbnail</Label>
-                      {field.state.value ? (
-                        <div className="relative h-36 overflow-hidden rounded-xl border border-border">
-                          <img
-                            src={field.state.value.url}
-                            alt=""
-                            className="size-full object-cover"
-                          />
-                          <Button
-                            variant="outline"
-                            size="icon-sm"
-                            className="absolute top-2 right-2 bg-card"
-                            title="Remove thumbnail"
-                            onClick={removeThumb}
-                          >
-                            <Trash2 className="text-destructive" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <div
-                          {...getRootProps({
-                            className: cn(
-                              "flex h-24 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed text-center transition",
-                              isDragActive
-                                ? "border-brand-teal bg-brand-teal/10"
-                                : "border-border bg-muted/50 hover:border-brand-teal hover:bg-brand-teal/8",
-                            ),
-                          })}
-                        >
-                          <input {...getInputProps()} />
-                          <Upload className="size-5 text-brand-teal-alt" />
-                          <span className="text-[13px] font-bold text-foreground">
-                            {isDragActive ? "Drop to upload" : "Upload a thumbnail"}
-                          </span>
-                          <span className="text-[11.5px] text-muted-foreground">
-                            Drag & drop or click to browse · ≤ 32 MB
-                          </span>
-                        </div>
-                      )}
-                    </div>
+                    <ThumbnailDropzone
+                      label="Thumbnail"
+                      value={field.state.value}
+                      onRemove={removeThumb}
+                      getRootProps={getRootProps}
+                      getInputProps={getInputProps}
+                      isDragActive={isDragActive}
+                    />
                   )}
                 </form.Field>
 
