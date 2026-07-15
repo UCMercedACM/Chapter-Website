@@ -17,25 +17,23 @@ import {
   CalendarPlus,
   Check,
   Clock,
-  Copy,
-  Info,
   Lock,
-  LockOpen,
   MapPin,
   MoreHorizontal,
   Pencil,
   QrCode,
   Search,
   Trash2,
-  Upload,
 } from "lucide-react";
 import { type ChangeEvent, type MouseEvent, useCallback, useMemo, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { CheckInPanel } from "@/components/app/check-in-panel";
 import { EmptyState } from "@/components/app/dashboard-events";
 import { DataPagination } from "@/components/app/data-pagination";
+import { ThumbnailDropzone } from "@/components/app/thumbnail-dropzone";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { DatePicker } from "@/components/ui/date-picker";
@@ -68,7 +66,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  type CheckInState,
   type EventType,
   type FullEvent,
   type AttendanceMember,
@@ -143,14 +140,6 @@ declare module "@tanstack/react-table" {
     events?: ManageEventsMeta;
   }
 }
-
-/// Constants — metadata
-
-const CHECK_IN_WINDOW_LABEL: Record<CheckInState, string> = {
-  ended: "Check-in closed",
-  open: "Check-in open",
-  too_early: "Opens 1 hour before start",
-};
 
 /// Constants - stable/empty data
 
@@ -233,7 +222,7 @@ const EVENT_COLUMNS: ColumnDef<FullEvent>[] = [
     cell: ({ row, table }) => {
       const { planned, attended } =
         table.options.meta?.events?.attendance.get(row.original.id) ?? EMPTY_ATTENDANCE_SUMMARY;
-      const fillMax = (attended > planned ? attended : planned) || 1;
+      const fillMax = Math.max(attended, planned) || 1;
       return (
         <div
           className="flex w-28 flex-col gap-1.5"
@@ -804,7 +793,6 @@ function ManageEventsPage() {
   const detailEvent = (events ?? EMPTY_EVENTS).find((event) => event.id === detailId);
 
   const windowState = rosterEvent ? determineCheckIn(rosterEvent, now) : "ended";
-  const WindowIcon = windowState === "open" ? LockOpen : Lock;
 
   return (
     <div className="flex flex-col gap-5">
@@ -896,47 +884,14 @@ function ManageEventsPage() {
             <div className="flex flex-col gap-4">
               <form.Field name="thumbnail">
                 {(field) => (
-                  <div className="flex flex-col gap-1.5">
-                    <Label className={SECTION_LABEL_CLASS}>Thumbnail · optional</Label>
-                    {field.state.value ? (
-                      <div className="relative h-36 overflow-hidden rounded-xl border border-border">
-                        <img
-                          src={field.state.value.url}
-                          alt=""
-                          className="size-full object-cover"
-                        />
-                        <Button
-                          variant="outline"
-                          size="icon-sm"
-                          className="absolute top-2 right-2 bg-card"
-                          title="Remove thumbnail"
-                          onClick={removeThumb}
-                        >
-                          <Trash2 className="text-destructive" />
-                        </Button>
-                      </div>
-                    ) : (
-                      <div
-                        {...getRootProps({
-                          className: cn(
-                            "flex h-24 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed text-center transition",
-                            isDragActive
-                              ? "border-brand-teal bg-brand-teal/10"
-                              : "border-border bg-muted/50 hover:border-brand-teal hover:bg-brand-teal/8",
-                          ),
-                        })}
-                      >
-                        <input {...getInputProps()} />
-                        <Upload className="size-5 text-brand-teal-alt" />
-                        <span className="text-[13px] font-bold text-foreground">
-                          {isDragActive ? "Drop to upload" : "Upload a thumbnail"}
-                        </span>
-                        <span className="text-[11.5px] text-muted-foreground">
-                          Drag & drop or click to browse · ≤ 32 MB
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  <ThumbnailDropzone
+                    label="Thumbnail · optional"
+                    value={field.state.value}
+                    onRemove={removeThumb}
+                    getRootProps={getRootProps}
+                    getInputProps={getInputProps}
+                    isDragActive={isDragActive}
+                  />
                 )}
               </form.Field>
 
@@ -1243,50 +1198,13 @@ function ManageEventsPage() {
               </TabsList>
 
               <TabsContent value="qr" className="flex flex-col items-center gap-4.5">
-                <span
-                  className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold",
-                    windowState === "open"
-                      ? "bg-[#15a66e]/15 text-[#15a66e] dark:text-[#3fd68c]"
-                      : "bg-muted text-muted-foreground",
-                  )}
-                >
-                  <WindowIcon className="size-3.5" />
-                  {CHECK_IN_WINDOW_LABEL[windowState]}
-                </span>
-
-                <div className="flex size-49 items-center justify-center rounded-2xl border-2 border-dashed border-border bg-muted text-center text-[12px] font-semibold text-muted-foreground">
-                  <span className="flex flex-col items-center gap-2">
-                    <QrCode className="size-7" />
-                    QR preview unavailable
-                  </span>
-                </div>
-
-                <div className="text-center">
-                  <div className="font-mono text-[26px] font-extrabold tracking-[0.16em] text-foreground">
-                    {code ? `${code.slice(0, 4)} · ${code.slice(4)}` : "—— · ——"}
-                  </div>
-                  <div className="mt-1.5 text-xs text-muted-foreground">
-                    Attendees submit these 8 characters
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={code.length === 0}
-                  onClick={copyCode}
-                  className={cn(copied && "border-brand-teal/45 bg-brand-teal/15")}
-                >
-                  {copied ? <Check /> : <Copy />}
-                  {copied ? "Copied" : "Copy code"}
-                </Button>
-                <div className="flex w-full items-start gap-2.5 rounded-xl border border-border bg-muted px-3.5 py-3">
-                  <Info className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                  <p className="text-xs/relaxed text-muted-foreground">
-                    Project this code at the door. The window opens 1 hour before start and closes
-                    at {fmtClock(rosterEvent.end_at, rosterEvent.timezone)}.
-                  </p>
-                </div>
+                <CheckInPanel
+                  code={code}
+                  copied={copied}
+                  onCopy={copyCode}
+                  state={windowState}
+                  closesAt={fmtClock(rosterEvent.end_at, rosterEvent.timezone)}
+                />
               </TabsContent>
 
               <TabsContent value="roster" className="flex flex-col gap-3">

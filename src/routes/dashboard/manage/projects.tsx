@@ -25,7 +25,6 @@ import {
   Plus,
   Search,
   Trash2,
-  Upload,
   UserPlus,
   Users,
   X,
@@ -36,6 +35,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { DataPagination } from "@/components/app/data-pagination";
+import { ThumbnailDropzone } from "@/components/app/thumbnail-dropzone";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -982,47 +982,14 @@ function ManageProjectsPage() {
               <TabsContent value="details" className="flex flex-col gap-4 p-5">
                 <form.Field name="thumbnail">
                   {(field) => (
-                    <div className="flex flex-col gap-1.5">
-                      <Label className={SECTION_LABEL_CLASS}>Thumbnail</Label>
-                      {field.state.value ? (
-                        <div className="relative h-36 overflow-hidden rounded-xl border border-border">
-                          <img
-                            src={field.state.value.url}
-                            alt=""
-                            className="size-full object-cover"
-                          />
-                          <Button
-                            variant="outline"
-                            size="icon-sm"
-                            className="absolute top-2 right-2 bg-card"
-                            title="Remove thumbnail"
-                            onClick={removeThumb}
-                          >
-                            <Trash2 className="text-destructive" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <div
-                          {...getRootProps({
-                            className: cn(
-                              "flex h-24 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed text-center transition",
-                              isDragActive
-                                ? "border-brand-teal bg-brand-teal/10"
-                                : "border-border bg-muted/50 hover:border-brand-teal hover:bg-brand-teal/8",
-                            ),
-                          })}
-                        >
-                          <input {...getInputProps()} />
-                          <Upload className="size-5 text-brand-teal-alt" />
-                          <span className="text-[13px] font-bold text-foreground">
-                            {isDragActive ? "Drop to upload" : "Upload a thumbnail"}
-                          </span>
-                          <span className="text-[11.5px] text-muted-foreground">
-                            Drag & drop or click to browse · ≤ 32 MB
-                          </span>
-                        </div>
-                      )}
-                    </div>
+                    <ThumbnailDropzone
+                      label="Thumbnail"
+                      value={field.state.value}
+                      onRemove={removeThumb}
+                      getRootProps={getRootProps}
+                      getInputProps={getInputProps}
+                      isDragActive={isDragActive}
+                    />
                   )}
                 </form.Field>
 
