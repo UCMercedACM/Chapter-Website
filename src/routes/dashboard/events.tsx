@@ -274,7 +274,7 @@ function EventsCalendar({
   );
 }
 
-export function getRosterStatus(member: AttendanceMember): RosterStatus {
+function getRosterStatus(member: AttendanceMember): RosterStatus {
   if (member.attended) return member.planned ? "checked_in" : "walk_in";
   return member.planned ? "expected" : "no_show";
 }
