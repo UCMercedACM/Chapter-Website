@@ -31,8 +31,8 @@ export default defineConfig({
           groups: [
             // Schedule-X's renderer uses @preact/signals, so we send it into its own vendor chunk
             { name: "vendor-preact", test: /[\\/](preact|@preact)[\\/]/ },
-            // { name: "vendor-react", test: /[\\/]node_modules[\\/]react(-dom)?[\\/]/ },
-            // { name: "vendor-tanstack", test: /[\\/]@tanstack[\\/]/ },
+            { name: "vendor-react", test: /[\\/]node_modules[\\/]react(-dom)?[\\/]/ },
+            { name: "vendor-tanstack", test: /[\\/]@tanstack[\\/]/ },
             {
               name: "vendor-icons",
               test: /[\\/](@icons-pack[\\/]react-simple-icons|lucide-react)[\\/]/,
@@ -46,10 +46,10 @@ export default defineConfig({
               test: /[\\/]temporal-polyfill[\\/]/,
             },
             // All shared utils get used at first paint, so throw them into their own vendor chunk
-            // {
-            //   name: "vendor-utils",
-            //   test: /[\\/](zod|axios|sonner|clsx|class-variance-authority|tailwind-merge|next-themes)[\\/]/,
-            // },
+            {
+              name: "vendor-utils",
+              test: /[\\/](zod|axios|sonner|clsx|class-variance-authority|tailwind-merge|next-themes)[\\/]/,
+            },
           ],
         },
       },
