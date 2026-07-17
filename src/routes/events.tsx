@@ -57,17 +57,72 @@ interface SelectedEvent {
 /// Module-scoped constants
 
 const EVENT_TYPES = [
-  { key: "general", label: "General", color: "#084778", darkColor: "#5b9bd5" },
-  { key: "sig_swe", label: "SWE", color: "#3da9fc", darkColor: "#6cbcff" },
-  { key: "sig_ai", label: "AI", color: "#00c9a7", darkColor: "#2fdcbb" },
-  { key: "sig_cyber", label: "Cyber", color: "#ff6b6b", darkColor: "#ff9a9a" },
-  { key: "sig_data", label: "Data", color: "#f7b731", darkColor: "#ffd56b" },
-  { key: "sig_graph", label: "Graphics", color: "#a55eea", darkColor: "#c79bf2" },
-  { key: "sig_arch", label: "Architecture", color: "#fc5c7d", darkColor: "#ff8fa6" },
-  { key: "social", label: "Social", color: "#00e1bf", darkColor: "#3df0d6" },
-  { key: "misc", label: "Misc", color: "#93a3b6", darkColor: "#b4c2d2" },
+  {
+    key: "general",
+    label: "General",
+    color: "#084778",
+    darkColor: "#5b9bd5",
+    containerTextColor: "#084778",
+  },
+  {
+    key: "sig_swe",
+    label: "SWE",
+    color: "#3da9fc",
+    darkColor: "#6cbcff",
+    containerTextColor: "#256698",
+  },
+  {
+    key: "sig_ai",
+    label: "AI",
+    color: "#00c9a7",
+    darkColor: "#2fdcbb",
+    containerTextColor: "#00715e",
+  },
+  {
+    key: "sig_cyber",
+    label: "Cyber",
+    color: "#ff6b6b",
+    darkColor: "#ff9a9a",
+    containerTextColor: "#9f4343",
+  },
+  {
+    key: "sig_data",
+    label: "Data",
+    color: "#f7b731",
+    darkColor: "#ffd56b",
+    containerTextColor: "#84621a",
+  },
+  {
+    key: "sig_graph",
+    label: "Graphics",
+    color: "#a55eea",
+    darkColor: "#c79bf2",
+    containerTextColor: "#7844aa",
+  },
+  {
+    key: "sig_arch",
+    label: "Architecture",
+    color: "#fc5c7d",
+    darkColor: "#ff8fa6",
+    containerTextColor: "#a13b50",
+  },
+  {
+    key: "social",
+    label: "Social",
+    color: "#00e1bf",
+    darkColor: "#3df0d6",
+    containerTextColor: "#007462",
+  },
+  {
+    key: "misc",
+    label: "Misc",
+    color: "#93a3b6",
+    darkColor: "#b4c2d2",
+    containerTextColor: "#5a6470",
+  },
 ] as const satisfies readonly {
   readonly color: string;
+  readonly containerTextColor: string;
   readonly darkColor: string;
   readonly key: EventType;
   readonly label: string;
@@ -90,7 +145,11 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
     meta.key,
     {
       colorName: meta.key,
-      lightColors: { main: meta.color, container: `${meta.color}40`, onContainer: meta.color },
+      lightColors: {
+        main: meta.color,
+        container: `${meta.color}40`,
+        onContainer: meta.containerTextColor,
+      },
       darkColors: {
         main: meta.darkColor,
         container: `${meta.darkColor}40`,

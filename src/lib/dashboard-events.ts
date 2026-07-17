@@ -57,6 +57,7 @@ interface EventTypeMeta {
   short: string;
   color: string;
   darkColor: string;
+  containerTextColor: string;
 }
 
 interface EventTypeClasses {
@@ -74,15 +75,69 @@ const mergeCache = new WeakMap<
 >();
 
 export const EVENT_TYPE_META: Record<EventType, EventTypeMeta> = {
-  general: { label: "General", short: "GEN", color: "#2e7d9a", darkColor: "#5b9bd5" },
-  sig_swe: { label: "SWE", short: "SWE", color: "#3da9fc", darkColor: "#6cbcff" },
-  sig_ai: { label: "AI", short: "AI", color: "#00c9a7", darkColor: "#2fdcbb" },
-  sig_cyber: { label: "Cyber", short: "CYB", color: "#ff6b6b", darkColor: "#ff9a9a" },
-  sig_data: { label: "Data", short: "DATA", color: "#f7b731", darkColor: "#ffd56b" },
-  sig_arch: { label: "Arch", short: "ARCH", color: "#fc5c7d", darkColor: "#ff8fa6" },
-  sig_graph: { label: "Graphics", short: "GFX", color: "#a55eea", darkColor: "#c79bf2" },
-  social: { label: "Social", short: "SOC", color: "#fd9644", darkColor: "#ffb37a" },
-  misc: { label: "Misc", short: "MISC", color: "#93a3b6", darkColor: "#b4c2d2" },
+  general: {
+    label: "General",
+    short: "GEN",
+    color: "#2e7d9a",
+    darkColor: "#5b9bd5",
+    containerTextColor: "#246279",
+  },
+  sig_swe: {
+    label: "SWE",
+    short: "SWE",
+    color: "#3da9fc",
+    darkColor: "#6cbcff",
+    containerTextColor: "#256698",
+  },
+  sig_ai: {
+    label: "AI",
+    short: "AI",
+    color: "#00c9a7",
+    darkColor: "#2fdcbb",
+    containerTextColor: "#00715e",
+  },
+  sig_cyber: {
+    label: "Cyber",
+    short: "CYB",
+    color: "#ff6b6b",
+    darkColor: "#ff9a9a",
+    containerTextColor: "#9f4343",
+  },
+  sig_data: {
+    label: "Data",
+    short: "DATA",
+    color: "#f7b731",
+    darkColor: "#ffd56b",
+    containerTextColor: "#84621a",
+  },
+  sig_arch: {
+    label: "Arch",
+    short: "ARCH",
+    color: "#fc5c7d",
+    darkColor: "#ff8fa6",
+    containerTextColor: "#a13b50",
+  },
+  sig_graph: {
+    label: "Graphics",
+    short: "GFX",
+    color: "#a55eea",
+    darkColor: "#c79bf2",
+    containerTextColor: "#7844aa",
+  },
+  social: {
+    label: "Social",
+    short: "SOC",
+    color: "#fd9644",
+    darkColor: "#ffb37a",
+    containerTextColor: "#915627",
+  },
+  misc: {
+    label: "Misc",
+    short: "MISC",
+    color: "#93a3b6",
+    darkColor: "#b4c2d2",
+    containerTextColor: "#5a6470",
+  },
 };
 
 export const EVENT_TYPE_CLASSES: Record<EventType, EventTypeClasses> = {

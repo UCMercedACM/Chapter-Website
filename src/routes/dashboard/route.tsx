@@ -239,11 +239,11 @@ function DashboardLayout() {
               type="button"
               onClick={toggleSidebar}
               aria-label="Toggle sidebar"
-              className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-brand-teal/45 bg-brand-teal/15 text-[#078c79] transition-colors hover:bg-brand-teal/25 dark:text-[#2fead0]"
+              className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-brand-teal/45 bg-brand-teal/15 text-[#067b6a] transition-colors hover:bg-brand-teal/25 dark:text-[#2fead0]"
             >
               {GRID_GLYPH}
             </button>
-            <span className="text-[13.5px] font-extrabold whitespace-nowrap text-[#078c79] group-data-[collapsible=icon]:hidden dark:text-[#2fead0]">
+            <span className="text-[13.5px] font-extrabold whitespace-nowrap text-[#067b6a] group-data-[collapsible=icon]:hidden dark:text-[#2fead0]">
               Member Portal
             </span>
           </div>
@@ -279,7 +279,7 @@ function DashboardLayout() {
                 render={
                   <div>
                     <Avatar className="size-8 shrink-0 border border-brand-sky/30 bg-brand-sky/15">
-                      <AvatarFallback className="bg-transparent text-[12px] font-extrabold text-brand-sky">
+                      <AvatarFallback className="bg-transparent text-[12px] font-extrabold text-brand-sky-text">
                         {initials}
                       </AvatarFallback>
                     </Avatar>
@@ -310,7 +310,7 @@ function DashboardLayout() {
                 {meta.area ?? "Member"}
               </span>
               <ChevronRight className="size-3.25 text-muted-foreground" />
-              <span className="text-[11.5px] font-bold tracking-[0.06em] text-brand-sky uppercase">
+              <span className="text-[11.5px] font-bold tracking-[0.06em] text-brand-sky-text uppercase">
                 {meta.title ?? "Dashboard"}
               </span>
             </div>

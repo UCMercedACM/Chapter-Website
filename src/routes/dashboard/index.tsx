@@ -62,7 +62,7 @@ const EVENTS_PAGE_SIZE = 50;
 const SKELETON_TILES = ["a", "b", "c", "d"];
 const CAROUSEL_OPTS = { align: "start", dragFree: true } as const;
 const CAROUSEL_NAV_CLASS = "static size-9 translate-0";
-const HERO_STYLE = { background: "linear-gradient(135deg, #084778 0%, #0a5a6e 60%, #078c79 130%)" };
+const HERO_STYLE = { background: "linear-gradient(135deg, #084778 0%, #0a5a6e 60%, #067b6a 130%)" };
 const HERO_META_CLASS =
   "inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[#eaf6ff]/90";
 const PILL_CLASS =
@@ -188,6 +188,7 @@ function DashboardHome() {
 
   const { hero, heroDate, heroLive, heroEyebrow, myUpcoming, myRsvpsSub, rail, attendedCount } =
     useMemo(() => {
+      // Apparently this events ?? [] results in not a function?
       const merged: DashboardEvent[] = (events ?? []).map((event) =>
         mergeDashboardEvent(
           event,

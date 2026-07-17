@@ -84,7 +84,11 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
       key,
       {
         colorName: key,
-        lightColors: { main: meta.color, container: `${meta.color}40`, onContainer: meta.color },
+        lightColors: {
+          main: meta.color,
+          container: `${meta.color}40`,
+          onContainer: meta.containerTextColor,
+        },
         darkColors: {
           main: meta.darkColor,
           container: `${meta.darkColor}40`,
@@ -109,7 +113,7 @@ const ROSTER_STATUS = {
   expected: {
     label: "Expected",
     icon: Clock,
-    className: "bg-brand-sky/15 text-brand-sky",
+    className: "bg-brand-sky/15 text-brand-sky-text",
   },
   no_show: {
     label: "No-show",
@@ -202,7 +206,7 @@ export function RosterRow({
 
   return (
     <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
-      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-sky/15 text-[12px] font-extrabold text-brand-sky">
+      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-sky/15 text-[12px] font-extrabold text-brand-sky-text">
         {initials}
       </div>
       <div className="min-w-0 flex-1">
@@ -405,7 +409,7 @@ function DashboardEvents() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-teal opacity-60" />
                 <span className="relative inline-flex size-2.75 rounded-full bg-brand-teal" />
               </span>
-              <span className="text-[11.5px] font-extrabold tracking-[0.12em] text-[#078c79] uppercase dark:text-[#2fead0]">
+              <span className="text-[11.5px] font-extrabold tracking-[0.12em] text-[#067b6a] uppercase dark:text-[#2fead0]">
                 Check-in open
               </span>
             </div>
@@ -425,7 +429,7 @@ function DashboardEvents() {
                   {nextCheckIn.location}
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-brand-text-sub">
-                  <Clock className="size-3.5 text-[#078c79] dark:text-[#2fead0]" />
+                  <Clock className="size-3.5 text-[#067b6a] dark:text-[#2fead0]" />
                   Closes at {fmtClock(nextCheckIn.end_at, nextCheckIn.timezone)}
                 </span>
               </div>
@@ -435,7 +439,7 @@ function DashboardEvents() {
                 <button
                   type="button"
                   onClick={handleStripMore}
-                  className="text-[12.5px] font-bold text-[#078c79] dark:text-[#2fead0]"
+                  className="text-[12.5px] font-bold text-[#067b6a] dark:text-[#2fead0]"
                 >
                   +{String(checkInOpen.length - 1)} more open
                 </button>
