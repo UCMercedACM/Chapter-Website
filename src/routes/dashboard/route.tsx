@@ -41,7 +41,7 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
-  beforeLoad: async ({ context: { queryClient } }) => {
+  loader: async ({ context: { queryClient } }) => {
     await queryClient.ensureQueryData(meQueryOptions).catch(() => {
       redirect({ to: "/login", search: {}, throw: true });
     });
