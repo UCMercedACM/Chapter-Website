@@ -40,7 +40,11 @@ export default defineConfig({
             },
             {
               name: "vendor-schedule-x",
-              test: /[\\/](@schedule-x|temporal-polyfill)[\\/]/,
+              test: /[\\/]@schedule-x[\\/]/,
+            },
+            {
+              name: "vendor-temporal",
+              test: /[\\/]temporal-polyfill[\\/]/,
             },
             // All shared utils get used at first paint, so throw them into their own vendor chunk
             {
