@@ -23,9 +23,9 @@
   --secondary: #f9f8f8;
   --secondary-foreground: #084778;
   --muted: #f9f8f8;
-  --muted-foreground: #93a3b6;
+  --muted-foreground: #66717e;
   --accent: oklch(0.773 0.137 183.98 / 0.1);
-  --accent-foreground: #067a69;
+  --accent-foreground: #067565;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: #dfe3e8;
@@ -42,7 +42,7 @@
   --sidebar-primary: #084778;
   --sidebar-primary-foreground: #f5f5f5;
   --sidebar-accent: oklch(0.773 0.137 183.98 / 0.1);
-  --sidebar-accent-foreground: #067a69;
+  --sidebar-accent-foreground: #067565;
   --sidebar-border: #dfe3e8;
   --sidebar-ring: #3da9fc;
 
@@ -50,6 +50,7 @@
   --brand-teal: #00e1bf;
   --brand-teal-alt: #0fd5ba;
   --brand-sky: #3da9fc;
+  --brand-sky-text: #276da3;
   --brand-text-sub: #276881;
   --brand-text-hero: #ebf2f1;
   --brand-navbar: #00e1bf;
@@ -104,6 +105,7 @@
   --brand-teal: #00e1bf;
   --brand-teal-alt: #0fd5ba;
   --brand-sky: #3da9fc;
+  --brand-sky-text: #3da9fc;
   --brand-text-sub: #7ec8d8;
   --brand-text-hero: #cde8f0;
   --brand-navbar: #0d3b4a;
@@ -143,6 +145,7 @@
   --color-brand-teal: var(--brand-teal);
   --color-brand-teal-alt: var(--brand-teal-alt);
   --color-brand-sky: var(--brand-sky);
+  --color-brand-sky-text: var(--brand-sky-text);
   --color-brand-text-sub: var(--brand-text-sub);
   --color-brand-text-hero: var(--brand-text-hero);
   --color-brand-navbar: var(--brand-navbar);
@@ -202,9 +205,14 @@
 .sx__date-picker-popup.sx__date-picker-popup {
   overflow: auto;
 }
+.sx__date-input-chevron-wrapper {
+  min-width: 24px;
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/* Hero scroll cue: pulses opacity and offsets vertically (CSS animation, not motion-react,
-   to keep the work on the GPU/compositor instead of the JS main thread). */
 @keyframes scroll-cue {
   0% {
     opacity: 0;

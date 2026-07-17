@@ -1,5 +1,3 @@
-import "temporal-polyfill/full/global";
-
 import { useForm } from "@tanstack/react-form";
 import {
   queryOptions,
@@ -28,6 +26,7 @@ import {
 import { type ChangeEvent, type MouseEvent, useCallback, useMemo, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
+import { Temporal } from "temporal-polyfill";
 import { z } from "zod";
 
 import { CheckInPanel } from "@/components/app/check-in-panel";
@@ -235,6 +234,7 @@ const EVENT_COLUMNS: ColumnDef<FullEvent>[] = [
           <Progress
             value={attended}
             max={fillMax}
+            aria-label={`${String(attended)} checked in of ${String(planned)} planned`}
             className="**:data-[slot=progress-indicator]:bg-[#15a66e] **:data-[slot=progress-track]:bg-[#15a66e]/15 dark:**:data-[slot=progress-indicator]:bg-[#3fd68c] dark:**:data-[slot=progress-track]:bg-[#3fd68c]/20"
           />
         </div>

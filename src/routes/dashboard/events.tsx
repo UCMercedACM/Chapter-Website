@@ -1,5 +1,3 @@
-import "temporal-polyfill/full/global";
-import "@schedule-x/theme-shadcn/dist/index.css";
 import {
   attendedEventsQueryOptions,
   eventsListQueryOptions,
@@ -7,25 +5,13 @@ import {
   plannedEventsQueryOptions,
 } from "./index";
 
-import {
-  type CalendarEvent,
-  type CalendarType,
-  createViewDay,
-  createViewMonthAgenda,
-  createViewMonthGrid,
-  createViewWeek,
-} from "@schedule-x/calendar";
-import { createCalendarControlsPlugin } from "@schedule-x/calendar-controls";
-import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
-import { createScrollControllerPlugin } from "@schedule-x/scroll-controller";
+import type { CalendarType } from "@schedule-x/calendar";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
 import {
   type LucideIcon,
   Check,
-  ChevronLeft,
-  ChevronRight,
   Clock,
   MapPin,
   MinusCircle,
@@ -40,6 +26,7 @@ import { toast } from "sonner";
 import { CheckInDialog } from "@/components/app/check-in-dialog";
 import { CheckInPanel } from "@/components/app/check-in-panel";
 import { EventDetailDialog, EventResults, EventToolbar } from "@/components/app/dashboard-events";
+import { ManageEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -55,7 +42,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTheme } from "@/components/ui/theme-provider";
 import {
   type AttendanceMember,
   type DashboardEvent,
@@ -98,7 +84,11 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
       key,
       {
         colorName: key,
-        lightColors: { main: meta.color, container: `${meta.color}40`, onContainer: meta.color },
+        lightColors: {
+          main: meta.color,
+          container: `${meta.color}40`,
+          onContainer: meta.containerTextColor,
+        },
         darkColors: {
           main: meta.darkColor,
           container: `${meta.darkColor}40`,
@@ -123,7 +113,7 @@ const ROSTER_STATUS = {
   expected: {
     label: "Expected",
     icon: Clock,
-    className: "bg-brand-sky/15 text-brand-sky",
+    className: "bg-brand-sky/15 text-brand-sky-text",
   },
   no_show: {
     label: "No-show",
@@ -134,7 +124,6 @@ const ROSTER_STATUS = {
 
 const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-const PACIFIC_TZ = "America/Los_Angeles";
 const EVENTS_VIEWS: EventView[] = ["calendar", "grid", "list"];
 
 const SHARED_QUERY_OPTIONS = {
@@ -186,94 +175,6 @@ const eventAttendanceQueryOptions = (eventId: string) =>
 
 /// Route components
 
-function EventsCalendar({
-  events,
-  onOpen,
-}: Readonly<{ events: DashboardEvent[]; onOpen: (event: DashboardEvent) => void }>) {
-  const [initialScroll] = useState(() => `${String(new Date().getHours()).padStart(2, "0")}:00`);
-  const scrollController = useMemo(
-    () => createScrollControllerPlugin({ initialScroll }),
-    [initialScroll],
-  );
-  const calendarControls = useMemo(() => createCalendarControlsPlugin(), []);
-
-  const handlePrevMonth = useCallback(() => {
-    calendarControls.setDate(calendarControls.getDate().subtract({ months: 1 }));
-  }, [calendarControls]);
-  const handleNextMonth = useCallback(() => {
-    calendarControls.setDate(calendarControls.getDate().add({ months: 1 }));
-  }, [calendarControls]);
-
-  const filteredEvents = useMemo(() => new Map(events.map((event) => [event.id, event])), [events]);
-  const calendarEvents = useMemo<CalendarEvent[]>(
-    () =>
-      events.map((event) => ({
-        id: event.id,
-        title: event.name,
-        description: event.description,
-        location: event.location,
-        calendarId: event.type,
-        start: Temporal.Instant.from(event.start_at).toZonedDateTimeISO(event.timezone),
-        end: Temporal.Instant.from(event.end_at).toZonedDateTimeISO(event.timezone),
-      })),
-    [events],
-  );
-
-  const { theme } = useTheme();
-  const [prefersDark] = useState(
-    () => globalThis.matchMedia("(prefers-color-scheme: dark)").matches,
-  );
-  const systemTheme: "dark" | "light" = prefersDark ? "dark" : "light";
-  const resolvedTheme: "dark" | "light" = theme === "system" ? systemTheme : theme;
-
-  const calendar = useCalendarApp({
-    views: [createViewMonthGrid(), createViewWeek(), createViewDay(), createViewMonthAgenda()],
-    defaultView: "month-grid",
-    weekOptions: { gridHeight: 1200 },
-    dayBoundaries: { start: "08:00", end: "24:00" },
-    events: calendarEvents,
-    calendars: EVENT_CALENDARS,
-    theme: "shadcn",
-    isDark: resolvedTheme === "dark",
-    timezone: PACIFIC_TZ,
-    selectedDate: Temporal.Now.plainDateISO(PACIFIC_TZ),
-    plugins: [scrollController, calendarControls],
-    callbacks: {
-      onEventClick: (calendarEvent) => {
-        const found = filteredEvents.get(String(calendarEvent.id));
-        if (found) onOpen(found);
-      },
-    },
-  });
-
-  calendar?.setTheme(resolvedTheme);
-
-  return (
-    <div className="flex flex-col gap-2.5">
-      <div className="flex items-center gap-2.5 lg:hidden">
-        <Button variant="outline" size="sm" onClick={handlePrevMonth} className="flex-1">
-          <ChevronLeft />
-          Previous month
-        </Button>
-        <Button variant="outline" size="sm" onClick={handleNextMonth} className="flex-1">
-          Next month
-          <ChevronRight />
-        </Button>
-      </div>
-      <div
-        className={cn(
-          "isolate h-160 rounded-[20px] border border-border bg-card p-2",
-          "shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]",
-          "[&_.sx-react-calendar-wrapper]:size-full",
-          "**:[[class*='-event']]:select-none",
-        )}
-      >
-        <ScheduleXCalendar calendarApp={calendar} />
-      </div>
-    </div>
-  );
-}
-
 function getRosterStatus(member: AttendanceMember): RosterStatus {
   if (member.attended) return member.planned ? "checked_in" : "walk_in";
   return member.planned ? "expected" : "no_show";
@@ -305,7 +206,7 @@ export function RosterRow({
 
   return (
     <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
-      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-sky/15 text-[12px] font-extrabold text-brand-sky">
+      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-sky/15 text-[12px] font-extrabold text-brand-sky-text">
         {initials}
       </div>
       <div className="min-w-0 flex-1">
@@ -469,6 +370,14 @@ function DashboardEvents() {
     [dashboardEvents, now],
   );
 
+  const handleCalendarOpen = useCallback(
+    (id: string) => {
+      const event = upcoming.find((item) => item.id === id);
+      if (event) setDetail(event);
+    },
+    [upcoming],
+  );
+
   const nextCheckIn = checkInOpen.at(0);
   const handleStripCheckin = useCallback(() => {
     if (nextCheckIn) setCheckin(nextCheckIn);
@@ -500,7 +409,7 @@ function DashboardEvents() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand-teal opacity-60" />
                 <span className="relative inline-flex size-2.75 rounded-full bg-brand-teal" />
               </span>
-              <span className="text-[11.5px] font-extrabold tracking-[0.12em] text-[#078c79] uppercase dark:text-[#2fead0]">
+              <span className="text-[11.5px] font-extrabold tracking-[0.12em] text-[#067b6a] uppercase dark:text-[#2fead0]">
                 Check-in open
               </span>
             </div>
@@ -520,7 +429,7 @@ function DashboardEvents() {
                   {nextCheckIn.location}
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-brand-text-sub">
-                  <Clock className="size-3.5 text-[#078c79] dark:text-[#2fead0]" />
+                  <Clock className="size-3.5 text-[#067b6a] dark:text-[#2fead0]" />
                   Closes at {fmtClock(nextCheckIn.end_at, nextCheckIn.timezone)}
                 </span>
               </div>
@@ -530,7 +439,7 @@ function DashboardEvents() {
                 <button
                   type="button"
                   onClick={handleStripMore}
-                  className="text-[12.5px] font-bold text-[#078c79] dark:text-[#2fead0]"
+                  className="text-[12.5px] font-bold text-[#067b6a] dark:text-[#2fead0]"
                 >
                   +{String(checkInOpen.length - 1)} more open
                 </button>
@@ -559,7 +468,11 @@ function DashboardEvents() {
       />
 
       {view === "calendar" ? (
-        <EventsCalendar events={upcoming} onOpen={setDetail} />
+        <ManageEventsCalendar
+          events={upcoming}
+          calendars={EVENT_CALENDARS}
+          onOpen={handleCalendarOpen}
+        />
       ) : (
         <>
           <div>

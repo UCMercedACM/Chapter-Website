@@ -77,7 +77,7 @@ interface StateMeta {
 const STATUS_GREEN = "text-[#15a66e] bg-[#15a66e]/15 dark:text-[#3fd68c] dark:bg-[#3fd68c]/15";
 const STATUS_RED = "text-[#e13737] bg-[#e13737]/12 dark:text-[#ff6b6b] dark:bg-[#ff6b6b]/15";
 const STATUS_MUTED = "text-muted-foreground bg-muted";
-const STATUS_TEAL = "text-[#078c79] bg-brand-teal/15 dark:text-[#2fead0] dark:bg-brand-teal/15";
+const STATUS_TEAL = "text-[#067b6a] bg-brand-teal/15 dark:text-[#2fead0] dark:bg-brand-teal/15";
 
 const STATE_ATTENDED: StateMeta = { label: "Attended", icon: Check, className: STATUS_GREEN };
 const STATE_MISSED: StateMeta = { label: "Missed", icon: X, className: STATUS_RED };
@@ -592,7 +592,10 @@ export function EventToolbar({
           />
         </div>
         <Select value={type} onValueChange={handleTypeChange}>
-          <SelectTrigger className="h-10 rounded-xl bg-muted font-bold">
+          <SelectTrigger
+            aria-label="Filter events by type"
+            className="h-10 rounded-xl bg-muted font-bold"
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -702,7 +705,7 @@ interface DetailTileProps {
 function DetailTile({ icon: Icon, label, children }: Readonly<DetailTileProps>) {
   return (
     <div className="flex items-start gap-2.75 rounded-xl border border-border bg-card p-3.5 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
-      <Icon className="size-4.5 shrink-0 text-[#078c79] dark:text-[#2fead0]" />
+      <Icon className="size-4.5 shrink-0 text-[#067b6a] dark:text-[#2fead0]" />
       <div className="min-w-0">
         <div className="text-[11px] font-semibold tracking-[0.06em] text-muted-foreground uppercase">
           {label}

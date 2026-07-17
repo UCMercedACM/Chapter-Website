@@ -24,7 +24,7 @@ const DASHBOARD_ENTRY: NavEntry = { href: "/dashboard", label: "Dashboard" };
 const GUEST_ENTRY: NavEntry = { href: "/login", label: "Login" };
 
 const NAV_LINK_CLASSES =
-  "relative cursor-pointer pb-1 text-[15px] font-bold tracking-[0.02em] transition-colors text-brand-text-sub hover:text-foreground data-[status=active]:text-foreground";
+  "relative cursor-pointer pb-1 text-[15px] font-bold tracking-[0.02em] transition-colors text-[#21576c] dark:text-brand-text-sub hover:text-foreground data-[status=active]:text-foreground";
 const NAV_LINK_UNDERLINE_CLASSES =
   "absolute -bottom-0.75 left-0 h-1.25 w-full rounded-[9px] bg-brand-sky opacity-0 [[data-status=active]>&]:opacity-100";
 
