@@ -32,7 +32,6 @@ export default defineConfig({
             // Schedule-X's renderer uses @preact/signals, so we send it into its own vendor chunk
             { name: "vendor-preact", test: /[\\/](preact|@preact)[\\/]/ },
             { name: "vendor-react", test: /[\\/]node_modules[\\/]react(-dom)?[\\/]/ },
-            { name: "vendor-base-ui", test: /[\\/](@base-ui|@floating-ui)[\\/]/ },
             { name: "vendor-tanstack", test: /[\\/]@tanstack[\\/]/ },
             {
               name: "vendor-icons",
