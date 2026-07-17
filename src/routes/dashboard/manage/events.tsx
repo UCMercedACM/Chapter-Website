@@ -1,5 +1,3 @@
-import "temporal-polyfill/full/global";
-
 import { useForm } from "@tanstack/react-form";
 import {
   queryOptions,
@@ -28,6 +26,7 @@ import {
 import { type ChangeEvent, type MouseEvent, useCallback, useMemo, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
+import { Temporal } from "temporal-polyfill";
 import { z } from "zod";
 
 import { CheckInPanel } from "@/components/app/check-in-panel";

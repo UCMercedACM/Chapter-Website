@@ -1,17 +1,5 @@
-import "temporal-polyfill/full/global";
-import "@schedule-x/theme-shadcn/dist/index.css";
-
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
-import {
-  createViewDay,
-  createViewMonthAgenda,
-  createViewMonthGrid,
-  createViewWeek,
-  type CalendarEvent,
-  type CalendarType,
-} from "@schedule-x/calendar";
-import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
-import { createScrollControllerPlugin } from "@schedule-x/scroll-controller";
+import type { CalendarType } from "@schedule-x/calendar";
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
@@ -20,10 +8,10 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import aboutUsThumb from "@/assets/images/about-us.png";
+import { PublicEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useTheme } from "@/components/ui/theme-provider";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/events")({
@@ -32,8 +20,6 @@ export const Route = createFileRoute("/events")({
 });
 
 /// Types and Interfaces
-
-type ResolvedTheme = "dark" | "light";
 
 type EventType =
   | "general"
@@ -66,12 +52,6 @@ interface EventsPage {
 interface SelectedEvent {
   event: ApiEvent;
   rect: DOMRect;
-}
-
-interface EventsCalendarProps {
-  theme: ResolvedTheme;
-  events: ApiEvent[];
-  onSelect: (selection: SelectedEvent) => void;
 }
 
 /// Module-scoped constants
@@ -142,12 +122,6 @@ const CALENDAR_SECTION_CLASSES = cn(
   "mx-auto flex w-full max-w-[1700px] flex-col",
   "h-[calc(100svh-4rem)] p-4 md:h-[calc(100svh-5.125rem)] md:px-8 md:py-6",
 );
-const CALENDAR_SHELL_CLASSES = cn(
-  "min-h-0 w-full flex-1 rounded-3xl border border-border bg-card",
-  "shadow-[0px_16px_40px_rgba(112,144,176,0.2)]",
-  "[&_.sx-react-calendar-wrapper]:size-full",
-);
-
 /// Tanstack Query keys
 
 const eventsKeys = {
@@ -191,65 +165,6 @@ const eventsQueryOptions = queryOptions({
   refetchOnMount: false,
 });
 
-/// Events Calendar component
-
-// This exists because `useCalendarApp` only builds the calendar once and doesn't re-render theme changes
-// See: https://github.com/schedule-x/react/blob/main/src/use-calendar-app.tsx
-function EventsCalendar({ theme, events, onSelect }: Readonly<EventsCalendarProps>) {
-  const [initialScroll] = useState(() => `${String(new Date().getHours()).padStart(2, "0")}:00`);
-  const scrollController = useMemo(
-    () => createScrollControllerPlugin({ initialScroll }),
-    [initialScroll],
-  );
-
-  const sortedEvents = useMemo(() => new Map(events.map((event) => [event.id, event])), [events]);
-
-  const calendarEvents = useMemo<CalendarEvent[]>(
-    () =>
-      events.map((event) => ({
-        id: event.id,
-        title: event.name,
-        description: event.description,
-        location: event.location,
-        calendarId: event.type,
-        start: Temporal.Instant.from(event.start_at).toZonedDateTimeISO(event.timezone),
-        end: Temporal.Instant.from(event.end_at).toZonedDateTimeISO(event.timezone),
-      })),
-    [events],
-  );
-
-  const calendar = useCalendarApp({
-    views: [createViewWeek(), createViewMonthGrid(), createViewDay(), createViewMonthAgenda()],
-    defaultView: "week",
-    weekOptions: { gridHeight: 1200 },
-    dayBoundaries: { start: "08:00", end: "24:00" },
-    events: calendarEvents,
-    calendars: EVENT_CALENDARS,
-    theme: "shadcn",
-    isDark: theme === "dark",
-    timezone: PACIFIC_TZ,
-    selectedDate: Temporal.Now.plainDateISO(PACIFIC_TZ),
-    plugins: [scrollController],
-    callbacks: {
-      onEventClick: (calendarEvent, clickEvent) => {
-        const found = sortedEvents.get(String(calendarEvent.id));
-        const target = clickEvent.currentTarget;
-        if (found && target instanceof Element) {
-          onSelect({ event: found, rect: target.getBoundingClientRect() });
-        }
-      },
-    },
-  });
-
-  calendar?.setTheme(theme);
-
-  return (
-    <div className={CALENDAR_SHELL_CLASSES}>
-      <ScheduleXCalendar calendarApp={calendar} />
-    </div>
-  );
-}
-
 /// Route Component
 
 function Events() {
@@ -270,15 +185,6 @@ function Events() {
   const [selected, setSelected] = useState<SelectedEvent>();
   const selectedEvent = selected?.event;
 
-  // Not my favorite way to do this,
-  // but a system theme could result in the calendar could result in it being set to light theme
-  const { theme } = useTheme();
-  const [prefersDark] = useState(
-    () => globalThis.matchMedia("(prefers-color-scheme: dark)").matches,
-  );
-  const systemTheme: ResolvedTheme = prefersDark ? "dark" : "light";
-  const resolvedTheme: ResolvedTheme = theme === "system" ? systemTheme : theme;
-
   const handleJoinEvent = useCallback(() => {
     if (selectedEvent) {
       joinEvent(selectedEvent.id);
@@ -290,6 +196,16 @@ function Events() {
       setSelected(undefined);
     }
   }, []);
+
+  const handleSelect = useCallback(
+    (selection: { id: string; rect: DOMRect }) => {
+      const event = events.find((item) => item.id === selection.id);
+      if (event) {
+        setSelected({ event, rect: selection.rect });
+      }
+    },
+    [events],
+  );
 
   const selectedEventType = useMemo(
     () => EVENT_TYPES.find((meta) => meta.key === selectedEvent?.type) ?? EVENT_TYPES[0],
@@ -333,7 +249,11 @@ function Events() {
 
       <section className={CALENDAR_SECTION_CLASSES}>
         {eventsPage ? (
-          <EventsCalendar theme={resolvedTheme} events={events} onSelect={setSelected} />
+          <PublicEventsCalendar
+            events={events}
+            calendars={EVENT_CALENDARS}
+            onSelect={handleSelect}
+          />
         ) : undefined}
 
         {!eventsPage && isError ? (
