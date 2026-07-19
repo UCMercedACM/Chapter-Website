@@ -25,6 +25,8 @@ import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardManageProjectsRouteImport } from './routes/dashboard/manage/projects'
 import { Route as DashboardManageEventsRouteImport } from './routes/dashboard/manage/events'
 import { Route as DashboardEventsPastRouteImport } from './routes/dashboard/events_.past'
+import { Route as DashboardAdminTagsRouteImport } from './routes/dashboard/admin/tags'
+import { Route as DashboardAdminMembersRouteImport } from './routes/dashboard/admin/members'
 import { Route as DashboardManageProjectsProjectIdGalleryRouteImport } from './routes/dashboard/manage/projects_.$projectId.gallery'
 
 const SigsRoute = SigsRouteImport.update({
@@ -107,6 +109,16 @@ const DashboardEventsPastRoute = DashboardEventsPastRouteImport.update({
   path: '/events/past',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardAdminTagsRoute = DashboardAdminTagsRouteImport.update({
+  id: '/admin/tags',
+  path: '/admin/tags',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardAdminMembersRoute = DashboardAdminMembersRouteImport.update({
+  id: '/admin/members',
+  path: '/admin/members',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 const DashboardManageProjectsProjectIdGalleryRoute =
   DashboardManageProjectsProjectIdGalleryRouteImport.update({
     id: '/manage/projects_/$projectId/gallery',
@@ -128,6 +140,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/admin/members': typeof DashboardAdminMembersRoute
+  '/dashboard/admin/tags': typeof DashboardAdminTagsRoute
   '/dashboard/events/past': typeof DashboardEventsPastRoute
   '/dashboard/manage/events': typeof DashboardManageEventsRoute
   '/dashboard/manage/projects': typeof DashboardManageProjectsRoute
@@ -146,6 +160,8 @@ export interface FileRoutesByTo {
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/admin/members': typeof DashboardAdminMembersRoute
+  '/dashboard/admin/tags': typeof DashboardAdminTagsRoute
   '/dashboard/events/past': typeof DashboardEventsPastRoute
   '/dashboard/manage/events': typeof DashboardManageEventsRoute
   '/dashboard/manage/projects': typeof DashboardManageProjectsRoute
@@ -166,6 +182,8 @@ export interface FileRoutesById {
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/admin/members': typeof DashboardAdminMembersRoute
+  '/dashboard/admin/tags': typeof DashboardAdminTagsRoute
   '/dashboard/events_/past': typeof DashboardEventsPastRoute
   '/dashboard/manage/events': typeof DashboardManageEventsRoute
   '/dashboard/manage/projects': typeof DashboardManageProjectsRoute
@@ -187,6 +205,8 @@ export interface FileRouteTypes {
     | '/dashboard/projects'
     | '/project/$projectId'
     | '/dashboard/'
+    | '/dashboard/admin/members'
+    | '/dashboard/admin/tags'
     | '/dashboard/events/past'
     | '/dashboard/manage/events'
     | '/dashboard/manage/projects'
@@ -205,6 +225,8 @@ export interface FileRouteTypes {
     | '/dashboard/projects'
     | '/project/$projectId'
     | '/dashboard'
+    | '/dashboard/admin/members'
+    | '/dashboard/admin/tags'
     | '/dashboard/events/past'
     | '/dashboard/manage/events'
     | '/dashboard/manage/projects'
@@ -224,6 +246,8 @@ export interface FileRouteTypes {
     | '/dashboard/projects'
     | '/project/$projectId'
     | '/dashboard/'
+    | '/dashboard/admin/members'
+    | '/dashboard/admin/tags'
     | '/dashboard/events_/past'
     | '/dashboard/manage/events'
     | '/dashboard/manage/projects'
@@ -357,6 +381,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardEventsPastRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/admin/tags': {
+      id: '/dashboard/admin/tags'
+      path: '/admin/tags'
+      fullPath: '/dashboard/admin/tags'
+      preLoaderRoute: typeof DashboardAdminTagsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/admin/members': {
+      id: '/dashboard/admin/members'
+      path: '/admin/members'
+      fullPath: '/dashboard/admin/members'
+      preLoaderRoute: typeof DashboardAdminMembersRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/manage/projects_/$projectId/gallery': {
       id: '/dashboard/manage/projects_/$projectId/gallery'
       path: '/manage/projects/$projectId/gallery'
@@ -371,6 +409,8 @@ interface DashboardRouteRouteChildren {
   DashboardEventsRoute: typeof DashboardEventsRoute
   DashboardProjectsRoute: typeof DashboardProjectsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardAdminMembersRoute: typeof DashboardAdminMembersRoute
+  DashboardAdminTagsRoute: typeof DashboardAdminTagsRoute
   DashboardEventsPastRoute: typeof DashboardEventsPastRoute
   DashboardManageEventsRoute: typeof DashboardManageEventsRoute
   DashboardManageProjectsRoute: typeof DashboardManageProjectsRoute
@@ -381,6 +421,8 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardEventsRoute: DashboardEventsRoute,
   DashboardProjectsRoute: DashboardProjectsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardAdminMembersRoute: DashboardAdminMembersRoute,
+  DashboardAdminTagsRoute: DashboardAdminTagsRoute,
   DashboardEventsPastRoute: DashboardEventsPastRoute,
   DashboardManageEventsRoute: DashboardManageEventsRoute,
   DashboardManageProjectsRoute: DashboardManageProjectsRoute,

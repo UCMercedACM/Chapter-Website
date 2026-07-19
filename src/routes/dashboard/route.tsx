@@ -16,6 +16,8 @@ import {
   History,
   Home,
   Settings,
+  Tag,
+  Users,
 } from "lucide-react";
 import { type CSSProperties, useCallback, useMemo, useState } from "react";
 
@@ -79,7 +81,9 @@ interface NavItem {
     | "/dashboard/events/past"
     | "/dashboard/projects"
     | "/dashboard/manage/events"
-    | "/dashboard/manage/projects";
+    | "/dashboard/manage/projects"
+    | "/dashboard/admin/members"
+    | "/dashboard/admin/tags";
   label: string;
   icon: LucideIcon;
   sub?: boolean;
@@ -130,6 +134,21 @@ const MANAGE_NAV_ITEMS: NavItem[] = [
     label: "Projects",
     icon: Folder,
     roles: ["root", "admin", "manager"],
+  },
+];
+
+const ADMIN_NAV_ITEMS: NavItem[] = [
+  {
+    to: "/dashboard/admin/members",
+    label: "Members & Roles",
+    icon: Users,
+    roles: ["root", "admin"],
+  },
+  {
+    to: "/dashboard/admin/tags",
+    label: "Tags",
+    icon: Tag,
+    roles: ["root", "admin"],
   },
 ];
 
@@ -212,6 +231,10 @@ function DashboardLayout() {
     () => MANAGE_NAV_ITEMS.filter((item) => item.roles?.some((role) => me?.roles.includes(role))),
     [me],
   );
+  const adminItems = useMemo(
+    () => ADMIN_NAV_ITEMS.filter((item) => item.roles?.some((role) => me?.roles.includes(role))),
+    [me],
+  );
   const initials =
     me?.name
       .match(/\S+/g)
@@ -265,6 +288,16 @@ function DashboardLayout() {
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarNav items={manageItems} pathname={pathname} />
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+          {adminItems.length > 0 && (
+            <SidebarGroup>
+              <SidebarGroupLabel className="font-extrabold tracking-[0.12em] uppercase">
+                Admin
+              </SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarNav items={adminItems} pathname={pathname} />
               </SidebarGroupContent>
             </SidebarGroup>
           )}
