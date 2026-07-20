@@ -154,7 +154,7 @@ const TAG_COLUMNS: ColumnDef<FullTags>[] = [
     cell: ({ row }) => {
       const { description } = row.original;
       return (
-        <span className="block text-[12.5px] leading-relaxed text-muted-foreground">
+        <span className="block text-[12.5px]/relaxed text-muted-foreground">
           {description.length > DESCRIPTION_MAX
             ? `${description.slice(0, DESCRIPTION_MAX)}...`
             : description}
