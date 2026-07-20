@@ -140,7 +140,8 @@ const TAG_COLUMNS: ColumnDef<FullTags>[] = [
       row.original.in_use ? (
         <Badge className="gap-1 bg-[#078c79]/14 text-[#078c79] dark:bg-[#2fead0]/16 dark:text-[#2fead0]">
           <span className="size-1.5 rounded-full bg-current" />
-          In use
+          {/*
+           */}In use
         </Badge>
       ) : (
         <span className="text-[12.5px] text-muted-foreground">Unattached</span>

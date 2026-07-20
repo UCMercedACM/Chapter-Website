@@ -181,7 +181,8 @@ export function SudoDialog({ pending, onClose }: Readonly<SudoDialogProps>) {
             <span className="inline-flex size-5 items-center justify-center rounded-full bg-brand-teal/15 text-[11px] text-brand-teal-alt">
               {step === "reason" ? <Check className="size-3" /> : 1}
             </span>
-            Fresh 2FA
+            {/*
+             */}Fresh 2FA
           </span>
           <span
             className={cn(
@@ -205,7 +206,8 @@ export function SudoDialog({ pending, onClose }: Readonly<SudoDialogProps>) {
             >
               2
             </span>
-            Elevate
+            {/*
+             */}Elevate
           </span>
         </div>
 

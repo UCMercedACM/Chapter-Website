@@ -114,7 +114,8 @@ function TotpSettings() {
                 <code className="rounded-sm bg-muted px-1 py-0.5 font-mono text-[12px]">
                   oathtool --totp -b "SECRET"
                 </code>
-                ), then confirm a 6-digit code to finish enrollment.
+                {/*
+                 */}), then confirm a 6-digit code to finish enrollment.
               </p>
               <code className="block rounded-lg border border-border bg-card px-3 py-2 font-mono text-[13px] break-all select-all">
                 {secret ?? "…"}
