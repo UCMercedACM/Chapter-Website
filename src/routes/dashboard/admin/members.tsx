@@ -18,6 +18,12 @@ import { toast } from "sonner";
 
 import { EmptyState } from "@/components/app/dashboard-events";
 import { DataPagination } from "@/components/app/data-pagination";
+import {
+  type PendingSudo,
+  type SudoAction,
+  SudoDialog,
+  SudoLock,
+} from "@/components/app/sudo-dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -47,7 +53,12 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { type Role, meQueryOptions } from "@/routes/dashboard/route";
+import {
+  type Role,
+  isSudoActive,
+  meQueryOptions,
+  sudoQueryOptions,
+} from "@/routes/dashboard/route";
 
 export const Route = createFileRoute("/dashboard/admin/members")({
   component: MembersPage,
@@ -107,6 +118,7 @@ declare module "@tanstack/react-table" {
 /// Constants - metadata and presentation
 
 const ASSIGNABLE_ROLES: Role[] = ["admin", "manager", "leads"];
+const ROLE_RANK: Record<Role, number> = { root: 0, admin: 1, manager: 2, leads: 3 };
 const ROLE_META: Record<Role, { badge: string; desc: string; icon: LucideIcon; label: string }> = {
   root: {
     label: "Root",
@@ -271,6 +283,7 @@ const API_BASE_URL =
 const MEMBERS_KEY = ["members", "list"] as const;
 const MEMBERS_PAGE_SIZE = 100;
 const TABLE_PAGE_SIZE = 10;
+const NO_ROLE_RANK = 4;
 const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 const TEAL_BUTTON_CLASS = "bg-brand-teal font-bold text-primary hover:bg-brand-teal/85";
@@ -283,38 +296,26 @@ const SHARED_QUERY_OPTIONS = {
   refetchOnMount: false,
 } as const;
 
-
 /// Tanstack Query options
 
-// TODO: Get rid of this, and move the logic into the queryFn of membersQueryOptions
-async function hydrateRoles(into: AdminMember[], simple: readonly SimpleMember[]) {
-  for (const member of simple) {
-    try {
-      const { data } = await axios.get<MemberRoles>(`${API_BASE_URL}/members/${member.id}/roles`);
-      into.push({ ...member, roles: data.roles });
-    } catch {
-      into.push({ ...member, roles: [] });
-    }
-  }
-}
-
-// TODO: Optimize logic, and find a way to not call the roles endpoint constantly
 const membersQueryOptions = queryOptions({
   queryKey: MEMBERS_KEY,
   queryFn: async () => {
     const members: AdminMember[] = [];
-    const first = await axios.get<{ data: SimpleMember[] | undefined; total: number }>(
-      `${API_BASE_URL}/members`,
-      { params: { page: 1, size: MEMBERS_PAGE_SIZE } },
-    );
-    await hydrateRoles(members, first.data.data ?? []);
-    const pageCount = Math.ceil(first.data.total / MEMBERS_PAGE_SIZE);
-    for (let page = 2; page <= pageCount; page++) {
-      const next = await axios.get<{ data: SimpleMember[] | undefined; total: number }>(
+    for (let page = 1, pageCount = 1; page <= pageCount; page++) {
+      const { data } = await axios.get<{ data: SimpleMember[] | undefined; total: number }>(
         `${API_BASE_URL}/members`,
         { params: { page, size: MEMBERS_PAGE_SIZE } },
       );
-      await hydrateRoles(members, next.data.data ?? []);
+      pageCount = Math.ceil(data.total / MEMBERS_PAGE_SIZE);
+
+      // At some point this call will get removed
+      for (const member of data.data ?? []) {
+        const { data: memberRoles } = await axios
+          .get<MemberRoles>(`${API_BASE_URL}/members/${member.id}/roles`)
+          .catch(() => ({ data: { roles: EMPTY_ROLES } }));
+        members.push({ ...member, roles: memberRoles.roles });
+      }
     }
     return members;
   },
@@ -322,12 +323,6 @@ const membersQueryOptions = queryOptions({
 });
 
 /// Helper functions
-
-// TODO: Move the logic into its usage, and optimize the logic
-function applyRoleChange(roles: Role[], role: Role, action: "grant" | "revoke") {
-  if (action === "grant") return [...new Set([...roles, role])];
-  return roles.filter((existing) => existing !== role);
-}
 
 const renderFilterLabel = (value: RoleFilter) =>
   FILTER_OPTIONS.find((option) => option.value === value)?.label ?? value;
@@ -344,9 +339,11 @@ function MembersPage() {
   const [page, setPage] = useState(1);
   const [managedMember, setManagedMember] = useState<string>();
   const [deletingMember, setDeletingMember] = useState<string>();
+  const [pendingSudo, setPendingSudo] = useState<PendingSudo>();
 
   const { data: members, isPending } = useQuery(membersQueryOptions);
   const { data: me } = useQuery(meQueryOptions);
+  const { data: sudo } = useQuery(sudoQueryOptions);
   const meId = me?.id;
 
   const { mutate: modifyRole } = useMutation({
@@ -357,11 +354,12 @@ function MembersPage() {
       await queryClient.cancelQueries({ queryKey: MEMBERS_KEY });
       const previous = queryClient.getQueryData<AdminMember[]>(MEMBERS_KEY);
       queryClient.setQueryData<AdminMember[]>(MEMBERS_KEY, (old) =>
-        (old ?? EMPTY_MEMBERS).map((member) =>
-          member.id === memberId
-            ? { ...member, roles: applyRoleChange(member.roles, role, action) }
-            : member,
-        ),
+        (old ?? EMPTY_MEMBERS).map((member) => {
+          if (member.id !== memberId) return member;
+          const roles = new Set(member.roles);
+          roles[action === "grant" ? "add" : "delete"](role);
+          return { ...member, roles: [...roles] };
+        }),
       );
       return { previous };
     },
@@ -420,23 +418,57 @@ function MembersPage() {
   const closeDelete = useCallback(() => {
     setDeletingMember(undefined);
   }, []);
+
+  const withSudo = useCallback(
+    (action: SudoAction, run: () => void) => {
+      if (isSudoActive(sudo)) run();
+      else setPendingSudo({ ...action, run });
+    },
+    [sudo],
+  );
+  const clearSudo = useCallback(() => {
+    setPendingSudo(undefined);
+  }, []);
   const confirmDelete = useCallback(() => {
-    if (deletingMember) deleteMember(deletingMember);
+    const member = (members ?? EMPTY_MEMBERS).find((item) => item.id === deletingMember);
+    if (!member) return;
     setDeletingMember(undefined);
-  }, [deletingMember, deleteMember]);
+    withSudo(
+      {
+        title: "Delete member",
+        detail: `Permanently purge ${member.name} from the system. THIS CANNOT BE UNDONE!!!`,
+        reason: `Delete member — ${member.name}`,
+      },
+      () => {
+        deleteMember(member.id);
+      },
+    );
+  }, [deletingMember, members, deleteMember, withSudo]);
   const toggleRole = useCallback(
     (event: MouseEvent<HTMLElement>) => {
       const role = event.currentTarget.dataset.role as Role | undefined;
       const member = (members ?? EMPTY_MEMBERS).find((item) => item.id === managedMember);
       if (!role || !member) return;
       const action = member.roles.includes(role) ? "revoke" : "grant";
-      modifyRole({ memberId: member.id, role, action });
+      const verb = action === "grant" ? "Grant" : "Revoke";
+      withSudo(
+        {
+          title: `${verb} role`,
+          detail: `${verb} the ${ROLE_META[role].label} role ${action === "grant" ? "for" : "from"} ${member.name}.`,
+          reason: `${verb} ${ROLE_META[role].label} — ${member.name}`,
+        },
+        () => {
+          modifyRole({ memberId: member.id, role, action });
+        },
+      );
     },
-    [members, managedMember, modifyRole],
+    [members, managedMember, modifyRole, withSudo],
   );
 
   const rows = useMemo(() => {
     const term = search.trim().toLowerCase();
+    const rank = (member: AdminMember) =>
+      Math.min(NO_ROLE_RANK, ...member.roles.map((role) => ROLE_RANK[role]));
     return (members ?? EMPTY_MEMBERS)
       .filter((member) => {
         if (filter === "all") return true;
@@ -445,7 +477,8 @@ function MembersPage() {
       })
       .filter((member) =>
         `${member.name} ${member.email} ${member.display_name ?? ""}`.toLowerCase().includes(term),
-      );
+      )
+      .toSorted((a, b) => rank(a) - rank(b));
   }, [members, filter, search]);
 
   const total = rows.length;
@@ -459,6 +492,8 @@ function MembersPage() {
     () => ({ members: { meId, onManage: openManage, onAskDelete: askDelete } }),
     [meId, openManage, askDelete],
   );
+
+  const sudoActive = isSudoActive(sudo);
 
   const allMembers = members ?? EMPTY_MEMBERS;
   const managed = allMembers.find((member) => member.id === managedMember);
@@ -485,7 +520,7 @@ function MembersPage() {
               />
             </div>
             <Select value={filter} onValueChange={handleFilter}>
-              <SelectTrigger className="h-10 rounded-xl bg-muted font-bold">
+              <SelectTrigger className="h-10 rounded-xl border border-border bg-muted font-bold">
                 <SelectValue>{renderFilterLabel}</SelectValue>
               </SelectTrigger>
               <SelectContent>
@@ -591,6 +626,10 @@ function MembersPage() {
                 );
               })}
             </div>
+
+            <p className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+              <SudoLock active={sudoActive} /> Each role change needs sudo.
+            </p>
           </DialogContent>
         )}
       </Dialog>
@@ -609,6 +648,9 @@ function MembersPage() {
                 member. CANNOT BE UNDONE!
               </p>
             </div>
+            <p className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
+              <SudoLock active={sudoActive} /> Deleting a member requires sudo.
+            </p>
             <DialogFooter>
               <Button variant="ghost" onClick={closeDelete}>
                 Cancel
@@ -621,6 +663,8 @@ function MembersPage() {
           </DialogContent>
         )}
       </Dialog>
+
+      <SudoDialog pending={pendingSudo} onClose={clearSudo} />
     </div>
   );
 }

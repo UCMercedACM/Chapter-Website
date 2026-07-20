@@ -17,7 +17,15 @@ export interface Message {
 }
 
 export interface OryNode {
-  attributes: { name?: string; value?: unknown };
+  type?: string;
+  group?: string;
+  attributes: {
+    id?: string;
+    name?: string;
+    src?: string;
+    text?: { text?: string };
+    value?: unknown;
+  };
   messages: Message[];
 }
 

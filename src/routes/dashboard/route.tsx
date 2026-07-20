@@ -1,4 +1,4 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createFileRoute,
   Link,
@@ -13,10 +13,12 @@ import {
   Calendar,
   ChevronRight,
   Folder,
+  Gauge,
   History,
   Home,
   Settings,
   Tag,
+  Unlock,
   Users,
 } from "lucide-react";
 import { type CSSProperties, useCallback, useMemo, useState } from "react";
@@ -74,6 +76,11 @@ export interface ClientMember {
   session: ClientSession;
 }
 
+export interface Sudo {
+  active: boolean;
+  expires_at?: string | null;
+}
+
 interface NavItem {
   to:
     | "/dashboard"
@@ -82,6 +89,7 @@ interface NavItem {
     | "/dashboard/projects"
     | "/dashboard/manage/events"
     | "/dashboard/manage/projects"
+    | "/dashboard/admin/overview"
     | "/dashboard/admin/members"
     | "/dashboard/admin/tags";
   label: string;
@@ -139,6 +147,12 @@ const MANAGE_NAV_ITEMS: NavItem[] = [
 
 const ADMIN_NAV_ITEMS: NavItem[] = [
   {
+    to: "/dashboard/admin/overview",
+    label: "Overview",
+    icon: Gauge,
+    roles: ["root", "admin"],
+  },
+  {
     to: "/dashboard/admin/members",
     label: "Members & Roles",
     icon: Users,
@@ -162,6 +176,14 @@ const SIDEBAR_STYLE = {
   "--sidebar-width-icon": "3.5rem",
 } as CSSProperties;
 
+const SHARED_QUERY_OPTIONS = {
+  staleTime: 60_000,
+  retry: false,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
+  refetchOnMount: false,
+} as const;
+
 /// Tanstack Query options
 
 export const meQueryOptions = queryOptions({
@@ -170,12 +192,23 @@ export const meQueryOptions = queryOptions({
     const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);
     return data;
   },
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
+  ...SHARED_QUERY_OPTIONS,
 });
+
+export const sudoQueryOptions = queryOptions({
+  queryKey: ["sudo", "status"],
+  queryFn: async () => {
+    const { data } = await axios.get<Sudo>(`${API_BASE_URL}/sudo`);
+    return data;
+  },
+  ...SHARED_QUERY_OPTIONS,
+});
+
+/// Helper functions
+
+export function isSudoActive(sudo: Sudo | undefined): boolean {
+  return sudo?.active === true;
+}
 
 /// Route-based components
 
@@ -212,11 +245,25 @@ function SidebarNav({ items, pathname }: Readonly<{ items: NavItem[]; pathname: 
 /// Route
 
 function DashboardLayout() {
+  const queryClient = useQueryClient();
   const { data: me } = useQuery(meQueryOptions);
+  const { data: sudo } = useQuery(sudoQueryOptions);
   const { pathname } = useLocation();
   const meta = useMatches({ select: (matches) => matches.at(-1)?.staticData ?? EMPTY_STATIC });
 
   const [collapsed, setCollapsed] = useState(false);
+
+  const { mutate: revokeSudo } = useMutation({
+    mutationFn: async () => {
+      await axios.delete(`${API_BASE_URL}/sudo/revoke`);
+    },
+    onMutate: () => {
+      queryClient.setQueryData<Sudo>(sudoQueryOptions.queryKey, { active: false });
+    },
+  });
+  const endSudo = useCallback(() => {
+    revokeSudo();
+  }, [revokeSudo]);
 
   const handleOpenChange = useCallback((open: boolean) => {
     setCollapsed(!open);
@@ -242,6 +289,8 @@ function DashboardLayout() {
       .map((part) => part[0])
       .join("")
       .toUpperCase() ?? "··";
+
+  const sudoElevated = isSudoActive(sudo);
 
   const firstName = me?.name.match(/\S+/)?.[0];
   const welcome = firstName ? `Welcome back, ${firstName}!` : "Welcome back!";
@@ -305,6 +354,18 @@ function DashboardLayout() {
 
         <SidebarFooter className="border-t border-border">
           <SidebarMenu className="group-data-[collapsible=icon]:items-center">
+            {sudoElevated && (
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  tooltip="Sudo active — end elevation"
+                  onClick={endSudo}
+                  className="mb-1 justify-center border border-[#e0a100]/40 font-semibold text-[#a9760a] hover:bg-[#f7b731]/12 hover:text-[#a9760a] dark:border-[#f7c948]/30 dark:text-[#f7c948] dark:hover:text-[#f7c948]"
+                >
+                  <Unlock />
+                  <span>End elevation</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )}
             <SidebarMenuItem>
               <SidebarMenuButton
                 size="lg"

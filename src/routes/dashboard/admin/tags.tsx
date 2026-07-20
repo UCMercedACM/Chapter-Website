@@ -20,6 +20,12 @@ import { z } from "zod";
 
 import { EmptyState } from "@/components/app/dashboard-events";
 import { DataPagination } from "@/components/app/data-pagination";
+import {
+  type PendingSudo,
+  type SudoAction,
+  SudoDialog,
+  SudoLock,
+} from "@/components/app/sudo-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
@@ -43,6 +49,7 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { isSudoActive, sudoQueryOptions } from "@/routes/dashboard/route";
 
 export const Route = createFileRoute("/dashboard/admin/tags")({
   component: TagsPage,
@@ -258,14 +265,27 @@ function TagsPage() {
   const [conflict, setConflict] = useState<Conflict>();
   const [bulkOpen, setBulkOpen] = useState(false);
   const [bulkText, setBulkText] = useState("");
+  const [pendingSudo, setPendingSudo] = useState<PendingSudo>();
 
   const { data: tags, isPending } = useQuery(tagsQueryOptions);
+  const { data: sudo } = useQuery(sudoQueryOptions);
+  const sudoActive = isSudoActive(sudo);
+
+  const withSudo = useCallback(
+    (action: SudoAction, run: () => void) => {
+      if (isSudoActive(sudo)) run();
+      else setPendingSudo({ ...action, run });
+    },
+    [sudo],
+  );
+  const clearSudo = useCallback(() => {
+    setPendingSudo(undefined);
+  }, []);
 
   const invalidateTags = useCallback(
     () => queryClient.invalidateQueries({ queryKey: TAGS_KEY }),
     [queryClient],
   );
-
   const { mutate: createTag } = useMutation({
     mutationFn: async (body: TagVars) => {
       const { data } = await axios.post<Tag>(`${API_BASE_URL}/tags/create`, body);
@@ -354,8 +374,21 @@ function TagsPage() {
         toast.error("A tag with that title already exists.");
         return;
       }
-      if (editingTag) editTag({ id: editingTag.id, title, description });
-      else createTag({ title, description });
+      if (editingTag) {
+        const target = editingTag;
+        withSudo(
+          {
+            title: "Edit tag",
+            detail: `Rename a shared tag to “${title}”.`,
+            reason: `Edit tag — ${title}`,
+          },
+          () => {
+            editTag({ id: target.id, title, description });
+          },
+        );
+      } else {
+        createTag({ title, description });
+      }
       setEditorOpen(false);
     },
   });
@@ -415,9 +448,19 @@ function TagsPage() {
   const removeTag = useCallback(
     (event: MouseEvent<HTMLElement>) => {
       const tag = tagForEvent(event);
-      if (tag) deleteTag(tag);
+      if (!tag) return;
+      withSudo(
+        {
+          title: "Delete tag",
+          detail: `Delete the “${tag.title}” tag from the shared pool`,
+          reason: `Delete tag — ${tag.title}`,
+        },
+        () => {
+          deleteTag(tag);
+        },
+      );
     },
-    [tagForEvent, deleteTag],
+    [tagForEvent, deleteTag, withSudo],
   );
   const closeConflict = useCallback(() => {
     setConflict(undefined);
@@ -460,9 +503,19 @@ function TagsPage() {
   }, [bulkText, tags]);
   const submitBulk = useCallback(() => {
     if (bulkTitles.length === 0) return;
-    bulkCreate(bulkTitles.map((title) => ({ title, description: title })));
+    const titles = bulkTitles;
+    withSudo(
+      {
+        title: "Bulk-create tags",
+        detail: `Create ${String(titles.length)} new tag${titles.length === 1 ? "" : "s"} at once`,
+        reason: `Bulk-create ${String(titles.length)} tags`,
+      },
+      () => {
+        bulkCreate(titles.map((title) => ({ title, description: title })));
+      },
+    );
     setBulkOpen(false);
-  }, [bulkTitles, bulkCreate]);
+  }, [bulkTitles, bulkCreate, withSudo]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -484,6 +537,7 @@ function TagsPage() {
           <Button variant="outline" className="h-10 font-bold" onClick={openBulk}>
             <Upload />
             Bulk create
+            <SudoLock active={sudoActive} />
           </Button>
         </div>
       </div>
@@ -638,7 +692,10 @@ function TagsPage() {
       <Dialog open={bulkOpen} onOpenChange={closeBulk}>
         <DialogContent className="sm:max-w-125">
           <DialogHeader>
-            <DialogTitle className="text-lg font-extrabold">Bulk-create tags</DialogTitle>
+            <DialogTitle className="flex items-center gap-2 text-lg font-extrabold">
+              Bulk-create tags
+              <SudoLock active={sudoActive} />
+            </DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="bulk" className={SECTION_LABEL_CLASS}>
@@ -680,6 +737,8 @@ function TagsPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <SudoDialog pending={pendingSudo} onClose={clearSudo} />
     </div>
   );
 }
