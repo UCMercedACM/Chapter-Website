@@ -16,7 +16,6 @@ interface CarouselProps {
   opts?: CarouselOptions
   orientation?: "horizontal" | "vertical"
   plugins?: CarouselPlugin
-  setApi?: (api: CarouselApi) => void
 }
 
 // Split the carousel context so scroll-state changes don't ripple through every consumer.
@@ -49,7 +48,6 @@ function useCarouselApi() {
 function Carousel({
   orientation = "horizontal",
   opts,
-  setApi,
   plugins,
   className,
   children,
@@ -119,11 +117,6 @@ function Carousel({
     },
     [scrollPrev, scrollNext],
   )
-
-  React.useEffect(() => {
-    if (!api || !setApi) return
-    setApi(api)
-  }, [api, setApi])
 
   const apiContextValue = React.useMemo(
     () => ({
