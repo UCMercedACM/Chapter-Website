@@ -9,56 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SigsRouteImport } from './routes/sigs'
-import { Route as RegisterRouteImport } from './routes/register'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as ErrorRouteImport } from './routes/error'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as ErrorRouteImport } from './routes/error'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as SigsRouteImport } from './routes/sigs'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as ProjectProjectIdRouteImport } from './routes/project/$projectId'
-import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
-import { Route as DashboardSettingsTotpRouteImport } from './routes/dashboard/settings/totp'
-import { Route as DashboardManageProjectsRouteImport } from './routes/dashboard/manage/projects'
-import { Route as DashboardManageEventsRouteImport } from './routes/dashboard/manage/events'
-import { Route as DashboardEventsPastRouteImport } from './routes/dashboard/events_.past'
-import { Route as DashboardAdminTagsRouteImport } from './routes/dashboard/admin/tags'
-import { Route as DashboardAdminOverviewRouteImport } from './routes/dashboard/admin/overview'
+import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
+import { Route as ProjectProjectIdRouteImport } from './routes/project/$projectId'
 import { Route as DashboardAdminMembersRouteImport } from './routes/dashboard/admin/members'
+import { Route as DashboardAdminOverviewRouteImport } from './routes/dashboard/admin/overview'
+import { Route as DashboardAdminTagsRouteImport } from './routes/dashboard/admin/tags'
+import { Route as DashboardEventsPastRouteImport } from './routes/dashboard/events_.past'
+import { Route as DashboardManageEventsRouteImport } from './routes/dashboard/manage/events'
+import { Route as DashboardManageProjectsRouteImport } from './routes/dashboard/manage/projects'
+import { Route as DashboardSettingsTotpRouteImport } from './routes/dashboard/settings/totp'
 import { Route as DashboardManageProjectsProjectIdGalleryRouteImport } from './routes/dashboard/manage/projects_.$projectId.gallery'
 
-const SigsRoute = SigsRouteImport.update({
-  id: '/sigs',
-  path: '/sigs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ErrorRoute = ErrorRouteImport.update({
-  id: '/error',
-  path: '/error',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -71,9 +46,34 @@ const DashboardRouteRoute = DashboardRouteRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ErrorRoute = ErrorRouteImport.update({
+  id: '/error',
+  path: '/error',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SigsRoute = SigsRouteImport.update({
+  id: '/sigs',
+  path: '/sigs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -81,44 +81,24 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const ProjectProjectIdRoute = ProjectProjectIdRouteImport.update({
-  id: '/project/$projectId',
-  path: '/project/$projectId',
-  getParentRoute: () => rootRouteImport,
+const DashboardEventsRoute = DashboardEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardProjectsRoute = DashboardProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardEventsRoute = DashboardEventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => DashboardRouteRoute,
+const ProjectProjectIdRoute = ProjectProjectIdRouteImport.update({
+  id: '/project/$projectId',
+  path: '/project/$projectId',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardSettingsTotpRoute = DashboardSettingsTotpRouteImport.update({
-  id: '/settings/totp',
-  path: '/settings/totp',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-const DashboardManageProjectsRoute = DashboardManageProjectsRouteImport.update({
-  id: '/manage/projects',
-  path: '/manage/projects',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-const DashboardManageEventsRoute = DashboardManageEventsRouteImport.update({
-  id: '/manage/events',
-  path: '/manage/events',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-const DashboardEventsPastRoute = DashboardEventsPastRouteImport.update({
-  id: '/events_/past',
-  path: '/events/past',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-const DashboardAdminTagsRoute = DashboardAdminTagsRouteImport.update({
-  id: '/admin/tags',
-  path: '/admin/tags',
+const DashboardAdminMembersRoute = DashboardAdminMembersRouteImport.update({
+  id: '/admin/members',
+  path: '/admin/members',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardAdminOverviewRoute = DashboardAdminOverviewRouteImport.update({
@@ -126,9 +106,29 @@ const DashboardAdminOverviewRoute = DashboardAdminOverviewRouteImport.update({
   path: '/admin/overview',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardAdminMembersRoute = DashboardAdminMembersRouteImport.update({
-  id: '/admin/members',
-  path: '/admin/members',
+const DashboardAdminTagsRoute = DashboardAdminTagsRouteImport.update({
+  id: '/admin/tags',
+  path: '/admin/tags',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardEventsPastRoute = DashboardEventsPastRouteImport.update({
+  id: '/events_/past',
+  path: '/events/past',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardManageEventsRoute = DashboardManageEventsRouteImport.update({
+  id: '/manage/events',
+  path: '/manage/events',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardManageProjectsRoute = DashboardManageProjectsRouteImport.update({
+  id: '/manage/projects',
+  path: '/manage/projects',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSettingsTotpRoute = DashboardSettingsTotpRouteImport.update({
+  id: '/settings/totp',
+  path: '/settings/totp',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardManageProjectsProjectIdGalleryRoute =
@@ -293,46 +293,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sigs': {
-      id: '/sigs'
-      path: '/sigs'
-      fullPath: '/sigs'
-      preLoaderRoute: typeof SigsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/error': {
-      id: '/error'
-      path: '/error'
-      fullPath: '/error'
-      preLoaderRoute: typeof ErrorRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -349,11 +314,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/error': {
+      id: '/error'
+      path: '/error'
+      fullPath: '/error'
+      preLoaderRoute: typeof ErrorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sigs': {
+      id: '/sigs'
+      path: '/sigs'
+      fullPath: '/sigs'
+      preLoaderRoute: typeof SigsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -363,12 +363,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/project/$projectId': {
-      id: '/project/$projectId'
-      path: '/project/$projectId'
-      fullPath: '/project/$projectId'
-      preLoaderRoute: typeof ProjectProjectIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/dashboard/events': {
+      id: '/dashboard/events'
+      path: '/events'
+      fullPath: '/dashboard/events'
+      preLoaderRoute: typeof DashboardEventsRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/projects': {
       id: '/dashboard/projects'
@@ -377,46 +377,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardProjectsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/events': {
-      id: '/dashboard/events'
-      path: '/events'
-      fullPath: '/dashboard/events'
-      preLoaderRoute: typeof DashboardEventsRouteImport
-      parentRoute: typeof DashboardRouteRoute
+    '/project/$projectId': {
+      id: '/project/$projectId'
+      path: '/project/$projectId'
+      fullPath: '/project/$projectId'
+      preLoaderRoute: typeof ProjectProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/dashboard/settings/totp': {
-      id: '/dashboard/settings/totp'
-      path: '/settings/totp'
-      fullPath: '/dashboard/settings/totp'
-      preLoaderRoute: typeof DashboardSettingsTotpRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/manage/projects': {
-      id: '/dashboard/manage/projects'
-      path: '/manage/projects'
-      fullPath: '/dashboard/manage/projects'
-      preLoaderRoute: typeof DashboardManageProjectsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/manage/events': {
-      id: '/dashboard/manage/events'
-      path: '/manage/events'
-      fullPath: '/dashboard/manage/events'
-      preLoaderRoute: typeof DashboardManageEventsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/events_/past': {
-      id: '/dashboard/events_/past'
-      path: '/events/past'
-      fullPath: '/dashboard/events/past'
-      preLoaderRoute: typeof DashboardEventsPastRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/admin/tags': {
-      id: '/dashboard/admin/tags'
-      path: '/admin/tags'
-      fullPath: '/dashboard/admin/tags'
-      preLoaderRoute: typeof DashboardAdminTagsRouteImport
+    '/dashboard/admin/members': {
+      id: '/dashboard/admin/members'
+      path: '/admin/members'
+      fullPath: '/dashboard/admin/members'
+      preLoaderRoute: typeof DashboardAdminMembersRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/admin/overview': {
@@ -426,11 +398,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAdminOverviewRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/admin/members': {
-      id: '/dashboard/admin/members'
-      path: '/admin/members'
-      fullPath: '/dashboard/admin/members'
-      preLoaderRoute: typeof DashboardAdminMembersRouteImport
+    '/dashboard/admin/tags': {
+      id: '/dashboard/admin/tags'
+      path: '/admin/tags'
+      fullPath: '/dashboard/admin/tags'
+      preLoaderRoute: typeof DashboardAdminTagsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/events_/past': {
+      id: '/dashboard/events_/past'
+      path: '/events/past'
+      fullPath: '/dashboard/events/past'
+      preLoaderRoute: typeof DashboardEventsPastRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/manage/events': {
+      id: '/dashboard/manage/events'
+      path: '/manage/events'
+      fullPath: '/dashboard/manage/events'
+      preLoaderRoute: typeof DashboardManageEventsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/manage/projects': {
+      id: '/dashboard/manage/projects'
+      path: '/manage/projects'
+      fullPath: '/dashboard/manage/projects'
+      preLoaderRoute: typeof DashboardManageProjectsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/settings/totp': {
+      id: '/dashboard/settings/totp'
+      path: '/settings/totp'
+      fullPath: '/dashboard/settings/totp'
+      preLoaderRoute: typeof DashboardSettingsTotpRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/manage/projects_/$projectId/gallery': {
