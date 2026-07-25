@@ -266,8 +266,8 @@ const SHARED_QUERY_OPTIONS = {
 const OPEN_SETTINGS = (): { settings: "profile" } => ({ settings: "profile" });
 const SETTINGS_MASK = { to: "/dashboard/settings" } as const;
 const BLANK_DELETE_FORM = { email: "" };
-const TOTP_PARAMS = { algorithm: "SHA1", digits: "6", issuer: TOTP_ISSUER, period: "30" };
 const TOTP_ISSUER = "Kanae";
+const TOTP_PARAMS = { algorithm: "SHA1", digits: "6", issuer: TOTP_ISSUER, period: "30" };
 const BACKUP_CODES_FILE = "ucmacm-backup-codes.txt";
 const OTP_SLOT_CLASS = "size-11 rounded-md border-l border-border bg-background text-lg";
 const STEP_LABEL_CLASS = "inline-flex items-center gap-1.5 text-[12px] font-bold";
