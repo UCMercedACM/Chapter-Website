@@ -1208,7 +1208,7 @@ function DashboardLayout() {
                         {totpEnrolled && (
                           <Badge className="gap-1.5 border-[#15a66e]/35 bg-[#15a66e]/15 px-2.5 font-bold text-[#15a66e] dark:text-[#3fd68c]">
                             <span className="size-1.5 rounded-full bg-current" />
-                            Enabled
+                            {"Enabled"}
                           </Badge>
                         )}
                       </div>
