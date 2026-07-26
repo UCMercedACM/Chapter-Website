@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +19,41 @@ export default defineConfig({
       presets: [reactCompilerPreset()],
     }),
     tailwindcss(),
+    VitePWA({
+      registerType: "autoUpdate",
+      manifestFilename: "site.webmanifest",
+      manifest: {
+        id: "/",
+        name: "ACM @ UC Merced",
+        short_name: "UCMACM",
+        description:
+          "The official website of the Association for Computing Machinery student chapter at UC Merced — find our events, student projects, and special interest groups.",
+        start_url: "/",
+        scope: "/",
+        display: "standalone",
+        background_color: "#F5F5F5",
+        theme_color: "#00E1BF",
+        icons: [
+          { src: "/pwa-192x192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+          { src: "/pwa-512x512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+          {
+            src: "/pwa-maskable-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "/pwa-maskable-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,woff2}"],
+      },
+    }),
   ],
   resolve: {
     alias: {
