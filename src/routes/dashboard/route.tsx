@@ -283,18 +283,24 @@ const RAIL_BUTTON_CLASS =
 const RAIL_MARKER_CLASS = "absolute top-2 -left-3 bottom-2 w-1 rounded-[9px] bg-brand-sky";
 const RAIL_ICON_CLASS =
   "flex size-7.5 shrink-0 items-center justify-center rounded-[9px] group-data-active/menu-button:bg-card group-data-active/menu-button:text-[#078c79] group-data-active/menu-button:ring-1 group-data-active/menu-button:ring-border dark:group-data-active/menu-button:text-[#2fead0]";
+const TAB_STRIP_CLASS =
+  "no-scrollbar flex shrink-0 gap-1.5 overflow-x-auto border-b border-border bg-sidebar px-3 py-2.5 md:hidden";
+const TAB_BUTTON_CLASS =
+  "group/tab h-auto gap-2.5 rounded-xl px-3 py-2 text-[14.5px] font-semibold text-brand-text-sub hover:bg-sidebar-accent data-active:border-brand-teal/45 data-active:bg-brand-teal/14 data-active:font-bold data-active:text-foreground";
+const TAB_ICON_CLASS =
+  "flex size-7.5 shrink-0 items-center justify-center rounded-[9px] group-data-active/tab:bg-card group-data-active/tab:text-[#078c79] group-data-active/tab:ring-1 group-data-active/tab:ring-border dark:group-data-active/tab:text-[#2fead0]";
 const PANEL_CLASS =
-  "min-w-0 flex-1 overflow-y-auto bg-background px-7.5 py-6.5 [scrollbar-color:auto] [&::-webkit-scrollbar-button]:hidden [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-3 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/40 [&::-webkit-scrollbar-thumb]:bg-clip-content [&::-webkit-scrollbar-thumb:hover]:bg-muted-foreground/65 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:w-2.5";
+  "min-w-0 flex-1 overflow-y-auto overscroll-contain bg-background px-4 py-5 [scrollbar-color:auto] sm:px-6 lg:px-7.5 lg:py-6.5 [&::-webkit-scrollbar-button]:hidden [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-3 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/40 [&::-webkit-scrollbar-thumb]:bg-clip-content [&::-webkit-scrollbar-thumb:hover]:bg-muted-foreground/65 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:w-2.5";
 const PANEL_HEADING_CLASS = "text-2xl font-bold tracking-tight text-foreground";
 const PANEL_RULE_CLASS = "mt-2.25 block h-1.25 w-14 rounded-[9px] bg-brand-sky";
 const PANEL_SUB_CLASS = "mt-3 mb-6 text-[13.5px] text-muted-foreground";
 const FORM_ROW_CLASS =
-  "grid items-center gap-5 rounded-[14px] border border-border bg-card px-5 py-4.5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]";
+  "grid items-center gap-3.5 rounded-[14px] border border-border bg-card px-4 py-4 sm:px-5 sm:py-4.5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-5";
 const SECTION_TITLE_CLASS = "text-base font-extrabold text-foreground";
 const SECTION_SUB_CLASS = "mt-0.75 mb-4 text-[13px] text-muted-foreground";
 const ROW_TITLE_CLASS = "block text-base font-extrabold text-foreground";
 const SECURITY_ROW_CLASS =
-  "flex items-center gap-3.5 rounded-[14px] border border-border bg-card px-5 py-4.5";
+  "flex flex-wrap items-center gap-3.5 rounded-[14px] border border-border bg-card px-4 py-4 sm:px-5 sm:py-4.5";
 const SECURITY_ICON_CLASS =
   "flex size-11 shrink-0 items-center justify-center rounded-xl border border-border";
 const SECURITY_ROW_TITLE_CLASS =
@@ -305,7 +311,7 @@ const INPUT_CLASS = "h-11 rounded-xl border-border bg-background px-3.25 text-[1
 const TEAL_BUTTON_CLASS =
   "h-11 rounded-full bg-brand-teal px-5.5 text-[15px] font-bold text-primary shadow-[0px_4px_14px_rgba(112,144,176,0.14)] hover:bg-brand-teal/90";
 const SIGN_OUT_BUTTON_CLASS =
-  "font-bold text-brand-text-sub hover:bg-destructive/8 hover:text-destructive/80 hover:ring-1 hover:ring-destructive/20 hover:shadow-[0_0_16px_-6px_#e1373759] dark:hover:shadow-[0_0_16px_-6px_#ff6b6b45]";
+  "px-2.5 font-bold text-brand-text-sub sm:px-4 hover:bg-destructive/8 hover:text-destructive/80 hover:ring-1 hover:ring-destructive/20 hover:shadow-[0_0_16px_-6px_#e1373759] dark:hover:shadow-[0_0_16px_-6px_#ff6b6b45]";
 const DANGER_BUTTON_CLASS =
   "h-10 rounded-full border-destructive/55 bg-transparent px-5 font-bold text-destructive hover:bg-destructive/10";
 
@@ -931,26 +937,29 @@ function DashboardLayout() {
       <Dialog open={settings === "profile"} onOpenChange={handleSettingsOpenChange}>
         <DialogContent
           showCloseButton={false}
-          className="flex h-[min(660px,88vh)] flex-col gap-0 overflow-hidden rounded-[20px] p-0 sm:max-w-250"
+          className="flex h-[92svh] max-w-[calc(100%-1.5rem)] flex-col gap-0 overflow-hidden rounded-[20px] p-0 sm:h-[min(660px,88vh)] sm:max-w-[calc(100%-3rem)] xl:max-w-250"
         >
-          <div className="flex shrink-0 items-center gap-4 border-b border-border px-5.5 py-4.5">
-            <span className="flex size-10.5 shrink-0 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal-alt">
-              <Settings className="size-5.5" />
+          <div className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-3.5 sm:gap-4 sm:px-5.5 sm:py-4.5">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal-alt sm:size-10.5">
+              <Settings className="size-5 sm:size-5.5" />
             </span>
             <div className="min-w-0 flex-1">
-              <DialogTitle className="text-[19px] font-extrabold">Settings</DialogTitle>
+              <DialogTitle className="text-[17px] font-extrabold sm:text-[19px]">
+                Settings
+              </DialogTitle>
               <DialogDescription className="mt-0.5 text-[12.5px]">
                 Manage your preferences
               </DialogDescription>
             </div>
             <Button
               variant="ghost"
+              aria-label="Sign out"
               className={SIGN_OUT_BUTTON_CLASS}
               disabled={signingOut}
               onClick={submitSignOut}
             >
               <LogOut />
-              {signingOut ? "Signing out…" : "Sign out"}
+              <span className="hidden sm:inline">{signingOut ? "Signing out…" : "Sign out"}</span>
             </Button>
             <Button
               variant="ghost"
@@ -962,11 +971,30 @@ function DashboardLayout() {
             </Button>
           </div>
 
+          <div className={TAB_STRIP_CLASS}>
+            {SETTINGS_SECTIONS.map((item) => (
+              <Button
+                key={item.value}
+                variant="ghost"
+                size="sm"
+                data-section={item.value}
+                data-active={section === item.value || undefined}
+                className={TAB_BUTTON_CLASS}
+                onClick={selectSection}
+              >
+                <span className={TAB_ICON_CLASS}>
+                  <item.icon className="size-4.75" />
+                </span>
+                <span>{item.label}</span>
+              </Button>
+            ))}
+          </div>
+
           <div className="flex min-h-0 flex-1">
             <Sidebar
               collapsible="none"
               style={RAIL_STYLE}
-              className="shrink-0 border-r border-border"
+              className="hidden shrink-0 border-r border-border md:flex"
             >
               <SidebarContent>
                 <SidebarGroup className="px-3.5 py-5.5">
@@ -1202,7 +1230,7 @@ function DashboardLayout() {
                     >
                       <Lock className="size-5" />
                     </span>
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 basis-50">
                       <div className={SECURITY_ROW_TITLE_CLASS}>
                         Authenticator app
                         {totpEnrolled && (
