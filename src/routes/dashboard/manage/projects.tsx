@@ -73,12 +73,12 @@ import {
   type FullProject,
   JOIN_POLICY_META,
   type JoinPolicy,
-  MOCK_CURRENT_USER,
   type ProjectInvite,
   type ProjectMember,
   type ProjectType,
   SIG_META,
 } from "@/routes/dashboard/projects";
+import { meQueryOptions } from "@/routes/dashboard/route";
 
 export const Route = createFileRoute("/dashboard/manage/projects")({
   component: ManageProjectsPage,
@@ -104,6 +104,10 @@ interface ProjectPageParams {
   active?: boolean;
   name: string;
   page: number;
+}
+
+interface DirectoryMember extends ProjectMember {
+  email: string;
 }
 
 interface ManageProjectsMeta {
@@ -140,22 +144,6 @@ declare module "@tanstack/react-table" {
 }
 
 /// Constants - metadata and presentation
-
-// Until our auth is wired up, we'll have this for now
-const MOCK_MEMBERS: ProjectMember[] = [
-  { id: "m-ar", name: "Alex Rivera" },
-  { id: "m-pn", name: "Priya Nair" },
-  { id: "m-mc", name: "Marcus Chen" },
-  { id: "m-sg", name: "Sofia Gomez" },
-  { id: "m-tb", name: "Tyler Brooks" },
-  { id: "m-ap", name: "Aisha Patel" },
-  { id: "m-nw", name: "Noah Williams" },
-  { id: "m-lk", name: "Lena Kovac" },
-  { id: "m-ot", name: "Omar Tariq" },
-  { id: "m-ml", name: "Maya Lopez" },
-  { id: "m-ch", name: "Chen Hu" },
-  { id: "m-fr", name: "Fatima Rahman" },
-];
 
 const JOIN_POLICY_ICONS: Record<JoinPolicy, typeof Lock> = {
   open: LockOpen,
@@ -211,6 +199,7 @@ const BLANK_PROJECT_FORM: ProjectFormValues = {
 };
 
 const EMPTY_INVITES: ProjectInvite[] = [];
+const EMPTY_MEMBERS: DirectoryMember[] = [];
 const EMPTY_PROJECTS: FullProject[] = [];
 const EMPTY_META: Partial<ManageProjectsMeta> = {};
 
@@ -378,6 +367,7 @@ const API_BASE_URL =
 const THUMBNAIL_ACCEPT = { "image/*": [] };
 const THUMBNAIL_MAX_BYTES = 32 * 1024 * 1024;
 const MANAGE_PAGE_SIZE = 25;
+const MEMBER_DIRECTORY_SIZE = 50;
 const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 const TEAL_BUTTON_CLASS = "bg-brand-teal font-bold text-primary hover:bg-brand-teal/85";
@@ -388,6 +378,8 @@ const TAG_PILL_CLASS =
 const AVATAR_FALLBACK_CLASS = "text-[11px] font-bold";
 const POLICY_CHIP_CLASS = "inline-flex items-center gap-1.5 text-xs font-bold";
 const ROW_CLASS = "flex items-center gap-3 rounded-xl border border-border bg-card px-3 py-2";
+const MEMBER_LIST_CLASS =
+  "flex max-h-72 flex-col overflow-y-auto overscroll-contain [scrollbar-color:auto] [&::-webkit-scrollbar-button]:hidden [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-3 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/40 [&::-webkit-scrollbar-thumb]:bg-clip-content [&::-webkit-scrollbar-thumb:hover]:bg-muted-foreground/65 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:w-2.5";
 const FACT_TILE_CLASS = "rounded-xl border border-border bg-muted/60 px-3.5 py-3";
 const FACT_LABEL_CLASS =
   "mb-1 text-[10.5px] font-bold tracking-[0.06em] text-muted-foreground uppercase";
@@ -436,6 +428,23 @@ const manageProjectsQueryOptions = ({ active, name, page }: ProjectPageParams) =
         },
       });
       return data;
+    },
+    placeholderData: keepPreviousData,
+    ...SHARED_QUERY_OPTIONS,
+  });
+
+const memberDirectoryQueryOptions = (query: string) =>
+  queryOptions({
+    queryKey: ["members", "directory", { query: query.length >= 3 ? query : "" }],
+    queryFn: async () => {
+      const { data } = await axios.get<KanaePage<DirectoryMember>>(`${API_BASE_URL}/members`, {
+        params: {
+          page: 1,
+          size: MEMBER_DIRECTORY_SIZE,
+          ...(query.length >= 3 ? { query } : {}),
+        },
+      });
+      return data.data ?? EMPTY_MEMBERS;
     },
     placeholderData: keepPreviousData,
     ...SHARED_QUERY_OPTIONS,
@@ -500,6 +509,7 @@ function ManageProjectsPage() {
   const [editor, setEditor] = useState<Editor>();
   const [tab, setTab] = useState<DetailTab>("details");
   const [addingMember, setAddingMember] = useState(false);
+  const [memberSearch, setMemberSearch] = useState("");
   const [tagText, setTagText] = useState("");
 
   const activeFilter = status === "all" ? undefined : status === "active";
@@ -507,6 +517,11 @@ function ManageProjectsPage() {
     manageProjectsQueryOptions({ active: activeFilter, name: search, page }),
   );
   const { data: invites } = useQuery(manageInvitesQueryOptions);
+  const { data: me } = useQuery(meQueryOptions);
+  const { data: directory, isPending: directoryPending } = useQuery({
+    ...memberDirectoryQueryOptions(memberSearch),
+    enabled: addingMember,
+  });
   const projects = pageData?.data;
 
   const total = pageData?.total ?? 0;
@@ -582,37 +597,67 @@ function ManageProjectsPage() {
             `${API_BASE_URL}/projects/${invite.project_id}/invites/${invite.id}/${action}`,
           ));
     },
-    onMutate: ({ invite }) => {
+    onMutate: async ({ invite }) => {
+      await queryClient.cancelQueries({ queryKey: manageInvitesQueryOptions.queryKey });
+      const snapshot = queryClient.getQueryData<ProjectInvite[]>(
+        manageInvitesQueryOptions.queryKey,
+      );
       queryClient.setQueryData<ProjectInvite[]>(manageInvitesQueryOptions.queryKey, (old = []) =>
         old.filter((item) => item.id !== invite.id),
       );
+      return { snapshot };
     },
-    onError: () => toast.error("Couldn't update the invitation. Please try again."),
+    onError: (_error, _variables, context) => {
+      queryClient.setQueryData(manageInvitesQueryOptions.queryKey, context?.snapshot);
+      toast.error("Couldn't update the invitation. Please try again.");
+    },
     onSuccess: (_data, { action }) => toast.success(RESPOND_TOAST[action]),
     onSettled: (_data, _error, { action }) => {
       if (action === "accept") return invalidateManage();
     },
   });
 
-  const { mutate: sendInvite } = useMutation({
+  const {
+    mutate: sendInvite,
+    isPending: invitePending,
+    variables: inviteVars,
+  } = useMutation({
     mutationFn: async ({ member, projectId }: InviteVars) => {
-      await axios.post(`${API_BASE_URL}/projects/${projectId}/invites`, { member_id: member.id });
+      const { data } = await axios.post<ProjectInvite>(
+        `${API_BASE_URL}/projects/${projectId}/invites`,
+        { member_id: member.id },
+      );
+      return data;
     },
-    onMutate: ({ member, projectId }) =>
+    onMutate: async ({ member, projectId }) => {
+      await queryClient.cancelQueries({ queryKey: manageInvitesQueryOptions.queryKey });
+      const snapshot = queryClient.getQueryData<ProjectInvite[]>(
+        manageInvitesQueryOptions.queryKey,
+      );
+      const pendingId = crypto.randomUUID();
       queryClient.setQueryData<ProjectInvite[]>(manageInvitesQueryOptions.queryKey, (old = []) => [
         ...old,
         {
-          id: `iv-${String(Date.now())}`,
+          id: pendingId,
           project_id: projectId,
           kind: "invite",
           status: "pending",
-          invited_by: MOCK_CURRENT_USER.id,
           member,
           created_at: new Date().toISOString(),
         },
-      ]),
-    onError: () => toast.error("Couldn't send the invite. Please try again."),
-    onSuccess: () => toast.success("Invite sent."),
+      ]);
+      return { pendingId, snapshot };
+    },
+    onError: (_error, _variables, context) => {
+      queryClient.setQueryData(manageInvitesQueryOptions.queryKey, context?.snapshot);
+      toast.error("Couldn't send the invite. Please try again.");
+    },
+    onSuccess: (invite, _variables, context) => {
+      queryClient.setQueryData<ProjectInvite[]>(manageInvitesQueryOptions.queryKey, (old = []) =>
+        old.map((item) => (item.id === context.pendingId ? invite : item)),
+      );
+      toast.success("Invite sent.");
+    },
   });
 
   const form = useForm({
@@ -627,7 +672,7 @@ function ManageProjectsPage() {
           ...value,
           id: editor.id,
           founded_at: editor.founded_at,
-          members: existing?.members ?? [MOCK_CURRENT_USER],
+          members: existing?.members ?? (me ? [{ id: me.id, name: me.name }] : EMPTY_MEMBERS),
         },
       });
       closeEditor();
@@ -698,6 +743,10 @@ function ManageProjectsPage() {
   }, []);
   const toggleAdd = useCallback(() => {
     setAddingMember((value) => !value);
+    setMemberSearch("");
+  }, []);
+  const handleMemberSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setMemberSearch(event.target.value);
   }, []);
 
   /// Row actions
@@ -767,10 +816,10 @@ function ManageProjectsPage() {
   const invitePoolMember = useCallback(
     (event: MouseEvent<HTMLElement>) => {
       const { projectId, memberId } = event.currentTarget.dataset;
-      const member = MOCK_MEMBERS.find((item) => item.id === memberId);
+      const member = directory?.find((item) => item.id === memberId);
       if (projectId && member) sendInvite({ member, projectId });
     },
-    [sendInvite],
+    [directory, sendInvite],
   );
   const removeMember = useCallback(
     (event: MouseEvent<HTMLElement>) => {
@@ -863,13 +912,21 @@ function ManageProjectsPage() {
   const sentInvites = draftInvites.filter(
     (invite) => invite.kind === "invite" && invite.status === "pending",
   );
+  const isSending = (invite: ProjectInvite) =>
+    invitePending &&
+    inviteVars.projectId === invite.project_id &&
+    inviteVars.member.id === invite.member.id;
   const invitePool = editingMember
-    ? MOCK_MEMBERS.filter(
+    ? (directory ?? EMPTY_MEMBERS).filter(
         (member) =>
           !members.some((m) => m.id === member.id) &&
           !sentInvites.some((invite) => invite.member.id === member.id),
       )
-    : [];
+    : EMPTY_MEMBERS;
+  const invitePoolEmptyLabel =
+    memberSearch.length >= 3
+      ? "No one matches that search."
+      : "Everyone is already on this project or invited.";
   const confirmName = projects?.find((project) => project.id === confirmId)?.name;
 
   const detailProject = projects?.find((project) => project.id === detailId);
@@ -1251,12 +1308,29 @@ function ManageProjectsPage() {
                         <div className="px-2 py-1 text-[12px] font-bold text-muted-foreground">
                           Send an invite — they accept from their Projects page
                         </div>
-                        <div className="flex flex-col">
-                          {invitePool.length === 0 ? (
+                        <div className="relative px-2 py-1.5">
+                          <Search className="absolute top-1/2 left-4.5 size-4 -translate-y-1/2 text-muted-foreground" />
+                          <Input
+                            value={memberSearch}
+                            onChange={handleMemberSearch}
+                            placeholder="Search members by name or email…"
+                            className="h-9 rounded-lg bg-background pl-8.5"
+                          />
+                        </div>
+                        <div className={MEMBER_LIST_CLASS}>
+                          {directoryPending &&
+                            Array.from({ length: 3 }, (_, i) => (
+                              <div key={i} className="flex items-center gap-2.5 px-2 py-1.5">
+                                <Skeleton className="size-7 rounded-full" />
+                                <Skeleton className="h-3.5 flex-1" />
+                              </div>
+                            ))}
+                          {!directoryPending && invitePool.length === 0 && (
                             <div className="p-2 text-[12.5px] text-muted-foreground">
-                              Everyone is already on this project or invited.
+                              {invitePoolEmptyLabel}
                             </div>
-                          ) : (
+                          )}
+                          {!directoryPending &&
                             invitePool.map((member) => (
                               <button
                                 key={member.id}
@@ -1267,13 +1341,17 @@ function ManageProjectsPage() {
                                 className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 text-left transition hover:bg-muted"
                               >
                                 {renderAvatar(member, "size-7")}
-                                <span className="flex-1 text-[13px] font-bold text-foreground">
-                                  {member.name}
+                                <span className="min-w-0 flex-1">
+                                  <span className="block truncate text-[13px] font-bold text-foreground">
+                                    {member.name}
+                                  </span>
+                                  <span className="block truncate text-[11.5px] font-semibold text-muted-foreground">
+                                    {member.email}
+                                  </span>
                                 </span>
                                 <Mail className="size-4 text-brand-teal-alt" />
                               </button>
-                            ))
-                          )}
+                            ))}
                         </div>
                       </div>
                     )}
@@ -1317,7 +1395,7 @@ function ManageProjectsPage() {
                                 {invite.member.name}
                               </div>
                               <div className="text-[11.5px] text-muted-foreground">
-                                Invitation pending
+                                {isSending(invite) ? "Sending…" : "Invitation pending"}
                               </div>
                             </div>
                             <Button
@@ -1326,6 +1404,7 @@ function ManageProjectsPage() {
                               className="font-bold text-brand-text-sub"
                               data-id={invite.id}
                               data-action="revoke"
+                              disabled={isSending(invite)}
                               onClick={respond}
                             >
                               <X />
