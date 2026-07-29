@@ -38,6 +38,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { type KanaePage } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
+import { meQueryOptions } from "@/routes/dashboard/route";
 
 export const Route = createFileRoute("/dashboard/projects")({
   component: ProjectsPage,
@@ -144,12 +145,6 @@ export interface ProjectInvite {
 }
 
 /// Constants — metadata + presentation
-
-// Until the auth system is wired up, we'll have to mock some members to make it work
-export const MOCK_CURRENT_USER: ProjectMember = {
-  id: "7c1e0a90-1111-4aaa-bbbb-000000000001",
-  name: "Jordan Kim",
-};
 
 const JOIN_POLICY_ICONS: Record<JoinPolicy, typeof Lock> = {
   open: LockOpen,
@@ -378,6 +373,9 @@ function ProjectsPage() {
   const { data: projects, isPending } = useQuery(projectsQueryOptions);
   const { data: mineSet } = useQuery(memberProjectsQueryOptions);
   const { data: invites } = useQuery(projectInvitesQueryOptions);
+  const { data: me } = useQuery(meQueryOptions);
+
+  const currentUser = useMemo(() => (me ? { id: me.id, name: me.name } : undefined), [me]);
 
   const [query, setQuery] = useState("");
   const [scope, setScope] = useState<Scope>("mine");
@@ -397,7 +395,7 @@ function ProjectsPage() {
       await queryClient.cancelQueries();
       const snapshot = queryClient.getQueryData<FullProject[]>(projectsQueryOptions.queryKey);
       const mine = queryClient.getQueryData<MemberProject[]>(memberProjectsQueryOptions.queryKey);
-      patchMembership(queryClient, project, MOCK_CURRENT_USER, true);
+      if (currentUser) patchMembership(queryClient, project, currentUser, true);
       return { mine, snapshot };
     },
     onError: (_error, _project, context) => {
@@ -417,7 +415,7 @@ function ProjectsPage() {
       const snapshot = queryClient.getQueryData<FullProject[]>(projectsQueryOptions.queryKey);
       const mine = queryClient.getQueryData<MemberProject[]>(memberProjectsQueryOptions.queryKey);
 
-      patchMembership(queryClient, project, MOCK_CURRENT_USER, false);
+      if (currentUser) patchMembership(queryClient, project, currentUser, false);
       return { mine, snapshot };
     },
     onError: (_error, _project, context) => {
@@ -429,31 +427,46 @@ function ProjectsPage() {
   });
 
   const { mutate: requestMutate } = useMutation({
-    mutationFn: (project: FullProject) =>
-      axios.post(`${API_BASE_URL}/projects/${project.id}/requests`, { message: undefined }),
+    mutationFn: async (project: FullProject) => {
+      const { data } = await axios.post<ProjectInvite>(
+        `${API_BASE_URL}/projects/${project.id}/requests`,
+        { message: undefined },
+      );
+      return data;
+    },
     onMutate: async (project) => {
-      await queryClient.cancelQueries();
+      await queryClient.cancelQueries({ queryKey: projectInvitesQueryOptions.queryKey });
       const snapshot = queryClient.getQueryData<ProjectInvite[]>(
         projectInvitesQueryOptions.queryKey,
       );
-      queryClient.setQueryData<ProjectInvite[]>(projectInvitesQueryOptions.queryKey, (old) => [
-        ...(old ?? []),
-        {
-          id: `rq-${String(Date.now())}`,
-          project_id: project.id,
-          kind: "request",
-          status: "pending",
-          member: MOCK_CURRENT_USER,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-      return { snapshot };
+      const pendingId = crypto.randomUUID();
+      if (currentUser)
+        queryClient.setQueryData<ProjectInvite[]>(
+          projectInvitesQueryOptions.queryKey,
+          (old = []) => [
+            ...old,
+            {
+              id: pendingId,
+              project_id: project.id,
+              kind: "request",
+              status: "pending",
+              member: currentUser,
+              created_at: new Date().toISOString(),
+            },
+          ],
+        );
+      return { pendingId, snapshot };
     },
     onError: (_error, _project, context) => {
       queryClient.setQueryData(projectInvitesQueryOptions.queryKey, context?.snapshot);
       toast.error("Couldn't send your request. Please try again.");
     },
-    onSuccess: () => toast.success("Request sent — a manager will review it."),
+    onSuccess: (invite, _project, context) => {
+      queryClient.setQueryData<ProjectInvite[]>(projectInvitesQueryOptions.queryKey, (old = []) =>
+        old.map((item) => (item.id === context.pendingId ? invite : item)),
+      );
+      toast.success("Request sent — a manager will review it.");
+    },
   });
 
   const { mutate: respondMutate } = useMutation({
@@ -473,7 +486,7 @@ function ProjectsPage() {
       );
       if (accept) {
         const project = snapshot?.find((item) => item.id === invite.project_id);
-        if (project) patchMembership(queryClient, project, MOCK_CURRENT_USER, true);
+        if (project && currentUser) patchMembership(queryClient, project, currentUser, true);
       }
       return { invitesSnapshot, mine, snapshot };
     },
