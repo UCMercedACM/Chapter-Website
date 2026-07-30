@@ -52,7 +52,7 @@ interface FullProject {
   name: string;
   description: string;
   link: string;
-  thumbnail?: ProjectThumbnail;
+  thumbnail?: ProjectThumbnail | null;
   members: ProjectMember[];
   type: ProjectType;
   tags?: string[];
@@ -272,6 +272,19 @@ function Project() {
                 </ul>
               </div>
             </header>
+
+            {project.thumbnail ? (
+              <img
+                src={project.thumbnail.url}
+                alt=""
+                fetchPriority="high"
+                decoding="async"
+                className={cn(
+                  "mt-5 w-full rounded-2xl border border-border object-cover",
+                  "h-45 bg-(--type-color)/15 md:h-70",
+                )}
+              />
+            ) : undefined}
 
             <h1
               className={cn(
