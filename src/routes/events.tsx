@@ -7,7 +7,6 @@ import { MapPin } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
-import aboutUsThumb from "@/assets/images/about-us.png";
 import { PublicEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
@@ -32,6 +31,11 @@ type EventType =
   | "sig_swe"
   | "social";
 
+interface EventThumbnail {
+  hash: string;
+  url: string;
+}
+
 interface ApiEvent {
   id: string;
   name: string;
@@ -41,6 +45,7 @@ interface ApiEvent {
   location: string;
   type: EventType;
   timezone: string;
+  thumbnail?: EventThumbnail | null;
   creator_id: string;
 }
 
@@ -349,12 +354,25 @@ function Events() {
             >
               {selectedEvent ? (
                 <>
-                  <img
-                    src={aboutUsThumb}
-                    alt=""
-                    className="h-28 w-full shrink-0 object-cover"
-                    loading="lazy"
-                  />
+                  {selectedEvent.thumbnail ? (
+                    <img
+                      src={selectedEvent.thumbnail.url}
+                      alt=""
+                      className="h-28 w-full shrink-0 object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div
+                      className={cn(
+                        "flex h-28 w-full shrink-0 items-center justify-center border-b",
+                        "text-[11.5px] font-extrabold tracking-[0.12em] uppercase",
+                        EVENT_TYPE_BADGE_CLASSES[selectedEvent.type],
+                      )}
+                    >
+                      {selectedEventType.label}
+                    </div>
+                  )}
 
                   <div className="flex flex-col gap-2 p-3.5">
                     <span

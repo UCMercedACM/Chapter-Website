@@ -95,6 +95,7 @@ export const Route = createFileRoute("/dashboard/manage/events")({
 
 /// Types and Interfaces
 
+type ThumbnailUpload = { url: string } | { hash: string; url: string };
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
 type RosterTab = "qr" | "roster";
 
@@ -466,7 +467,7 @@ function ManageEventsPage() {
   );
   const { mutate: saveEvent } = useMutation({
     mutationFn: async ({ creating, event, thumbnailFile, removeThumbnail }: SaveVars) => {
-      const body = {
+      const details = {
         name: event.name,
         description: event.description,
         location: event.location,
@@ -476,19 +477,30 @@ function ManageEventsPage() {
       };
       await (creating
         ? axios.post<FullEvent>(`${API_BASE_URL}/events/create`, {
-            ...body,
+            ...details,
             id: event.id,
             type: event.type,
           })
-        : axios.put<FullEvent>(`${API_BASE_URL}/events/${event.id}`, body));
+        : axios.put<FullEvent>(`${API_BASE_URL}/events/${event.id}`, details));
 
       const eventId = event.id;
       if (thumbnailFile) {
-        const bytes = new Uint8Array(await thumbnailFile.arrayBuffer());
-        await axios.post(`${API_BASE_URL}/events/${eventId}/thumbnail`, {
-          hash: await blake3(bytes),
+        const body = {
+          hash: await blake3(new Uint8Array(await thumbnailFile.arrayBuffer())),
           content_type: thumbnailFile.type,
-        });
+          size: thumbnailFile.size,
+        };
+        const { data: upload } = await axios.post<ThumbnailUpload>(
+          `${API_BASE_URL}/events/${eventId}/thumbnail/upload`,
+          body,
+        );
+
+        if (!("hash" in upload))
+          await axios.put(upload.url, thumbnailFile, {
+            headers: { "Content-Type": thumbnailFile.type },
+            withCredentials: false,
+          });
+        await axios.post(`${API_BASE_URL}/events/${eventId}/thumbnail/commit`, body);
       } else if (removeThumbnail) {
         await axios.delete(`${API_BASE_URL}/events/${eventId}/thumbnail`);
       }

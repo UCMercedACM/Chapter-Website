@@ -9,6 +9,7 @@ import {
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type ColumnDef, type RowData, type TableMeta } from "@tanstack/react-table";
 import axios from "axios";
+import { blake3 } from "hash-wasm";
 import {
   Activity,
   Archive,
@@ -99,6 +100,7 @@ type ManageStatus = "all" | "active" | "archived";
 type DetailTab = "details" | "team";
 type InviteAction = "accept" | "decline" | "revoke";
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
+type ThumbnailUpload = { url: string } | { hash: string; url: string };
 
 interface ProjectPageParams {
   active?: boolean;
@@ -130,10 +132,13 @@ interface InviteVars {
 interface SaveVars {
   creating: boolean;
   project: FullProject;
+  removeThumbnail: boolean;
+  thumbnailFile?: File;
 }
 interface Editor {
   creating: boolean;
   founded_at: string;
+  hadThumbnail: boolean;
   id: string;
 }
 
@@ -409,7 +414,9 @@ const projectFormSchema = z.object({
   active: z.boolean(),
   join_policy: z.enum(JOIN_POLICIES as [JoinPolicy, ...JoinPolicy[]]),
   tags: z.array(z.string()),
-  thumbnail: z.object({ hash: z.string(), url: z.string() }).nullish(),
+  thumbnail: z
+    .object({ hash: z.string(), url: z.string(), file: z.instanceof(File).optional() })
+    .nullish(),
 });
 
 /// Tanstack Query options
@@ -545,22 +552,42 @@ function ManageProjectsPage() {
     [queryClient],
   );
   const { mutate: saveProject } = useMutation({
-    mutationFn: async ({ creating, project }: SaveVars) => {
-      await (creating
-        ? axios.post(`${API_BASE_URL}/projects/create`, {
-            name: project.name,
-            description: project.description,
-            link: project.link,
+    mutationFn: async ({ creating, project, thumbnailFile, removeThumbnail }: SaveVars) => {
+      const details = {
+        name: project.name,
+        description: project.description,
+        link: project.link,
+      };
+      const { data: saved } = await (creating
+        ? axios.post<Pick<FullProject, "id">>(`${API_BASE_URL}/projects/create`, {
+            ...details,
             type: project.type,
             tags: project.tags,
             active: project.active,
             founded_at: project.founded_at,
           })
-        : axios.put(`${API_BASE_URL}/projects/${project.id}`, {
-            name: project.name,
-            description: project.description,
-            link: project.link,
-          }));
+        : axios.put<Pick<FullProject, "id">>(`${API_BASE_URL}/projects/${project.id}`, details));
+
+      if (!thumbnailFile) {
+        if (removeThumbnail) await axios.delete(`${API_BASE_URL}/projects/${saved.id}/thumbnail`);
+        return;
+      }
+
+      const body = {
+        hash: await blake3(new Uint8Array(await thumbnailFile.arrayBuffer())),
+        content_type: thumbnailFile.type,
+        size: thumbnailFile.size,
+      };
+      const { data: upload } = await axios.post<ThumbnailUpload>(
+        `${API_BASE_URL}/projects/${saved.id}/thumbnail/upload`,
+        body,
+      );
+      if (!("hash" in upload))
+        await axios.put(upload.url, thumbnailFile, {
+          headers: { "Content-Type": thumbnailFile.type },
+          withCredentials: false,
+        });
+      await axios.post(`${API_BASE_URL}/projects/${saved.id}/thumbnail/commit`, body);
     },
     onError: () => toast.error("Couldn't save the project. Please try again."),
     onSuccess: (_data, { creating }) =>
@@ -666,14 +693,18 @@ function ManageProjectsPage() {
     onSubmit: ({ value }) => {
       if (!editor) return;
       const existing = projects?.find((item) => item.id === editor.id);
+      const thumbnail = value.thumbnail;
       saveProject({
         creating: editor.creating,
         project: {
           ...value,
+          thumbnail: thumbnail ? { hash: thumbnail.hash, url: thumbnail.url } : undefined,
           id: editor.id,
           founded_at: editor.founded_at,
           members: existing?.members ?? (me ? [{ id: me.id, name: me.name }] : EMPTY_MEMBERS),
         },
+        thumbnailFile: thumbnail?.file,
+        removeThumbnail: !editor.creating && !thumbnail && editor.hadThumbnail,
       });
       closeEditor();
     },
@@ -685,7 +716,11 @@ function ManageProjectsPage() {
     multiple: false,
     onDrop: (accepted, rejections) => {
       if (accepted.length > 0)
-        form.setFieldValue("thumbnail", { hash: "local", url: URL.createObjectURL(accepted[0]) });
+        form.setFieldValue("thumbnail", {
+          hash: "local",
+          url: URL.createObjectURL(accepted[0]),
+          file: accepted[0],
+        });
       else if (rejections.length > 0) toast.error("That file must be an image under 32 MB.");
     },
   });
@@ -705,6 +740,7 @@ function ManageProjectsPage() {
       creating: true,
       id: `new-${String(Date.now())}`,
       founded_at: new Date().toISOString(),
+      hadThumbnail: false,
     });
   }, [form]);
   const closeConfirm = useCallback(() => {
@@ -773,7 +809,12 @@ function ManageProjectsPage() {
       setTagText((project.tags ?? []).join(", "));
       setTab(nextTab as DetailTab);
       setAddingMember(false);
-      setEditor({ creating: false, id: project.id, founded_at: project.founded_at });
+      setEditor({
+        creating: false,
+        id: project.id,
+        founded_at: project.founded_at,
+        hadThumbnail: !!project.thumbnail,
+      });
     },
     [findProject, form],
   );

@@ -105,9 +105,8 @@ const TEAL_BUTTON_CLASS = "bg-brand-teal font-bold text-primary hover:bg-brand-t
 
 /// Helper functions
 
-// This will be removed once we start using real images
 function mediaSrc(item: MediaRecord, color: string) {
-  return item.url.startsWith("blob:") ? item.url : mediaArtwork(item.hash, color);
+  return item.url || mediaArtwork(item.hash, color);
 }
 
 /// Route components
@@ -248,39 +247,41 @@ function ProjectGalleryPage() {
           (old = []) => [...old, record],
         );
 
-        const { data: uploadResponse } = await axios.post<UploadResponse>(
-          `${API_BASE_URL}/projects/${projectId}/media/upload`,
-          { hash: record.hash, content_type: record.content_type, size: record.size },
-        );
-        if ("kind" in uploadResponse) continue;
-
-        const commit: CommitRequest = {
+        const body: CommitRequest = {
           hash: record.hash,
           content_type: record.content_type,
           size: record.size,
         };
-        if ("upload_id" in uploadResponse) {
-          commit.upload_id = uploadResponse.upload_id;
-          commit.chunks = [];
+        const { data: upload } = await axios.post<UploadResponse>(
+          `${API_BASE_URL}/projects/${projectId}/media/upload`,
+          body,
+        );
+
+        if ("kind" in upload) continue;
+
+        if ("upload_id" in upload) {
+          body.upload_id = upload.upload_id;
+          body.chunks = [];
           let offset = 0;
-          for (const { index, url, size } of uploadResponse.chunks) {
+          for (const { index, url, size } of upload.chunks) {
             // These are presigned S3 urls, so forcing auth breaks it
             const part = await axios.put(url, file.slice(offset, offset + size), {
               withCredentials: false,
             });
-            commit.chunks.push({
+            body.chunks.push({
               number: index,
               etag: String(part.headers.etag).replaceAll('"', ""),
             });
             offset += size;
           }
         } else {
-          await axios.put(uploadResponse.url, file, {
+          await axios.put(upload.url, file, {
             headers: { "Content-Type": record.content_type },
             withCredentials: false,
           });
         }
-        await axios.post(`${API_BASE_URL}/projects/${projectId}/media/commit`, commit);
+
+        await axios.post(`${API_BASE_URL}/projects/${projectId}/media/commit`, body);
       }
     },
     onError: () => toast.error("Couldn't upload the media. Please try again."),

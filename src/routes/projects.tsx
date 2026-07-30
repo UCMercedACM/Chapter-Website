@@ -52,7 +52,7 @@ interface ApiProject {
   name: string;
   description: string;
   link: string;
-  thumbnail?: ProjectThumbnail;
+  thumbnail?: ProjectThumbnail | null;
   members: ProjectMember[];
   type: ProjectType;
   tags?: string[];

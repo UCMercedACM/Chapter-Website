@@ -304,6 +304,23 @@ export const projectMediaQueryOptions = (projectId: string) =>
 
 /// Helper functions
 
+export function mediaArtwork(hash: string, color: string) {
+  const seed = Number.parseInt(hash.slice(-6), 16) || 0;
+  const cx = 15 + (seed % 55);
+  const cy = 12 + (Math.floor(seed / 55) % 45);
+  const r = 18 + (seed % 26);
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 90'>` +
+    `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
+    `<stop offset='0' stop-color='${color}'/>` +
+    `<stop offset='1' stop-color='${color}' stop-opacity='0.35'/></linearGradient></defs>` +
+    `<rect width='120' height='90' fill='url(#g)'/>` +
+    `<circle cx='${String(cx)}' cy='${String(cy)}' r='${String(r)}' fill='#ffffff' opacity='0.2'/>` +
+    `<circle cx='${String(120 - cx)}' cy='${String(90 - cy)}' r='${String(r * 0.7)}' fill='#000000' opacity='0.12'/>` +
+    `</svg>`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
 function initialsOf(name: string) {
   return (
     name
@@ -322,24 +339,6 @@ function avatarClassFor(seed: string) {
 
 function fmtMonthYear(iso: string) {
   return MONTH_YEAR_FMT.format(new Date(iso));
-}
-
-// Will get replaced with the proper images
-export function mediaArtwork(hash: string, color: string) {
-  const seed = Number.parseInt(hash.slice(-6), 16) || 0;
-  const cx = 15 + (seed % 55);
-  const cy = 12 + (Math.floor(seed / 55) % 45);
-  const r = 18 + (seed % 26);
-  const svg =
-    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 90'>` +
-    `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
-    `<stop offset='0' stop-color='${color}'/>` +
-    `<stop offset='1' stop-color='${color}' stop-opacity='0.35'/></linearGradient></defs>` +
-    `<rect width='120' height='90' fill='url(#g)'/>` +
-    `<circle cx='${String(cx)}' cy='${String(cy)}' r='${String(r)}' fill='#ffffff' opacity='0.2'/>` +
-    `<circle cx='${String(120 - cx)}' cy='${String(90 - cy)}' r='${String(r * 0.7)}' fill='#000000' opacity='0.12'/>` +
-    `</svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
 function patchMembership(
@@ -548,8 +547,8 @@ function ProjectsPage() {
 
   const openProject = openId ? projects?.find((project) => project.id === openId) : undefined;
   const openColor = openProject ? SIG_META[openProject.type].color : "#93a3b6";
-  const lightboxSrc = useCallback(
-    (item: MediaRecord) => mediaArtwork(item.hash, openColor),
+  const mediaSrc = useCallback(
+    (item: MediaRecord) => item.url || mediaArtwork(item.hash, openColor),
     [openColor],
   );
 
@@ -1033,8 +1032,10 @@ function ProjectsPage() {
                       >
                         <div className="relative h-24">
                           <img
-                            src={mediaArtwork(item.hash, openColor)}
+                            src={mediaSrc(item)}
                             alt=""
+                            loading="lazy"
+                            decoding="async"
                             className="size-full object-cover transition group-hover/media:scale-105"
                           />
                           {item.kind === "video" && (
@@ -1095,7 +1096,7 @@ function ProjectsPage() {
       <MediaLightbox
         items={openMedia}
         index={lightboxIndex}
-        srcFor={lightboxSrc}
+        srcFor={mediaSrc}
         onIndexChange={setLightboxIndex}
         onClose={handleLightboxClose}
       />
