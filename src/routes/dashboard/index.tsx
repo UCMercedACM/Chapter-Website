@@ -96,7 +96,7 @@ export const memberEventsQueryOptions = (filter: "attended" | "planned") =>
   });
 
 export const eventsListQueryOptions = queryOptions({
-  queryKey: ["events", "list", {}],
+  queryKey: ["events", "dashboard-list"],
   queryFn: async () => {
     const fetchPage = (page: number) =>
       axios.get<KanaePage<FullEvent>>(`${API_BASE_URL}/events`, {
