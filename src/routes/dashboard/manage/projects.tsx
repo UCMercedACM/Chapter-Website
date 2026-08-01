@@ -392,14 +392,6 @@ const FACT_VALUE_CLASS = "text-[13.5px] font-bold text-foreground";
 const FIELD_ERROR_CLASS = "text-[12px] font-semibold text-[#e13737] dark:text-[#ff6b6b]";
 const MONTH_YEAR_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Zod schema
 
 const projectFormSchema = z.object({
@@ -437,7 +429,6 @@ const manageProjectsQueryOptions = ({ active, name, page }: ProjectPageParams) =
       return data;
     },
     placeholderData: keepPreviousData,
-    ...SHARED_QUERY_OPTIONS,
   });
 
 const memberDirectoryQueryOptions = (query: string) =>
@@ -454,7 +445,6 @@ const memberDirectoryQueryOptions = (query: string) =>
       return data.data ?? EMPTY_MEMBERS;
     },
     placeholderData: keepPreviousData,
-    ...SHARED_QUERY_OPTIONS,
   });
 
 const manageInvitesQueryOptions = queryOptions({
@@ -465,7 +455,6 @@ const manageInvitesQueryOptions = queryOptions({
     });
     return data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 /// Helper functions

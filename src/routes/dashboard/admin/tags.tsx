@@ -215,14 +215,6 @@ const FIELD_ERROR_CLASS = "text-[12px] font-semibold text-[#e13737] dark:text-[#
 const TAG_PILL_CLASS =
   "inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold text-brand-text-sub";
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Zod schema
 
 const tagFormSchema = z.object({
@@ -242,7 +234,6 @@ const tagsQueryOptions = queryOptions({
     const { data } = await axios.get<FullTags[]>(`${API_BASE_URL}/tags`);
     return data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 /// Helper functions

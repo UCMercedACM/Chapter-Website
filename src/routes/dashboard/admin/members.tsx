@@ -288,14 +288,6 @@ const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 const TEAL_BUTTON_CLASS = "bg-brand-teal font-bold text-primary hover:bg-brand-teal/85";
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Tanstack Query options
 
 const membersQueryOptions = queryOptions({
@@ -319,7 +311,6 @@ const membersQueryOptions = queryOptions({
     }
     return members;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 /// Helper functions

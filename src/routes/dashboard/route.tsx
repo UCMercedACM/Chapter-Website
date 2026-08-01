@@ -255,14 +255,6 @@ const SIDEBAR_STYLE = {
   "--sidebar-width-icon": "3.5rem",
 } as CSSProperties;
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 const OPEN_SETTINGS = (): { settings: "profile" } => ({ settings: "profile" });
 const SETTINGS_MASK = { to: "/dashboard/settings" } as const;
 const BLANK_DELETE_FORM = { email: "" };
@@ -336,7 +328,6 @@ export const meQueryOptions = queryOptions({
     const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);
     return data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 export const sudoQueryOptions = queryOptions({
@@ -345,7 +336,6 @@ export const sudoQueryOptions = queryOptions({
     const { data } = await axios.get<Sudo>(`${API_BASE_URL}/sudo`);
     return data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 export const settingsFlowQueryOptions = queryOptions({
@@ -353,7 +343,6 @@ export const settingsFlowQueryOptions = queryOptions({
   queryFn: async () => {
     return await oryInit("settings", {});
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 /// Helper functions

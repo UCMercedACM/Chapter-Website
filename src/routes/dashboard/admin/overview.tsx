@@ -110,14 +110,6 @@ const EVENTS_PAGE_SIZE = 50;
 const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Tanstack Query options
 
 const overviewMembersQueryOptions = queryOptions({
@@ -139,7 +131,6 @@ const overviewMembersQueryOptions = queryOptions({
     }
     return members;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 const overviewProjectsQueryOptions = queryOptions({
@@ -156,7 +147,6 @@ const overviewProjectsQueryOptions = queryOptions({
     }
     return projects.filter((project) => project.active).length;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 const overviewEventsQueryOptions = queryOptions({
@@ -174,7 +164,6 @@ const overviewEventsQueryOptions = queryOptions({
     }
     return events.filter((event) => !isPastEvent(event, now)).length;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 const overviewTagsQueryOptions = queryOptions({
@@ -184,7 +173,6 @@ const overviewTagsQueryOptions = queryOptions({
     const { data } = await axios.get<unknown[]>(`${API_BASE_URL}/tags`);
     return data.length;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 /// Route components

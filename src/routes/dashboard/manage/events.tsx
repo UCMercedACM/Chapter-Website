@@ -312,14 +312,6 @@ const FACT_LABEL_CLASS =
   "mb-1 text-[10.5px] font-bold tracking-[0.06em] text-muted-foreground uppercase";
 const FACT_VALUE_CLASS = "text-[13.5px] font-bold text-foreground";
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Zod schema
 
 const eventFormSchema = z
@@ -367,7 +359,6 @@ const manageEventsQueryOptions = queryOptions({
     }
     return events;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 const eventAttendanceQueryOptions = (eventId: string) =>
@@ -380,7 +371,6 @@ const eventAttendanceQueryOptions = (eventId: string) =>
       );
       return data;
     },
-    ...SHARED_QUERY_OPTIONS,
   });
 
 const eventAttendanceCodeQueryOptions = (eventId: string) =>
@@ -392,7 +382,6 @@ const eventAttendanceCodeQueryOptions = (eventId: string) =>
       );
       return data;
     },
-    ...SHARED_QUERY_OPTIONS,
   });
 
 /// Helper functions
