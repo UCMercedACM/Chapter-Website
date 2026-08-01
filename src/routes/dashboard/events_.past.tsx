@@ -44,14 +44,6 @@ const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const PAST_VIEWS: EventView[] = ["list", "grid"];
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Tanstack Query options
 
 const memberQueryOptions = (memberId: string) =>
@@ -63,7 +55,6 @@ const memberQueryOptions = (memberId: string) =>
       );
       return data;
     },
-    ...SHARED_QUERY_OPTIONS,
   });
 
 function DashboardPastEvents() {

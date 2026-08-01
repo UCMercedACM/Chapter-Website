@@ -8,7 +8,13 @@ import ReactDOM from "react-dom/client";
 
 axios.defaults.withCredentials = true;
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000,
+    },
+  },
+});
 
 // Create a new router instance
 const router = createRouter({

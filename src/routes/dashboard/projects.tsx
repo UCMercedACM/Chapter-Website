@@ -247,14 +247,6 @@ const FACT_LABEL_CLASS =
 const FACT_VALUE_CLASS = "text-[13.5px] font-bold text-foreground";
 const MONTH_YEAR_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Tanstack Query options
 
 export const projectsQueryOptions = queryOptions({
@@ -265,7 +257,6 @@ export const projectsQueryOptions = queryOptions({
     });
     return data.data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 const memberProjectsQueryOptions = queryOptions({
@@ -275,7 +266,6 @@ const memberProjectsQueryOptions = queryOptions({
     return data;
   },
   select: (projects: MemberProject[]) => new Set(projects.map((project) => project.id)),
-  ...SHARED_QUERY_OPTIONS,
 });
 
 const projectInvitesQueryOptions = queryOptions({
@@ -287,7 +277,6 @@ const projectInvitesQueryOptions = queryOptions({
     );
     return data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 export const projectMediaQueryOptions = (projectId: string) =>
@@ -299,7 +288,6 @@ export const projectMediaQueryOptions = (projectId: string) =>
       );
       return data;
     },
-    ...SHARED_QUERY_OPTIONS,
   });
 
 /// Helper functions

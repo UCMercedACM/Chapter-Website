@@ -72,14 +72,6 @@ const TEAL_BUTTON_CLASS =
 const RAIL_CLASS =
   "rounded-[20px] border border-border bg-card p-4 shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 
-const SHARED_QUERY_OPTIONS = {
-  staleTime: 60_000,
-  retry: false,
-  refetchOnWindowFocus: false,
-  refetchOnReconnect: false,
-  refetchOnMount: false,
-} as const;
-
 /// Tanstack Query options
 
 export const memberEventsQueryOptions = (filter: "attended" | "planned") =>
@@ -92,7 +84,6 @@ export const memberEventsQueryOptions = (filter: "attended" | "planned") =>
       return data;
     },
     select: (events: FullEvent[]) => new Set(events.map((event) => event.id)),
-    ...SHARED_QUERY_OPTIONS,
   });
 
 export const eventsListQueryOptions = queryOptions({
@@ -114,7 +105,6 @@ export const eventsListQueryOptions = queryOptions({
     }
     return events;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 export const meQueryOptions = queryOptions({
@@ -123,7 +113,6 @@ export const meQueryOptions = queryOptions({
     const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);
     return data;
   },
-  ...SHARED_QUERY_OPTIONS,
 });
 
 export const plannedEventsQueryOptions = memberEventsQueryOptions("planned");
