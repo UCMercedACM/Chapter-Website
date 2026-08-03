@@ -5,7 +5,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /website
 
-RUN corepack enable
+RUN npm install -g pnpm@latest
 
 # Install dependencies first (cached unless manifests change)
 COPY package.json pnpm-lock.yaml /website/
