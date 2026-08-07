@@ -1,10 +1,12 @@
 import { SiGoogle } from "@icons-pack/react-simple-icons";
 import { useForm } from "@tanstack/react-form";
+import { useMutation } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import axios from "axios";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Building2, ShieldCheck } from "lucide-react";
 import { type ChangeEvent, type SyntheticEvent, useCallback, useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -12,7 +14,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
-import { type Flow, type SubmitResponse, ORY_URL, csrfToken, oryInit, orySubmit } from "@/lib/ory";
+import {
+  type Flow,
+  type SubmitResponse,
+  ORY_URL,
+  csrfToken,
+  isSessionAlreadyAvailable,
+  oryInit,
+  orySubmit,
+} from "@/lib/ory";
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): { flow?: string; return_to?: string } => ({
@@ -130,6 +140,35 @@ function Login() {
     },
   });
 
+  const { mutate: sendRecoveryLink, isPending: sendingRecovery } = useMutation({
+    mutationFn: async (email: string) => {
+      const recoveryFlow = await oryInit("recovery", {});
+      return await orySubmit(recoveryFlow.ui.action, {
+        method: "link",
+        csrf_token: csrfToken(recoveryFlow),
+        email,
+      });
+    },
+    onSuccess: (result) => {
+      if (result.kind === "success") {
+        toast.success("Check your email (including your spam folder)");
+        return;
+      }
+      toast.error(
+        (result.kind === "validation"
+          ? result.flow.ui.messages?.find((message) => message.type === "error")?.text
+          : undefined) ?? "We couldn't send a reset link. Please try again.",
+      );
+    },
+    onError: (error) => {
+      toast.error(
+        isSessionAlreadyAvailable(error)
+          ? "You're already signed in — change your password from account settings."
+          : "We couldn't send a reset link. Please try again.",
+      );
+    },
+  });
+
   const handleText = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
@@ -137,6 +176,14 @@ function Login() {
     },
     [form],
   );
+  const handleForgotPassword = useCallback(() => {
+    const email = form.getFieldValue("email");
+    if (!loginSchema.shape.email.safeParse(email).success) {
+      toast.error("Enter your email address first");
+      return;
+    }
+    sendRecoveryLink(email);
+  }, [form, sendRecoveryLink]);
   const handleSubmit = useCallback(
     (event: SyntheticEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -318,8 +365,10 @@ function Login() {
                           variant="link"
                           size="xs"
                           className="h-auto px-0 font-semibold"
+                          disabled={sendingRecovery}
+                          onClick={handleForgotPassword}
                         >
-                          Forgot your password?
+                          {sendingRecovery ? "Sending…" : "Forgot your password?"}
                         </Button>
                       </div>
                       <Input

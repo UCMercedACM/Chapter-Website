@@ -16,6 +16,7 @@ import { Route as ErrorRouteImport } from './routes/error'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as RecoveryRouteImport } from './routes/recovery'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as SigsRouteImport } from './routes/sigs'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
@@ -64,6 +65,11 @@ const LoginRoute = LoginRouteImport.update({
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecoveryRoute = RecoveryRouteImport.update({
+  id: '/recovery',
+  path: '/recovery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/events': typeof EventsRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
+  '/recovery': typeof RecoveryRoute
   '/register': typeof RegisterRoute
   '/sigs': typeof SigsRoute
   '/dashboard/events': typeof DashboardEventsRoute
@@ -168,6 +175,7 @@ export interface FileRoutesByTo {
   '/events': typeof EventsRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
+  '/recovery': typeof RecoveryRoute
   '/register': typeof RegisterRoute
   '/sigs': typeof SigsRoute
   '/dashboard/events': typeof DashboardEventsRoute
@@ -192,6 +200,7 @@ export interface FileRoutesById {
   '/events': typeof EventsRoute
   '/login': typeof LoginRoute
   '/projects': typeof ProjectsRoute
+  '/recovery': typeof RecoveryRoute
   '/register': typeof RegisterRoute
   '/sigs': typeof SigsRoute
   '/dashboard/events': typeof DashboardEventsRoute
@@ -217,6 +226,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/login'
     | '/projects'
+    | '/recovery'
     | '/register'
     | '/sigs'
     | '/dashboard/events'
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/login'
     | '/projects'
+    | '/recovery'
     | '/register'
     | '/sigs'
     | '/dashboard/events'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/events'
     | '/login'
     | '/projects'
+    | '/recovery'
     | '/register'
     | '/sigs'
     | '/dashboard/events'
@@ -286,6 +298,7 @@ export interface RootRouteChildren {
   EventsRoute: typeof EventsRoute
   LoginRoute: typeof LoginRoute
   ProjectsRoute: typeof ProjectsRoute
+  RecoveryRoute: typeof RecoveryRoute
   RegisterRoute: typeof RegisterRoute
   SigsRoute: typeof SigsRoute
   ProjectProjectIdRoute: typeof ProjectProjectIdRoute
@@ -340,6 +353,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recovery': {
+      id: '/recovery'
+      path: '/recovery'
+      fullPath: '/recovery'
+      preLoaderRoute: typeof RecoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -484,6 +504,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsRoute: EventsRoute,
   LoginRoute: LoginRoute,
   ProjectsRoute: ProjectsRoute,
+  RecoveryRoute: RecoveryRoute,
   RegisterRoute: RegisterRoute,
   SigsRoute: SigsRoute,
   ProjectProjectIdRoute: ProjectProjectIdRoute,
