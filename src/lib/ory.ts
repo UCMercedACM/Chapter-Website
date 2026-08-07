@@ -2,7 +2,10 @@ import axios from "axios";
 
 /// Types and Interfaces
 
-type SubmitBody = Partial<Flow> & { error?: { id?: string }; redirect_browser_to?: string };
+export type SubmitBody = Partial<Flow> & {
+  error?: { details?: { redirect_browser_to?: string }; id?: string };
+  redirect_browser_to?: string;
+};
 export type FlowType = "login" | "registration" | "recovery" | "verification" | "settings";
 
 export type SubmitResponse =
@@ -10,7 +13,7 @@ export type SubmitResponse =
   | { flow: Flow; kind: "validation" }
   | { kind: "redirect"; url: string }
   | { kind: "refresh"; url: string }
-  | { kind: "expired" };
+  | { kind: "expired"; reason?: string };
 
 export interface Message {
   id: number;
@@ -42,7 +45,7 @@ export interface Flow {
 export const ORY_URL =
   (import.meta.env.VITE_ORY_URL as string | undefined) ?? "http://localhost:4433";
 
-const ACCEPT_JSON = { headers: { Accept: "application/json" } };
+export const ACCEPT_JSON = { headers: { Accept: "application/json" } };
 
 /// Helper functions
 
@@ -56,6 +59,13 @@ function toFlow(body: SubmitBody): Flow | undefined {
 export function csrfToken(flow: Flow): string {
   const node = flow.ui.nodes.find((entry) => entry.attributes.name === "csrf_token");
   return (node?.attributes.value as string | undefined) ?? "";
+}
+
+export function isSessionAlreadyAvailable(error: unknown): boolean {
+  return (
+    axios.isAxiosError<SubmitBody>(error) &&
+    error.response?.data.error?.id === "session_already_available"
+  );
 }
 
 export async function oryInit(
@@ -95,5 +105,7 @@ export async function orySubmit(
       ? { kind: "refresh", url: data.redirect_browser_to }
       : { kind: "redirect", url: data.redirect_browser_to };
   }
-  return status === 400 && flow ? { flow, kind: "validation" } : { kind: "expired" };
+  return status === 400 && flow
+    ? { flow, kind: "validation" }
+    : { kind: "expired", reason: data.error?.id };
 }
