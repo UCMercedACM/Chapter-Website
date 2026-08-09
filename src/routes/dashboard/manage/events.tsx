@@ -7,7 +7,12 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { type ColumnDef, type RowData, type TableMeta } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  type RowData,
+  type TableFeatures,
+  type TableMeta,
+} from "@tanstack/react-table";
 import axios from "axios";
 import { blake3 } from "hash-wasm";
 import {
@@ -34,7 +39,7 @@ import { EmptyState } from "@/components/app/dashboard-events";
 import { DataPagination } from "@/components/app/data-pagination";
 import { ThumbnailDropzone } from "@/components/app/thumbnail-dropzone";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/data-table";
+import { type dataTableFeatures, DataTable } from "@/components/ui/data-table";
 import { DatePicker } from "@/components/ui/date-picker";
 import {
   Dialog,
@@ -136,7 +141,7 @@ interface UndoVars {
 }
 
 declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
+  interface TableMeta<TFeatures extends TableFeatures, TData extends RowData> {
     events?: ManageEventsMeta;
   }
 }
@@ -162,7 +167,7 @@ const EMPTY_ATTENDANCE_SUMMARY: AttendanceSummary = { planned: 0, attended: 0 };
 /// Constants — Table Columns
 
 const ACTIONS_TRIGGER = <Button variant="ghost" size="icon-sm" className="text-brand-text-sub" />;
-const EVENT_COLUMNS: ColumnDef<FullEvent>[] = [
+const EVENT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullEvent>[] = [
   {
     id: "event",
     header: "Event",
@@ -771,7 +776,7 @@ function ManageEventsPage() {
     },
   });
 
-  const tableMeta = useMemo<TableMeta<FullEvent>>(
+  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullEvent>>(
     () => ({
       events: {
         now,

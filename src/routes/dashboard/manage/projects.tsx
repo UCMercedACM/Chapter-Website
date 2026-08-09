@@ -7,7 +7,12 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { type ColumnDef, type RowData, type TableMeta } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  type RowData,
+  type TableFeatures,
+  type TableMeta,
+} from "@tanstack/react-table";
 import axios from "axios";
 import { blake3 } from "hash-wasm";
 import {
@@ -40,7 +45,7 @@ import { ThumbnailDropzone } from "@/components/app/thumbnail-dropzone";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/data-table";
+import { type dataTableFeatures, DataTable } from "@/components/ui/data-table";
 import {
   Dialog,
   DialogContent,
@@ -143,7 +148,7 @@ interface Editor {
 }
 
 declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
+  interface TableMeta<TFeatures extends TableFeatures, TData extends RowData> {
     manage?: ManageProjectsMeta;
   }
 }
@@ -216,7 +221,7 @@ const JOIN_POLICIES = Object.keys(JOIN_POLICY_META) as JoinPolicy[];
 const ACTIONS_TRIGGER = (
   <Button variant="ghost" size="icon-sm" className="relative text-brand-text-sub" />
 );
-const PROJECT_COLUMNS: ColumnDef<FullProject>[] = [
+const PROJECT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullProject>[] = [
   {
     id: "project",
     header: "Project",
@@ -910,7 +915,7 @@ function ManageProjectsPage() {
     [form],
   );
 
-  const tableMeta = useMemo<TableMeta<FullProject>>(
+  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullProject>>(
     () => ({
       manage: {
         invites,
