@@ -1,7 +1,12 @@
 import { useForm } from "@tanstack/react-form";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { type ColumnDef, type RowData, type TableMeta } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  type RowData,
+  type TableFeatures,
+  type TableMeta,
+} from "@tanstack/react-table";
 import axios from "axios";
 import {
   AlertTriangle,
@@ -28,7 +33,7 @@ import {
 } from "@/components/app/sudo-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/data-table";
+import { type dataTableFeatures, DataTable } from "@/components/ui/data-table";
 import {
   Dialog,
   DialogContent,
@@ -107,7 +112,7 @@ interface EditVars extends TagVars {
 }
 
 declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
+  interface TableMeta<TFeatures extends TableFeatures, TData extends RowData> {
     tags?: TagsMeta;
   }
 }
@@ -124,7 +129,7 @@ const EMPTY_TAGS: FullTags[] = [];
 const ACTIONS_TRIGGER = <Button variant="ghost" size="icon-sm" className="text-brand-text-sub" />;
 const DESCRIPTION_MAX = 128;
 
-const TAG_COLUMNS: ColumnDef<FullTags>[] = [
+const TAG_COLUMNS: ColumnDef<typeof dataTableFeatures, FullTags>[] = [
   {
     id: "tag",
     header: "Tag",
@@ -476,7 +481,7 @@ function TagsPage() {
     () => filtered.slice((page - 1) * TABLE_PAGE_SIZE, page * TABLE_PAGE_SIZE),
     [filtered, page],
   );
-  const tableMeta = useMemo<TableMeta<FullTags>>(
+  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullTags>>(
     () => ({ tags: { onEdit: openEdit, onDelete: removeTag } }),
     [openEdit, removeTag],
   );

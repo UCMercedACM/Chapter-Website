@@ -1,6 +1,11 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { type ColumnDef, type RowData, type TableMeta } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  type RowData,
+  type TableFeatures,
+  type TableMeta,
+} from "@tanstack/react-table";
 import axios from "axios";
 import {
   type LucideIcon,
@@ -27,7 +32,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DataTable } from "@/components/ui/data-table";
+import { type dataTableFeatures, DataTable } from "@/components/ui/data-table";
 import {
   Dialog,
   DialogContent,
@@ -110,7 +115,7 @@ interface RoleModifyVars {
 }
 
 declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> {
+  interface TableMeta<TFeatures extends TableFeatures, TData extends RowData> {
     members?: MembersMeta;
   }
 }
@@ -172,7 +177,7 @@ const EMPTY_ROLES: Role[] = [];
 const ACTIONS_TRIGGER = <Button variant="ghost" size="icon-sm" className="text-brand-text-sub" />;
 const REGISTERED_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
 
-const MEMBER_COLUMNS: ColumnDef<AdminMember>[] = [
+const MEMBER_COLUMNS: ColumnDef<typeof dataTableFeatures, AdminMember>[] = [
   {
     id: "member",
     header: "Member",
@@ -479,7 +484,7 @@ function MembersPage() {
     [rows, page],
   );
 
-  const tableMeta = useMemo<TableMeta<AdminMember>>(
+  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, AdminMember>>(
     () => ({ members: { meId, onManage: openManage, onAskDelete: askDelete } }),
     [meId, openManage, askDelete],
   );

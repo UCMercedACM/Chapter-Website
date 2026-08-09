@@ -1,13 +1,20 @@
 import {
+  type CellData,
   type ColumnDef,
   type Row,
   type RowData,
   type SortingState,
+  type TableFeatures,
   type TableMeta,
+  createSortedRowModel,
   flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
+  rowSortingFeature,
+  sortFn_alphanumeric,
+  sortFn_basic,
+  sortFn_datetime,
+  sortFn_text,
+  tableFeatures,
+  useTable,
 } from "@tanstack/react-table";
 import { memo, useState } from "react";
 
@@ -20,24 +27,48 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+
+interface DataTableProps<TData extends RowData> {
+  columns: ColumnDef<typeof dataTableFeatures, TData>[];
+  data: TData[];
+  meta?: TableMeta<typeof dataTableFeatures, TData>;
+}
+
 declare module "@tanstack/react-table" {
-  interface ColumnMeta<TData extends RowData, TValue> {
+  interface ColumnMeta<
+    TFeatures extends TableFeatures,
+    TData extends RowData,
+    TValue extends CellData = CellData,
+  > {
     className?: string;
   }
 }
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  meta?: TableMeta<TData>;
-}
+export const dataTableFeatures = tableFeatures({
+  rowSortingFeature,
+  sortedRowModel: createSortedRowModel(),
+  sortFns: {
+    alphanumeric: sortFn_alphanumeric,
+    basic: sortFn_basic,
+    datetime: sortFn_datetime,
+    text: sortFn_text,
+  },
+});
 
-function DataTableRowImpl<TData>({
+const DataTableRow = memo(
+  DataTableRowImpl,
+  (prev, next) => prev.row.original === next.row.original && prev.meta === next.meta,
+) as typeof DataTableRowImpl;
+
+function DataTableRowImpl<TData extends RowData>({
   row,
-}: Readonly<{ meta: TableMeta<TData> | undefined ; row: Row<TData> }>) {
+}: Readonly<{
+  meta: TableMeta<typeof dataTableFeatures, TData> | undefined;
+  row: Row<typeof dataTableFeatures, TData>;
+}>) {
   return (
     <TableRow>
-      {row.getVisibleCells().map((cell) => (
+      {row.getAllCells().map((cell) => (
         <TableCell key={cell.id} className={cell.column.columnDef.meta?.className}>
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </TableCell>
@@ -46,24 +77,18 @@ function DataTableRowImpl<TData>({
   );
 }
 
-const DataTableRow = memo(
-  DataTableRowImpl,
-  (prev, next) => prev.row.original === next.row.original && prev.meta === next.meta,
-) as typeof DataTableRowImpl;
-
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends RowData>({
   columns,
   data,
   meta,
-}: Readonly<DataTableProps<TData, TValue>>) {
+}: Readonly<DataTableProps<TData>>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const table = useReactTable({
+  const table = useTable({
+    features: dataTableFeatures,
     data,
     columns,
     meta,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     state: { sorting },
   });
