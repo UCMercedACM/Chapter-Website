@@ -6,7 +6,3 @@ trustLockfile: true
 allowBuilds:
   msgpackr-extract: false
   msw: false
-
-minimumReleaseAgeExclude:
-  - '@tanstack/react-table@9.1.1'
-  - '@tanstack/table-core@9.1.1'
