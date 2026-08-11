@@ -387,8 +387,6 @@ function Events() {
                       {selectedEventType.label}
                     </span>
 
-                    {/* The title carries the way into the full page, so the footer keeps a
-                        single action instead of a second control competing with the CTA */}
                     <h3 className="text-sm/tight font-extrabold">
                       <Link
                         to="/event/$eventId"
