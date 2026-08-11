@@ -9,43 +9,17 @@ import type { CalendarType } from "@schedule-x/calendar";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
-import {
-  type LucideIcon,
-  Check,
-  Clock,
-  MapPin,
-  MinusCircle,
-  MoreHorizontal,
-  RotateCcw,
-  ScanLine,
-  UserPlus,
-} from "lucide-react";
+import { Clock, MapPin, ScanLine } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
+import { AttendanceDialog } from "@/components/app/attendance-dialog";
 import { CheckInDialog } from "@/components/app/check-in-dialog";
-import { CheckInPanel } from "@/components/app/check-in-panel";
 import { EventDetailDialog, EventResults, EventToolbar } from "@/components/app/dashboard-events";
 import { ManageEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  type AttendanceMember,
   type DashboardEvent,
-  type KanaePage,
   type EventType,
   type EventView,
   type FullEvent,
@@ -71,10 +45,6 @@ export const Route = createFileRoute("/dashboard/events")({
   },
 });
 
-/// Types and Interfaces
-
-type RosterStatus = "checked_in" | "expected" | "no_show" | "walk_in";
-
 // Constants
 
 const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
@@ -99,29 +69,6 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
   }),
 );
 
-const ROSTER_STATUS = {
-  checked_in: {
-    label: "Checked in",
-    icon: Check,
-    className: "bg-[#15a66e]/15 text-[#15a66e] dark:text-[#3fd68c]",
-  },
-  walk_in: {
-    label: "Walk-in",
-    icon: UserPlus,
-    className: "bg-[#f7b731]/18 text-[#a06d00] dark:text-[#ffd56b]",
-  },
-  expected: {
-    label: "Expected",
-    icon: Clock,
-    className: "bg-brand-sky/15 text-brand-sky-text",
-  },
-  no_show: {
-    label: "No-show",
-    icon: MinusCircle,
-    className: "bg-muted text-muted-foreground",
-  },
-} satisfies Record<RosterStatus, { className: string; icon: LucideIcon; label: string }>;
-
 const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const EVENTS_VIEWS: EventView[] = ["calendar", "grid", "list"];
@@ -139,97 +86,7 @@ const memberQueryOptions = (memberId: string) =>
     },
   });
 
-const eventAttendanceCodeQueryOptions = (eventId: string) =>
-  queryOptions({
-    queryKey: ["events", eventId, "attendance-code"],
-    queryFn: async () => {
-      const { data } = await axios.get<{ code: string }>(
-        `${API_BASE_URL}/events/${eventId}/attendance-code`,
-      );
-      return data;
-    },
-  });
-
-const eventAttendanceQueryOptions = (eventId: string) =>
-  queryOptions({
-    queryKey: ["events", eventId, "attendance"],
-    queryFn: async () => {
-      const { data } = await axios.get<KanaePage<AttendanceMember>>(
-        `${API_BASE_URL}/events/${eventId}/attendance`,
-        { params: { page: 1, size: 100 } },
-      );
-      return data;
-    },
-  });
-
 /// Route components
-
-function getRosterStatus(member: AttendanceMember): RosterStatus {
-  if (member.attended) return member.planned ? "checked_in" : "walk_in";
-  return member.planned ? "expected" : "no_show";
-}
-
-export function RosterRow({
-  disabled,
-  member,
-  onUndo,
-}: Readonly<{
-  disabled: boolean;
-  member: AttendanceMember;
-  onUndo: (memberId: string) => void;
-}>) {
-  const handleUndo = useCallback(() => {
-    onUndo(member.id);
-  }, [member.id, onUndo]);
-
-  const status = ROSTER_STATUS[getRosterStatus(member)];
-  const initials =
-    member.name
-      .match(/\S+/g)
-      ?.slice(0, 2)
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase() ?? "··";
-
-  const StatusIcon = status.icon;
-
-  return (
-    <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
-      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-sky/15 text-[12px] font-extrabold text-brand-sky-text">
-        {initials}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-sm font-bold text-foreground">{member.name}</div>
-      </div>
-      <span
-        className={cn(
-          "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold",
-          status.className,
-        )}
-      >
-        <StatusIcon className="size-3.5" />
-        {status.label}
-      </span>
-      {member.attended && (
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={<Button variant="ghost" size="icon-sm" />}
-            title="Member actions"
-            aria-label="Member actions"
-          >
-            <MoreHorizontal />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-auto">
-            <DropdownMenuItem disabled={disabled} onClick={handleUndo}>
-              <RotateCcw />
-              Undo check-in
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
-    </div>
-  );
-}
 
 function DashboardEvents() {
   const queryClient = useQueryClient();
@@ -241,8 +98,6 @@ function DashboardEvents() {
   const [detail, setDetail] = useState<DashboardEvent>();
   const [checkin, setCheckin] = useState<DashboardEvent>();
   const [roster, setRoster] = useState<DashboardEvent>();
-  const [rosterTab, setRosterTab] = useState<"qr" | "roster">("qr");
-  const [copied, setCopied] = useState(false);
 
   const { data: events } = useQuery(eventsListQueryOptions);
   const { data: me } = useQuery(meQueryOptions);
@@ -251,14 +106,6 @@ function DashboardEvents() {
   const creatorQuery = useQuery({
     ...memberQueryOptions(detail?.creator_id ?? ""),
     enabled: !!detail?.creator_id,
-  });
-  const codeQuery = useQuery({
-    ...eventAttendanceCodeQueryOptions(roster?.id ?? ""),
-    enabled: !!roster && rosterTab === "qr",
-  });
-  const rosterQuery = useQuery({
-    ...eventAttendanceQueryOptions(roster?.id ?? ""),
-    enabled: !!roster && rosterTab === "roster",
   });
 
   const { mutate: joinMutate } = useMutation({
@@ -270,17 +117,6 @@ function DashboardEvents() {
       return queryClient.invalidateQueries({ queryKey: plannedEventsQueryOptions.queryKey });
     },
     onError: () => toast.error("Couldn't RSVP. Please try again."),
-  });
-  const { mutate: removeMutate, isPending: isRemoving } = useMutation({
-    mutationFn: async (memberId: string) => {
-      await axios.delete(`${API_BASE_URL}/events/${roster?.id ?? ""}/attendance/${memberId}`);
-    },
-    onSuccess: () => {
-      toast.success("Check-in undone.");
-      return queryClient.invalidateQueries({
-        queryKey: eventAttendanceQueryOptions(roster?.id ?? "").queryKey,
-      });
-    },
   });
 
   const handleRsvp = useCallback(
@@ -307,8 +143,6 @@ function DashboardEvents() {
   }, []);
   const openRosterFromDetail = useCallback((event: DashboardEvent) => {
     setDetail(undefined);
-    setRosterTab("qr");
-    setCopied(false);
     setRoster(event);
   }, []);
   const closeDetail = useCallback((open: boolean) => {
@@ -320,21 +154,6 @@ function DashboardEvents() {
   const closeRoster = useCallback((open: boolean) => {
     if (!open) setRoster(undefined);
   }, []);
-
-  const code = (codeQuery.data?.code ?? "").slice(0, 8);
-  const copyCode = useCallback(() => {
-    navigator.clipboard
-      .writeText(code)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => {
-          setCopied(false);
-        }, 1800);
-      })
-      .catch(() => {
-        toast.error("Couldn't copy the code.");
-      });
-  }, [code]);
 
   const dashboardEvents = useMemo<DashboardEvent[]>(
     () =>
@@ -381,11 +200,6 @@ function DashboardEvents() {
     !!detail &&
     !!me &&
     (me.roles.includes("admin") || me.roles.includes("leads") || detail.creator_id === me.id);
-
-  const rosterMembers = rosterQuery.data?.data ?? [];
-  const plannedCount = rosterMembers.filter((member) => member.planned).length;
-  const attendedCount = rosterMembers.filter((member) => member.attended).length;
-  const checkIn = roster ? determineCheckIn(roster, now) : "ended";
 
   return (
     <div className="flex flex-col gap-5">
@@ -508,80 +322,7 @@ function DashboardEvents() {
         />
       )}
 
-      {roster && (
-        <Dialog open onOpenChange={closeRoster}>
-          <DialogContent className="max-h-[88svh] gap-4 overflow-y-auto sm:max-w-135">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-extrabold">Attendance</DialogTitle>
-              <DialogDescription>{roster.name}</DialogDescription>
-            </DialogHeader>
-
-            <Tabs value={rosterTab} onValueChange={setRosterTab} className="gap-4">
-              <TabsList className="h-10 w-full border border-border">
-                <TabsTrigger value="qr" className="font-bold data-active:border-border">
-                  Check-in QR
-                </TabsTrigger>
-                <TabsTrigger value="roster" className="font-bold data-active:border-border">
-                  Roster · {String(rosterMembers.length)}
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="qr" className="flex flex-col items-center gap-4.5">
-                <CheckInPanel
-                  code={code}
-                  copied={copied}
-                  onCopy={copyCode}
-                  state={checkIn}
-                  closesAt={fmtClock(roster.end_at, roster.timezone)}
-                />
-              </TabsContent>
-
-              <TabsContent value="roster" className="flex flex-col gap-3">
-                <div className="flex gap-3">
-                  <div className="flex-1 rounded-xl border border-border bg-card px-3.5 py-3 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
-                    <div className="text-2xl leading-none font-extrabold text-brand-sky">
-                      {String(plannedCount)}
-                    </div>
-                    <div className="mt-1 text-xs font-semibold text-muted-foreground">
-                      Planned (RSVP'd)
-                    </div>
-                  </div>
-                  <div className="flex-1 rounded-xl border border-border bg-card px-3.5 py-3 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
-                    <div className="text-2xl leading-none font-extrabold text-[#15a66e] dark:text-[#3fd68c]">
-                      {String(attendedCount)}
-                    </div>
-                    <div className="mt-1 text-xs font-semibold text-muted-foreground">Attended</div>
-                  </div>
-                </div>
-                <div className="-mx-2 flex max-h-72 flex-col gap-2 overflow-y-auto p-2">
-                  {rosterQuery.isPending && (
-                    <p className="px-2 py-6 text-center text-sm text-muted-foreground">
-                      Loading roster…
-                    </p>
-                  )}
-                  {!rosterQuery.isPending && rosterMembers.length === 0 && (
-                    <p className="px-2 py-6 text-center text-sm text-muted-foreground">
-                      No attendees yet.
-                    </p>
-                  )}
-                  {rosterMembers.map((member) => (
-                    <RosterRow
-                      key={member.id}
-                      member={member}
-                      disabled={isRemoving}
-                      onUndo={removeMutate}
-                    />
-                  ))}
-                </div>
-                <p className="text-[11.5px]/relaxed text-muted-foreground">
-                  Undo clears a member's attended flag but keeps their RSVP — for correcting a
-                  mistaken check-in.
-                </p>
-              </TabsContent>
-            </Tabs>
-          </DialogContent>
-        </Dialog>
-      )}
+      {roster && <AttendanceDialog event={roster} now={now} open onOpenChange={closeRoster} />}
     </div>
   );
 }

@@ -34,7 +34,7 @@ import { toast } from "sonner";
 import { Temporal } from "temporal-polyfill";
 import { z } from "zod";
 
-import { CheckInPanel } from "@/components/app/check-in-panel";
+import { AttendanceDialog } from "@/components/app/attendance-dialog";
 import { EmptyState } from "@/components/app/dashboard-events";
 import { DataPagination } from "@/components/app/data-pagination";
 import { ThumbnailDropzone } from "@/components/app/thumbnail-dropzone";
@@ -67,7 +67,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import {
   type EventType,
@@ -77,12 +76,10 @@ import {
   EVENT_TYPE_CLASSES,
   EVENT_TYPE_META,
   EVENT_TYPES,
-  determineCheckIn,
   fmtClock,
   fmtDay,
 } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
-import { RosterRow } from "@/routes/dashboard/events";
 import { meQueryOptions } from "@/routes/dashboard/index";
 
 export const Route = createFileRoute("/dashboard/manage/events")({
@@ -102,7 +99,6 @@ export const Route = createFileRoute("/dashboard/manage/events")({
 
 type ThumbnailUpload = { url: string } | { hash: string; url: string };
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
-type RosterTab = "qr" | "roster";
 
 interface AttendanceSummary {
   planned: number;
@@ -133,11 +129,6 @@ interface SaveVars {
   event: FullEvent;
   thumbnailFile?: File;
   removeThumbnail?: boolean;
-}
-
-interface UndoVars {
-  eventId: string;
-  memberId: string;
 }
 
 declare module "@tanstack/react-table" {
@@ -310,8 +301,6 @@ const TAG_PILL_CLASS =
 const TIME_INPUT_CLASS =
   "border-border bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none";
 const FIELD_ERROR_CLASS = "text-[12px] font-semibold text-[#e13737] dark:text-[#ff6b6b]";
-const ROSTER_STAT_CLASS =
-  "flex-1 rounded-xl border border-border bg-card px-3.5 py-3 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]";
 const FACT_TILE_CLASS = "rounded-xl border border-border bg-muted/60 px-3.5 py-3";
 const FACT_LABEL_CLASS =
   "mb-1 text-[10.5px] font-bold tracking-[0.06em] text-muted-foreground uppercase";
@@ -378,17 +367,6 @@ const eventAttendanceQueryOptions = (eventId: string) =>
     },
   });
 
-const eventAttendanceCodeQueryOptions = (eventId: string) =>
-  queryOptions({
-    queryKey: ["events", eventId, "attendance-code"],
-    queryFn: async () => {
-      const { data } = await axios.get<{ code: string }>(
-        `${API_BASE_URL}/events/${eventId}/attendance-code`,
-      );
-      return data;
-    },
-  });
-
 /// Helper functions
 
 const summaryCache = new WeakMap<readonly AttendanceMember[], AttendanceSummary>();
@@ -439,21 +417,10 @@ function ManageEventsPage() {
   const [detailId, setDetailId] = useState<string>();
   const [confirmId, setConfirmId] = useState<string>();
   const [rosterId, setRosterId] = useState<string>();
-  const [rosterTab, setRosterTab] = useState<RosterTab>("qr");
-  const [copied, setCopied] = useState(false);
 
   const { data: events, isPending } = useQuery(manageEventsQueryOptions);
   const { data: me } = useQuery(meQueryOptions);
   const meId = me?.id;
-
-  const codeQuery = useQuery({
-    ...eventAttendanceCodeQueryOptions(rosterId ?? ""),
-    enabled: !!rosterId && rosterTab === "qr",
-  });
-  const rosterQuery = useQuery({
-    ...eventAttendanceQueryOptions(rosterId ?? ""),
-    enabled: !!rosterId && rosterTab === "roster",
-  });
 
   const invalidateManage = useCallback(
     () => queryClient.invalidateQueries({ queryKey: MANAGE_EVENTS_KEY }),
@@ -516,16 +483,6 @@ function ManageEventsPage() {
     onError: () => toast.error("Couldn't delete the event. Please try again."),
     onSuccess: () => toast.success("Event deleted."),
     onSettled: invalidateManage,
-  });
-
-  const { mutate: undoCheckin, isPending: isUndoing } = useMutation({
-    mutationFn: async ({ eventId, memberId }: UndoVars) => {
-      await axios.delete(`${API_BASE_URL}/events/${eventId}/attendance/${memberId}`);
-    },
-    onError: () => toast.error("Couldn't undo the check-in. Please try again."),
-    onSuccess: () => toast.success("Check-in undone."),
-    onSettled: (_data, _error, { eventId }) =>
-      queryClient.invalidateQueries({ queryKey: eventAttendanceQueryOptions(eventId).queryKey }),
   });
 
   const form = useForm({
@@ -650,22 +607,11 @@ function ManageEventsPage() {
   /// Roster actions
 
   const openRoster = useCallback((event: MouseEvent<HTMLElement>) => {
-    setRosterTab("qr");
-    setCopied(false);
     setRosterId(event.currentTarget.dataset.id);
   }, []);
   const closeRoster = useCallback((open: boolean) => {
     if (!open) setRosterId(undefined);
   }, []);
-  const changeRosterTab = useCallback((value: string) => {
-    setRosterTab(value as RosterTab);
-  }, []);
-  const handleRosterUndo = useCallback(
-    (memberId: string) => {
-      if (rosterId) undoCheckin({ eventId: rosterId, memberId });
-    },
-    [rosterId, undoCheckin],
-  );
 
   /// Search actions
 
@@ -723,21 +669,6 @@ function ManageEventsPage() {
     [form],
   );
 
-  const code = (codeQuery.data?.code ?? "").slice(0, 8);
-  const copyCode = useCallback(() => {
-    navigator.clipboard
-      .writeText(code)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => {
-          setCopied(false);
-        }, 1800);
-      })
-      .catch(() => {
-        toast.error("Couldn't copy the code.");
-      });
-  }, [code]);
-
   const manageable = useMemo(() => {
     const hasRole = me?.roles.some((role) => EVENT_MANAGE_ROLES.has(role)) ?? false;
     return (events ?? EMPTY_EVENTS).filter((event) => hasRole || event.creator_id === me?.id);
@@ -791,14 +722,9 @@ function ManageEventsPage() {
     [now, meId, attendance, openDetail, openRoster, openEditor, askDelete],
   );
 
-  const rosterMembers = rosterQuery.data?.data ?? [];
-  const { planned: plannedCount, attended: attendedCount } = summarizeAttendance(rosterMembers);
-
   const rosterEvent = (events ?? EMPTY_EVENTS).find((event) => event.id === rosterId);
   const confirmName = (events ?? EMPTY_EVENTS).find((event) => event.id === confirmId)?.name;
   const detailEvent = (events ?? EMPTY_EVENTS).find((event) => event.id === detailId);
-
-  const windowState = rosterEvent ? determineCheckIn(rosterEvent, now) : "ended";
 
   return (
     <div className="flex flex-col gap-5">
@@ -1185,80 +1111,9 @@ function ManageEventsPage() {
         )}
       </Dialog>
 
-      <Dialog open={rosterId !== undefined} onOpenChange={closeRoster}>
-        {rosterEvent && (
-          <DialogContent className="max-h-[88svh] gap-4 overflow-y-auto sm:max-w-135">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-extrabold">Attendance</DialogTitle>
-              <DialogDescription>{rosterEvent.name}</DialogDescription>
-            </DialogHeader>
-
-            <Tabs value={rosterTab} onValueChange={changeRosterTab} className="gap-4">
-              <TabsList className="h-10 w-full border border-border">
-                <TabsTrigger value="qr" className="font-bold data-active:border-border">
-                  Check-in QR
-                </TabsTrigger>
-                <TabsTrigger value="roster" className="font-bold data-active:border-border">
-                  Roster · {rosterMembers.length}
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="qr" className="flex flex-col items-center gap-4.5">
-                <CheckInPanel
-                  code={code}
-                  copied={copied}
-                  onCopy={copyCode}
-                  state={windowState}
-                  closesAt={fmtClock(rosterEvent.end_at, rosterEvent.timezone)}
-                />
-              </TabsContent>
-
-              <TabsContent value="roster" className="flex flex-col gap-3">
-                <div className="flex gap-3">
-                  <div className={ROSTER_STAT_CLASS}>
-                    <div className="text-2xl leading-none font-extrabold text-brand-sky">
-                      {plannedCount}
-                    </div>
-                    <div className="mt-1 text-xs font-semibold text-muted-foreground">
-                      Planned (RSVP'd)
-                    </div>
-                  </div>
-                  <div className={ROSTER_STAT_CLASS}>
-                    <div className="text-2xl leading-none font-extrabold text-[#15a66e] dark:text-[#3fd68c]">
-                      {attendedCount}
-                    </div>
-                    <div className="mt-1 text-xs font-semibold text-muted-foreground">Attended</div>
-                  </div>
-                </div>
-                <div className="-mx-2 flex max-h-72 flex-col gap-2 overflow-y-auto p-2">
-                  {rosterQuery.isPending && (
-                    <p className="px-2 py-6 text-center text-sm text-muted-foreground">
-                      Loading roster…
-                    </p>
-                  )}
-                  {!rosterQuery.isPending && rosterMembers.length === 0 && (
-                    <p className="px-2 py-6 text-center text-sm text-muted-foreground">
-                      No attendees yet.
-                    </p>
-                  )}
-                  {rosterMembers.map((member) => (
-                    <RosterRow
-                      key={member.id}
-                      member={member}
-                      disabled={isUndoing}
-                      onUndo={handleRosterUndo}
-                    />
-                  ))}
-                </div>
-                <p className="text-[11.5px]/relaxed text-muted-foreground">
-                  Undo clears a member's attended flag but keeps their RSVP — for correcting a
-                  mistaken check-in.
-                </p>
-              </TabsContent>
-            </Tabs>
-          </DialogContent>
-        )}
-      </Dialog>
+      {rosterEvent && (
+        <AttendanceDialog event={rosterEvent} now={now} open onOpenChange={closeRoster} />
+      )}
     </div>
   );
 }

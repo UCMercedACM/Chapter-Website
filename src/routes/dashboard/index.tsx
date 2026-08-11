@@ -1,7 +1,7 @@
 import { type ClientMember, ROLE_META, ROLES_BY_RANK } from "./route";
 
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import axios from "axios";
 import {
   ArrowRight,
@@ -17,8 +17,9 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 
+import { AttendanceDialog } from "@/components/app/attendance-dialog";
 import { CheckInDialog } from "@/components/app/check-in-dialog";
-import { EventCard, StatTile } from "@/components/app/dashboard-events";
+import { EventCard, EventDetailDialog, StatTile } from "@/components/app/dashboard-events";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -118,6 +119,17 @@ export const meQueryOptions = queryOptions({
 export const plannedEventsQueryOptions = memberEventsQueryOptions("planned");
 export const attendedEventsQueryOptions = memberEventsQueryOptions("attended");
 
+const memberQueryOptions = (memberId: string) =>
+  queryOptions({
+    queryKey: ["members", memberId],
+    queryFn: async () => {
+      const { data } = await axios.get<{ id: string; name: string }>(
+        `${API_BASE_URL}/members/${memberId}`,
+      );
+      return data;
+    },
+  });
+
 /// Helper functions
 
 function heroEyebrowText(live: boolean, planned: boolean) {
@@ -129,16 +141,21 @@ function heroEyebrowText(live: boolean, planned: boolean) {
 /// Route
 
 function DashboardHome() {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  const [now] = useState(() => new Date());
+  const [detail, setDetail] = useState<DashboardEvent>();
+  const [checkinEvent, setCheckinEvent] = useState<DashboardEvent>();
+  const [roster, setRoster] = useState<DashboardEvent>();
 
   const { data: events, isPending } = useQuery(eventsListQueryOptions);
   const { data: me } = useQuery(meQueryOptions);
   const { data: plannedEvents } = useQuery(plannedEventsQueryOptions);
   const { data: attendedEvents } = useQuery(attendedEventsQueryOptions);
-
-  const [now] = useState(() => new Date());
-  const [checkinEvent, setCheckinEvent] = useState<DashboardEvent>();
+  const creatorQuery = useQuery({
+    ...memberQueryOptions(detail?.creator_id ?? ""),
+    enabled: !!detail?.creator_id,
+  });
 
   const { mutate: joinMutate } = useMutation({
     mutationFn: async (eventId: string) => {
@@ -164,16 +181,28 @@ function DashboardHome() {
     },
     [joinMutate, queryClient],
   );
-  const goToEvents = useCallback(() => {
-    navigate({ to: "/dashboard/events" }).catch(() => {});
-  }, [navigate]);
-  const closeCheckin = useCallback((open: boolean) => {
-    if (!open) setCheckinEvent(undefined);
-  }, []);
   const invalidateAttended = useCallback(
     () => queryClient.invalidateQueries({ queryKey: attendedEventsQueryOptions.queryKey }),
     [queryClient],
   );
+
+  const openCheckinFromDetail = useCallback((event: DashboardEvent) => {
+    setDetail(undefined);
+    setCheckinEvent(event);
+  }, []);
+  const openRosterFromDetail = useCallback((event: DashboardEvent) => {
+    setDetail(undefined);
+    setRoster(event);
+  }, []);
+  const closeDetail = useCallback((open: boolean) => {
+    if (!open) setDetail(undefined);
+  }, []);
+  const closeCheckin = useCallback((open: boolean) => {
+    if (!open) setCheckinEvent(undefined);
+  }, []);
+  const closeRoster = useCallback((open: boolean) => {
+    if (!open) setRoster(undefined);
+  }, []);
 
   const { hero, heroDate, heroLive, heroEyebrow, myUpcoming, myRsvpsSub, rail, attendedCount } =
     useMemo(() => {
@@ -218,6 +247,12 @@ function DashboardHome() {
   }, [hero, handleRsvp]);
 
   const role = ROLES_BY_RANK.find((item) => me?.roles.includes(item));
+
+  const organizerName = detail?.creator_id ? creatorQuery.data?.name : undefined;
+  const canManageDetail =
+    !!detail &&
+    !!me &&
+    (me.roles.includes("admin") || me.roles.includes("leads") || detail.creator_id === me.id);
 
   return isPending ? (
     <div className="flex flex-col gap-5.5">
@@ -372,7 +407,7 @@ function DashboardHome() {
                 <EventCard
                   event={event}
                   now={now}
-                  onOpen={goToEvents}
+                  onOpen={setDetail}
                   onRsvp={handleRsvp}
                   onCheckin={setCheckinEvent}
                 />
@@ -429,7 +464,7 @@ function DashboardHome() {
                 <EventCard
                   event={event}
                   now={now}
-                  onOpen={goToEvents}
+                  onOpen={setDetail}
                   onRsvp={handleRsvp}
                   onCheckin={setCheckinEvent}
                 />
@@ -454,6 +489,20 @@ function DashboardHome() {
         </div>
       </Carousel>
 
+      {detail && (
+        <EventDetailDialog
+          event={detail}
+          now={now}
+          open
+          onOpenChange={closeDetail}
+          canManage={canManageDetail}
+          organizerName={organizerName}
+          onRsvp={handleRsvp}
+          onCheckin={openCheckinFromDetail}
+          onManageAttendance={openRosterFromDetail}
+        />
+      )}
+
       {checkinEvent && (
         <CheckInDialog
           event={checkinEvent}
@@ -463,6 +512,8 @@ function DashboardHome() {
           onVerified={invalidateAttended}
         />
       )}
+
+      {roster && <AttendanceDialog event={roster} now={now} open onOpenChange={closeRoster} />}
     </div>
   );
 }

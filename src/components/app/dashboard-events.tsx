@@ -7,11 +7,15 @@ import {
   LayoutGrid,
   List,
   MapPin,
+  MinusCircle,
+  MoreHorizontal,
   QrCode,
+  RotateCcw,
   ScanLine,
   Search,
   Ticket,
   User,
+  UserPlus,
   X,
 } from "lucide-react";
 import {
@@ -32,6 +36,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -43,6 +53,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  type AttendanceMember,
   type DashboardEvent,
   type EventType,
   type EventView,
@@ -59,6 +70,8 @@ import {
 import { cn } from "@/lib/utils";
 
 /// Types & interfaces
+
+type RosterStatus = "checked_in" | "expected" | "no_show" | "walk_in";
 
 export interface EventCallbacks {
   onOpen?: (event: DashboardEvent) => void;
@@ -100,12 +113,40 @@ const LONG_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
   day: "numeric",
 };
 
+const ROSTER_STATUS = {
+  checked_in: {
+    label: "Checked in",
+    icon: Check,
+    className: "bg-[#15a66e]/15 text-[#15a66e] dark:text-[#3fd68c]",
+  },
+  walk_in: {
+    label: "Walk-in",
+    icon: UserPlus,
+    className: "bg-[#f7b731]/18 text-[#a06d00] dark:text-[#ffd56b]",
+  },
+  expected: {
+    label: "Expected",
+    icon: Clock,
+    className: "bg-brand-sky/15 text-brand-sky-text",
+  },
+  no_show: {
+    label: "No-show",
+    icon: MinusCircle,
+    className: "bg-muted text-muted-foreground",
+  },
+} satisfies Record<RosterStatus, { className: string; icon: LucideIcon; label: string }>;
+
 /// Helpers
 
 function eventStateMeta(event: DashboardEvent, now: Date): StateMeta {
   if (event.attended) return STATE_ATTENDED;
   if (isPastEvent(event, now)) return event.planned ? STATE_MISSED : STATE_ENDED;
   return event.planned ? STATE_GOING : STATE_OPEN;
+}
+
+function getRosterStatus(member: AttendanceMember): RosterStatus {
+  if (member.attended) return member.planned ? "checked_in" : "walk_in";
+  return member.planned ? "expected" : "no_show";
 }
 
 /// EventTypeChip
@@ -857,5 +898,69 @@ export function EventDetailDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+/// RosterRow
+
+export function RosterRow({
+  disabled,
+  member,
+  onUndo,
+}: Readonly<{
+  disabled: boolean;
+  member: AttendanceMember;
+  onUndo: (memberId: string) => void;
+}>) {
+  const handleUndo = useCallback(() => {
+    onUndo(member.id);
+  }, [member.id, onUndo]);
+
+  const status = ROSTER_STATUS[getRosterStatus(member)];
+  const initials =
+    member.name
+      .match(/\S+/g)
+      ?.slice(0, 2)
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase() ?? "··";
+
+  const StatusIcon = status.icon;
+
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-3.5 py-2.5 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]">
+      <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-sky/15 text-[12px] font-extrabold text-brand-sky-text">
+        {initials}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-sm font-bold text-foreground">{member.name}</div>
+      </div>
+      <span
+        className={cn(
+          "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold",
+          status.className,
+        )}
+      >
+        <StatusIcon className="size-3.5" />
+        {status.label}
+      </span>
+      {member.attended && (
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={<Button variant="ghost" size="icon-sm" />}
+            title="Member actions"
+            aria-label="Member actions"
+          >
+            <MoreHorizontal />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-auto">
+            <DropdownMenuItem disabled={disabled} onClick={handleUndo}>
+              <RotateCcw />
+              Undo check-in
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+    </div>
   );
 }
