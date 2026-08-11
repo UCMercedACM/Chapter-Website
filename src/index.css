@@ -187,7 +187,6 @@
   }
   html {
     @apply scroll-smooth font-sans;
-    scrollbar-gutter: stable;
   }
 }
 
