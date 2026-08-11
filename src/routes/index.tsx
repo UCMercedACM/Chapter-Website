@@ -2,10 +2,9 @@ import { SiDiscord, SiGithub, SiInstagram, type IconType } from "@icons-pack/rea
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import axios from "axios";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Clock, MapPin } from "lucide-react";
 import { useMemo, type CSSProperties } from "react";
 
-import aboutUsImg from "@/assets/images/about-us.png";
 import beginningsLogo from "@/assets/images/beginnings-logo.png";
 import sigAiLogo from "@/assets/logos/sigs/ai.svg";
 import sigArchLogo from "@/assets/logos/sigs/arch.svg";
@@ -20,6 +19,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  type EventThumbnailData,
+  EVENT_TYPE_CLASSES,
+  EVENT_TYPE_META,
+  fmtClock,
+  monthDay,
+} from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -50,6 +57,7 @@ interface ApiEvent {
   location: string;
   type: EventType;
   timezone: string;
+  thumbnail?: EventThumbnailData | null;
   creator_id: string;
 }
 
@@ -69,12 +77,9 @@ interface SocialLink {
 const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
-// These are too expensive to compute, so we do it here
-const SHORT_MONTH_FMT = new Intl.DateTimeFormat("en-US", { month: "short" });
-const TIME_RANGE_FMT = new Intl.DateTimeFormat("en-US", {
-  hour: "numeric",
-  minute: "2-digit",
-});
+const CAROUSEL_NAV_CLASS = "static size-9 translate-0";
+
+const PAGE_LOADED_AT = new Date().toISOString();
 
 // One transform class shared by every tile. Per-tile angle is supplied via the
 // --tile-angle CSS variable (set by `angleClass` below), and CSS cos()/sin() compute
@@ -167,10 +172,12 @@ const eventsKeys = {
 };
 
 const eventsQueryOptions = queryOptions({
-  queryKey: eventsKeys.list({}),
+  queryKey: eventsKeys.list({ after: PAGE_LOADED_AT }),
   queryFn: async () => {
-    const { data } = await axios.get<EventsPage>(`${API_BASE_URL}/events`);
-    return data;
+    const { data } = await axios.get<EventsPage>(`${API_BASE_URL}/events`, {
+      params: { after: PAGE_LOADED_AT },
+    });
+    return data.data.toReversed();
   },
   // Events don't change minute-to-minute; treat the cache as fresh for a minute so
   // navigating back/forward doesn't refetch immediately.
@@ -185,8 +192,7 @@ const eventsQueryOptions = queryOptions({
 });
 
 function Index() {
-  const { data: eventsPage, isLoading: loading } = useQuery(eventsQueryOptions);
-  const events: ApiEvent[] = eventsPage?.data ?? [];
+  const { data: events = [], isLoading: loading } = useQuery(eventsQueryOptions);
 
   const carouselOptions = useMemo(() => ({ align: "start" as const }), []);
 
@@ -365,36 +371,48 @@ function Index() {
       </section>
 
       <section className="mx-auto max-w-300 px-5 py-12 md:p-20">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h2 className="mb-2 text-[26px] font-bold text-foreground md:text-[42px]">Events</h2>
-            <p className="text-[13px] text-brand-text-sub md:text-base">
-              ACM @ UCM hosts 50+ events for our diverse community of students.
-            </p>
+        <Carousel opts={carouselOptions}>
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="mb-2 text-[26px] font-bold text-foreground md:text-[42px]">Events</h2>
+              <p className="text-[13px] text-brand-text-sub md:text-base">
+                ACM @ UCM hosts 50+ events for our diverse community of students.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/"
+                className={cn(
+                  "cursor-pointer rounded-full border-2 border-brand-sky text-brand-sky",
+                  "px-5 py-2.5 text-sm font-bold",
+                  "transition-colors hover:bg-brand-sky/10",
+                )}
+              >
+                See All Events →
+              </Link>
+              {events.length > 1 && (
+                <>
+                  <CarouselPrevious className={CAROUSEL_NAV_CLASS} />
+                  <CarouselNext className={CAROUSEL_NAV_CLASS} />
+                </>
+              )}
+            </div>
           </div>
-          <Link
-            to="/"
-            className={cn(
-              "cursor-pointer rounded-full border-2 border-brand-sky text-brand-sky",
-              "px-5 py-2.5 text-sm font-bold",
-              "transition-colors hover:bg-brand-sky/10",
-            )}
-          >
-            See All Events →
-          </Link>
-        </div>
-        <Carousel opts={carouselOptions} className="mx-12">
           <CarouselContent className="-ml-4 py-4">
             {loading &&
               Array.from({ length: 4 }, (_, i) => (
                 <CarouselItem key={i} className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                  <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-border">
-                    <div className="aspect-16/10 w-full animate-pulse bg-muted" />
+                  <div className="flex h-full min-h-93.5 flex-col overflow-hidden rounded-3xl border border-border">
+                    <Skeleton className="aspect-video w-full rounded-none" />
                     <div className="flex flex-1 flex-col gap-3 p-5">
-                      <div className="h-3 w-1/2 animate-pulse rounded-sm bg-muted" />
-                      <div className="h-4 w-3/4 animate-pulse rounded-sm bg-muted" />
-                      <div className="h-3 w-full animate-pulse rounded-sm bg-muted" />
-                      <div className="h-3 w-5/6 animate-pulse rounded-sm bg-muted" />
+                      <Skeleton className="h-3 w-1/2 rounded-sm" />
+                      <Skeleton className="h-4 w-3/4 rounded-sm" />
+                      <Skeleton className="h-3 w-full rounded-sm" />
+                      <Skeleton className="h-3 w-5/6 rounded-sm" />
+                      <div className="mt-auto flex items-center justify-between gap-2 border-t border-border pt-3.5">
+                        <Skeleton className="h-6 w-16 rounded-full" />
+                        <Skeleton className="h-8 w-28 rounded-full" />
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
@@ -407,60 +425,93 @@ function Index() {
               </CarouselItem>
             )}
             {events.map((event) => {
-              const start = new Date(event.start_at);
+              const { mon, day } = monthDay(event.start_at, event.timezone);
               return (
                 <CarouselItem
                   key={event.id}
                   className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                 >
-                  <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-border">
-                    <div className="relative aspect-16/10 w-full overflow-hidden">
-                      <img
-                        src={aboutUsImg}
-                        alt=""
-                        className="size-full object-contain p-6"
-                        loading="lazy"
-                      />
-                      <div className="absolute top-3 left-3 flex flex-col items-center rounded-2xl bg-card/95 px-3 py-1.5 shadow-md backdrop-blur-sm">
-                        <span className="text-[11px] font-bold text-brand-teal-alt">
-                          {SHORT_MONTH_FMT.format(start).toUpperCase()}
-                        </span>
-                        <span className="text-lg leading-none font-extrabold text-foreground">
-                          {start.getDate()}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex flex-1 flex-col p-5">
-                      <div className="mb-1 text-[11px] font-semibold tracking-wide text-brand-text-sub uppercase">
-                        {TIME_RANGE_FMT.formatRange(start, new Date(event.end_at))} · @{" "}
-                        {event.location}
-                      </div>
-                      <h3 className="mb-2 text-[17px] leading-snug font-bold text-foreground">
-                        {event.name}
-                      </h3>
-                      <p className="mb-4 flex-1 text-sm/relaxed text-brand-text-sub">
-                        {event.description}
-                      </p>
-                      <button
-                        type="button"
+                  <div className="flex h-full min-h-93.5 flex-col overflow-hidden rounded-3xl border border-border">
+                    <div className="relative aspect-video w-full overflow-hidden bg-muted">
+                      {event.thumbnail ? (
+                        <img
+                          src={event.thumbnail.url}
+                          alt=""
+                          className="size-full object-cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : (
+                        <div
+                          className={cn(
+                            "flex size-full items-center justify-center",
+                            EVENT_TYPE_CLASSES[event.type].chip,
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              "rounded-full border px-4 py-1.25",
+                              "text-[11.5px] font-extrabold tracking-[0.12em] uppercase",
+                              EVENT_TYPE_CLASSES[event.type].label,
+                            )}
+                          >
+                            {EVENT_TYPE_META[event.type].label}
+                          </span>
+                        </div>
+                      )}
+                      <div
                         className={cn(
-                          "cursor-pointer self-start rounded-full border-none bg-foreground text-background",
-                          "text-xs font-medium md:text-[13px]",
-                          "px-4 py-1.5 md:px-5 md:py-2",
-                          "shadow-[6px_6px_10px_rgba(0,29,53,0.25),-6px_-6px_10px_rgba(61,169,252,0.2)]",
-                          "transition-opacity hover:opacity-90",
+                          "absolute bottom-3 left-3 flex h-14 w-13 flex-col overflow-hidden text-center",
+                          "rounded-xl border border-border bg-card shadow-md",
                         )}
                       >
-                        Remind me
-                      </button>
+                        <div
+                          className={cn(
+                            "py-0.75 text-[10px] font-extrabold tracking-[0.08em] text-white",
+                            EVENT_TYPE_CLASSES[event.type].bar,
+                          )}
+                        >
+                          {mon}
+                        </div>
+                        <div className="flex flex-1 items-center justify-center text-[21px] font-extrabold text-foreground">
+                          {day}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex flex-1 flex-col gap-2.5 p-5">
+                      <div>
+                        <span
+                          className={cn(
+                            "inline-block rounded-full px-2.5 py-1 text-[11.5px] font-bold",
+                            EVENT_TYPE_CLASSES[event.type].chip,
+                          )}
+                        >
+                          {EVENT_TYPE_META[event.type].label}
+                        </span>
+                        <h3 className="mt-2 text-[17px] leading-snug font-bold text-foreground">
+                          {event.name}
+                        </h3>
+                      </div>
+                      <p className="line-clamp-2 text-sm/relaxed text-brand-text-sub">
+                        {event.description}
+                      </p>
+                      <div className="mt-auto flex flex-col gap-1.5 border-t border-border pt-3.5">
+                        <span className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                          <Clock className="size-3.5 shrink-0" />
+                          {fmtClock(event.start_at, event.timezone)} -{" "}
+                          {fmtClock(event.end_at, event.timezone)}
+                        </span>
+                        <span className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
+                          <MapPin className="size-3.5 shrink-0" />
+                          {event.location}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
               );
             })}
           </CarouselContent>
-          <CarouselPrevious className="size-10" />
-          <CarouselNext className="size-10" />
         </Carousel>
       </section>
 

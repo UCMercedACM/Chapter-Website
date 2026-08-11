@@ -1,7 +1,7 @@
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import type { CalendarType } from "@schedule-x/calendar";
 import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import axios from "axios";
 import { MapPin } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
@@ -276,6 +276,8 @@ function Events() {
     [selectedEvent],
   );
 
+  const eventLinkParams = useMemo(() => ({ eventId: selectedEvent?.id ?? "" }), [selectedEvent]);
+
   const anchor = useMemo(
     () => (selected ? { getBoundingClientRect: () => selected.rect } : undefined),
     [selected],
@@ -385,8 +387,17 @@ function Events() {
                       {selectedEventType.label}
                     </span>
 
-                    <h3 className="text-sm/tight font-extrabold text-foreground">
-                      {selectedEvent.name}
+                    <h3 className="text-sm/tight font-extrabold">
+                      <Link
+                        to="/event/$eventId"
+                        params={eventLinkParams}
+                        className={cn(
+                          "text-foreground underline-offset-2 transition-colors",
+                          "hover:text-brand-sky-text hover:underline",
+                        )}
+                      >
+                        {selectedEvent.name}
+                      </Link>
                     </h3>
 
                     <div className="flex flex-col gap-0.5 text-xs text-brand-text-sub">

@@ -23,6 +23,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardEventsRouteImport } from './routes/dashboard/events'
 import { Route as DashboardProjectsRouteImport } from './routes/dashboard/projects'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
+import { Route as EventEventIdRouteImport } from './routes/event/$eventId'
 import { Route as ProjectProjectIdRouteImport } from './routes/project/$projectId'
 import { Route as DashboardAdminMembersRouteImport } from './routes/dashboard/admin/members'
 import { Route as DashboardAdminOverviewRouteImport } from './routes/dashboard/admin/overview'
@@ -102,6 +103,11 @@ const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const EventEventIdRoute = EventEventIdRouteImport.update({
+  id: '/event/$eventId',
+  path: '/event/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectProjectIdRoute = ProjectProjectIdRouteImport.update({
   id: '/project/$projectId',
   path: '/project/$projectId',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/event/$eventId': typeof EventEventIdRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/admin/members': typeof DashboardAdminMembersRoute
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/event/$eventId': typeof EventEventIdRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/admin/members': typeof DashboardAdminMembersRoute
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/dashboard/events': typeof DashboardEventsRoute
   '/dashboard/projects': typeof DashboardProjectsRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/event/$eventId': typeof EventEventIdRoute
   '/project/$projectId': typeof ProjectProjectIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/admin/members': typeof DashboardAdminMembersRoute
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/dashboard/events'
     | '/dashboard/projects'
     | '/dashboard/settings'
+    | '/event/$eventId'
     | '/project/$projectId'
     | '/dashboard/'
     | '/dashboard/admin/members'
@@ -255,6 +265,7 @@ export interface FileRouteTypes {
     | '/dashboard/events'
     | '/dashboard/projects'
     | '/dashboard/settings'
+    | '/event/$eventId'
     | '/project/$projectId'
     | '/dashboard'
     | '/dashboard/admin/members'
@@ -279,6 +290,7 @@ export interface FileRouteTypes {
     | '/dashboard/events'
     | '/dashboard/projects'
     | '/dashboard/settings'
+    | '/event/$eventId'
     | '/project/$projectId'
     | '/dashboard/'
     | '/dashboard/admin/members'
@@ -301,6 +313,7 @@ export interface RootRouteChildren {
   RecoveryRoute: typeof RecoveryRoute
   RegisterRoute: typeof RegisterRoute
   SigsRoute: typeof SigsRoute
+  EventEventIdRoute: typeof EventEventIdRoute
   ProjectProjectIdRoute: typeof ProjectProjectIdRoute
 }
 
@@ -403,6 +416,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/settings'
       preLoaderRoute: typeof DashboardSettingsRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/event/$eventId': {
+      id: '/event/$eventId'
+      path: '/event/$eventId'
+      fullPath: '/event/$eventId'
+      preLoaderRoute: typeof EventEventIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/project/$projectId': {
       id: '/project/$projectId'
@@ -507,6 +527,7 @@ const rootRouteChildren: RootRouteChildren = {
   RecoveryRoute: RecoveryRoute,
   RegisterRoute: RegisterRoute,
   SigsRoute: SigsRoute,
+  EventEventIdRoute: EventEventIdRoute,
   ProjectProjectIdRoute: ProjectProjectIdRoute,
 }
 export const routeTree = rootRouteImport
