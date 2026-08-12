@@ -27,13 +27,10 @@ export const Route = createFileRoute("/projects")({
 
 /// Types and Interfaces
 
-
 type ProjectType = FullProjects["type"];
-
 
 type FilterKey = "all" | ProjectType;
 type ActiveFilter = "active" | "all" | "archived";
-
 
 /// Module-scoped constants
 

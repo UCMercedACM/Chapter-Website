@@ -23,7 +23,6 @@ export const Route = createFileRoute("/events")({
 
 /// Types and Interfaces
 
-
 interface SelectedEvent {
   event: FullEvents;
   rect: DOMRect;

@@ -32,7 +32,6 @@ export const Route = createFileRoute("/")({
 
 /// Interfaces & Types
 
-
 interface SocialLink {
   label: string;
   Icon: IconType;

@@ -29,7 +29,6 @@ export const Route = createFileRoute("/project/$projectId")({
 
 /// Types and Interfaces
 
-
 type ProjectType = FullProjects["type"];
 
 /// Module-scoped constants

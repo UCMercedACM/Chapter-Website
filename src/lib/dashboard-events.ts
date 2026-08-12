@@ -6,12 +6,10 @@ export type CheckInState = "ended" | "open" | "too_early";
 export type EventView = "calendar" | "grid" | "list";
 export type EventType = FullEvents["type"];
 
-
 export interface DashboardEvent extends FullEvents {
   planned: boolean;
   attended: boolean;
 }
-
 
 interface EventTypeMeta {
   label: string;

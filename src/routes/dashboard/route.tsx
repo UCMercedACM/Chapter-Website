@@ -107,7 +107,6 @@ type AccountField = "display_name" | "password";
 type TotpStep = "scan" | "verify" | "backup";
 type SettingsSection = "account" | "security";
 
-
 export interface Sudo {
   active: boolean;
   expires_at?: string | null;

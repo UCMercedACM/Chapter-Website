@@ -53,7 +53,6 @@ export const Route = createFileRoute("/dashboard/manage/projects_/$projectId/gal
 
 type UploadResponse = MediaRecord | SimpleUploadResponse | MultipartUploadResponse;
 
-
 interface GalleryTileProps {
   item: MediaRecord;
   index: number;

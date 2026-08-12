@@ -39,7 +39,6 @@ interface OverviewProject {
   active: boolean;
 }
 
-
 interface RoleBucket {
   key: "admins" | "managers" | "leads" | "members";
   label: string;

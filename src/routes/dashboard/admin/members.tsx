@@ -77,11 +77,9 @@ export const Route = createFileRoute("/dashboard/admin/members")({
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
 type RoleFilter = "admin" | "all" | "leads" | "manager" | "none";
 
-
 interface AdminMember extends SimpleMember {
   roles: Role[];
 }
-
 
 interface MembersMeta {
   meId?: string;

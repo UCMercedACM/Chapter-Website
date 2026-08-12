@@ -77,7 +77,6 @@ export const Route = createFileRoute("/dashboard/admin/tags")({
 
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
 
-
 interface Conflict {
   title: string;
   entries: AttachedTagEntry[];
