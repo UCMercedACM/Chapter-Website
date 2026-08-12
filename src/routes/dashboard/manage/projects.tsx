@@ -73,18 +73,16 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { type KanaePage } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 import {
-  type FullProject,
   JOIN_POLICY_META,
   type JoinPolicy,
-  type ProjectInvite,
-  type ProjectMember,
   type ProjectType,
   SIG_META,
 } from "@/routes/dashboard/projects";
 import { meQueryOptions } from "@/routes/dashboard/route";
+import { type FullProjects, type ProjectInvite, type ProjectMember } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/dashboard/manage/projects")({
   component: ManageProjectsPage,
@@ -136,7 +134,7 @@ interface InviteVars {
 }
 interface SaveVars {
   creating: boolean;
-  project: FullProject;
+  project: FullProjects;
   removeThumbnail: boolean;
   thumbnailFile?: File;
 }
@@ -210,7 +208,7 @@ const BLANK_PROJECT_FORM: ProjectFormValues = {
 
 const EMPTY_INVITES: ProjectInvite[] = [];
 const EMPTY_MEMBERS: DirectoryMember[] = [];
-const EMPTY_PROJECTS: FullProject[] = [];
+const EMPTY_PROJECTS: FullProjects[] = [];
 const EMPTY_META: Partial<ManageProjectsMeta> = {};
 
 const PROJECT_TYPES = Object.keys(SIG_META) as ProjectType[];
@@ -221,7 +219,7 @@ const JOIN_POLICIES = Object.keys(JOIN_POLICY_META) as JoinPolicy[];
 const ACTIONS_TRIGGER = (
   <Button variant="ghost" size="icon-sm" className="relative text-brand-text-sub" />
 );
-const PROJECT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullProject>[] = [
+const PROJECT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullProjects>[] = [
   {
     id: "project",
     header: "Project",
@@ -423,7 +421,7 @@ const manageProjectsQueryOptions = ({ active, name, page }: ProjectPageParams) =
   queryOptions({
     queryKey: [...MANAGE_PROJECTS_KEY, { active, name, page }],
     queryFn: async () => {
-      const { data } = await axios.get<KanaePage<FullProject>>(`${API_BASE_URL}/projects`, {
+      const { data } = await axios.get<KanaePage<FullProjects>>(`${API_BASE_URL}/projects`, {
         params: {
           page,
           size: MANAGE_PAGE_SIZE,
@@ -531,7 +529,7 @@ function ManageProjectsPage() {
   const findProject = useCallback(
     (id: string | undefined) => {
       if (!id) return;
-      for (const [, page] of queryClient.getQueriesData<KanaePage<FullProject>>({
+      for (const [, page] of queryClient.getQueriesData<KanaePage<FullProjects>>({
         queryKey: MANAGE_PROJECTS_KEY,
       })) {
         const hit = (page?.data ?? []).find((item) => item.id === id);
@@ -553,14 +551,14 @@ function ManageProjectsPage() {
         link: project.link,
       };
       const { data: saved } = await (creating
-        ? axios.post<Pick<FullProject, "id">>(`${API_BASE_URL}/projects/create`, {
+        ? axios.post<Pick<FullProjects, "id">>(`${API_BASE_URL}/projects/create`, {
             ...details,
             type: project.type,
             tags: project.tags,
             active: project.active,
             founded_at: project.founded_at,
           })
-        : axios.put<Pick<FullProject, "id">>(`${API_BASE_URL}/projects/${project.id}`, details));
+        : axios.put<Pick<FullProjects, "id">>(`${API_BASE_URL}/projects/${project.id}`, details));
 
       if (!thumbnailFile) {
         if (removeThumbnail) await axios.delete(`${API_BASE_URL}/projects/${saved.id}/thumbnail`);
@@ -590,7 +588,7 @@ function ManageProjectsPage() {
   });
 
   const { mutate: archiveProject } = useMutation({
-    mutationFn: async (project: FullProject) => {
+    mutationFn: async (project: FullProjects) => {
       await axios.put(`${API_BASE_URL}/projects/${project.id}/archive`, {
         active: !project.active,
       });
@@ -602,7 +600,7 @@ function ManageProjectsPage() {
   });
 
   const { mutate: deleteProject } = useMutation({
-    mutationFn: async (project: FullProject) => {
+    mutationFn: async (project: FullProjects) => {
       await axios.delete(`${API_BASE_URL}/projects/${project.id}`);
     },
     onError: () => toast.error("Couldn't delete the project. Please try again."),
@@ -915,7 +913,7 @@ function ManageProjectsPage() {
     [form],
   );
 
-  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullProject>>(
+  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullProjects>>(
     () => ({
       manage: {
         invites,

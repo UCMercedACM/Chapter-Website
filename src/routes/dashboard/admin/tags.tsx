@@ -55,6 +55,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { isSudoActive, sudoQueryOptions } from "@/routes/dashboard/route";
+import {
+  type AttachedTagEntry,
+  type AttachedTagResponse,
+  type FullTags,
+  type Tags as Tag,
+} from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/dashboard/admin/tags")({
   component: TagsPage,
@@ -71,26 +77,6 @@ export const Route = createFileRoute("/dashboard/admin/tags")({
 
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
 
-interface Tag {
-  id: number;
-  title: string;
-  description: string;
-}
-
-interface FullTags extends Tag {
-  in_use: boolean;
-}
-
-interface AttachedTagEntry {
-  id: string;
-  name: string;
-  type: "Project" | "Event";
-}
-
-interface AttachedTagResponse {
-  detail: string;
-  entries: AttachedTagEntry[];
-}
 
 interface Conflict {
   title: string;

@@ -17,6 +17,7 @@ import {
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { type FullProjects, type MediaRecord } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/project/$projectId")({
   component: Project,
@@ -28,46 +29,8 @@ export const Route = createFileRoute("/project/$projectId")({
 
 /// Types and Interfaces
 
-type ProjectType =
-  | "independent"
-  | "sig_ai"
-  | "sig_arch"
-  | "sig_cyber"
-  | "sig_data"
-  | "sig_graph"
-  | "sig_swe";
 
-interface ProjectMember {
-  id: string;
-  name: string;
-}
-
-interface ProjectThumbnail {
-  hash: string;
-  url: string;
-}
-
-interface FullProject {
-  id: string;
-  name: string;
-  description: string;
-  link: string;
-  thumbnail?: ProjectThumbnail | null;
-  members: ProjectMember[];
-  type: ProjectType;
-  tags?: string[];
-  active: boolean;
-  founded_at: string;
-}
-
-interface MediaRecord {
-  hash: string;
-  content_type: string;
-  kind: "image" | "video";
-  size: number;
-  created_at: string;
-  url: string;
-}
+type ProjectType = FullProjects["type"];
 
 /// Module-scoped constants
 
@@ -100,7 +63,7 @@ const projectDetailQueryOptions = (projectId: string) =>
   queryOptions({
     queryKey: projectKeys.detail(projectId),
     queryFn: async () => {
-      const { data } = await axios.get<FullProject>(`${API_BASE_URL}/projects/${projectId}`);
+      const { data } = await axios.get<FullProjects>(`${API_BASE_URL}/projects/${projectId}`);
       return data;
     },
     staleTime: 60_000,

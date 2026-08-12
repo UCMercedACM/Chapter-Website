@@ -8,8 +8,9 @@ import { StatTile } from "@/components/app/dashboard-events";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
-import { type FullEvent, type KanaePage, isPastEvent } from "@/lib/dashboard-events";
-import { type Role } from "@/routes/dashboard/route";
+import { isPastEvent } from "@/lib/dashboard-events";
+import { type FullEvents, type MemberRoles, type Role } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/dashboard/admin/overview")({
   component: OverviewPage,
@@ -38,9 +39,6 @@ interface OverviewProject {
   active: boolean;
 }
 
-interface MemberRoles {
-  roles: Role[];
-}
 
 interface RoleBucket {
   key: "admins" | "managers" | "leads" | "members";
@@ -153,10 +151,10 @@ const overviewEventsQueryOptions = queryOptions({
   queryKey: ["overview", "events"],
   queryFn: async () => {
     const now = new Date();
-    const events: FullEvent[] = [];
+    const events: FullEvents[] = [];
     let more = true;
     while (more) {
-      const { data } = await axios.get<KanaePage<FullEvent>>(`${API_BASE_URL}/events`, {
+      const { data } = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
         params: { page: events.length / EVENTS_PAGE_SIZE + 1, size: EVENTS_PAGE_SIZE },
       });
       events.push(...(data.data ?? []));

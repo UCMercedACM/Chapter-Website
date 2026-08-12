@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { type FullProjects } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
@@ -25,45 +27,13 @@ export const Route = createFileRoute("/projects")({
 
 /// Types and Interfaces
 
-type ProjectType =
-  | "independent"
-  | "sig_ai"
-  | "sig_arch"
-  | "sig_cyber"
-  | "sig_data"
-  | "sig_graph"
-  | "sig_swe";
+
+type ProjectType = FullProjects["type"];
+
 
 type FilterKey = "all" | ProjectType;
 type ActiveFilter = "active" | "all" | "archived";
 
-interface ProjectMember {
-  id: string;
-  name: string;
-}
-
-interface ProjectThumbnail {
-  hash: string;
-  url: string;
-}
-
-interface ApiProject {
-  id: string;
-  name: string;
-  description: string;
-  link: string;
-  thumbnail?: ProjectThumbnail | null;
-  members: ProjectMember[];
-  type: ProjectType;
-  tags?: string[];
-  active: boolean;
-  founded_at: string;
-}
-
-interface ProjectsPage {
-  data: ApiProject[];
-  total: number;
-}
 
 /// Module-scoped constants
 
@@ -110,7 +80,7 @@ const projectsKeys = {
 const projectsQueryOptions = queryOptions({
   queryKey: projectsKeys.list({}),
   queryFn: async () => {
-    const { data } = await axios.get<ProjectsPage>(`${API_BASE_URL}/projects`);
+    const { data } = await axios.get<KanaePage<FullProjects>>(`${API_BASE_URL}/projects`);
     return data;
   },
   staleTime: 60_000,

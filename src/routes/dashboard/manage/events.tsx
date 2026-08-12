@@ -70,9 +70,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import {
   type EventType,
-  type FullEvent,
-  type AttendanceMember,
-  type KanaePage,
   EVENT_TYPE_CLASSES,
   EVENT_TYPE_META,
   EVENT_TYPES,
@@ -81,6 +78,8 @@ import {
 } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 import { meQueryOptions } from "@/routes/dashboard/index";
+import { type AttendanceMember, type FullEvents } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/dashboard/manage/events")({
   component: ManageEventsPage,
@@ -126,7 +125,7 @@ interface Editor {
 
 interface SaveVars {
   creating: boolean;
-  event: FullEvent;
+  event: FullEvents;
   thumbnailFile?: File;
   removeThumbnail?: boolean;
 }
@@ -152,13 +151,13 @@ const BLANK_EVENT_FORM: EventFormValues = {
   thumbnail: undefined,
 };
 
-const EMPTY_EVENTS: FullEvent[] = [];
+const EMPTY_EVENTS: FullEvents[] = [];
 const EMPTY_ATTENDANCE_SUMMARY: AttendanceSummary = { planned: 0, attended: 0 };
 
 /// Constants — Table Columns
 
 const ACTIONS_TRIGGER = <Button variant="ghost" size="icon-sm" className="text-brand-text-sub" />;
-const EVENT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullEvent>[] = [
+const EVENT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullEvents>[] = [
   {
     id: "event",
     header: "Event",
@@ -340,13 +339,13 @@ const eventFormSchema = z
 const manageEventsQueryOptions = queryOptions({
   queryKey: MANAGE_EVENTS_KEY,
   queryFn: async () => {
-    const first = await axios.get<KanaePage<FullEvent>>(`${API_BASE_URL}/events`, {
+    const first = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
       params: { page: 1, size: EVENTS_PAGE_SIZE },
     });
     const events = [...(first.data.data ?? [])];
     const pageCount = Math.ceil(first.data.total / EVENTS_PAGE_SIZE);
     for (let page = 2; page <= pageCount; page++) {
-      const next = await axios.get<KanaePage<FullEvent>>(`${API_BASE_URL}/events`, {
+      const next = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
         params: { page, size: EVENTS_PAGE_SIZE },
       });
       events.push(...(next.data.data ?? []));
@@ -437,12 +436,12 @@ function ManageEventsPage() {
         timezone: event.timezone,
       };
       await (creating
-        ? axios.post<FullEvent>(`${API_BASE_URL}/events/create`, {
+        ? axios.post<FullEvents>(`${API_BASE_URL}/events/create`, {
             ...details,
             id: event.id,
             type: event.type,
           })
-        : axios.put<FullEvent>(`${API_BASE_URL}/events/${event.id}`, details));
+        : axios.put<FullEvents>(`${API_BASE_URL}/events/${event.id}`, details));
 
       const eventId = event.id;
       if (thumbnailFile) {
@@ -707,7 +706,7 @@ function ManageEventsPage() {
     },
   });
 
-  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullEvent>>(
+  const tableMeta = useMemo<TableMeta<typeof dataTableFeatures, FullEvents>>(
     () => ({
       events: {
         now,

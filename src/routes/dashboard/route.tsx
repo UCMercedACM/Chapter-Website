@@ -87,6 +87,7 @@ import {
 } from "@/components/ui/sidebar";
 import { type Flow, type SubmitResponse, csrfToken, oryInit, orySubmit } from "@/lib/ory";
 import { cn } from "@/lib/utils";
+import { type ClientMember, type Role } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/dashboard")({
   component: DashboardLayout,
@@ -106,27 +107,6 @@ type AccountField = "display_name" | "password";
 type TotpStep = "scan" | "verify" | "backup";
 type SettingsSection = "account" | "security";
 
-export type Role = "admin" | "leads" | "manager" | "root";
-
-export interface ClientSession {
-  aal: "aal1" | "aal2";
-  active: boolean;
-  authenticated_at: string;
-  issued_at: string;
-  expires_at: string;
-}
-
-export interface ClientMember {
-  id: string;
-  name: string;
-  email: string;
-  display_name?: string | null;
-  created_at: string;
-  projects: unknown[];
-  events: unknown[];
-  roles: Role[];
-  session: ClientSession;
-}
 
 export interface Sudo {
   active: boolean;

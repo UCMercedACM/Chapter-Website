@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import { Button } from "@/components/ui/button";
-import { type MediaRecord } from "@/routes/dashboard/projects";
+import { type MediaRecord } from "@/types/kanae.gen";
 
 interface MediaLightboxProps {
   items: MediaRecord[];

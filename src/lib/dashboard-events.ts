@@ -1,56 +1,64 @@
 /// Types and Interfaces
 
+import type { FullEvents } from "@/types/kanae.gen";
+
 export type CheckInState = "ended" | "open" | "too_early";
 export type EventView = "calendar" | "grid" | "list";
+export type EventType = FullEvents["type"];
 
-export type EventType =
-  | "general"
-  | "misc"
-  | "sig_ai"
-  | "sig_arch"
-  | "sig_cyber"
-  | "sig_data"
-  | "sig_graph"
-  | "sig_swe"
-  | "social";
 
-export interface EventThumbnailData {
-  hash: string;
-  url: string;
-}
+// Now derived from the generated schema. Import `EventThumbnail`,
+// `AttendanceMember` and `FullEvents` from `@/types/kanae.gen`, and
+// `KanaePage` from `@/types/pages`.
 
-export interface AttendanceMember {
-  id: string;
-  name: string;
-  planned?: boolean | null;
-  attended: boolean;
-}
+// export type EventType =
+//   | "general"
+//   | "misc"
+//   | "sig_ai"
+//   | "sig_arch"
+//   | "sig_cyber"
+//   | "sig_data"
+//   | "sig_graph"
+//   | "sig_swe"
+//   | "social";
 
-export interface FullEvent {
-  id: string;
-  name: string;
-  description: string;
-  start_at: string;
-  end_at: string;
-  location: string;
-  type: EventType;
-  timezone: string;
-  thumbnail?: EventThumbnailData | null;
-  tags?: string[] | null;
-  creator_id?: string | null;
-}
+// export interface EventThumbnailData {
+//   hash: string;
+//   url: string;
+// }
 
-export interface DashboardEvent extends FullEvent {
+// export interface AttendanceMember {
+//   id: string;
+//   name: string;
+//   planned?: boolean | null;
+//   attended: boolean;
+// }
+
+// export interface FullEvent {
+//   id: string;
+//   name: string;
+//   description: string;
+//   start_at: string;
+//   end_at: string;
+//   location: string;
+//   type: EventType;
+//   timezone: string;
+//   thumbnail?: EventThumbnailData | null;
+//   tags?: string[] | null;
+//   creator_id?: string | null;
+// }
+
+export interface DashboardEvent extends FullEvents {
   planned: boolean;
   attended: boolean;
 }
 
 // Kanae returns `data: null` for an empty page (e.g. a brand-new member's
 // first dashboard load), so it could be both T[] or undefined
-export interface KanaePage<T> {
-  data: T[] | undefined;
-  total: number;
-}
+// export interface KanaePage<T> {
+//   data: T[] | undefined;
+//   total: number;
+// }
 
 interface EventTypeMeta {
   label: string;
@@ -70,7 +78,7 @@ interface EventTypeClasses {
 /// Constants
 
 const mergeCache = new WeakMap<
-  FullEvent,
+  FullEvents,
   { attended: boolean; merged: DashboardEvent; planned: boolean }
 >();
 
@@ -210,7 +218,7 @@ const DAY_FMT_OPTIONS: Intl.DateTimeFormatOptions = {
 /// Helpers
 
 export function mergeDashboardEvent(
-  event: FullEvent,
+  event: FullEvents,
   planned: boolean,
   attended: boolean,
 ): DashboardEvent {
@@ -238,7 +246,7 @@ export function filterEvents(
 }
 
 // Check-in runs from 1h before start through end
-export function determineCheckIn(event: FullEvent, now: Date): CheckInState {
+export function determineCheckIn(event: FullEvents, now: Date): CheckInState {
   const start = new Date(event.start_at).getTime();
   const end = new Date(event.end_at).getTime();
   const currentTime = now.getTime();
@@ -247,7 +255,7 @@ export function determineCheckIn(event: FullEvent, now: Date): CheckInState {
   return "open";
 }
 
-export function isPastEvent(event: FullEvent, now: Date): boolean {
+export function isPastEvent(event: FullEvents, now: Date): boolean {
   return new Date(event.end_at).getTime() < now.getTime();
 }
 

@@ -1,4 +1,4 @@
-import { type ClientMember, ROLE_META, ROLES_BY_RANK } from "./route";
+import { ROLE_META, ROLES_BY_RANK } from "./route";
 
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -31,8 +31,6 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   type DashboardEvent,
-  type FullEvent,
-  type KanaePage,
   EVENT_TYPE_CLASSES,
   EVENT_TYPE_META,
   determineCheckIn,
@@ -43,6 +41,8 @@ import {
   monthDay,
 } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
+import { type ClientMember, type FullEvents } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/dashboard/")({
   component: DashboardHome,
@@ -79,19 +79,19 @@ export const memberEventsQueryOptions = (filter: "attended" | "planned") =>
   queryOptions({
     queryKey: ["members", "me", "events", filter],
     queryFn: async () => {
-      const { data } = await axios.get<FullEvent[]>(`${API_BASE_URL}/members/me/events`, {
+      const { data } = await axios.get<FullEvents[]>(`${API_BASE_URL}/members/me/events`, {
         params: { [filter]: true },
       });
       return data;
     },
-    select: (events: FullEvent[]) => new Set(events.map((event) => event.id)),
+    select: (events: FullEvents[]) => new Set(events.map((event) => event.id)),
   });
 
 export const eventsListQueryOptions = queryOptions({
   queryKey: ["events", "dashboard-list"],
   queryFn: async () => {
     const fetchPage = (page: number) =>
-      axios.get<KanaePage<FullEvent>>(`${API_BASE_URL}/events`, {
+      axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
         params: { page, size: EVENTS_PAGE_SIZE },
       });
     const first = await fetchPage(1);
@@ -174,7 +174,7 @@ function DashboardHome() {
         joinMutate(event.id);
         return;
       }
-      queryClient.setQueryData<FullEvent[]>(plannedEventsQueryOptions.queryKey, (old) =>
+      queryClient.setQueryData<FullEvents[]>(plannedEventsQueryOptions.queryKey, (old) =>
         (old ?? []).filter((item) => item.id !== event.id),
       );
       toast.success("RSVP cancelled.");

@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   type EventType,
-  type FullEvent,
   EVENT_TYPE_CLASSES,
   EVENT_TYPE_META,
   fmtClock,
@@ -19,6 +18,7 @@ import {
   monthDay,
 } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
+import { type FullEvents } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/event/$eventId")({
   component: Event,
@@ -93,7 +93,7 @@ const eventDetailQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ["events", eventId, "detail"],
     queryFn: async () => {
-      const { data } = await axios.get<FullEvent>(`${API_BASE_URL}/events/${eventId}`);
+      const { data } = await axios.get<FullEvents>(`${API_BASE_URL}/events/${eventId}`);
       return data;
     },
   });
@@ -112,7 +112,7 @@ const eventOrganizerQueryOptions = (memberId: string | null | undefined) =>
 
 /// Helper functions
 
-function eventStatus(event: FullEvent, now: Date) {
+function eventStatus(event: FullEvents, now: Date) {
   if (isPastEvent(event, now)) return EVENT_STATUSES.past;
   if (Date.parse(event.start_at) <= now.getTime()) return EVENT_STATUSES.live;
   return EVENT_STATUSES.upcoming;

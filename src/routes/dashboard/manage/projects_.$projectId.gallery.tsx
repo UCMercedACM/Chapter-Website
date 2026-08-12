@@ -24,12 +24,17 @@ import { MediaLightbox } from "@/components/app/media-lightbox";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
-  type MediaRecord,
   SIG_META,
   mediaArtwork,
   projectMediaQueryOptions,
   projectsQueryOptions,
 } from "@/routes/dashboard/projects";
+import {
+  type CommitRequest,
+  type MediaRecord,
+  type MultipartUploadResponse,
+  type SimpleUploadResponse,
+} from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/dashboard/manage/projects_/$projectId/gallery")({
   component: ProjectGalleryPage,
@@ -48,32 +53,6 @@ export const Route = createFileRoute("/dashboard/manage/projects_/$projectId/gal
 
 type UploadResponse = MediaRecord | SimpleUploadResponse | MultipartUploadResponse;
 
-interface SimpleUploadResponse {
-  url: string;
-}
-interface UploadChunk {
-  index: number;
-  url: string;
-  size: number;
-}
-interface MultipartUploadResponse {
-  upload_id: string;
-  size: number;
-  chunks: UploadChunk[];
-}
-
-interface CompletedChunk {
-  number: number;
-  etag: string;
-}
-
-interface CommitRequest {
-  hash: string;
-  content_type: string;
-  size: number;
-  upload_id?: string;
-  chunks?: CompletedChunk[];
-}
 
 interface GalleryTileProps {
   item: MediaRecord;
