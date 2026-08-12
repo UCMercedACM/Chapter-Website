@@ -36,9 +36,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { type KanaePage } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 import { meQueryOptions } from "@/routes/dashboard/route";
+import {
+  type FullProjects,
+  type MediaRecord,
+  type ProjectInvite,
+  type ProjectMember,
+  type Projects,
+} from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/dashboard/projects")({
   component: ProjectsPage,
@@ -60,19 +67,11 @@ type Scope = "mine" | "all";
 type Status = "active" | "archived" | "all";
 type DetailTab = "details" | "team" | "gallery";
 
-export type ProjectType =
-  | "independent"
-  | "sig_ai"
-  | "sig_swe"
-  | "sig_cyber"
-  | "sig_data"
-  | "sig_arch"
-  | "sig_graph";
-
-export type JoinPolicy = "open" | "request" | "closed";
-export type InviteKind = "invite" | "request";
-export type InviteStatus = "pending" | "accepted" | "declined" | "revoked" | "expired";
-export type MediaKind = "image" | "video";
+export type ProjectType = FullProjects["type"];
+export type JoinPolicy = FullProjects["join_policy"];
+export type InviteKind = ProjectInvite["kind"];
+export type InviteStatus = ProjectInvite["status"];
+export type MediaKind = MediaRecord["kind"];
 
 interface SigMeta {
   label: string;
@@ -84,64 +83,6 @@ interface JoinPolicyMeta {
   label: string;
   verb: string;
   desc: string;
-}
-
-export interface ProjectThumbnail {
-  hash: string;
-  url: string;
-}
-
-export interface ProjectMember {
-  id: string;
-  name: string;
-}
-
-export interface MediaRecord {
-  hash: string;
-  content_type: string;
-  kind: MediaKind;
-  size: number;
-  created_at: string;
-  url: string;
-}
-
-export interface MemberProject {
-  id: string;
-  name: string;
-  description: string;
-  link: string;
-  type: ProjectType;
-  tags?: string[] | null;
-  active: boolean;
-  join_policy: JoinPolicy;
-  founded_at: string;
-}
-
-export interface FullProject {
-  id: string;
-  name: string;
-  description: string;
-  link: string;
-  thumbnail?: ProjectThumbnail | null;
-  members: ProjectMember[];
-  type: ProjectType;
-  tags?: string[] | null;
-  active: boolean;
-  join_policy: JoinPolicy;
-  founded_at: string;
-}
-
-export interface ProjectInvite {
-  id: string;
-  project_id: string;
-  member: ProjectMember;
-  invited_by?: string | null;
-  kind: InviteKind;
-  status: InviteStatus;
-  message?: string | null;
-  responded_at?: string | null;
-  expires_at?: string | null;
-  created_at: string;
 }
 
 /// Constants — metadata + presentation
@@ -252,7 +193,7 @@ const MONTH_YEAR_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: 
 export const projectsQueryOptions = queryOptions({
   queryKey: ["projects", "list"],
   queryFn: async () => {
-    const { data } = await axios.get<KanaePage<FullProject>>(`${API_BASE_URL}/projects`, {
+    const { data } = await axios.get<KanaePage<FullProjects>>(`${API_BASE_URL}/projects`, {
       params: { size: PROJECTS_PAGE_SIZE },
     });
     return data.data;
@@ -262,10 +203,10 @@ export const projectsQueryOptions = queryOptions({
 const memberProjectsQueryOptions = queryOptions({
   queryKey: ["members", "me", "projects"],
   queryFn: async () => {
-    const { data } = await axios.get<MemberProject[]>(`${API_BASE_URL}/members/me/projects`);
+    const { data } = await axios.get<Projects[]>(`${API_BASE_URL}/members/me/projects`);
     return data;
   },
-  select: (projects: MemberProject[]) => new Set(projects.map((project) => project.id)),
+  select: (projects: Projects[]) => new Set(projects.map((project) => project.id)),
 });
 
 const projectInvitesQueryOptions = queryOptions({
@@ -331,16 +272,16 @@ function fmtMonthYear(iso: string) {
 
 function patchMembership(
   queryClient: ReturnType<typeof useQueryClient>,
-  project: FullProject,
+  project: FullProjects,
   user: ProjectMember,
   joined: boolean,
 ) {
-  queryClient.setQueryData<MemberProject[]>(memberProjectsQueryOptions.queryKey, (old) => {
+  queryClient.setQueryData<Projects[]>(memberProjectsQueryOptions.queryKey, (old) => {
     if (!old) return old;
     if (!joined) return old.filter((item) => item.id !== project.id);
     return old.some((item) => item.id === project.id) ? old : [...old, { ...project }];
   });
-  queryClient.setQueryData<FullProject[]>(projectsQueryOptions.queryKey, (old) =>
+  queryClient.setQueryData<FullProjects[]>(projectsQueryOptions.queryKey, (old) =>
     old?.map((item) => {
       if (item.id !== project.id) return item;
       if (!joined) {
@@ -377,11 +318,12 @@ function ProjectsPage() {
   });
 
   const { mutate: joinMutate } = useMutation({
-    mutationFn: (project: FullProject) => axios.post(`${API_BASE_URL}/projects/${project.id}/join`),
+    mutationFn: (project: FullProjects) =>
+      axios.post(`${API_BASE_URL}/projects/${project.id}/join`),
     onMutate: async (project) => {
       await queryClient.cancelQueries();
-      const snapshot = queryClient.getQueryData<FullProject[]>(projectsQueryOptions.queryKey);
-      const mine = queryClient.getQueryData<MemberProject[]>(memberProjectsQueryOptions.queryKey);
+      const snapshot = queryClient.getQueryData<FullProjects[]>(projectsQueryOptions.queryKey);
+      const mine = queryClient.getQueryData<Projects[]>(memberProjectsQueryOptions.queryKey);
       if (currentUser) patchMembership(queryClient, project, currentUser, true);
       return { mine, snapshot };
     },
@@ -394,13 +336,13 @@ function ProjectsPage() {
   });
 
   const { mutate: leaveMutate } = useMutation({
-    mutationFn: (project: FullProject) =>
+    mutationFn: (project: FullProjects) =>
       axios.delete(`${API_BASE_URL}/projects/${project.id}/leave`),
     onMutate: async (project) => {
       await queryClient.cancelQueries();
 
-      const snapshot = queryClient.getQueryData<FullProject[]>(projectsQueryOptions.queryKey);
-      const mine = queryClient.getQueryData<MemberProject[]>(memberProjectsQueryOptions.queryKey);
+      const snapshot = queryClient.getQueryData<FullProjects[]>(projectsQueryOptions.queryKey);
+      const mine = queryClient.getQueryData<Projects[]>(memberProjectsQueryOptions.queryKey);
 
       if (currentUser) patchMembership(queryClient, project, currentUser, false);
       return { mine, snapshot };
@@ -414,7 +356,7 @@ function ProjectsPage() {
   });
 
   const { mutate: requestMutate } = useMutation({
-    mutationFn: async (project: FullProject) => {
+    mutationFn: async (project: FullProjects) => {
       const { data } = await axios.post<ProjectInvite>(
         `${API_BASE_URL}/projects/${project.id}/requests`,
         { message: undefined },
@@ -463,8 +405,8 @@ function ProjectsPage() {
       ),
     onMutate: async ({ accept, invite }) => {
       await queryClient.cancelQueries();
-      const snapshot = queryClient.getQueryData<FullProject[]>(projectsQueryOptions.queryKey);
-      const mine = queryClient.getQueryData<MemberProject[]>(memberProjectsQueryOptions.queryKey);
+      const snapshot = queryClient.getQueryData<FullProjects[]>(projectsQueryOptions.queryKey);
+      const mine = queryClient.getQueryData<Projects[]>(memberProjectsQueryOptions.queryKey);
       const invitesSnapshot = queryClient.getQueryData<ProjectInvite[]>(
         projectInvitesQueryOptions.queryKey,
       );

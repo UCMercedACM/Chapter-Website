@@ -56,3 +56,13 @@ description = "Lints and formats the react codebase"
 env._.path = "./node_modules/.bin"
 dir = "{{ config_root }}"
 run = [{"task" = "web:lint"}, { "task" = "web:format"}]
+
+[tasks."web:generate:kanae"]
+alias = ["web:generate:types"]
+description = "Generates/regenerates the types from Kanae's openapi schema"
+env._.path = "./node_modules/.bin"
+dir = "{{ config_root }}"
+usage = '''
+arg "<file>" help="openapi schema to use"
+'''
+run = "openapi-ts --input ${usage_file}"

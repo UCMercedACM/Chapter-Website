@@ -11,7 +11,10 @@ import { PublicEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
+import { type EventType } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
+import { type FullEvents } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/events")({
   component: Events,
@@ -20,42 +23,8 @@ export const Route = createFileRoute("/events")({
 
 /// Types and Interfaces
 
-type EventType =
-  | "general"
-  | "misc"
-  | "sig_ai"
-  | "sig_arch"
-  | "sig_cyber"
-  | "sig_data"
-  | "sig_graph"
-  | "sig_swe"
-  | "social";
-
-interface EventThumbnail {
-  hash: string;
-  url: string;
-}
-
-interface ApiEvent {
-  id: string;
-  name: string;
-  description: string;
-  start_at: string;
-  end_at: string;
-  location: string;
-  type: EventType;
-  timezone: string;
-  thumbnail?: EventThumbnail | null;
-  creator_id: string;
-}
-
-interface EventsPage {
-  data: ApiEvent[];
-  total: number;
-}
-
 interface SelectedEvent {
-  event: ApiEvent;
+  event: FullEvents;
   rect: DOMRect;
 }
 
@@ -198,25 +167,26 @@ const eventsQueryOptions = queryOptions({
   queryKey: eventsKeys.list({}),
   queryFn: async () => {
     // Until we have date-range paginations on Kanae, we will literally fetch everything
-    const first = await axios.get<EventsPage>(`${API_BASE_URL}/events`, {
+    const first = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
       params: { page: 1, size: EVENTS_PAGE_SIZE },
     });
     const { total } = first.data;
+    const firstPage = first.data.data ?? [];
 
-    const remaining = total - first.data.data.length;
+    const remaining = total - firstPage.length;
     const leftover = remaining % EVENTS_PAGE_SIZE;
     const remainingPages = (remaining - leftover) / EVENTS_PAGE_SIZE + (leftover > 0 ? 1 : 0);
 
     const rest = await Promise.all(
       Array.from({ length: remainingPages }, (_, index) =>
-        axios.get<EventsPage>(`${API_BASE_URL}/events`, {
+        axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
           params: { page: index + 2, size: EVENTS_PAGE_SIZE },
         }),
       ),
     );
 
     return {
-      data: [...first.data.data, ...rest.flatMap((response) => response.data.data)],
+      data: [...firstPage, ...rest.flatMap((response) => response.data.data ?? [])],
       total,
     };
   },

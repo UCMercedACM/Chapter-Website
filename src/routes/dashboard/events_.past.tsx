@@ -22,11 +22,11 @@ import {
   type DashboardEvent,
   type EventType,
   type EventView,
-  type FullEvent,
   filterEvents,
   isPastEvent,
   mergeDashboardEvent,
 } from "@/lib/dashboard-events";
+import { type FullEvents } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/dashboard/events_/past")({
   component: DashboardPastEvents,
@@ -111,7 +111,7 @@ function DashboardPastEvents() {
         joinMutate(event.id);
         return;
       }
-      queryClient.setQueryData<FullEvent[]>(plannedEventsQueryOptions.queryKey, (old) =>
+      queryClient.setQueryData<FullEvents[]>(plannedEventsQueryOptions.queryKey, (old) =>
         (old ?? []).filter((item) => item.id !== event.id),
       );
       toast.success("RSVP cancelled.");

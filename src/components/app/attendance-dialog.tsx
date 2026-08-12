@@ -13,18 +13,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  type AttendanceMember,
-  type FullEvent,
-  type KanaePage,
-  determineCheckIn,
-  fmtClock,
-} from "@/lib/dashboard-events";
+import { determineCheckIn, fmtClock } from "@/lib/dashboard-events";
+import { type AttendanceMember, type FullEvents } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 /// Types & interfaces
 
 interface AttendanceDialogProps {
-  event: FullEvent;
+  event: FullEvents;
   now: Date;
   open: boolean;
   onOpenChange: (open: boolean) => void;

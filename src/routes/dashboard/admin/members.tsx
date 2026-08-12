@@ -58,12 +58,8 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import {
-  type Role,
-  isSudoActive,
-  meQueryOptions,
-  sudoQueryOptions,
-} from "@/routes/dashboard/route";
+import { isSudoActive, meQueryOptions, sudoQueryOptions } from "@/routes/dashboard/route";
+import { type MemberRoles, type Role, type SimpleMember } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/dashboard/admin/members")({
   component: MembersPage,
@@ -81,24 +77,7 @@ export const Route = createFileRoute("/dashboard/admin/members")({
 type RowHandler = (event: MouseEvent<HTMLElement>) => void;
 type RoleFilter = "admin" | "all" | "leads" | "manager" | "none";
 
-interface SimpleMember {
-  id: string;
-  name: string;
-  display_name?: string | null;
-  email: string;
-  created_at: string;
-}
-
-interface AdminMember {
-  id: string;
-  name: string;
-  display_name?: string | null;
-  email: string;
-  created_at: string;
-  roles: Role[];
-}
-
-interface MemberRoles {
+interface AdminMember extends SimpleMember {
   roles: Role[];
 }
 

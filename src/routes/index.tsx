@@ -20,14 +20,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  type EventThumbnailData,
-  EVENT_TYPE_CLASSES,
-  EVENT_TYPE_META,
-  fmtClock,
-  monthDay,
-} from "@/lib/dashboard-events";
+import { EVENT_TYPE_CLASSES, EVENT_TYPE_META, fmtClock, monthDay } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
+import { type FullEvents } from "@/types/kanae.gen";
+import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -35,36 +31,6 @@ export const Route = createFileRoute("/")({
 });
 
 /// Interfaces & Types
-
-// Once we fully switch to using openapi-ts, this can be removed
-type EventType =
-  | "general"
-  | "misc"
-  | "sig_ai"
-  | "sig_arch"
-  | "sig_cyber"
-  | "sig_data"
-  | "sig_graph"
-  | "sig_swe"
-  | "social";
-
-interface ApiEvent {
-  id: string;
-  name: string;
-  description: string;
-  start_at: string;
-  end_at: string;
-  location: string;
-  type: EventType;
-  timezone: string;
-  thumbnail?: EventThumbnailData | null;
-  creator_id: string;
-}
-
-interface EventsPage {
-  data: ApiEvent[];
-  total: number;
-}
 
 interface SocialLink {
   label: string;
@@ -174,10 +140,10 @@ const eventsKeys = {
 const eventsQueryOptions = queryOptions({
   queryKey: eventsKeys.list({ after: PAGE_LOADED_AT }),
   queryFn: async () => {
-    const { data } = await axios.get<EventsPage>(`${API_BASE_URL}/events`, {
+    const { data } = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
       params: { after: PAGE_LOADED_AT },
     });
-    return data.data.toReversed();
+    return (data.data ?? []).toReversed();
   },
   // Events don't change minute-to-minute; treat the cache as fresh for a minute so
   // navigating back/forward doesn't refetch immediately.

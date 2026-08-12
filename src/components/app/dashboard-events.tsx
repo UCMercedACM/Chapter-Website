@@ -53,11 +53,9 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  type AttendanceMember,
   type DashboardEvent,
   type EventType,
   type EventView,
-  type FullEvent,
   EVENT_TYPE_CLASSES,
   EVENT_TYPE_META,
   EVENT_TYPES,
@@ -68,6 +66,7 @@ import {
   monthDay,
 } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
+import { type AttendanceMember, type FullEvents } from "@/types/kanae.gen";
 
 /// Types & interfaces
 
@@ -235,7 +234,7 @@ function EventMeta({ icon: Icon, children }: Readonly<EventMetaProps>) {
 
 /// DateBlock
 
-function DateBlock({ event }: Readonly<{ event: FullEvent }>) {
+function DateBlock({ event }: Readonly<{ event: FullEvents }>) {
   const { mon, day } = monthDay(event.start_at, event.timezone);
   return (
     <div className="flex h-14 w-13 shrink-0 flex-col overflow-hidden rounded-xl border border-border bg-card text-center">
@@ -257,7 +256,7 @@ function DateBlock({ event }: Readonly<{ event: FullEvent }>) {
 /// EventThumbnail
 
 interface EventThumbnailProps {
-  event: FullEvent;
+  event: FullEvents;
   className?: string;
 }
 

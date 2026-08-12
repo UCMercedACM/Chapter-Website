@@ -20,12 +20,8 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import { Label } from "@/components/ui/label";
 import { type Flow, ORY_URL, csrfToken, orySubmit } from "@/lib/ory";
 import { cn } from "@/lib/utils";
-import {
-  type ClientSession,
-  type Sudo,
-  meQueryOptions,
-  sudoQueryOptions,
-} from "@/routes/dashboard/route";
+import { type Sudo, meQueryOptions, sudoQueryOptions } from "@/routes/dashboard/route";
+import { type ClientSession } from "@/types/kanae.gen";
 
 /// Types and Interfaces
 
