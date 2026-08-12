@@ -67,36 +67,12 @@ type Scope = "mine" | "all";
 type Status = "active" | "archived" | "all";
 type DetailTab = "details" | "team" | "gallery";
 
-// The object shapes live in @/types/kanae.gen; importers now pull them from
-// there directly. Only these field-lookup unions stay here, because the
-// generated file has no named type for them.
-
-// export type {
-//   MediaRecord,
-//   ProjectInvite,
-//   ProjectMember,
-//   ProjectThumbnail,
-// } from "@/types/kanae.gen";
-
 export type ProjectType = FullProjects["type"];
 export type JoinPolicy = FullProjects["join_policy"];
 export type InviteKind = ProjectInvite["kind"];
 export type InviteStatus = ProjectInvite["status"];
 export type MediaKind = MediaRecord["kind"];
 
-// export type ProjectType =
-//   | "independent"
-//   | "sig_ai"
-//   | "sig_swe"
-//   | "sig_cyber"
-//   | "sig_data"
-//   | "sig_arch"
-//   | "sig_graph";
-
-// export type JoinPolicy = "open" | "request" | "closed";
-// export type InviteKind = "invite" | "request";
-// export type InviteStatus = "pending" | "accepted" | "declined" | "revoked" | "expired";
-// export type MediaKind = "image" | "video";
 
 interface SigMeta {
   label: string;
@@ -110,69 +86,6 @@ interface JoinPolicyMeta {
   desc: string;
 }
 
-// `MemberProject` was the generated `Projects`; `FullProject` was `FullProjects`.
-// Both now come straight from @/types/kanae.gen.
-
-// export type MemberProject = Projects;
-// export type FullProject = FullProjects;
-
-// export interface ProjectThumbnail {
-//   hash: string;
-//   url: string;
-// }
-
-// export interface ProjectMember {
-//   id: string;
-//   name: string;
-// }
-
-// export interface MediaRecord {
-//   hash: string;
-//   content_type: string;
-//   kind: MediaKind;
-//   size: number;
-//   created_at: string;
-//   url: string;
-// }
-
-// export interface MemberProject {
-//   id: string;
-//   name: string;
-//   description: string;
-//   link: string;
-//   type: ProjectType;
-//   tags?: string[] | null;
-//   active: boolean;
-//   join_policy: JoinPolicy;
-//   founded_at: string;
-// }
-
-// export interface FullProject {
-//   id: string;
-//   name: string;
-//   description: string;
-//   link: string;
-//   thumbnail?: ProjectThumbnail | null;
-//   members: ProjectMember[];
-//   type: ProjectType;
-//   tags?: string[] | null;
-//   active: boolean;
-//   join_policy: JoinPolicy;
-//   founded_at: string;
-// }
-
-// export interface ProjectInvite {
-//   id: string;
-//   project_id: string;
-//   member: ProjectMember;
-//   invited_by?: string | null;
-//   kind: InviteKind;
-//   status: InviteStatus;
-//   message?: string | null;
-//   responded_at?: string | null;
-//   expires_at?: string | null;
-//   created_at: string;
-// }
 
 /// Constants — metadata + presentation
 
