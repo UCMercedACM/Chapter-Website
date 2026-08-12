@@ -7,58 +7,11 @@ export type EventView = "calendar" | "grid" | "list";
 export type EventType = FullEvents["type"];
 
 
-// Now derived from the generated schema. Import `EventThumbnail`,
-// `AttendanceMember` and `FullEvents` from `@/types/kanae.gen`, and
-// `KanaePage` from `@/types/pages`.
-
-// export type EventType =
-//   | "general"
-//   | "misc"
-//   | "sig_ai"
-//   | "sig_arch"
-//   | "sig_cyber"
-//   | "sig_data"
-//   | "sig_graph"
-//   | "sig_swe"
-//   | "social";
-
-// export interface EventThumbnailData {
-//   hash: string;
-//   url: string;
-// }
-
-// export interface AttendanceMember {
-//   id: string;
-//   name: string;
-//   planned?: boolean | null;
-//   attended: boolean;
-// }
-
-// export interface FullEvent {
-//   id: string;
-//   name: string;
-//   description: string;
-//   start_at: string;
-//   end_at: string;
-//   location: string;
-//   type: EventType;
-//   timezone: string;
-//   thumbnail?: EventThumbnailData | null;
-//   tags?: string[] | null;
-//   creator_id?: string | null;
-// }
-
 export interface DashboardEvent extends FullEvents {
   planned: boolean;
   attended: boolean;
 }
 
-// Kanae returns `data: null` for an empty page (e.g. a brand-new member's
-// first dashboard load), so it could be both T[] or undefined
-// export interface KanaePage<T> {
-//   data: T[] | undefined;
-//   total: number;
-// }
 
 interface EventTypeMeta {
   label: string;
