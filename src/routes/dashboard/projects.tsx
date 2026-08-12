@@ -73,7 +73,6 @@ export type InviteKind = ProjectInvite["kind"];
 export type InviteStatus = ProjectInvite["status"];
 export type MediaKind = MediaRecord["kind"];
 
-
 interface SigMeta {
   label: string;
   short: string;
@@ -85,7 +84,6 @@ interface JoinPolicyMeta {
   verb: string;
   desc: string;
 }
-
 
 /// Constants — metadata + presentation
 
