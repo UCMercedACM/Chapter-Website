@@ -172,7 +172,7 @@ const MEMBER_COLUMNS: ColumnDef<typeof dataTableFeatures, AdminMember>[] = [
           .toUpperCase() ?? "··";
       const tint = AVATAR_TINTS[name.length % AVATAR_TINTS.length];
       return (
-        <div className="flex items-center gap-2.75">
+        <div className="flex max-w-44 items-center gap-2.75 @md:max-w-none">
           <Avatar className={cn("size-9 shrink-0 border", tint)}>
             <AvatarFallback className="bg-transparent text-[12px] font-extrabold">
               {initials}
@@ -219,7 +219,7 @@ const MEMBER_COLUMNS: ColumnDef<typeof dataTableFeatures, AdminMember>[] = [
   {
     id: "actions",
     header: () => <span className="sr-only">Actions</span>,
-    meta: { className: "text-right" },
+    meta: { className: "text-right pl-0 pr-1 @md:pr-2" },
     cell: ({ row, table }) => {
       const meta = table.options.meta?.members;
       const isSelf = row.original.id === meta?.meId;
@@ -479,26 +479,26 @@ function MembersPage() {
   return (
     <div className="flex flex-col gap-5">
       <div ref={topRef} className={cn(CARD_CLASS, "scroll-mt-4 p-4")}>
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between">
           <div className="text-sm font-bold text-brand-text-sub">
             {allMembers.length} member{allMembers.length === 1 ? "" : "s"} · {withRoles} hold a
             global role
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative min-w-52 flex-1">
+          <div className="flex flex-col gap-3 lg:min-w-0 lg:flex-1 lg:flex-row lg:flex-wrap lg:items-center">
+            <div className="relative w-full min-w-0 lg:w-auto lg:min-w-52 lg:flex-1">
               <Search className="absolute top-1/2 left-3 size-4.25 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={search}
                 onChange={handleSearch}
                 placeholder="Search by name or email…"
-                className="h-10 rounded-xl bg-muted pl-9.5"
+                className="h-10 rounded-xl border border-border bg-muted pl-9.5"
               />
             </div>
             <Select value={filter} onValueChange={handleFilter}>
-              <SelectTrigger className="h-10 rounded-xl border border-border bg-muted font-bold">
+              <SelectTrigger className="h-10 w-full rounded-xl border border-border bg-muted font-bold lg:w-auto">
                 <SelectValue>{renderFilterLabel}</SelectValue>
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent align="end" alignItemWithTrigger={false}>
                 {FILTER_OPTIONS.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}

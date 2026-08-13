@@ -245,6 +245,9 @@ function DashboardHome() {
   const handleHeroRsvp = useCallback(() => {
     if (hero) handleRsvp(hero, true);
   }, [hero, handleRsvp]);
+  const handleHeroDetails = useCallback(() => {
+    if (hero) setDetail(hero);
+  }, [hero]);
 
   const role = ROLES_BY_RANK.find((item) => me?.roles.includes(item));
 
@@ -334,13 +337,17 @@ function DashboardHome() {
                   RSVP now
                 </Button>
               )}
-              <Link
-                to="/dashboard/events"
-                className="inline-flex items-center justify-center gap-1.25 text-[13px] font-bold text-[#eaf6ff]/85 hover:text-[#eaf6ff]"
+              <Button
+                variant="ghost"
+                onClick={handleHeroDetails}
+                className={cn(
+                  "h-auto justify-center gap-1.25 p-0 text-[13px] font-bold",
+                  "text-[#eaf6ff]/85 hover:bg-transparent hover:text-[#eaf6ff]",
+                )}
               >
                 View details
                 <ArrowRight className="size-3.75" />
-              </Link>
+              </Button>
             </div>
           </div>
         </div>

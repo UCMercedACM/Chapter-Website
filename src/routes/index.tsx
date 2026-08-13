@@ -3,7 +3,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import axios from "axios";
 import { ChevronDown, Clock, MapPin } from "lucide-react";
-import { useMemo, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 
 import beginningsLogo from "@/assets/images/beginnings-logo.png";
 import sigAiLogo from "@/assets/logos/sigs/ai.svg";
@@ -43,18 +43,23 @@ interface SocialLink {
 const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
-const CAROUSEL_NAV_CLASS = "static size-9 translate-0";
-
+const CAROUSEL_OPTIONS = { align: "start" } as const;
 const PAGE_LOADED_AT = new Date().toISOString();
 
-// One transform class shared by every tile. Per-tile angle is supplied via the
-// --tile-angle CSS variable (set by `angleClass` below), and CSS cos()/sin() compute
-// the orbital position relative to --orbit-size.
 const TILE_BASE_CLASSES = cn(
   "absolute top-1/2 left-1/2 flex items-center justify-center rounded-2xl border-2 border-brand-teal/40 bg-card/95 p-1",
   "size-[calc(var(--orbit-size)*0.2)] shadow-[0_8px_32px_rgba(0,0,0,0.3)]",
   "transform-[translate(calc(-50%+cos(var(--tile-angle))*var(--orbit-size)*0.44),calc(-50%+sin(var(--tile-angle))*var(--orbit-size)*0.44))]",
 );
+const CAROUSEL_NAV_CLASS = "static size-9 translate-0";
+const ORBIT_TILES = [
+  { logo: sigSweLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:0deg]` },
+  { logo: sigAiLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:60deg]` },
+  { logo: sigCyberLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:120deg]` },
+  { logo: sigDataLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:180deg]` },
+  { logo: sigGraphLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:240deg]` },
+  { logo: sigArchLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:300deg]` },
+] as const;
 
 /// Static page data
 
@@ -160,20 +165,6 @@ const eventsQueryOptions = queryOptions({
 function Index() {
   const { data: events = [], isLoading: loading } = useQuery(eventsQueryOptions);
 
-  const carouselOptions = useMemo(() => ({ align: "start" as const }), []);
-
-  const orbitTiles = useMemo(
-    () => [
-      { logo: sigSweLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:0deg]` },
-      { logo: sigAiLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:60deg]` },
-      { logo: sigCyberLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:120deg]` },
-      { logo: sigDataLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:180deg]` },
-      { logo: sigGraphLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:240deg]` },
-      { logo: sigArchLogo, className: `${TILE_BASE_CLASSES} [--tile-angle:300deg]` },
-    ],
-    [],
-  );
-
   return (
     <div className="bg-background">
       <section
@@ -187,10 +178,8 @@ function Index() {
 
         <div
           className={cn(
-            // stacked layout (default + portrait of any size)
             "relative z-2 mx-auto flex w-full max-w-360 flex-col items-center justify-center",
             "gap-8 p-6",
-            // side-by-side grid (landscape >= md)
             "md:landscape:grid md:landscape:grid-cols-2 md:landscape:items-center",
             "md:landscape:gap-20 md:landscape:px-20 md:landscape:py-0",
           )}
@@ -199,9 +188,7 @@ function Index() {
             <div
               className={cn(
                 "relative mx-auto size-(--orbit-size)",
-                // stacked: orbit fits viewport width and at most half the height
                 "[--orbit-size:clamp(300px,min(60vw,50vh),540px)]",
-                // landscape >= md: orbit fits column width and viewport height (minus navbar)
                 "md:landscape:[--orbit-size:clamp(380px,min(40vw,calc(75vh-80px)),560px)]",
               )}
             >
@@ -226,7 +213,7 @@ function Index() {
                 )}
               >
                 <div className="absolute inset-0 animate-[spin_20s_linear_infinite]">
-                  {orbitTiles.map((tile) => (
+                  {ORBIT_TILES.map((tile) => (
                     <div key={tile.logo} className={tile.className}>
                       <img
                         src={tile.logo}
@@ -264,11 +251,8 @@ function Index() {
             <p
               className={cn(
                 "text-brand-text-hero/80",
-                // base sizing
                 "mx-auto mb-7 max-w-115 text-sm leading-[1.7]",
-                // tablet/laptop adjustments
                 "md:mx-0 md:text-base lg:text-lg",
-                // xl restores the original wider, looser paragraph
                 "xl:mb-9 xl:max-w-130 xl:leading-[1.75]",
               )}
             >
@@ -337,7 +321,7 @@ function Index() {
       </section>
 
       <section className="mx-auto max-w-300 px-5 py-12 md:p-20">
-        <Carousel opts={carouselOptions}>
+        <Carousel opts={CAROUSEL_OPTIONS}>
           <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
             <div>
               <h2 className="mb-2 text-[26px] font-bold text-foreground md:text-[42px]">Events</h2>
@@ -345,22 +329,32 @@ function Index() {
                 ACM @ UCM hosts 50+ events for our diverse community of students.
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div
+              className={cn(
+                "flex w-full items-center justify-between gap-2",
+                "lg:w-auto lg:justify-end",
+              )}
+            >
               <Link
-                to="/"
+                to="/events"
                 className={cn(
-                  "cursor-pointer rounded-full border-2 border-brand-sky text-brand-sky",
+                  "group cursor-pointer rounded-full border-2 border-brand-sky text-brand-sky",
                   "px-5 py-2.5 text-sm font-bold",
-                  "transition-colors hover:bg-brand-sky/10",
+                  "transition-[background-color,box-shadow,transform] duration-200",
+                  "hover:-translate-y-0.5 hover:bg-brand-sky/10",
+                  "hover:shadow-[0_6px_18px_rgba(61,169,252,0.3)]",
                 )}
               >
-                See All Events →
+                See All Events{" "}
+                <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
+                  →
+                </span>
               </Link>
               {events.length > 1 && (
-                <>
+                <div className="flex items-center gap-2">
                   <CarouselPrevious className={CAROUSEL_NAV_CLASS} />
                   <CarouselNext className={CAROUSEL_NAV_CLASS} />
-                </>
+                </div>
               )}
             </div>
           </div>

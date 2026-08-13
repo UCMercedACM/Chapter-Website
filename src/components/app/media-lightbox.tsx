@@ -19,6 +19,8 @@ interface MediaLightboxProps {
 }
 
 const LIGHTBOX_BUTTON_CLASS = "size-9 rounded-full text-white hover:bg-white/15";
+const LIGHTBOX_MEDIA_CLASS =
+  "relative max-h-[86svh] w-auto max-w-full min-w-0 rounded-xl object-contain shadow-[0px_24px_64px_rgba(0,0,0,0.6)] xl:max-w-5xl";
 
 export function MediaLightbox({
   items,
@@ -88,11 +90,13 @@ export function MediaLightbox({
           onKeyDown={onLightboxKey}
           className="absolute inset-0 cursor-default bg-black/55 outline-hidden backdrop-blur-sm"
         />
-        <img
-          src={srcFor(current)}
-          alt=""
-          className="relative max-h-[86svh] max-w-5xl rounded-xl object-contain shadow-[0px_24px_64px_rgba(0,0,0,0.6)]"
-        />
+        {current.kind === "video" ? (
+          <video src={srcFor(current)} controls autoPlay className={LIGHTBOX_MEDIA_CLASS}>
+            <track default kind="captions" srcLang="en" label="Captions unavailable" />
+          </video>
+        ) : (
+          <img src={srcFor(current)} alt="" decoding="async" className={LIGHTBOX_MEDIA_CLASS} />
+        )}
         <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-black/50 p-1 backdrop-blur-sm">
           {controls.map(({ title, onClick, icon }) => (
             <Button

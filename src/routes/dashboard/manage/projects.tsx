@@ -968,37 +968,42 @@ function ManageProjectsPage() {
   return (
     <div className="flex flex-col gap-5">
       <div ref={topRef} className={cn(CARD_CLASS, "scroll-mt-4 p-4")}>
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-5">
           <div className="text-sm font-bold text-brand-text-sub">
             {total} project{total === 1 ? "" : "s"} you can manage
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative min-w-52 flex-1">
+          <div className="flex flex-col gap-3 lg:min-w-0 lg:flex-1 lg:flex-row lg:flex-wrap lg:items-center">
+            <div className="relative w-full min-w-0 lg:w-auto lg:min-w-28 lg:flex-1">
               <Search className="absolute top-1/2 left-3 size-4.25 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={search}
                 onChange={handleSearch}
                 placeholder="Search projects, tags…"
-                className="h-10 rounded-xl bg-muted pl-9.5"
+                className="h-10 rounded-xl border border-border bg-muted pl-9.5"
               />
             </div>
-            <Tabs value={status} onValueChange={handleStatus}>
-              <TabsList className="h-10 border border-border">
-                <TabsTrigger value="all" className="font-bold data-active:border-border">
-                  All
-                </TabsTrigger>
-                <TabsTrigger value="active" className="font-bold data-active:border-border">
-                  Active
-                </TabsTrigger>
-                <TabsTrigger value="archived" className="font-bold data-active:border-border">
-                  Archived
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-            <Button className={TEAL_BUTTON_CLASS} onClick={openCreate}>
-              <Plus />
-              New project
-            </Button>
+            <div className="flex flex-wrap items-center gap-3 lg:contents">
+              <Tabs value={status} onValueChange={handleStatus} className="shrink-0">
+                <TabsList className="h-10 border border-border">
+                  <TabsTrigger value="all" className="font-bold data-active:border-border">
+                    All
+                  </TabsTrigger>
+                  <TabsTrigger value="active" className="font-bold data-active:border-border">
+                    Active
+                  </TabsTrigger>
+                  <TabsTrigger value="archived" className="font-bold data-active:border-border">
+                    Archived
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <Button
+                className={cn(TEAL_BUTTON_CLASS, "min-w-0 flex-1 lg:flex-none")}
+                onClick={openCreate}
+              >
+                <Plus />
+                New project
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -1139,7 +1144,7 @@ function ManageProjectsPage() {
                           <SelectTrigger className="w-full border-border font-bold">
                             <SelectValue>{renderTypeLabel}</SelectValue>
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent align="start" alignItemWithTrigger={false}>
                             {PROJECT_TYPES.map((type) => (
                               <SelectItem key={type} value={type}>
                                 {SIG_META[type].label}
@@ -1208,7 +1213,7 @@ function ManageProjectsPage() {
                             />
                             <SelectValue>{renderLifecycleLabel}</SelectValue>
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent align="end" alignItemWithTrigger={false}>
                             <SelectItem value="active">Active</SelectItem>
                             <SelectItem value="archived">Archived</SelectItem>
                           </SelectContent>

@@ -320,11 +320,18 @@ function ProjectGalleryPage() {
   const countSummary = `${String(items.length)} item${itemsPlural}${
     canReorder ? " · drag a tile to reorder" : ""
   }`;
+  const uploadWidthClass = dirty ? undefined : "w-full md:w-auto";
 
   return (
     <div className="flex flex-col gap-5">
-      <div className={cn(CARD_CLASS, "flex flex-wrap items-center justify-between gap-3 p-4")}>
-        <div className="flex items-center gap-3">
+      <div
+        className={cn(
+          CARD_CLASS,
+          "flex flex-col gap-3 p-4",
+          "md:flex-row md:flex-wrap md:items-center md:justify-between",
+        )}
+      >
+        <div className="flex items-center gap-3 md:min-w-64 md:flex-1">
           <Button
             variant="outline"
             size="icon-sm"
@@ -334,7 +341,7 @@ function ProjectGalleryPage() {
           >
             <ArrowLeft />
           </Button>
-          <div>
+          <div className="min-w-0">
             <div className="text-sm font-extrabold text-foreground">
               {project?.name ?? "Project"} · Gallery
             </div>
@@ -343,7 +350,7 @@ function ProjectGalleryPage() {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <div className="flex flex-wrap items-center gap-2 md:ml-auto md:flex-none md:flex-nowrap">
           {dirty && (
             <>
               <Button
@@ -359,7 +366,11 @@ function ProjectGalleryPage() {
               </Button>
             </>
           )}
-          <Button variant="outline" className="font-bold" onClick={openFilePicker}>
+          <Button
+            variant="outline"
+            className={cn("font-bold", uploadWidthClass)}
+            onClick={openFilePicker}
+          >
             <Upload />
             Upload media
           </Button>

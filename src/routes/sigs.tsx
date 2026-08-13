@@ -124,9 +124,8 @@ function Sigs() {
           "h-35 md:h-70",
         )}
       >
-        <div className="absolute inset-0 bg-[url(@/assets/images/hero-bg.jpg)] bg-cover bg-center bg-no-repeat" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,71,120,0.6)_0%,rgba(8,71,120,0.65)_60%,rgba(8,71,120,0.85)_100%)]" />
-
+        <div className="absolute inset-0 bg-brand-teal" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,71,120,0.55)_0%,rgba(8,71,120,0.62)_60%,rgba(8,71,120,0.85)_100%)]" />
         <div className="relative z-2 px-6 text-center">
           <h1
             className={cn(
@@ -155,10 +154,7 @@ function Sigs() {
         <nav
           className={cn(
             "mx-auto max-w-300",
-            // Mobile: 3-column grid (so the 6 SIGs wrap to 2 rows of 3 instead of
-            // horizontally overflowing the viewport).
             "grid grid-cols-3 gap-2 px-3 py-2.5",
-            // Desktop: single horizontal row, centered.
             "md:flex md:items-center md:justify-center md:gap-6 md:px-10 md:py-3.5",
           )}
         >

@@ -598,8 +598,8 @@ function ProjectsPage() {
       )}
 
       <div className={cn(CARD_CLASS, "p-4")}>
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative min-w-55 flex-1">
+        <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center">
+          <div className="relative w-full min-w-0 lg:min-w-55 lg:flex-1">
             <Search className="absolute top-1/2 left-3 size-4.25 -translate-y-1/2 text-muted-foreground" />
             <Input
               value={query}
@@ -608,29 +608,31 @@ function ProjectsPage() {
               className="h-10 rounded-xl border border-border bg-muted pl-9.5"
             />
           </div>
-          <Tabs value={scope} onValueChange={handleScopeChange}>
-            <TabsList className="h-10 border border-border">
-              <TabsTrigger value="mine" className="font-bold data-active:border-border">
-                Mine
-              </TabsTrigger>
-              <TabsTrigger value="all" className="font-bold data-active:border-border">
-                All
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-          <Tabs value={status} onValueChange={handleStatusChange}>
-            <TabsList className="h-10 border border-border">
-              <TabsTrigger value="active" className="font-bold data-active:border-border">
-                Active
-              </TabsTrigger>
-              <TabsTrigger value="archived" className="font-bold data-active:border-border">
-                Archived
-              </TabsTrigger>
-              <TabsTrigger value="all" className="font-bold data-active:border-border">
-                All
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <div className="flex flex-wrap items-center gap-3 lg:contents">
+            <Tabs value={scope} onValueChange={handleScopeChange}>
+              <TabsList className="h-10 border border-border">
+                <TabsTrigger value="mine" className="font-bold data-active:border-border">
+                  Mine
+                </TabsTrigger>
+                <TabsTrigger value="all" className="font-bold data-active:border-border">
+                  All
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+            <Tabs value={status} onValueChange={handleStatusChange}>
+              <TabsList className="h-10 border border-border">
+                <TabsTrigger value="active" className="font-bold data-active:border-border">
+                  Active
+                </TabsTrigger>
+                <TabsTrigger value="archived" className="font-bold data-active:border-border">
+                  Archived
+                </TabsTrigger>
+                <TabsTrigger value="all" className="font-bold data-active:border-border">
+                  All
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
         </div>
         <p className="mt-3 text-[13px] text-muted-foreground">
           {scope === "mine"

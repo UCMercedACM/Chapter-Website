@@ -241,7 +241,7 @@ const TOTP_ISSUER = "Kanae";
 const TOTP_PARAMS = { algorithm: "SHA1", digits: "6", issuer: TOTP_ISSUER, period: "30" };
 const BACKUP_CODES_FILE = "ucmacm-backup-codes.txt";
 const OTP_SLOT_CLASS = "size-11 rounded-md border-l border-border bg-background text-lg";
-const STEP_LABEL_CLASS = "inline-flex items-center gap-1.5 text-[12px] font-bold";
+const STEP_LABEL_CLASS = "inline-flex items-center gap-1.5 text-[12px] font-bold whitespace-nowrap";
 const STEP_BADGE_CLASS =
   "inline-flex size-5 shrink-0 items-center justify-center rounded-full text-[11px]";
 const STEP_LINE_CLASS = "h-0.5 flex-1 rounded-full";
@@ -1289,7 +1289,7 @@ function DashboardLayout() {
 
       {totpStep && (
         <Dialog open onOpenChange={handleTotpOpenChange}>
-          <DialogContent className="gap-4 sm:max-w-124">
+          <DialogContent className={cn("max-w-[calc(100%-4rem)] gap-4 p-5", "sm:max-w-124 sm:p-6")}>
             <DialogHeader>
               <DialogTitle className="text-lg font-extrabold">
                 {totpStep === "backup" ? "Save your backup codes" : "Set up two-factor"}
