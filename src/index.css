@@ -202,15 +202,45 @@
 .sx__time-grid-event-inner .sx__time-grid-event-location::before {
   content: ", ";
 }
-.sx__date-picker-popup.sx__date-picker-popup {
-  overflow: auto;
-}
 .sx__date-input-chevron-wrapper {
   min-width: 24px;
   min-height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+.sx__date-picker-popup.sx__date-picker-popup {
+  overflow: auto;
+  @apply max-h-[min(400px,70svh)] max-w-[calc(100vw-2.5rem)] rounded-xl border border-border shadow-lg;
+}
+:root .sx__date-picker-popup.is-teleported {
+  z-index: 40;
+}
+
+:is(.sx__view-container, .sx__list-wrapper) {
+  scrollbar-color: auto;
+}
+:is(.sx__view-container, .sx__list-wrapper)::-webkit-scrollbar {
+  @apply w-2.5;
+}
+:is(.sx__view-container, .sx__list-wrapper)::-webkit-scrollbar-button {
+  @apply hidden;
+}
+:is(.sx__view-container, .sx__list-wrapper)::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+:is(.sx__view-container, .sx__list-wrapper)::-webkit-scrollbar-thumb {
+  @apply rounded-full border-3 border-transparent bg-muted-foreground/40 bg-clip-content;
+}
+:is(.sx__view-container, .sx__list-wrapper)::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/65;
+}
+
+@media (width < 40rem) {
+  .sx__date-picker-popup.is-teleported {
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes scroll-cue {

@@ -282,8 +282,8 @@ function About() {
                 key={item.title}
                 value={String(index)}
                 className={cn(
-                  "overflow-hidden rounded-3xl border-2 border-transparent bg-background",
-                  "shadow-[0px_16px_40px_rgba(112,144,176,0.2)]",
+                  "overflow-hidden rounded-3xl border-2 border-transparent not-last:border-b-2",
+                  "bg-background shadow-[0px_16px_40px_rgba(112,144,176,0.2)]",
                   "data-open:border-brand-teal",
                 )}
               >

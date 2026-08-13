@@ -5,6 +5,7 @@ import axios from "axios";
 import { ChevronLeft, Maximize2, Play } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
+import { MediaLightbox } from "@/components/app/media-lightbox";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +15,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { type FullProjects, type MediaRecord } from "@/types/kanae.gen";
@@ -79,10 +79,11 @@ const projectMediaQueryOptions = (projectId: string) =>
   queryOptions({
     queryKey: projectKeys.media(projectId),
     queryFn: async () => {
-      const { data } = await axios.get<MediaRecord[]>(
+      const { data, status } = await axios.get<MediaRecord[]>(
         `${API_BASE_URL}/projects/${projectId}/media`,
+        { validateStatus: (code) => code === 200 || code === 401 || code === 403 },
       );
-      return data;
+      return status === 200 ? data : [];
     },
     staleTime: 60_000,
     retry: false,
@@ -100,22 +101,25 @@ function Project() {
   );
   const { data: media, isLoading: isMediaLoading } = useQuery(projectMediaQueryOptions(projectId));
 
-  const [openMedia, setOpenMedia] = useState<MediaRecord>();
+  const [lightboxIndex, setLightboxIndex] = useState<number>();
+
+  const mediaItems = useMemo(() => media ?? [], [media]);
 
   const mediaEntries = useMemo(
     () =>
-      (media ?? []).map((item) => ({
+      mediaItems.map((item, index) => ({
         item,
         onSelect: () => {
-          setOpenMedia(item);
+          setLightboxIndex(index);
         },
       })),
-    [media],
+    [mediaItems],
   );
 
-  const handleMediaDialogOpenChange = useCallback((open: boolean) => {
-    if (!open) setOpenMedia(undefined);
+  const handleLightboxClose = useCallback(() => {
+    setLightboxIndex(undefined);
   }, []);
+  const mediaSrc = useCallback((item: MediaRecord) => item.url, []);
 
   const meta = project ? PROJECT_TYPES[project.type] : undefined;
   const showMediaSection = isMediaLoading || mediaEntries.length > 0;
@@ -394,35 +398,13 @@ function Project() {
         )}
       </article>
 
-      <Dialog open={openMedia !== undefined} onOpenChange={handleMediaDialogOpenChange}>
-        {openMedia ? (
-          <DialogContent
-            className={cn(
-              "max-h-[95vh] w-auto max-w-[95vw] gap-0 p-2 sm:max-w-[95vw]",
-              "overflow-hidden bg-card",
-            )}
-          >
-            <DialogTitle className="sr-only">Media preview</DialogTitle>
-            {openMedia.kind === "video" ? (
-              <video
-                src={openMedia.url}
-                controls
-                autoPlay
-                className="block max-h-[calc(95vh-1rem)] max-w-[calc(95vw-1rem)] bg-black object-contain"
-              >
-                <track default kind="captions" srcLang="en" label="Captions unavailable" />
-              </video>
-            ) : (
-              <img
-                src={openMedia.url}
-                alt=""
-                decoding="async"
-                className="block max-h-[calc(95vh-1rem)] max-w-[calc(95vw-1rem)] object-contain"
-              />
-            )}
-          </DialogContent>
-        ) : undefined}
-      </Dialog>
+      <MediaLightbox
+        items={mediaItems}
+        index={lightboxIndex}
+        srcFor={mediaSrc}
+        onIndexChange={setLightboxIndex}
+        onClose={handleLightboxClose}
+      />
     </div>
   );
 }

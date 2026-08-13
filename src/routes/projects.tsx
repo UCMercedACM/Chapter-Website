@@ -150,8 +150,8 @@ function Projects() {
           "h-35 md:h-65",
         )}
       >
-        <div className="absolute inset-0 bg-[url(@/assets/images/hero-bg.jpg)] bg-cover bg-center bg-no-repeat" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,71,120,0.62)_0%,rgba(8,71,120,0.68)_60%,rgba(8,71,120,0.85)_100%)]" />
+        <div className="absolute inset-0 bg-brand-teal" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,71,120,0.55)_0%,rgba(8,71,120,0.62)_60%,rgba(8,71,120,0.85)_100%)]" />
         <div className="relative z-2 px-6 text-center">
           <h1
             className={cn(

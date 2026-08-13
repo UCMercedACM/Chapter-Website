@@ -100,6 +100,13 @@ const STATE_OPEN: StateMeta = { label: "Open", icon: Ticket, className: STATUS_T
 export const PILL_CLASS =
   "h-auto gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold [&>svg]:size-3.5!";
 
+const ROW_ACTION_WIDTH = "w-20";
+
+const TYPE_FILTER_OPTIONS: readonly { label: string; value: "all" | EventType }[] = [
+  { value: "all", label: "All types" },
+  ...EVENT_TYPES.map((key) => ({ value: key, label: EVENT_TYPE_META[key].label })),
+];
+
 const VIEW_META: Record<EventView, { icon: LucideIcon; label: string }> = {
   calendar: { icon: Calendar, label: "Calendar" },
   grid: { icon: LayoutGrid, label: "Gallery" },
@@ -343,9 +350,12 @@ function EventActions({ event, now, onRsvp, onCheckin, size = "sm" }: Readonly<E
     [onRsvp, event],
   );
 
-  return (
+  const showCheckin = state === "open" && !event.attended;
+  const showRsvp = !past && !event.attended && !event.planned;
+
+  return showCheckin || showRsvp ? (
     <div className="relative z-2 flex items-center gap-1.5">
-      {state === "open" && !event.attended && (
+      {showCheckin && (
         <Button
           size={size}
           onClick={handleCheckin}
@@ -355,12 +365,13 @@ function EventActions({ event, now, onRsvp, onCheckin, size = "sm" }: Readonly<E
           Check in
         </Button>
       )}
-      {!past && !event.attended && !event.planned && (
+      {showRsvp && (
         <Button
           size={size}
           variant={state === "open" ? "outline" : "default"}
           onClick={handleRsvp}
           className={cn(
+            ROW_ACTION_WIDTH,
             "rounded-full font-bold",
             state !== "open" && "bg-brand-teal text-primary hover:bg-brand-teal/85",
           )}
@@ -370,7 +381,7 @@ function EventActions({ event, now, onRsvp, onCheckin, size = "sm" }: Readonly<E
         </Button>
       )}
     </div>
-  );
+  ) : undefined;
 }
 
 /// CancelRsvpButton
@@ -430,13 +441,14 @@ function GoingCancelPill({
       className={cn(
         PILL_CLASS,
         STATUS_GREEN,
-        "group/going relative z-2 inline-flex w-30 items-center justify-center whitespace-nowrap transition-colors hover:bg-[#e13737]/12 hover:text-[#e13737] dark:hover:text-[#ff6b6b]",
+        ROW_ACTION_WIDTH,
+        "group/going relative z-2 inline-flex items-center justify-center whitespace-nowrap transition-colors hover:bg-[#e13737]/12 hover:text-[#e13737] dark:hover:text-[#ff6b6b]",
       )}
     >
       <Check strokeWidth={2.4} className="group-hover/going:hidden" />
       <X strokeWidth={2.4} className="hidden group-hover/going:inline" />
       <span className="group-hover/going:hidden">Going</span>
-      <span className="hidden group-hover/going:inline">Cancel RSVP</span>
+      <span className="hidden group-hover/going:inline">Cancel</span>
     </button>
   );
 }
@@ -621,45 +633,55 @@ export function EventToolbar({
 
   return (
     <div className="rounded-[20px] border border-border bg-card p-4 shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]">
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="relative min-w-55 flex-1">
+      <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center">
+        <div className="relative w-full min-w-0 lg:min-w-55 lg:flex-1">
           <Search className="absolute top-1/2 left-3 size-4.25 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={query}
             onChange={handleQueryChange}
             placeholder={searchPlaceholder}
-            className="h-10 rounded-xl bg-muted pl-9.5"
+            className="h-10 rounded-xl border border-border bg-muted pl-9.5"
           />
         </div>
-        <Select value={type} onValueChange={handleTypeChange}>
-          <SelectTrigger
-            aria-label="Filter events by type"
-            className="h-10 rounded-xl bg-muted font-bold"
-          >
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All types</SelectItem>
-            {EVENT_TYPES.map((key) => (
-              <SelectItem key={key} value={key}>
-                {EVENT_TYPE_META[key].label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Tabs value={view} onValueChange={onViewChange}>
-          <TabsList className="h-10 rounded-xl">
-            {views.map((key) => {
-              const ViewIcon = VIEW_META[key].icon;
-              return (
-                <TabsTrigger key={key} value={key} className="gap-1.5 font-bold">
-                  <ViewIcon className="size-4" />
-                  <span className="hidden sm:inline">{VIEW_META[key].label}</span>
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-        </Tabs>
+        <div className="flex items-center gap-3 lg:contents">
+          <Select value={type} onValueChange={handleTypeChange}>
+            <SelectTrigger
+              aria-label="Filter events by type"
+              className="h-10 min-w-0 flex-1 rounded-xl border border-border bg-muted font-bold lg:flex-none"
+            >
+              <SelectValue>
+                {(value: unknown) =>
+                  TYPE_FILTER_OPTIONS.find((option) => option.value === value)?.label ?? ""
+                }
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent align="end" alignItemWithTrigger={false}>
+              {TYPE_FILTER_OPTIONS.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Tabs value={view} onValueChange={onViewChange}>
+            <TabsList className="h-10 shrink-0 rounded-xl">
+              {views.map((key) => {
+                const ViewIcon = VIEW_META[key].icon;
+                return (
+                  <TabsTrigger
+                    key={key}
+                    value={key}
+                    aria-label={VIEW_META[key].label}
+                    className="gap-1.5 font-bold"
+                  >
+                    <ViewIcon className="size-4" />
+                    <span className="hidden sm:inline">{VIEW_META[key].label}</span>
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+          </Tabs>
+        </div>
       </div>
     </div>
   );

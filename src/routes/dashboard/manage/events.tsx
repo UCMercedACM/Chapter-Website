@@ -728,37 +728,39 @@ function ManageEventsPage() {
   return (
     <div className="flex flex-col gap-5">
       <div ref={topRef} className={cn(CARD_CLASS, "scroll-mt-4 p-4")}>
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-5">
           <div className="text-sm font-bold text-brand-text-sub">
             {manageable.length} event{manageable.length === 1 ? "" : "s"} you can manage
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="relative min-w-52 flex-1">
+          <div className="flex flex-col gap-3 lg:min-w-0 lg:flex-1 lg:flex-row lg:flex-wrap lg:items-center">
+            <div className="relative w-full min-w-0 lg:w-auto lg:min-w-40 lg:flex-1">
               <Search className="absolute top-1/2 left-3 size-4.25 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={search}
                 onChange={handleSearch}
                 placeholder="Search events, tags…"
-                className="h-10 rounded-xl bg-muted pl-9.5"
+                className="h-10 rounded-xl border border-border bg-muted pl-9.5"
               />
             </div>
-            <Select value={typeFilter} onValueChange={handleTypeFilter}>
-              <SelectTrigger className="h-10 rounded-xl bg-muted font-bold">
-                <SelectValue>{renderTypeFilterLabel}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All types</SelectItem>
-                {EVENT_TYPES.map((key) => (
-                  <SelectItem key={key} value={key}>
-                    {EVENT_TYPE_META[key].label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Button className={TEAL_BUTTON_CLASS} onClick={openCreate}>
-              <CalendarPlus />
-              Create event
-            </Button>
+            <div className="flex items-center gap-3 lg:contents">
+              <Select value={typeFilter} onValueChange={handleTypeFilter}>
+                <SelectTrigger className="h-10 w-32 shrink-0 rounded-xl border border-border bg-muted font-bold lg:w-auto">
+                  <SelectValue>{renderTypeFilterLabel}</SelectValue>
+                </SelectTrigger>
+                <SelectContent align="end" alignItemWithTrigger={false}>
+                  <SelectItem value="all">All types</SelectItem>
+                  {EVENT_TYPES.map((key) => (
+                    <SelectItem key={key} value={key}>
+                      {EVENT_TYPE_META[key].label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button className={cn(TEAL_BUTTON_CLASS, "flex-1 lg:flex-none")} onClick={openCreate}>
+                <CalendarPlus />
+                Create event
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -873,7 +875,7 @@ function ManageEventsPage() {
                           <SelectTrigger className="w-full border-border font-bold">
                             <SelectValue>{renderEventTypeLabel}</SelectValue>
                           </SelectTrigger>
-                          <SelectContent>
+                          <SelectContent align="start" alignItemWithTrigger={false}>
                             {EVENT_TYPES.map((key) => (
                               <SelectItem key={key} value={key}>
                                 {EVENT_TYPE_META[key].label}

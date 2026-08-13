@@ -502,21 +502,21 @@ function TagsPage() {
   return (
     <div className="flex flex-col gap-5">
       <div ref={topRef} className={cn(CARD_CLASS, "scroll-mt-4 p-4")}>
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative min-w-52 flex-1">
+        <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center">
+          <div className="relative w-full min-w-0 lg:w-auto lg:min-w-52 lg:flex-1">
             <Search className="absolute top-1/2 left-3 size-4.25 -translate-y-1/2 text-muted-foreground" />
             <Input
               value={search}
               onChange={handleSearch}
               placeholder="Search tags by title…"
-              className="h-10 rounded-xl bg-muted pl-9.5"
+              className="h-10 rounded-xl border border-border bg-muted pl-9.5"
             />
           </div>
-          <Button className={cn("h-10", TEAL_BUTTON_CLASS)} onClick={openCreate}>
+          <Button className={cn("h-10 w-full lg:w-auto", TEAL_BUTTON_CLASS)} onClick={openCreate}>
             <Plus />
             Create tag
           </Button>
-          <Button variant="outline" className="h-10 font-bold" onClick={openBulk}>
+          <Button variant="outline" className="h-10 w-full font-bold lg:w-auto" onClick={openBulk}>
             <Upload />
             Bulk create
             <SudoLock active={sudoActive} />

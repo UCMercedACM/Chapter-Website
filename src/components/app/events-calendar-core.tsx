@@ -59,7 +59,10 @@ export interface ManageEventsCalendarProps {
 
 /// Constants
 
+// Fixes the positioning clipping issue
+const DATE_PICKER_CONFIG = { teleportTo: document.body };
 const PACIFIC_TZ = "America/Los_Angeles";
+
 const PUBLIC_SHELL_CLASSES = cn(
   "min-h-0 w-full flex-1 rounded-3xl border border-border bg-card",
   "shadow-[0px_16px_40px_rgba(112,144,176,0.2)]",
@@ -122,6 +125,7 @@ function EventsCalendarCore({
     dayBoundaries: { start: "08:00", end: "24:00" },
     events: calendarEvents,
     calendars,
+    datePicker: DATE_PICKER_CONFIG,
     theme: "shadcn",
     isDark: resolvedTheme === "dark",
     timezone: PACIFIC_TZ,
