@@ -15,7 +15,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile --ignore-scripts
 
 # Copy necessary build configurations
-COPY vite.config.ts index.html tsconfig.json tsconfig.app.json tsconfig.node.json /website/
+COPY vite.config.ts index.html tsconfig.json tsconfig.app.json tsconfig.node.json docker/nginx.conf /website/
 COPY public /website/public
 COPY src /website/src
 
@@ -24,13 +24,16 @@ RUN pnpm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine-perl
 
+ENV NGINX_ENTRYPOINT_QUIET_LOGS=1
+
 COPY --from=build /website/dist /usr/share/nginx/html
+COPY --from=build /website/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 
-HEALTHCHECK --interval=5m --timeout=3s CMD ["curl", "-f" , "http://localhost:8080/", "||", "exit 1"]
+HEALTHCHECK --interval=5m --timeout=3s CMD curl -fsS http://localhost:8080/ || exit 1
 
 LABEL org.opencontainers.image.title="Chapter-Website"
 LABEL org.opencontainers.image.description="ACM @ UC Merced's website"
