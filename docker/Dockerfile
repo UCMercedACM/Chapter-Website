@@ -5,7 +5,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /website
 
-RUN npx get-pnpm
+RUN npx --ignore-scripts get-pnpm@0.0.1
 
 # Install dependencies first (cached unless manifests change)
 COPY package.json pnpm-lock.yaml /website/
