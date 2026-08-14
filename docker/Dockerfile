@@ -5,9 +5,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /website
 
-RUN npm install -g pnpm@11.20.0 \
-    --ignore-scripts --no-fund --no-update-notifier \
-    > /dev/null
+RUN npx get-pnpm
 
 # Install dependencies first (cached unless manifests change)
 COPY package.json pnpm-lock.yaml /website/
