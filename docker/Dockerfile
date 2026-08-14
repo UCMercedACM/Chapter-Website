@@ -3,6 +3,10 @@ FROM node:24-trixie-slim AS build
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libatomic1 \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /website
 
 RUN npx --ignore-scripts get-pnpm@0.0.1
