@@ -2,7 +2,7 @@
 
 export type ClientOptions = {
   baseUrl:
-    | `${string}://kanae_openapi_b5fe247856d61d12db945073906652366ae409a1.json`
+    | `${string}://kanae_openapi_c1d4ad2a4f89cc5b0ff0985a0a234a4f821956e0.json`
     | (string & {});
 };
 
@@ -833,6 +833,57 @@ export type NotFoundResponse = {
    * Detail
    */
   detail?: string;
+};
+
+/**
+ * ProjectDetails
+ */
+export type ProjectDetails = {
+  /**
+   * Id
+   */
+  id: string;
+  /**
+   * Name
+   */
+  name: string;
+  /**
+   * Description
+   */
+  description: string;
+  /**
+   * Link
+   */
+  link: string;
+  thumbnail?: ProjectThumbnail | null;
+  /**
+   * Media
+   */
+  media: Array<MediaRecord>;
+  /**
+   * Members
+   */
+  members: Array<ProjectMember>;
+  /**
+   * Type
+   */
+  type: "independent" | "sig_ai" | "sig_swe" | "sig_cyber" | "sig_data" | "sig_arch" | "sig_graph";
+  /**
+   * Tags
+   */
+  tags?: Array<string> | null;
+  /**
+   * Active
+   */
+  active: boolean;
+  /**
+   * Join Policy
+   */
+  join_policy: "open" | "request" | "closed";
+  /**
+   * Founded At
+   */
+  founded_at: string;
 };
 
 /**
@@ -2140,7 +2191,7 @@ export type GetProjectResponses = {
   /**
    * Successful Response
    */
-  200: FullProjects;
+  200: ProjectDetails;
 };
 
 export type GetProjectResponse = GetProjectResponses[keyof GetProjectResponses];

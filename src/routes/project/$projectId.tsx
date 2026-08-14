@@ -17,19 +17,18 @@ import {
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { type FullProjects, type MediaRecord } from "@/types/kanae.gen";
+import { type MediaRecord, type ProjectDetails } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/project/$projectId")({
   component: Project,
   loader: async ({ context: { queryClient }, params: { projectId } }) => {
     await queryClient.ensureQueryData(projectDetailQueryOptions(projectId));
-    await queryClient.ensureQueryData(projectMediaQueryOptions(projectId));
   },
 });
 
 /// Types and Interfaces
 
-type ProjectType = FullProjects["type"];
+type ProjectType = ProjectDetails["type"];
 
 /// Module-scoped constants
 
@@ -55,37 +54,19 @@ const FULL_DATE_FMT = new Intl.DateTimeFormat("en-US", { year: "numeric", month:
 const projectKeys = {
   all: ["project"] as const,
   detail: (projectId: string) => [...projectKeys.all, projectId, "detail"] as const,
-  media: (projectId: string) => [...projectKeys.all, projectId, "media"] as const,
 };
 
 const projectDetailQueryOptions = (projectId: string) =>
   queryOptions({
     queryKey: projectKeys.detail(projectId),
     queryFn: async () => {
-      const { data } = await axios.get<FullProjects>(`${API_BASE_URL}/projects/${projectId}`);
+      const { data } = await axios.get<ProjectDetails>(`${API_BASE_URL}/projects/${projectId}`);
       return data;
     },
     staleTime: 60_000,
 
     // Once Kanae is live, then these will be removed
     // So we don't send out a ton of API requests for no reason
-    retry: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  });
-
-const projectMediaQueryOptions = (projectId: string) =>
-  queryOptions({
-    queryKey: projectKeys.media(projectId),
-    queryFn: async () => {
-      const { data, status } = await axios.get<MediaRecord[]>(
-        `${API_BASE_URL}/projects/${projectId}/media`,
-        { validateStatus: (code) => code === 200 || code === 401 || code === 403 },
-      );
-      return status === 200 ? data : [];
-    },
-    staleTime: 60_000,
     retry: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
@@ -99,11 +80,10 @@ function Project() {
   const { data: project, isLoading: isProjectLoading } = useQuery(
     projectDetailQueryOptions(projectId),
   );
-  const { data: media, isLoading: isMediaLoading } = useQuery(projectMediaQueryOptions(projectId));
 
   const [lightboxIndex, setLightboxIndex] = useState<number>();
 
-  const mediaItems = useMemo(() => media ?? [], [media]);
+  const mediaItems = useMemo(() => project?.media ?? [], [project?.media]);
 
   const mediaEntries = useMemo(
     () =>
@@ -122,7 +102,6 @@ function Project() {
   const mediaSrc = useCallback((item: MediaRecord) => item.url, []);
 
   const meta = project ? PROJECT_TYPES[project.type] : undefined;
-  const showMediaSection = isMediaLoading || mediaEntries.length > 0;
 
   return (
     <div className="bg-background">
@@ -288,7 +267,7 @@ function Project() {
               </p>
             </section>
 
-            {showMediaSection ? (
+            {mediaEntries.length > 0 ? (
               <section className="mt-8">
                 <Carousel opts={CAROUSEL_OPTS} className="w-full">
                   <header className="mb-4 flex items-center justify-between gap-3">
@@ -301,91 +280,82 @@ function Project() {
                     </div>
                   </header>
                   <CarouselContent className="-ml-4">
-                    {isMediaLoading
-                      ? Array.from({ length: 3 }, (_, i) => (
-                          <CarouselItem
-                            key={i}
-                            className="basis-full pl-4 md:basis-1/2 xl:basis-1/3"
-                          >
-                            <Skeleton className="aspect-video w-full rounded-2xl" />
-                          </CarouselItem>
-                        ))
-                      : mediaEntries.map(({ item, onSelect }) => (
-                          <CarouselItem
-                            key={item.hash}
-                            className="basis-full pl-4 md:basis-1/2 xl:basis-1/3"
-                          >
-                            {item.kind === "video" ? (
-                              <div className="group relative overflow-hidden rounded-2xl border border-border bg-card">
-                                <video
-                                  src={item.url}
-                                  controls
-                                  preload="metadata"
-                                  className="aspect-video w-full bg-black object-contain"
-                                >
-                                  <track
-                                    default
-                                    kind="captions"
-                                    srcLang="en"
-                                    label="Captions unavailable"
-                                  />
-                                </video>
-                                <div
-                                  className={cn(
-                                    "pointer-events-none absolute top-2.5 left-2.5 flex items-center gap-1 rounded-full",
-                                    "bg-black/60 px-2 py-0.5 text-[10px] font-bold tracking-wide text-white uppercase",
-                                  )}
-                                >
-                                  <Play className="size-2.5" />
-                                  Video
-                                </div>
-                                <Button
-                                  variant="ghost"
-                                  size="icon-xs"
-                                  onClick={onSelect}
-                                  aria-label="View at full size"
-                                  className={cn(
-                                    "absolute top-2.5 right-2.5 z-10 rounded-full",
-                                    "bg-black/60 text-white",
-                                    "hover:bg-black/80 hover:text-white",
-                                  )}
-                                >
-                                  <Maximize2 className="size-3" />
-                                </Button>
-                              </div>
-                            ) : (
-                              <Button
-                                variant="ghost"
-                                onClick={onSelect}
-                                aria-label="View at full size"
-                                className={cn(
-                                  "group relative block h-auto w-full gap-0 overflow-hidden p-0",
-                                  "rounded-2xl border border-border bg-card",
-                                  "hover:bg-card",
-                                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                                )}
-                              >
-                                <img
-                                  src={item.url}
-                                  alt=""
-                                  loading="lazy"
-                                  decoding="async"
-                                  className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                                />
-                                <span
-                                  aria-hidden="true"
-                                  className={cn(
-                                    "pointer-events-none absolute top-2.5 right-2.5 inline-flex items-center justify-center",
-                                    "rounded-full bg-black/50 p-1.5 text-white opacity-50",
-                                    "transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100",
-                                  )}
-                                >
-                                  <Maximize2 className="size-3" />
-                                </span>
-                              </Button>
+                    {mediaEntries.map(({ item, onSelect }) => (
+                      <CarouselItem
+                        key={item.hash}
+                        className="basis-full pl-4 md:basis-1/2 xl:basis-1/3"
+                      >
+                        {item.kind === "video" ? (
+                          <div className="group relative overflow-hidden rounded-2xl border border-border bg-card">
+                            <video
+                              src={item.url}
+                              controls
+                              preload="metadata"
+                              className="aspect-video w-full bg-black object-contain"
+                            >
+                              <track
+                                default
+                                kind="captions"
+                                srcLang="en"
+                                label="Captions unavailable"
+                              />
+                            </video>
+                            <div
+                              className={cn(
+                                "pointer-events-none absolute top-2.5 left-2.5 flex items-center gap-1 rounded-full",
+                                "bg-black/60 px-2 py-0.5 text-[10px] font-bold tracking-wide text-white uppercase",
+                              )}
+                            >
+                              <Play className="size-2.5" />
+                              Video
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="icon-xs"
+                              onClick={onSelect}
+                              aria-label="View at full size"
+                              className={cn(
+                                "absolute top-2.5 right-2.5 z-10 rounded-full",
+                                "bg-black/60 text-white",
+                                "hover:bg-black/80 hover:text-white",
+                              )}
+                            >
+                              <Maximize2 className="size-3" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <Button
+                            variant="ghost"
+                            onClick={onSelect}
+                            aria-label="View at full size"
+                            className={cn(
+                              "group relative block h-auto w-full gap-0 overflow-hidden p-0",
+                              "rounded-2xl border border-border bg-card",
+                              "hover:bg-card",
+                              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                             )}
-                          </CarouselItem>
-                        ))}
+                          >
+                            <img
+                              src={item.url}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                              className="aspect-video w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                            />
+                            <span
+                              aria-hidden="true"
+                              className={cn(
+                                "pointer-events-none absolute top-2.5 right-2.5 inline-flex items-center justify-center",
+                                "rounded-full bg-black/50 p-1.5 text-white opacity-50",
+                                "transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100",
+                              )}
+                            >
+                              <Maximize2 className="size-3" />
+                            </span>
+                          </Button>
+                        )}
+                      </CarouselItem>
+                    ))}
                   </CarouselContent>
                 </Carousel>
               </section>
