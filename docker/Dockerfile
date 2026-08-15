@@ -1,13 +1,19 @@
 FROM node:24-trixie-slim AS build
 
 ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates curl libatomic1  \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /website
 
-RUN npm install -g pnpm@11.20.0 \
-    --ignore-scripts --no-fund --no-update-notifier \
-    > /dev/null
+# The official ghcr.io:pnpm/pnpm image symlinks the binary to /usr/local/bin
+# as it is first installed into /opt/pnpm/bin instead
+# See: https://github.com/pnpm/pnpm/blob/main/docker/Dockerfile#L37
+RUN curl -fsSL https://get.pnpm.io/install.sh | PNPM_HOME=/opt/pnpm SHELL="$(which bash)" bash -
+RUN ln -s /opt/pnpm/bin/pnpm /usr/local/bin/pnpm
 
 # Install dependencies first (cached unless manifests change)
 COPY package.json pnpm-lock.yaml /website/
