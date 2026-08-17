@@ -68,7 +68,7 @@
     "eslint-plugin-react-x": "^5.18.3",
     "eslint-plugin-sonarjs": "^4.2.0",
     "globals": "^17.9.0",
-    "oxfmt": "^0.62.0",
+    "oxfmt": "^0.63.0",
     "oxlint": "^1.77.0",
     "oxlint-plugin-react-doctor": "^0.9.7",
     "oxlint-tsgolint": "^7.0.2001",
