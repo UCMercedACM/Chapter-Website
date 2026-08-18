@@ -62,6 +62,9 @@ export default defineConfig({
   },
   build: {
     rolldownOptions: {
+      // Until Oxc has their Rust-port of the React Compiler stabilized, just
+      // silence the plugin timings for now
+      checks: { pluginTimings: false },
       output: {
         codeSplitting: {
           groups: [
