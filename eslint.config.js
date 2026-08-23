@@ -1,6 +1,5 @@
 import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import oxlint from "eslint-plugin-oxlint";
-import reactHooks from "eslint-plugin-react-hooks";
 import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -20,7 +19,7 @@ export default defineConfig([
     "!src/components/ui/theme-provider.tsx",
     "!src/components/ui/carousel.tsx",
     "!src/components/ui/data-table.tsx",
-    "!src/components/ui/date-picker.tsx"
+    "!src/components/ui/date-picker.tsx",
   ]),
 
   {
@@ -29,7 +28,6 @@ export default defineConfig([
       tseslint.configs.base,
 
       // React-specific configurations
-      reactHooks.configs.flat.recommended,
       eslintPluginBetterTailwindcss.configs.recommended,
 
       oxlint.configs["flat/recommended"],
