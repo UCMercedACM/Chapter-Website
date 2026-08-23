@@ -203,6 +203,9 @@ const eventsQueryOptions = queryOptions({
 
 function Events() {
   const { data: eventsPage, isError } = useQuery(eventsQueryOptions);
+
+  const [selected, setSelected] = useState<SelectedEvent>();
+
   const events = useMemo(() => eventsPage?.data ?? [], [eventsPage]);
 
   const { mutate: joinEvent, isPending: isJoining } = useMutation({
@@ -216,7 +219,6 @@ function Events() {
     },
   });
 
-  const [selected, setSelected] = useState<SelectedEvent>();
   const selectedEvent = selected?.event;
 
   const handleJoinEvent = useCallback(() => {

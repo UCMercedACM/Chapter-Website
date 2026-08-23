@@ -1,9 +1,8 @@
 import path from "node:path";
 
-import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -14,10 +13,7 @@ export default defineConfig({
       target: "react",
       autoCodeSplitting: true,
     }),
-    react(),
-    babel({
-      presets: [reactCompilerPreset()],
-    }),
+    react({ compiler: true }),
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
@@ -62,9 +58,6 @@ export default defineConfig({
   },
   build: {
     rolldownOptions: {
-      // Until Oxc has their Rust-port of the React Compiler stabilized, just
-      // silence the plugin timings for now
-      checks: { pluginTimings: false },
       output: {
         codeSplitting: {
           groups: [
