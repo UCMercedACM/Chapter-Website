@@ -18,7 +18,7 @@ RUN ln -s /opt/pnpm/bin/pnpm /usr/local/bin/pnpm
 # Install dependencies first (cached unless manifests change)
 COPY package.json pnpm-lock.yaml /website/
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    pnpm install --frozen-lockfile --ignore-scripts
+    pnpm install --frozen-lockfile --trust-lockfile --ignore-scripts
 
 # Copy necessary build configurations
 COPY vite.config.ts index.html tsconfig.json tsconfig.app.json tsconfig.node.json docker/nginx.conf /website/
