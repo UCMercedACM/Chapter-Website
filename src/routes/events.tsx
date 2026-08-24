@@ -18,7 +18,9 @@ import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/events")({
   component: Events,
-  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(eventsQueryOptions),
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.query(eventsQueryOptions).catch(() => {});
+  },
 });
 
 /// Types and Interfaces

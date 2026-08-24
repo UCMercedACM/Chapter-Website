@@ -69,7 +69,7 @@ export const Route = createFileRoute("/dashboard/admin/members")({
     sub: "Grant global roles and manage the chapter directory",
   },
   loader: async ({ context: { queryClient } }) =>
-    await queryClient.ensureQueryData(membersQueryOptions),
+    await queryClient.query({ ...membersQueryOptions, staleTime: "static" }),
 });
 
 /// Types and Interfaces

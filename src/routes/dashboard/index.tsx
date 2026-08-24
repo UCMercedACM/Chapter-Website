@@ -48,10 +48,10 @@ export const Route = createFileRoute("/dashboard/")({
   component: DashboardHome,
   staticData: { area: "Member", title: "Dashboard", home: true },
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.prefetchQuery(eventsListQueryOptions);
-    await queryClient.prefetchQuery(meQueryOptions);
-    await queryClient.prefetchQuery(plannedEventsQueryOptions);
-    await queryClient.prefetchQuery(attendedEventsQueryOptions);
+    await queryClient.query(eventsListQueryOptions);
+    await queryClient.query(meQueryOptions);
+    await queryClient.query(plannedEventsQueryOptions);
+    await queryClient.query(attendedEventsQueryOptions);
   },
 });
 

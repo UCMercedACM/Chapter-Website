@@ -70,7 +70,7 @@ export const Route = createFileRoute("/dashboard/admin/tags")({
     sub: "The shared taxonomy referenced by events and projects",
   },
   loader: async ({ context: { queryClient } }) =>
-    await queryClient.ensureQueryData(tagsQueryOptions),
+    await queryClient.query({ ...tagsQueryOptions, staleTime: "static" }),
 });
 
 /// Types and Interfaces
