@@ -92,8 +92,8 @@ export const Route = createFileRoute("/dashboard/manage/projects")({
     sub: "Create, edit teams, and archive chapter projects",
   },
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.prefetchQuery(manageProjectsQueryOptions({ name: "", page: 1 }));
-    await queryClient.prefetchQuery(manageInvitesQueryOptions);
+    await queryClient.query(manageProjectsQueryOptions({ name: "", page: 1 }));
+    await queryClient.query(manageInvitesQueryOptions);
   },
 });
 
@@ -759,9 +759,7 @@ function ManageProjectsPage() {
   const prefetchPage = useCallback(
     (next: number) => {
       queryClient
-        .prefetchQuery(
-          manageProjectsQueryOptions({ active: activeFilter, name: search, page: next }),
-        )
+        .query(manageProjectsQueryOptions({ active: activeFilter, name: search, page: next }))
         .catch(() => {});
     },
     [queryClient, activeFilter, search],

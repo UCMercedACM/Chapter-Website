@@ -22,7 +22,7 @@ import { type MediaRecord, type ProjectDetails } from "@/types/kanae.gen";
 export const Route = createFileRoute("/project/$projectId")({
   component: Project,
   loader: async ({ context: { queryClient }, params: { projectId } }) => {
-    await queryClient.ensureQueryData(projectDetailQueryOptions(projectId));
+    await queryClient.query({ ...projectDetailQueryOptions(projectId), staleTime: "static" });
   },
 });
 

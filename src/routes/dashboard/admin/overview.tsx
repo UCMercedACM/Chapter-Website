@@ -20,10 +20,10 @@ export const Route = createFileRoute("/dashboard/admin/overview")({
     sub: "A brief overview of the chapter's members and data",
   },
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.ensureQueryData(overviewMembersQueryOptions);
-    await queryClient.ensureQueryData(overviewProjectsQueryOptions);
-    await queryClient.ensureQueryData(overviewEventsQueryOptions);
-    await queryClient.ensureQueryData(overviewTagsQueryOptions);
+    await queryClient.query({ ...overviewMembersQueryOptions, staleTime: "static" });
+    await queryClient.query({ ...overviewProjectsQueryOptions, staleTime: "static" });
+    await queryClient.query({ ...overviewEventsQueryOptions, staleTime: "static" });
+    await queryClient.query({ ...overviewTagsQueryOptions, staleTime: "static" });
   },
 });
 

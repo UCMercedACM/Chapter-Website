@@ -95,7 +95,7 @@ export const Route = createFileRoute("/dashboard")({
     settings: search.settings === "profile" ? "profile" : undefined,
   }),
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.ensureQueryData(meQueryOptions).catch(() => {
+    await queryClient.query({ ...meQueryOptions, staleTime: "static" }).catch(() => {
       redirect({ to: "/login", search: {}, throw: true });
     });
   },

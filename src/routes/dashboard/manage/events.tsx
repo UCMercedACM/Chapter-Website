@@ -89,8 +89,8 @@ export const Route = createFileRoute("/dashboard/manage/events")({
     sub: "Create, edit, and track attendance for chapter events",
   },
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.prefetchQuery(manageEventsQueryOptions);
-    await queryClient.prefetchQuery(meQueryOptions);
+    await queryClient.query(manageEventsQueryOptions);
+    await queryClient.query(meQueryOptions);
   },
 });
 

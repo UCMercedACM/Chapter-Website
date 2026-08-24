@@ -55,9 +55,9 @@ export const Route = createFileRoute("/dashboard/projects")({
     sub: "Browse, join, and manage chapter projects",
   },
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.prefetchQuery(projectsQueryOptions);
-    await queryClient.prefetchQuery(memberProjectsQueryOptions);
-    await queryClient.prefetchQuery(projectInvitesQueryOptions);
+    await queryClient.query(projectsQueryOptions);
+    await queryClient.query(memberProjectsQueryOptions);
+    await queryClient.query(projectInvitesQueryOptions);
   },
 });
 

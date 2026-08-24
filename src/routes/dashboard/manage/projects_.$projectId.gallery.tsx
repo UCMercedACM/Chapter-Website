@@ -44,8 +44,8 @@ export const Route = createFileRoute("/dashboard/manage/projects_/$projectId/gal
     sub: "Upload, reorder, and curate project media",
   },
   loader: async ({ context: { queryClient }, params: { projectId } }) => {
-    await queryClient.prefetchQuery(projectsQueryOptions);
-    await queryClient.prefetchQuery(projectMediaQueryOptions(projectId));
+    await queryClient.query(projectsQueryOptions);
+    await queryClient.query(projectMediaQueryOptions(projectId));
   },
 });
 

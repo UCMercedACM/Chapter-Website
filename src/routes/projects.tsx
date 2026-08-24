@@ -22,7 +22,9 @@ import { type KanaePage } from "@/types/pages";
 
 export const Route = createFileRoute("/projects")({
   component: Projects,
-  loader: ({ context: { queryClient } }) => queryClient.prefetchQuery(projectsQueryOptions),
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.query(projectsQueryOptions).catch(() => {});
+  },
 });
 
 /// Types and Interfaces

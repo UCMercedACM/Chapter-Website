@@ -22,8 +22,9 @@ import { type FullEvents } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/event/$eventId")({
   component: Event,
-  loader: ({ context: { queryClient }, params: { eventId } }) =>
-    queryClient.prefetchQuery(eventDetailQueryOptions(eventId)),
+  loader: async ({ context: { queryClient }, params: { eventId } }) => {
+    await queryClient.query(eventDetailQueryOptions(eventId)).catch(() => {});
+  },
 });
 
 /// Types and Interfaces
