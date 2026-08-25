@@ -28,7 +28,7 @@ COPY src /website/src
 # Now build for optimal caching
 RUN pnpm run build
 
-FROM nginxinc/nginx-unprivileged:stable-alpine-perl
+FROM nginxinc/nginx-unprivileged:stable-alpine-slim
 
 ENV NGINX_ENTRYPOINT_QUIET_LOGS=1
 
@@ -39,7 +39,7 @@ EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 
-HEALTHCHECK --interval=5m --timeout=3s CMD curl -fsS http://localhost:8080/ || exit 1
+HEALTHCHECK --interval=5m --timeout=3s CMD wget -q -O /dev/null http://localhost:8080/ || exit 1
 
 LABEL org.opencontainers.image.title="Chapter-Website"
 LABEL org.opencontainers.image.description="ACM @ UC Merced's website"
