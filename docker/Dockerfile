@@ -25,6 +25,12 @@ COPY vite.config.ts index.html tsconfig.json tsconfig.app.json tsconfig.node.jso
 COPY public /website/public
 COPY src /website/src
 
+ARG VITE_API_URL=/api
+ARG VITE_ORY_URL=/auth
+
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_ORY_URL=$VITE_ORY_URL
+
 # Now build for optimal caching
 RUN pnpm run build
 
