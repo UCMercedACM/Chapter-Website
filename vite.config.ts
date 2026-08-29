@@ -48,6 +48,12 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,woff2}"],
+        navigateFallbackDenylist: [
+          /^\/public\//,
+          /^\/kanae-(?:media|public)\//,
+          /^\/api\//,
+          /^\/auth\//,
+        ],
       },
     }),
   ],
