@@ -1,6 +1,6 @@
 [tools]
 node = "24.20.0"
-pnpm = "12.3.4"
+pnpm = "12.4.1"
 
 
 [settings]
