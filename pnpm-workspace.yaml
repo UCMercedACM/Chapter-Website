@@ -3,11 +3,6 @@
 # our lockfiles, and with proper protections as well. So, this is just annoying
 trustLockfile: true
 
-# Using GVS to help with performance
-# This is off in pnpm as it breaks some stuff
-# But in aube, it's enabled by default
-enableGlobalVirtualStore: true
-
 allowBuilds:
   msgpackr-extract: false
   msw: false
