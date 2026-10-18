@@ -3,6 +3,8 @@
 # our lockfiles, and with proper protections as well. So, this is just annoying
 trustLockfile: true
 
+enableGlobalVirtualStore: true
+addMissingPeerTypes: false
 allowBuilds:
   msgpackr-extract: false
   msw: false
