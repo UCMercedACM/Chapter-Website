@@ -4,7 +4,7 @@
 trustLockfile: true
 
 enableGlobalVirtualStore: true
-addMissingPeerTypes: false
+addMissingPeerTypes: true
 allowBuilds:
   msgpackr-extract: false
   msw: false
