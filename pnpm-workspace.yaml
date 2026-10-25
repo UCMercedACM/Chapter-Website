@@ -3,6 +3,10 @@
 # our lockfiles, and with proper protections as well. So, this is just annoying
 trustLockfile: true
 
+# Enable Global Virtual Store (GVS) to heavily increase performance
+enableGlobalVirtualStore: true
+addMissingPeerTypes: true
+
 allowBuilds:
   msgpackr-extract: false
   msw: false
