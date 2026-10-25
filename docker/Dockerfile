@@ -2,6 +2,7 @@ FROM node:24-trixie-slim AS build
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME/bin:$PATH"
+ENV PNPM_CONFIG_ADD_MISSING_PEER_TYPES=true
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates curl libatomic1  \
