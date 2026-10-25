@@ -178,7 +178,8 @@ export function SudoDialog({ pending, onClose }: Readonly<SudoDialogProps>) {
               {step === "reason" ? <Check className="size-3" /> : 1}
             </span>
             {/*
-             */}Fresh 2FA
+             */}
+            Fresh 2FA
           </span>
           <span
             className={cn(
@@ -203,7 +204,8 @@ export function SudoDialog({ pending, onClose }: Readonly<SudoDialogProps>) {
               2
             </span>
             {/*
-             */}Elevate
+             */}
+            Elevate
           </span>
         </div>
 
