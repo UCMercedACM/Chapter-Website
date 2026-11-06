@@ -13,17 +13,17 @@ import { csrfToken, oryInit, orySubmit } from "@/lib/ory";
 
 export const Route = createFileRoute("/register")({
   validateSearch: (search: Record<string, unknown>): { flow?: string; return_to?: string } => ({
-    flow: search.flow as string | undefined,
-    return_to: search.return_to as string | undefined,
+    flow: typeof search.flow === "string" ? search.flow : undefined,
+    return_to: typeof search.return_to === "string" ? search.return_to : undefined,
   }),
   loaderDeps: ({ search }) => ({ flowId: search.flow, returnTo: search.return_to }),
   loader: ({ deps }) => oryInit("registration", deps),
   component: Register,
 });
 
-/// Types and Interfaces
+/// Constants - components
 
-type RegisterField = "display_name" | "email" | "name" | "password";
+const REGISTER_FIELDS = ["display_name", "email", "name", "password"] as const;
 
 /// Constants
 
@@ -96,7 +96,8 @@ function Register() {
   const handleText = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
-      form.setFieldValue(name as RegisterField, value);
+      const field = REGISTER_FIELDS.find((item) => item === name);
+      if (field) form.setFieldValue(field, value);
     },
     [form],
   );

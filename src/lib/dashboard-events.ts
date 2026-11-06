@@ -156,7 +156,17 @@ export const EVENT_TYPE_CLASSES: Record<EventType, EventTypeClasses> = {
   },
 };
 
-export const EVENT_TYPES = Object.keys(EVENT_TYPE_META) as EventType[];
+export const EVENT_TYPES = [
+  "general",
+  "sig_swe",
+  "sig_ai",
+  "sig_cyber",
+  "sig_data",
+  "sig_arch",
+  "sig_graph",
+  "social",
+  "misc",
+] as const satisfies readonly EventType[];
 
 const HOUR_MS = 60 * 60 * 1000;
 

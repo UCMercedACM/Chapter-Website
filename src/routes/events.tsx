@@ -1,8 +1,7 @@
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import type { CalendarType } from "@schedule-x/calendar";
-import { queryOptions, useMutation, useQuery } from "@tanstack/react-query";
+import { noop, queryOptions, useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import axios from "axios";
 import { MapPin } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -11,6 +10,7 @@ import { PublicEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import { type EventType } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 import { type FullEvents } from "@/types/kanae.gen";
@@ -19,7 +19,7 @@ import { type KanaePage } from "@/types/pages";
 export const Route = createFileRoute("/events")({
   component: Events,
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.query(eventsQueryOptions).catch(() => {});
+    await queryClient.query(eventsQueryOptions).catch(noop);
   },
 });
 
@@ -135,9 +135,6 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
   ]),
 );
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-
 const EVENTS_PAGE_SIZE = 50;
 const PACIFIC_TZ = "America/Los_Angeles";
 
@@ -169,7 +166,7 @@ const eventsQueryOptions = queryOptions({
   queryKey: eventsKeys.list({}),
   queryFn: async () => {
     // Until we have date-range paginations on Kanae, we will literally fetch everything
-    const first = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+    const first = await client.get<KanaePage<FullEvents>>("/events", {
       params: { page: 1, size: EVENTS_PAGE_SIZE },
     });
     const { total } = first.data;
@@ -181,7 +178,7 @@ const eventsQueryOptions = queryOptions({
 
     const rest = await Promise.all(
       Array.from({ length: remainingPages }, (_, index) =>
-        axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+        client.get<KanaePage<FullEvents>>("/events", {
           params: { page: index + 2, size: EVENTS_PAGE_SIZE },
         }),
       ),

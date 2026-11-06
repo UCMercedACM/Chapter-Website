@@ -16,7 +16,7 @@ jobs:
       ESLINT_CACHE_DIR: /tmp/.eslintcache
 
     steps:
-      - name: Checkout Repository  
+      - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Set up Node
@@ -41,16 +41,15 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install --frozen-lockfile --ignore-scripts
-      
+
       - name: Check codebase via Oxlint
         run: |
           pnpm exec oxlint --type-check --type-aware --deny-warnings src
 
       - name: Check codebase via ESLint
         run: |
-          pnpm exec eslint src --cache --cache-location $ESLINT_CACHE_DIR
+          pnpm exec eslint src --cache --cache-location $ESLINT_CACHE_DIR --max-warnings 0
 
       - name: Check for formatting
         run: |
           pnpm exec oxfmt --check src
-

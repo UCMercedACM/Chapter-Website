@@ -1,3 +1,5 @@
+/* oxlint-disable import/no-cycle */
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
@@ -18,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
+import { client } from "@/lib/client";
 import { type Flow, ORY_URL, csrfToken, orySubmit } from "@/lib/ory";
 import { cn } from "@/lib/utils";
 import { type Sudo, meQueryOptions, sudoQueryOptions } from "@/routes/dashboard/route";
@@ -39,9 +42,6 @@ interface SudoDialogProps {
 }
 
 /// Constants
-
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
 const FRESH_2FA = Temporal.Duration.from({ minutes: 15 });
 
@@ -114,7 +114,7 @@ export function SudoDialog({ pending, onClose }: Readonly<SudoDialogProps>) {
 
   const { mutate: elevate, isPending: elevating } = useMutation({
     mutationFn: async (elevateReason: string) => {
-      const { data } = await axios.post<Sudo>(`${API_BASE_URL}/sudo/elevate`, {
+      const { data } = await client.post<Sudo>("/sudo/elevate", {
         reason: elevateReason,
       });
       return data;

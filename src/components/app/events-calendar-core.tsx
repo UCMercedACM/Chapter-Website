@@ -13,7 +13,7 @@ import { createCalendarControlsPlugin } from "@schedule-x/calendar-controls";
 import { ScheduleXCalendar, useCalendarApp } from "@schedule-x/react";
 import { createScrollControllerPlugin } from "@schedule-x/scroll-controller";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/ui/theme-provider";
@@ -62,6 +62,8 @@ export interface ManageEventsCalendarProps {
 // Fixes the positioning clipping issue
 const DATE_PICKER_CONFIG = { teleportTo: document.body };
 const PACIFIC_TZ = "America/Los_Angeles";
+const INITIAL_SCROLL = `${String(new Date().getHours()).padStart(2, "0")}:00`;
+const PREFERS_DARK = globalThis.matchMedia("(prefers-color-scheme: dark)").matches;
 
 const PUBLIC_SHELL_CLASSES = cn(
   "min-h-0 w-full flex-1 rounded-3xl border border-border bg-card",
@@ -86,17 +88,13 @@ function EventsCalendarCore({
   onEventClick,
   className,
 }: Readonly<EventsCalendarCoreProps>) {
-  const [initialScroll] = useState(() => `${String(new Date().getHours()).padStart(2, "0")}:00`);
   const scrollController = useMemo(
-    () => createScrollControllerPlugin({ initialScroll }),
-    [initialScroll],
+    () => createScrollControllerPlugin({ initialScroll: INITIAL_SCROLL }),
+    [],
   );
 
   const { theme } = useTheme();
-  const [prefersDark] = useState(
-    () => globalThis.matchMedia("(prefers-color-scheme: dark)").matches,
-  );
-  const systemTheme: "dark" | "light" = prefersDark ? "dark" : "light";
+  const systemTheme: "dark" | "light" = PREFERS_DARK ? "dark" : "light";
   const resolvedTheme: "dark" | "light" = theme === "system" ? systemTheme : theme;
 
   const calendarEvents = useMemo<CalendarEvent[]>(

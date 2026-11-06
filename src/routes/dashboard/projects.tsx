@@ -1,6 +1,5 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import axios from "axios";
 import {
   Calendar,
   Check,
@@ -36,6 +35,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import { meQueryOptions } from "@/routes/dashboard/route";
 import {
@@ -168,8 +168,6 @@ const DEFAULT_DOT_CLASS = "bg-[#93a3b6]";
 
 /// Constants — regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const PROJECTS_PAGE_SIZE = 100;
 const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
@@ -193,17 +191,17 @@ const MONTH_YEAR_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: 
 export const projectsQueryOptions = queryOptions({
   queryKey: ["projects", "list"],
   queryFn: async () => {
-    const { data } = await axios.get<KanaePage<FullProjects>>(`${API_BASE_URL}/projects`, {
+    const { data } = await client.get<KanaePage<FullProjects>>("/projects", {
       params: { size: PROJECTS_PAGE_SIZE },
     });
-    return data.data;
+    return data.data ?? [];
   },
 });
 
 const memberProjectsQueryOptions = queryOptions({
   queryKey: ["members", "me", "projects"],
   queryFn: async () => {
-    const { data } = await axios.get<Projects[]>(`${API_BASE_URL}/members/me/projects`);
+    const { data } = await client.get<Projects[]>("/members/me/projects");
     return data;
   },
   select: (projects: Projects[]) => new Set(projects.map((project) => project.id)),
@@ -212,10 +210,9 @@ const memberProjectsQueryOptions = queryOptions({
 const projectInvitesQueryOptions = queryOptions({
   queryKey: ["members", "me", "projects", "invites", { status: "pending" }],
   queryFn: async () => {
-    const { data } = await axios.get<ProjectInvite[]>(
-      `${API_BASE_URL}/members/me/projects/invites`,
-      { params: { status: "pending" } },
-    );
+    const { data } = await client.get<ProjectInvite[]>("/members/me/projects/invites", {
+      params: { status: "pending" },
+    });
     return data;
   },
 });
@@ -224,9 +221,7 @@ export const projectMediaQueryOptions = (projectId: string) =>
   queryOptions({
     queryKey: ["projects", projectId, "media"],
     queryFn: async () => {
-      const { data } = await axios.get<MediaRecord[]>(
-        `${API_BASE_URL}/projects/${projectId}/media`,
-      );
+      const { data } = await client.get<MediaRecord[]>(`/projects/${projectId}/media`);
       return data;
     },
   });
@@ -253,7 +248,7 @@ export function mediaArtwork(hash: string, color: string) {
 function initialsOf(name: string) {
   return (
     name
-      .match(/\S+/g)
+      .match(/\S+/gu)
       ?.slice(0, 2)
       .map((part) => part[0])
       .join("")
@@ -318,8 +313,7 @@ function ProjectsPage() {
   });
 
   const { mutate: joinMutate } = useMutation({
-    mutationFn: (project: FullProjects) =>
-      axios.post(`${API_BASE_URL}/projects/${project.id}/join`),
+    mutationFn: (project: FullProjects) => client.post(`/projects/${project.id}/join`),
     onMutate: async (project) => {
       await queryClient.cancelQueries();
       const snapshot = queryClient.getQueryData<FullProjects[]>(projectsQueryOptions.queryKey);
@@ -336,8 +330,7 @@ function ProjectsPage() {
   });
 
   const { mutate: leaveMutate } = useMutation({
-    mutationFn: (project: FullProjects) =>
-      axios.delete(`${API_BASE_URL}/projects/${project.id}/leave`),
+    mutationFn: (project: FullProjects) => client.delete(`/projects/${project.id}/leave`),
     onMutate: async (project) => {
       await queryClient.cancelQueries();
 
@@ -357,10 +350,9 @@ function ProjectsPage() {
 
   const { mutate: requestMutate } = useMutation({
     mutationFn: async (project: FullProjects) => {
-      const { data } = await axios.post<ProjectInvite>(
-        `${API_BASE_URL}/projects/${project.id}/requests`,
-        { message: undefined },
-      );
+      const { data } = await client.post<ProjectInvite>(`/projects/${project.id}/requests`, {
+        message: undefined,
+      });
       return data;
     },
     onMutate: async (project) => {
@@ -400,8 +392,8 @@ function ProjectsPage() {
 
   const { mutate: respondMutate } = useMutation({
     mutationFn: ({ accept, invite }: { accept: boolean; invite: ProjectInvite }) =>
-      axios.post(
-        `${API_BASE_URL}/projects/${invite.project_id}/invites/${invite.id}/${accept ? "accept" : "decline"}`,
+      client.post(
+        `/projects/${invite.project_id}/invites/${invite.id}/${accept ? "accept" : "decline"}`,
       ),
     onMutate: async ({ accept, invite }) => {
       await queryClient.cancelQueries();
@@ -456,11 +448,11 @@ function ProjectsPage() {
   const handleQueryChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   }, []);
-  const handleScopeChange = useCallback((value: string) => {
-    setScope(value as Scope);
+  const handleScopeChange = useCallback((value: Scope) => {
+    setScope(value);
   }, []);
-  const handleStatusChange = useCallback((value: string) => {
-    setStatus(value as Status);
+  const handleStatusChange = useCallback((value: Status) => {
+    setStatus(value);
   }, []);
   const handleTabChange = useCallback((value: DetailTab) => {
     setTab(value);

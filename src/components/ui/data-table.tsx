@@ -55,6 +55,7 @@ export const dataTableFeatures = tableFeatures({
   },
 });
 
+// oxlint-disable-next-line typescript/no-unsafe-type-assertion (memo() drops the TData generic)
 const DataTableRow = memo(
   DataTableRowImpl,
   (prev, next) => prev.row.original === next.row.original && prev.meta === next.meta,

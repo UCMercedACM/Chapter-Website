@@ -1,7 +1,6 @@
 import { SiDiscord, SiGithub, SiInstagram, type IconType } from "@icons-pack/react-simple-icons";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { noop, queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import axios from "axios";
 import { ChevronDown, Clock, MapPin } from "lucide-react";
 import { type CSSProperties } from "react";
 
@@ -20,6 +19,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import { EVENT_TYPE_CLASSES, EVENT_TYPE_META, fmtClock, monthDay } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 import { type FullEvents } from "@/types/kanae.gen";
@@ -28,7 +28,7 @@ import { type KanaePage } from "@/types/pages";
 export const Route = createFileRoute("/")({
   component: Index,
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.query(eventsQueryOptions).catch(() => {});
+    await queryClient.query(eventsQueryOptions).catch(noop);
   },
 });
 
@@ -41,9 +41,6 @@ interface SocialLink {
 }
 
 /// Module-scoped Constants
-
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
 const CAROUSEL_OPTIONS = { align: "start" } as const;
 const PAGE_LOADED_AT = new Date().toISOString();
@@ -147,7 +144,7 @@ const eventsKeys = {
 const eventsQueryOptions = queryOptions({
   queryKey: eventsKeys.list({ after: PAGE_LOADED_AT }),
   queryFn: async () => {
-    const { data } = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+    const { data } = await client.get<KanaePage<FullEvents>>("/events", {
       params: { after: PAGE_LOADED_AT },
     });
     return (data.data ?? []).toReversed();

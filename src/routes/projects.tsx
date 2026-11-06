@@ -1,6 +1,5 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { noop, queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import axios from "axios";
 import { Search } from "lucide-react";
 import { useCallback, useMemo, useState, type ChangeEvent } from "react";
 
@@ -16,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import { type FullProjects } from "@/types/kanae.gen";
 import { type KanaePage } from "@/types/pages";
@@ -23,7 +23,7 @@ import { type KanaePage } from "@/types/pages";
 export const Route = createFileRoute("/projects")({
   component: Projects,
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.query(projectsQueryOptions).catch(() => {});
+    await queryClient.query(projectsQueryOptions).catch(noop);
   },
 });
 
@@ -57,9 +57,6 @@ const PROJECT_TYPES = [
   readonly label: string;
 }[];
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-
 const SHORT_DATE_FMT = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
 
 const GRID_CLASSES = cn("grid grid-cols-1 gap-3.5", "md:grid-cols-2 md:gap-5 lg:grid-cols-3");
@@ -79,7 +76,7 @@ const projectsKeys = {
 const projectsQueryOptions = queryOptions({
   queryKey: projectsKeys.list({}),
   queryFn: async () => {
-    const { data } = await axios.get<KanaePage<FullProjects>>(`${API_BASE_URL}/projects`);
+    const { data } = await client.get<KanaePage<FullProjects>>("/projects");
     return data;
   },
   staleTime: 60_000,

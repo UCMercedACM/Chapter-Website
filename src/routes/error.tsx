@@ -4,7 +4,9 @@ import axios from "axios";
 import { ORY_URL } from "@/lib/ory";
 
 export const Route = createFileRoute("/error")({
-  validateSearch: (search: Record<string, unknown>) => ({ id: search.id as string | undefined }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    id: typeof search.id === "string" ? search.id : undefined,
+  }),
   loaderDeps: ({ search }) => ({ id: search.id }),
   loader: async ({ deps }) => {
     const response = await axios.get<SelfServiceError>(`${ORY_URL}/self-service/errors`, {

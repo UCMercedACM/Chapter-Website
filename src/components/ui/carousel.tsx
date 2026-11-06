@@ -66,12 +66,11 @@ function Carousel({
   // Each context holds a primitive boolean, so consumers only re-render when their specific flag flips.
   const subscribe = React.useCallback(
     (onChange: () => void) => {
-      if (!api) return () => {}
-      api.on("select", onChange)
-      api.on("reInit", onChange)
+      api?.on("select", onChange)
+      api?.on("reInit", onChange)
       return () => {
-        api.off("select", onChange)
-        api.off("reInit", onChange)
+        api?.off("select", onChange)
+        api?.off("reInit", onChange)
       }
     },
     [api],

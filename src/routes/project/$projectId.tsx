@@ -1,7 +1,6 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import axios from "axios";
 import { ChevronLeft, Maximize2, Play } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 
@@ -16,6 +15,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import { type MediaRecord, type ProjectDetails } from "@/types/kanae.gen";
 
@@ -42,9 +42,6 @@ const PROJECT_TYPES: Record<ProjectType, { colorClass: string; label: string }> 
   sig_arch: { label: "Arch", colorClass: "[--type-color:var(--sig-arch)]" },
 };
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-
 const CAROUSEL_OPTS = { align: "start" } as const;
 
 const FULL_DATE_FMT = new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long" });
@@ -60,7 +57,7 @@ const projectDetailQueryOptions = (projectId: string) =>
   queryOptions({
     queryKey: projectKeys.detail(projectId),
     queryFn: async () => {
-      const { data } = await axios.get<ProjectDetails>(`${API_BASE_URL}/projects/${projectId}`);
+      const { data } = await client.get<ProjectDetails>(`/projects/${projectId}`);
       return data;
     },
     staleTime: 60_000,
@@ -83,6 +80,10 @@ function Project() {
 
   const [lightboxIndex, setLightboxIndex] = useState<number>();
 
+  const githubLink = useMemo(
+    () => <a href={project?.link} target="_blank" rel="noreferrer" aria-label="View on GitHub" />,
+    [project?.link],
+  );
   const mediaItems = useMemo(() => project?.media ?? [], [project?.media]);
 
   const mediaEntries = useMemo(
@@ -182,14 +183,7 @@ function Project() {
                     "size-7 rounded-full text-foreground/80",
                     "hover:bg-muted hover:text-foreground",
                   )}
-                  render={
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="View on GitHub"
-                    />
-                  }
+                  render={githubLink}
                 >
                   <SiGithub size={24} />
                 </Button>

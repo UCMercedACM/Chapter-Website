@@ -6,7 +6,6 @@ import {
   type TableFeatures,
   type TableMeta,
 } from "@tanstack/react-table";
-import axios from "axios";
 import {
   type LucideIcon,
   AlertTriangle,
@@ -57,6 +56,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import { isSudoActive, meQueryOptions, sudoQueryOptions } from "@/routes/dashboard/route";
 import { type MemberRoles, type Role, type SimpleMember } from "@/types/kanae.gen";
@@ -165,7 +165,7 @@ const MEMBER_COLUMNS: ColumnDef<typeof dataTableFeatures, AdminMember>[] = [
       const isSelf = id === table.options.meta?.members?.meId;
       const initials =
         name
-          .match(/\S+/g)
+          .match(/\S+/gu)
           ?.slice(0, 2)
           .map((part) => part[0])
           .join("")
@@ -262,8 +262,6 @@ const MEMBER_COLUMNS: ColumnDef<typeof dataTableFeatures, AdminMember>[] = [
 
 /// Constants — regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const MEMBERS_KEY = ["members", "list"] as const;
 const MEMBERS_PAGE_SIZE = 100;
 const TABLE_PAGE_SIZE = 10;
@@ -279,16 +277,16 @@ const membersQueryOptions = queryOptions({
   queryFn: async () => {
     const members: AdminMember[] = [];
     for (let page = 1, pageCount = 1; page <= pageCount; page++) {
-      const { data } = await axios.get<{ data: SimpleMember[] | undefined; total: number }>(
-        `${API_BASE_URL}/members`,
+      const { data } = await client.get<{ data: SimpleMember[] | undefined; total: number }>(
+        "/members",
         { params: { page, size: MEMBERS_PAGE_SIZE } },
       );
       pageCount = Math.ceil(data.total / MEMBERS_PAGE_SIZE);
 
       // At some point this call will get removed
       for (const member of data.data ?? []) {
-        const { data: memberRoles } = await axios
-          .get<MemberRoles>(`${API_BASE_URL}/members/${member.id}/roles`)
+        const { data: memberRoles } = await client
+          .get<MemberRoles>(`/members/${member.id}/roles`)
           .catch(() => ({ data: { roles: EMPTY_ROLES } }));
         members.push({ ...member, roles: memberRoles.roles });
       }
@@ -323,7 +321,7 @@ function MembersPage() {
 
   const { mutate: modifyRole } = useMutation({
     mutationFn: async ({ memberId, role, action }: RoleModifyVars) => {
-      await axios.put(`${API_BASE_URL}/members/${memberId}/role`, { role, action });
+      await client.put(`/members/${memberId}/role`, { role, action });
     },
     onMutate: async ({ memberId, role, action }) => {
       await queryClient.cancelQueries({ queryKey: MEMBERS_KEY });
@@ -349,7 +347,7 @@ function MembersPage() {
 
   const { mutate: deleteMember } = useMutation({
     mutationFn: async (memberId: string) => {
-      await axios.delete(`${API_BASE_URL}/members/${memberId}`);
+      await client.delete(`/members/${memberId}`);
     },
     onMutate: async (memberId) => {
       await queryClient.cancelQueries({ queryKey: MEMBERS_KEY });
@@ -421,7 +419,8 @@ function MembersPage() {
   }, [deletingMember, members, deleteMember, withSudo]);
   const toggleRole = useCallback(
     (event: MouseEvent<HTMLElement>) => {
-      const role = event.currentTarget.dataset.role as Role | undefined;
+      const { role: roleKey } = event.currentTarget.dataset;
+      const role = ASSIGNABLE_ROLES.find((item) => item === roleKey);
       const member = (members ?? EMPTY_MEMBERS).find((item) => item.id === managedMember);
       if (!role || !member) return;
       const action = member.roles.includes(role) ? "revoke" : "grant";
