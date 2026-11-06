@@ -1,3 +1,4 @@
+import { noop } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight, ExternalLink, Maximize, X } from "lucide-react";
 import {
   type KeyboardEvent,
@@ -46,7 +47,7 @@ export function MediaLightbox({
   }, [current]);
   const toggleFullscreen = useCallback(() => {
     if (document.fullscreenElement) void document.exitFullscreen();
-    else container?.requestFullscreen().catch(() => {}); // Sonarcloud complains so...
+    else container?.requestFullscreen().catch(noop);
   }, [container]);
   const focusBackdrop = useCallback<RefCallback<HTMLButtonElement>>((node) => {
     node?.focus();

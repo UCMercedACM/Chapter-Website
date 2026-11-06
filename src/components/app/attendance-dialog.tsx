@@ -1,5 +1,4 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
@@ -13,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { client } from "@/lib/client";
 import { determineCheckIn, fmtClock } from "@/lib/dashboard-events";
 import { type AttendanceMember, type FullEvents } from "@/types/kanae.gen";
 import { type KanaePage } from "@/types/pages";
@@ -28,8 +28,6 @@ interface AttendanceDialogProps {
 
 /// Constants
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const ROSTER_STAT_CLASS =
   "flex-1 rounded-xl border border-border bg-card px-3.5 py-3 shadow-[0px_2px_5px_rgba(112,144,176,0.12)] dark:shadow-[0px_2px_5px_rgba(0,0,0,0.3)]";
 
@@ -39,9 +37,7 @@ const eventAttendanceCodeQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ["events", eventId, "attendance-code"],
     queryFn: async () => {
-      const { data } = await axios.get<{ code: string }>(
-        `${API_BASE_URL}/events/${eventId}/attendance-code`,
-      );
+      const { data } = await client.get<{ code: string }>(`/events/${eventId}/attendance-code`);
       return data;
     },
   });
@@ -50,8 +46,8 @@ const eventAttendanceQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ["events", eventId, "attendance"],
     queryFn: async () => {
-      const { data } = await axios.get<KanaePage<AttendanceMember>>(
-        `${API_BASE_URL}/events/${eventId}/attendance`,
+      const { data } = await client.get<KanaePage<AttendanceMember>>(
+        `/events/${eventId}/attendance`,
         { params: { page: 1, size: 100 } },
       );
       return data;
@@ -82,7 +78,7 @@ export function AttendanceDialog({
 
   const { mutate: undoCheckin, isPending: isUndoing } = useMutation({
     mutationFn: async (memberId: string) => {
-      await axios.delete(`${API_BASE_URL}/events/${event.id}/attendance/${memberId}`);
+      await client.delete(`/events/${event.id}/attendance/${memberId}`);
     },
     onError: () => toast.error("Couldn't undo the check-in. Please try again."),
     onSuccess: () => toast.success("Check-in undone."),
@@ -96,7 +92,7 @@ export function AttendanceDialog({
       .writeText(code)
       .then(() => {
         setCopied(true);
-        setTimeout(() => {
+        return setTimeout(() => {
           setCopied(false);
         }, 1800);
       })

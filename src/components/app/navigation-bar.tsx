@@ -28,6 +28,14 @@ const NAV_LINK_CLASSES =
 const NAV_LINK_UNDERLINE_CLASSES =
   "absolute -bottom-0.75 left-0 h-1.25 w-full rounded-[9px] bg-brand-sky opacity-0 [[data-status=active]>&]:opacity-100";
 
+const MENU_TRIGGER_BUTTON = (
+  <Button
+    variant="ghost"
+    size="icon"
+    className="bg-transparent text-foreground hover:bg-foreground/10 hover:text-foreground md:hidden"
+  />
+);
+
 const DesktopNavLink = memo(function DesktopNavLink({ entry }: Readonly<{ entry: NavEntry }>) {
   return (
     <Link to={entry.href} className={NAV_LINK_CLASSES}>
@@ -70,15 +78,7 @@ function MobileNav() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger
-        render={
-          <Button
-            variant="ghost"
-            size="icon"
-            className="bg-transparent text-foreground hover:bg-foreground/10 hover:text-foreground md:hidden"
-          />
-        }
-      >
+      <SheetTrigger render={MENU_TRIGGER_BUTTON}>
         <Menu className="size-5" />
         <span className="sr-only">Open menu</span>
       </SheetTrigger>

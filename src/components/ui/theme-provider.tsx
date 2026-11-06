@@ -15,9 +15,10 @@ interface ThemeProviderState {
 
 const initialState: ThemeProviderState = {
   theme: "system",
-  setTheme: () => {},
+  setTheme: () => {}, // oxlint-disable-line no-empty-function (Works as intended)
 };
 
+const THEMES: readonly Theme[] = ["dark", "light", "system"];
 const ThemeProviderContext = createContext(initialState);
 
 export function ThemeProvider({
@@ -26,9 +27,10 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: Readonly<ThemeProviderProps>) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) ?? defaultTheme) as Theme,
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    const stored = localStorage.getItem(storageKey);
+    return THEMES.find((item) => item === stored) ?? defaultTheme;
+  });
 
   useEffect(() => {
     const root = globalThis.document.documentElement;
@@ -48,9 +50,9 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  const handleSetTheme = useCallback((theme: Theme) => {
-    localStorage.setItem(storageKey, theme);
-    setTheme(theme);
+  const handleSetTheme = useCallback((selectedTheme: Theme) => {
+    localStorage.setItem(storageKey, selectedTheme);
+    setTheme(selectedTheme);
   }, [storageKey]);
 
   const value = useMemo(() => ({

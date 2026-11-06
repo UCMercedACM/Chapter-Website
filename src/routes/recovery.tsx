@@ -25,8 +25,8 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/recovery")({
   validateSearch: (search: Record<string, unknown>): { flow?: string; settings?: string } => ({
-    flow: search.flow as string | undefined,
-    settings: search.settings as string | undefined,
+    flow: typeof search.flow === "string" ? search.flow : undefined,
+    settings: typeof search.settings === "string" ? search.settings : undefined,
   }),
   loaderDeps: ({ search }) => ({ flowId: search.flow, settingsFlowId: search.settings }),
   loader: async ({ context: { queryClient }, deps }) => {
@@ -100,8 +100,13 @@ const BLANK_PASSWORD_FORM: PasswordFormValues = {
 
 const BLANK_LOGIN_SEARCH = {};
 
+/// Constants - components
+
+const RECOVERY_LINK = <Link to="/recovery" search={BLANK_LOGIN_SEARCH} />;
+
 /// Constants - regular
 
+const PASSWORD_FIELDS = ["confirmPassword", "password"] as const;
 const FIELD_ERROR_CLASS = "text-[12px] font-semibold text-[#e13737] dark:text-[#ff6b6b]";
 const INPUT_CLASS = "h-11 border-muted-foreground/45";
 const PASSWORD_INPUT_CLASS = "h-11 border-muted-foreground/45 pr-11";
@@ -237,7 +242,8 @@ function Recovery() {
   const handlePasswordText = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
-      passwordForm.setFieldValue(name as "confirmPassword" | "password", value);
+      const field = PASSWORD_FIELDS.find((item) => item === name);
+      if (field) passwordForm.setFieldValue(field, value);
     },
     [passwordForm],
   );
@@ -362,7 +368,7 @@ function Recovery() {
                 size="lg"
                 variant="outline"
                 className="w-full font-semibold"
-                render={<Link to="/recovery" search={BLANK_LOGIN_SEARCH} />}
+                render={RECOVERY_LINK}
               >
                 Start over
               </Button>

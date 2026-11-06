@@ -7,7 +7,7 @@ import {
   type TableFeatures,
   type TableMeta,
 } from "@tanstack/react-table";
-import axios from "axios";
+import { isAxiosError } from "axios";
 import {
   AlertTriangle,
   Check,
@@ -53,6 +53,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import { isSudoActive, sudoQueryOptions } from "@/routes/dashboard/route";
 import {
@@ -193,8 +194,6 @@ const TAG_COLUMNS: ColumnDef<typeof dataTableFeatures, FullTags>[] = [
 
 /// Constants — regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const TAGS_KEY = ["tags", "list"] as const;
 const TABLE_PAGE_SIZE = 10;
 const CARD_CLASS =
@@ -222,7 +221,7 @@ const tagFormSchema = z.object({
 const tagsQueryOptions = queryOptions({
   queryKey: TAGS_KEY,
   queryFn: async () => {
-    const { data } = await axios.get<FullTags[]>(`${API_BASE_URL}/tags`);
+    const { data } = await client.get<FullTags[]>("/tags");
     return data;
   },
 });
@@ -271,7 +270,7 @@ function TagsPage() {
   );
   const { mutate: createTag } = useMutation({
     mutationFn: async (body: TagVars) => {
-      const { data } = await axios.post<Tag>(`${API_BASE_URL}/tags/create`, body);
+      const { data } = await client.post<Tag>("/tags/create", body);
       return data;
     },
     onSuccess: (created) => {
@@ -287,7 +286,7 @@ function TagsPage() {
 
   const { mutate: bulkCreate } = useMutation({
     mutationFn: async (body: TagVars[]) => {
-      const { data } = await axios.post<Tag[]>(`${API_BASE_URL}/tags/bulk-create`, body);
+      const { data } = await client.post<Tag[]>("/tags/bulk-create", body);
       return data;
     },
     onSuccess: (created) => {
@@ -303,7 +302,7 @@ function TagsPage() {
 
   const { mutate: editTag } = useMutation({
     mutationFn: async ({ id, title, description }: EditVars) => {
-      await axios.put<Tag>(`${API_BASE_URL}/tags/${String(id)}`, { title, description });
+      await client.put<Tag>(`/tags/${String(id)}`, { title, description });
     },
     onMutate: async ({ id, title, description }) => {
       await queryClient.cancelQueries({ queryKey: TAGS_KEY });
@@ -323,7 +322,7 @@ function TagsPage() {
 
   const { mutate: deleteTag } = useMutation({
     mutationFn: async (tag: FullTags) => {
-      await axios.delete(`${API_BASE_URL}/tags/${String(tag.id)}`);
+      await client.delete(`/tags/${String(tag.id)}`);
     },
     onMutate: async (tag) => {
       await queryClient.cancelQueries({ queryKey: TAGS_KEY });
@@ -336,9 +335,8 @@ function TagsPage() {
     },
     onError: (error, tag, context) => {
       if (context) queryClient.setQueryData(TAGS_KEY, context.previous);
-      if (axios.isAxiosError(error) && error.response?.status === 409) {
-        const data = error.response.data as AttachedTagResponse;
-        setConflict({ title: tag.title, entries: data.entries });
+      if (isAxiosError<AttachedTagResponse>(error) && error.response?.status === 409) {
+        setConflict({ title: tag.title, entries: error.response.data.entries });
         return;
       }
       toast.error("Couldn't delete the tag. Please try again.");
@@ -475,7 +473,7 @@ function TagsPage() {
   const bulkTitles = useMemo(() => {
     const seen = new Set<string>();
     return bulkText
-      .split(/[\n,]+/)
+      .split(/[\n,]+/u)
       .map((title) => title.trim())
       .filter((title) => {
         const key = title.toLowerCase();

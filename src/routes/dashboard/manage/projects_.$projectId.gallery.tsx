@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { EmptyState } from "@/components/app/dashboard-events";
 import { MediaLightbox } from "@/components/app/media-lightbox";
 import { Button } from "@/components/ui/button";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import {
   SIG_META,
@@ -73,10 +74,12 @@ const DND_SENSORS = [
   }),
 ];
 
+/// Constants - components
+
+const BACK_TO_PROJECTS_LINK = <Link to="/dashboard/manage/projects" />;
+
 /// Constants - regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const CARD_CLASS =
   "rounded-[18px] border border-border bg-card shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 const TEAL_BUTTON_CLASS = "bg-brand-teal font-bold text-primary hover:bg-brand-teal/85";
@@ -161,7 +164,7 @@ function ProjectGalleryPage() {
 
   const { mutate: reorderMedia } = useMutation({
     mutationFn: async (ordered: MediaRecord[]) =>
-      await axios.put(`${API_BASE_URL}/projects/${projectId}/media/positions`, {
+      await client.put(`/projects/${projectId}/media/positions`, {
         hashes: ordered.map((item) => item.hash),
       }),
     onMutate: (ordered) =>
@@ -191,7 +194,7 @@ function ProjectGalleryPage() {
 
   const { mutate: deleteMedia } = useMutation({
     mutationFn: async (hash: string) => {
-      await axios.delete(`${API_BASE_URL}/projects/${projectId}/media/${hash}`);
+      await client.delete(`/projects/${projectId}/media/${hash}`);
     },
     onMutate: (hash) => {
       setItems((current) => current.filter((item) => item.hash !== hash));
@@ -230,8 +233,8 @@ function ProjectGalleryPage() {
           content_type: record.content_type,
           size: record.size,
         };
-        const { data: upload } = await axios.post<UploadResponse>(
-          `${API_BASE_URL}/projects/${projectId}/media/upload`,
+        const { data: upload } = await client.post<UploadResponse>(
+          `/projects/${projectId}/media/upload`,
           body,
         );
 
@@ -259,7 +262,7 @@ function ProjectGalleryPage() {
           });
         }
 
-        await axios.post(`${API_BASE_URL}/projects/${projectId}/media/commit`, body);
+        await client.post(`/projects/${projectId}/media/commit`, body);
       }
     },
     onError: () => toast.error("Couldn't upload the media. Please try again."),
@@ -337,7 +340,7 @@ function ProjectGalleryPage() {
             size="icon-sm"
             title="Back to projects"
             nativeButton={false}
-            render={<Link to="/dashboard/manage/projects" />}
+            render={BACK_TO_PROJECTS_LINK}
           >
             <ArrowLeft />
           </Button>

@@ -1,6 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import axios from "axios";
 import { Calendar, Folder, Shield, Tag, Users } from "lucide-react";
 import { lazy, Suspense, useMemo } from "react";
 
@@ -8,6 +7,7 @@ import { StatTile } from "@/components/app/dashboard-events";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import { isPastEvent } from "@/lib/dashboard-events";
 import { type FullEvents, type MemberRoles, type Role } from "@/types/kanae.gen";
 import { type KanaePage } from "@/types/pages";
@@ -97,10 +97,12 @@ const CHART_CONFIG: ChartConfig = {
 const CHART_MARGIN = { left: 8 } as const;
 const CHART_BAR_BACKGROUND = { fill: "var(--muted)", radius: 6 } as const;
 
+/// Constants - components
+
+const ROLE_CHART_SKELETON = <Skeleton className="h-64 w-full rounded-xl" />;
+
 /// Constants — regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const MEMBERS_PAGE_SIZE = 100;
 const PROJECTS_PAGE_SIZE = 100;
 const EVENTS_PAGE_SIZE = 50;
@@ -115,12 +117,12 @@ const overviewMembersQueryOptions = queryOptions({
     const members: OverviewMember[] = [];
     let more = true;
     while (more) {
-      const { data } = await axios.get<KanaePage<{ id: string }>>(`${API_BASE_URL}/members`, {
+      const { data } = await client.get<KanaePage<{ id: string }>>("/members", {
         params: { page: members.length / MEMBERS_PAGE_SIZE + 1, size: MEMBERS_PAGE_SIZE },
       });
       for (const { id } of data.data ?? []) {
-        const { data: memberRoles } = await axios
-          .get<MemberRoles>(`${API_BASE_URL}/members/${id}/roles`)
+        const { data: memberRoles } = await client
+          .get<MemberRoles>(`/members/${id}/roles`)
           .catch(() => ({ data: { roles: EMPTY_ROLES } }));
         members.push({ id, roles: memberRoles.roles });
       }
@@ -136,7 +138,7 @@ const overviewProjectsQueryOptions = queryOptions({
     const projects: OverviewProject[] = [];
     let more = true;
     while (more) {
-      const { data } = await axios.get<KanaePage<OverviewProject>>(`${API_BASE_URL}/projects`, {
+      const { data } = await client.get<KanaePage<OverviewProject>>("/projects", {
         params: { page: projects.length / PROJECTS_PAGE_SIZE + 1, size: PROJECTS_PAGE_SIZE },
       });
       projects.push(...(data.data ?? []));
@@ -153,7 +155,7 @@ const overviewEventsQueryOptions = queryOptions({
     const events: FullEvents[] = [];
     let more = true;
     while (more) {
-      const { data } = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+      const { data } = await client.get<KanaePage<FullEvents>>("/events", {
         params: { page: events.length / EVENTS_PAGE_SIZE + 1, size: EVENTS_PAGE_SIZE },
       });
       events.push(...(data.data ?? []));
@@ -167,7 +169,7 @@ const overviewTagsQueryOptions = queryOptions({
   queryKey: ["overview", "tags"],
   queryFn: async () => {
     // We only care about the array, so unknown is fine here
-    const { data } = await axios.get<unknown[]>(`${API_BASE_URL}/tags`);
+    const { data } = await client.get<unknown[]>("/tags");
     return data.length;
   },
 });
@@ -193,6 +195,7 @@ const RoleChart = lazy(async () => {
             tickMargin={10}
             width={80}
           />
+          {/* oxlint-disable-next-line react-perf/jsx-no-jsx-as-prop */}
           <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel nameKey="key" />} />
           <Bar dataKey="count" barSize={12} radius={6} background={CHART_BAR_BACKGROUND} />
         </BarChart>
@@ -277,7 +280,7 @@ function OverviewPage() {
             <CardDescription>Members bucketed by their highest role</CardDescription>
           </CardHeader>
           <CardContent>
-            <Suspense fallback={<Skeleton className="h-64 w-full rounded-xl" />}>
+            <Suspense fallback={ROLE_CHART_SKELETON}>
               <RoleChart data={roleChartData} />
             </Suspense>
           </CardContent>

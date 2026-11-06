@@ -1,6 +1,5 @@
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { type LucideIcon, Check, Clock, Lock, QrCode } from "lucide-react";
 import { type ChangeEvent, type SyntheticEvent, useCallback } from "react";
 import { toast } from "sonner";
@@ -18,13 +17,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { client } from "@/lib/client";
 import { type CheckInState, determineCheckIn, type DashboardEvent } from "@/lib/dashboard-events";
 import { cn } from "@/lib/utils";
 
 /// Constants
-
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 
 const STATUS_GREEN = "text-[#15a66e] bg-[#15a66e]/15 dark:text-[#3fd68c] dark:bg-[#3fd68c]/15";
 const STATUS_MUTED = "text-muted-foreground bg-muted";
@@ -51,7 +48,7 @@ const CHECKIN_EMPTY = {
 const checkInSchema = z.object({
   code: z
     .string()
-    .regex(/^[A-Z0-9]*$/, "Letters and numbers only")
+    .regex(/^[A-Z0-9]*$/u, "Letters and numbers only")
     .length(8, "Enter all 8 characters"),
 });
 
@@ -74,10 +71,9 @@ export function CheckInDialog({
 }: Readonly<CheckInDialogProps>) {
   const { mutate, reset, isError, isPending, isSuccess } = useMutation({
     mutationFn: async (code: string) => {
-      const { data } = await axios.post<{ message: string }>(
-        `${API_BASE_URL}/events/${event.id}/verify`,
-        { code },
-      );
+      const { data } = await client.post<{ message: string }>(`/events/${event.id}/verify`, {
+        code,
+      });
       return data;
     },
     onSuccess: () => {
@@ -105,16 +101,16 @@ export function CheckInDialog({
     [form, onOpenChange, reset],
   );
   const handleSubmit = useCallback(
-    (event: SyntheticEvent) => {
-      event.preventDefault();
+    (submitEvent: SyntheticEvent) => {
+      submitEvent.preventDefault();
       void form.handleSubmit();
     },
     [form],
   );
   const handleCodeChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const code = event.target.value
-        .replaceAll(/[^a-z0-9]/gi, "")
+    (changeEvent: ChangeEvent<HTMLInputElement>) => {
+      const code = changeEvent.target.value
+        .replaceAll(/[^a-z0-9]/giu, "")
         .toUpperCase()
         .slice(0, 8);
       form.setFieldValue("code", code);

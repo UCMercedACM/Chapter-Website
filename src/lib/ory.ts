@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 /// Types and Interfaces
 
@@ -42,8 +42,7 @@ export interface Flow {
 
 /// Constants
 
-export const ORY_URL =
-  (import.meta.env.VITE_ORY_URL as string | undefined) ?? "http://localhost:4433";
+export const ORY_URL = import.meta.env.VITE_ORY_URL ?? "http://localhost:4433";
 
 export const ACCEPT_JSON = { headers: { Accept: "application/json" } };
 
@@ -58,12 +57,13 @@ function toFlow(body: SubmitBody): Flow | undefined {
 
 export function csrfToken(flow: Flow): string {
   const node = flow.ui.nodes.find((entry) => entry.attributes.name === "csrf_token");
-  return (node?.attributes.value as string | undefined) ?? "";
+  const value = node?.attributes.value;
+  return typeof value === "string" ? value : "";
 }
 
 export function isSessionAlreadyAvailable(error: unknown): boolean {
   return (
-    axios.isAxiosError<SubmitBody>(error) &&
+    isAxiosError<SubmitBody>(error) &&
     error.response?.data.error?.id === "session_already_available"
   );
 }

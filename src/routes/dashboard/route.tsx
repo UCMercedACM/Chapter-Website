@@ -1,3 +1,5 @@
+/* oxlint-disable import/no-cycle */
+
 import { useForm } from "@tanstack/react-form";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
@@ -10,7 +12,6 @@ import {
   useNavigate,
   useRouter,
 } from "@tanstack/react-router";
-import axios from "axios";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import {
   type LucideIcon,
@@ -85,6 +86,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { client } from "@/lib/client";
 import { type Flow, type SubmitResponse, csrfToken, oryInit, orySubmit } from "@/lib/ory";
 import { cn } from "@/lib/utils";
 import { type ClientMember, type Role } from "@/types/kanae.gen";
@@ -103,9 +105,9 @@ export const Route = createFileRoute("/dashboard")({
 
 /// Types and Interfaces
 
-type AccountField = "display_name" | "password";
 type TotpStep = "scan" | "verify" | "backup";
 type SettingsSection = "account" | "security";
+type SidebarStyle = CSSProperties & Record<`--${string}`, string>;
 
 export interface Sudo {
   active: boolean;
@@ -226,16 +228,21 @@ const TOTP_STEPS: TotpStepItem[] = [
 
 export const ROLES_BY_RANK: Role[] = ["root", "admin", "manager", "leads"];
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
+const ACCOUNT_FIELDS = ["display_name", "password"] as const;
 
-const SIDEBAR_STYLE = {
+const SIDEBAR_STYLE: SidebarStyle = {
   "--sidebar-width": "16.5rem",
   "--sidebar-width-icon": "3.5rem",
-} as CSSProperties;
+};
 
 const OPEN_SETTINGS = (): { settings: "profile" } => ({ settings: "profile" });
 const SETTINGS_MASK = { to: "/dashboard/settings" } as const;
+const SETTINGS_LINK = (
+  <Link from="/dashboard" search={OPEN_SETTINGS} mask={SETTINGS_MASK}>
+    <Settings />
+  </Link>
+);
+
 const BLANK_DELETE_FORM = { email: "" };
 const TOTP_ISSUER = "Kanae";
 const TOTP_PARAMS = { algorithm: "SHA1", digits: "6", issuer: TOTP_ISSUER, period: "30" };
@@ -248,7 +255,7 @@ const STEP_LINE_CLASS = "h-0.5 flex-1 rounded-full";
 const EMPTY_CODES: string[] = [];
 const FIELD_ERROR_CLASS = "text-[12px] font-semibold text-[#e13737] dark:text-[#ff6b6b]";
 
-const RAIL_STYLE = { "--sidebar-width": "13.125rem" } as CSSProperties;
+const RAIL_STYLE: SidebarStyle = { "--sidebar-width": "13.125rem" };
 const RAIL_BUTTON_CLASS =
   "h-auto gap-3 rounded-xl border border-transparent px-3 py-2.75 text-[14.5px] font-semibold text-brand-text-sub data-active:border-brand-teal/45 data-active:bg-brand-teal/14 data-active:font-bold data-active:text-foreground [&_svg]:size-4.75";
 const RAIL_MARKER_CLASS = "absolute top-2 -left-3 bottom-2 w-1 rounded-[9px] bg-brand-sky";
@@ -304,7 +311,7 @@ const accountSchema = z.object({
 export const meQueryOptions = queryOptions({
   queryKey: ["members", "me"],
   queryFn: async () => {
-    const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);
+    const { data } = await client.get<ClientMember>("/members/me");
     return data;
   },
 });
@@ -312,7 +319,7 @@ export const meQueryOptions = queryOptions({
 export const sudoQueryOptions = queryOptions({
   queryKey: ["sudo", "status"],
   queryFn: async () => {
-    const { data } = await axios.get<Sudo>(`${API_BASE_URL}/sudo`);
+    const { data } = await client.get<Sudo>("/sudo");
     return data;
   },
 });
@@ -337,10 +344,23 @@ function SidebarNav({ items, pathname }: Readonly<{ items: NavItem[]; pathname: 
   const closeMobile = useCallback(() => {
     setOpenMobile(false);
   }, [setOpenMobile]);
+  const rows = useMemo(
+    () =>
+      items.map((item) => ({
+        item,
+        link: (
+          <Link to={item.to} onClick={closeMobile}>
+            <item.icon />
+            <span>{item.label}</span>
+          </Link>
+        ),
+      })),
+    [items, closeMobile],
+  );
 
   return (
     <SidebarMenu className="group-data-[collapsible=icon]:items-center">
-      {items.map((item) => (
+      {rows.map(({ item, link }) => (
         <SidebarMenuItem
           key={item.to}
           className={cn(item.sub && "ml-4 group-data-[collapsible=icon]:ml-0")}
@@ -349,12 +369,7 @@ function SidebarNav({ items, pathname }: Readonly<{ items: NavItem[]; pathname: 
             isActive={pathname === item.to}
             tooltip={item.label}
             className="data-active:bg-brand-teal/18 data-active:font-semibold"
-            render={
-              <Link to={item.to} onClick={closeMobile}>
-                <item.icon />
-                <span>{item.label}</span>
-              </Link>
-            }
+            render={link}
           />
         </SidebarMenuItem>
       ))}
@@ -385,7 +400,7 @@ function DashboardLayout() {
 
   const { mutate: revokeSudo } = useMutation({
     mutationFn: async () => {
-      await axios.delete(`${API_BASE_URL}/sudo/revoke`);
+      await client.delete("/sudo/revoke");
     },
     onMutate: () => {
       queryClient.setQueryData<Sudo>(sudoQueryOptions.queryKey, { active: false });
@@ -397,7 +412,7 @@ function DashboardLayout() {
 
   const { mutate: signOut, isPending: signingOut } = useMutation({
     mutationFn: async () => {
-      await axios.post(`${API_BASE_URL}/members/logout`);
+      await client.post("/members/logout");
     },
     onSuccess: async () => {
       queryClient.clear();
@@ -522,7 +537,7 @@ function DashboardLayout() {
 
   const { mutate: deleteAccount, isPending: deleting } = useMutation({
     mutationFn: async () => {
-      await axios.delete(`${API_BASE_URL}/members/me`);
+      await client.delete("/members/me");
     },
     onSuccess: async () => {
       queryClient.clear();
@@ -625,12 +640,15 @@ function DashboardLayout() {
     [closeSettings],
   );
   const selectSection = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    setSection(event.currentTarget.dataset.section as SettingsSection);
+    const { section: sectionKey } = event.currentTarget.dataset;
+    const next = SETTINGS_SECTIONS.find((item) => item.value === sectionKey);
+    if (next) setSection(next.value);
   }, []);
   const handleAccountText = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
-      accountForm.setFieldValue(name as AccountField, value);
+      const field = ACCOUNT_FIELDS.find((item) => item === name);
+      if (field) accountForm.setFieldValue(field, value);
     },
     [accountForm],
   );
@@ -728,7 +746,7 @@ function DashboardLayout() {
     navigator.clipboard
       .writeText(backupCodes.join("\n"))
       .then(() => {
-        toast.success("Backup codes copied.");
+        return toast.success("Backup codes copied.");
       })
       .catch(() => {
         toast.error("Couldn't copy the backup codes.");
@@ -744,6 +762,15 @@ function DashboardLayout() {
   const totpUri = `otpauth://totp/${totpLabel}?${totpQuery.toString()}`;
   const totpIndex = TOTP_STEPS.findIndex((item) => item.value === totpStep);
   const backupCodesHref = `data:text/plain;charset=utf-8,${encodeURIComponent(backupCodes.join("\n"))}`;
+  const backupCodesLink = useMemo(
+    () => (
+      <a href={backupCodesHref} download={BACKUP_CODES_FILE}>
+        <Download />
+        Download
+      </a>
+    ),
+    [backupCodesHref],
+  );
 
   const access = ROLES_BY_RANK.find((role) => me?.roles.includes(role));
   const accessLabel = access ? ROLE_META[access].label : "Member";
@@ -757,7 +784,7 @@ function DashboardLayout() {
   );
   const initials =
     me?.name
-      .match(/\S+/g)
+      .match(/\S+/gu)
       ?.slice(0, 2)
       .map((part) => part[0])
       .join("")
@@ -765,7 +792,26 @@ function DashboardLayout() {
 
   const sudoElevated = isSudoActive(sudo);
 
-  const firstName = me?.name.match(/\S+/)?.[0];
+  const profileLink = useMemo(
+    () => (
+      <Link from="/dashboard" search={OPEN_SETTINGS} mask={SETTINGS_MASK}>
+        <Avatar className="size-8 shrink-0 border border-brand-sky/30 bg-brand-sky/15">
+          <AvatarFallback className="bg-transparent text-[12px] font-extrabold text-brand-sky-text">
+            {initials}
+          </AvatarFallback>
+        </Avatar>
+        <div className="grid min-w-0 flex-1 text-left leading-tight">
+          <span className="truncate text-sm font-bold text-foreground">{me?.name ?? "Member"}</span>
+          <span className="truncate text-[11.5px] font-semibold text-muted-foreground">
+            {accessLabel}
+            {me?.display_name ? ` · ${me.display_name}` : ""}
+          </span>
+        </div>
+      </Link>
+    ),
+    [accessLabel, initials, me],
+  );
+  const firstName = me?.name.match(/\S+/u)?.[0];
   const welcome = firstName ? `Welcome back, ${firstName}!` : "Welcome back!";
   const heading = meta.home ? welcome : (meta.title ?? "Dashboard");
   const sub = meta.home ? `${accessLabel} · Computer Science & Engineering · UC Merced` : meta.sub;
@@ -844,33 +890,12 @@ function DashboardLayout() {
                 size="lg"
                 tooltip="Settings"
                 className="flex-1 gap-2.75"
-                render={
-                  <Link from="/dashboard" search={OPEN_SETTINGS} mask={SETTINGS_MASK}>
-                    <Avatar className="size-8 shrink-0 border border-brand-sky/30 bg-brand-sky/15">
-                      <AvatarFallback className="bg-transparent text-[12px] font-extrabold text-brand-sky-text">
-                        {initials}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="grid min-w-0 flex-1 text-left leading-tight">
-                      <span className="truncate text-sm font-bold text-foreground">
-                        {me?.name ?? "Member"}
-                      </span>
-                      <span className="truncate text-[11.5px] font-semibold text-muted-foreground">
-                        {accessLabel}
-                        {me?.display_name ? ` · ${me.display_name}` : ""}
-                      </span>
-                    </div>
-                  </Link>
-                }
+                render={profileLink}
               />
               <SidebarMenuAction
                 aria-label="Settings"
                 className="static size-8 shrink-0 text-brand-text-sub after:hidden [&>svg]:size-4.5"
-                render={
-                  <Link from="/dashboard" search={OPEN_SETTINGS} mask={SETTINGS_MASK}>
-                    <Settings />
-                  </Link>
-                }
+                render={SETTINGS_LINK}
               />
             </SidebarMenuItem>
           </SidebarMenu>
@@ -1409,12 +1434,7 @@ function DashboardLayout() {
                     size="sm"
                     nativeButton={false}
                     className="flex-1"
-                    render={
-                      <a href={backupCodesHref} download={BACKUP_CODES_FILE}>
-                        <Download />
-                        Download
-                      </a>
-                    }
+                    render={backupCodesLink}
                   />
                 </div>
               </div>

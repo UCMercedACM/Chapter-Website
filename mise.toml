@@ -43,7 +43,7 @@ run = ["rm -r dist", "tsc -b && vite build", "vite preview"]
 description = "Lints the react codebase"
 env._.path = "./node_modules/.bin"
 dir = "{{ config_root }}"
-run = ["oxlint --type-aware --type-check --deny-warnings src", "eslint src --cache --cache-location .eslintcache"]
+run = ["oxlint --type-aware --type-check --deny-warnings src", "eslint src --cache --cache-location .eslintcache --max-warnings 0"]
 
 [tasks."web:format"]
 description = "Formats the react codebase"

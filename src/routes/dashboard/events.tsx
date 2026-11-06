@@ -8,7 +8,6 @@ import {
 import type { CalendarType } from "@schedule-x/calendar";
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import axios from "axios";
 import { Clock, MapPin, ScanLine } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -18,6 +17,7 @@ import { CheckInDialog } from "@/components/app/check-in-dialog";
 import { EventDetailDialog, EventResults, EventToolbar } from "@/components/app/dashboard-events";
 import { ManageEventsCalendar } from "@/components/app/events-calendar";
 import { Button } from "@/components/ui/button";
+import { client } from "@/lib/client";
 import {
   type DashboardEvent,
   type EventType,
@@ -37,6 +37,7 @@ import { type FullEvents } from "@/types/kanae.gen";
 export const Route = createFileRoute("/dashboard/events")({
   component: DashboardEvents,
   staticData: { area: "Member", title: "Events", sub: "Browse, RSVP, and check in" },
+  beforeLoad: () => ({ now: new Date() }),
   loader: async ({ context: { queryClient } }) => {
     await queryClient.query(eventsListQueryOptions);
     await queryClient.query(meQueryOptions);
@@ -69,8 +70,6 @@ const EVENT_CALENDARS: Record<string, CalendarType> = Object.fromEntries(
   }),
 );
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const EVENTS_VIEWS: EventView[] = ["calendar", "grid", "list"];
 
 /// Tanstack Query options
@@ -79,9 +78,7 @@ const memberQueryOptions = (memberId: string) =>
   queryOptions({
     queryKey: ["members", memberId],
     queryFn: async () => {
-      const { data } = await axios.get<{ id: string; name: string }>(
-        `${API_BASE_URL}/members/${memberId}`,
-      );
+      const { data } = await client.get<{ id: string; name: string }>(`/members/${memberId}`);
       return data;
     },
   });
@@ -91,7 +88,7 @@ const memberQueryOptions = (memberId: string) =>
 function DashboardEvents() {
   const queryClient = useQueryClient();
 
-  const [now] = useState(() => new Date());
+  const { now } = Route.useRouteContext();
   const [query, setQuery] = useState("");
   const [type, setType] = useState<"all" | EventType>("all");
   const [view, setView] = useState<EventView>("calendar");
@@ -110,7 +107,7 @@ function DashboardEvents() {
 
   const { mutate: joinMutate } = useMutation({
     mutationFn: async (eventId: string) => {
-      await axios.post<{ message: string }>(`${API_BASE_URL}/events/${eventId}/join`);
+      await client.post<{ message: string }>(`/events/${eventId}/join`);
     },
     onSuccess: () => {
       toast.success("You're on the list! We'll see you there.");

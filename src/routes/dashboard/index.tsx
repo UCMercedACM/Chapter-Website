@@ -2,7 +2,6 @@ import { ROLE_META, ROLES_BY_RANK } from "./route";
 
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import axios from "axios";
 import {
   ArrowRight,
   Calendar,
@@ -29,6 +28,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import {
   type DashboardEvent,
   EVENT_TYPE_CLASSES,
@@ -47,6 +47,7 @@ import { type KanaePage } from "@/types/pages";
 export const Route = createFileRoute("/dashboard/")({
   component: DashboardHome,
   staticData: { area: "Member", title: "Dashboard", home: true },
+  beforeLoad: () => ({ now: new Date() }),
   loader: async ({ context: { queryClient } }) => {
     await queryClient.query(eventsListQueryOptions);
     await queryClient.query(meQueryOptions);
@@ -57,8 +58,6 @@ export const Route = createFileRoute("/dashboard/")({
 
 /// Constants
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const EVENTS_PAGE_SIZE = 50;
 const SKELETON_TILES = ["a", "b", "c", "d"];
 const CAROUSEL_OPTS = { align: "start", dragFree: true } as const;
@@ -73,13 +72,20 @@ const TEAL_BUTTON_CLASS =
 const RAIL_CLASS =
   "rounded-[20px] border border-border bg-card p-4 shadow-[0px_4px_14px_rgba(112,144,176,0.14)] dark:shadow-[0px_4px_14px_rgba(0,0,0,0.4)]";
 
+const ALL_EVENTS_LINK = (
+  <Link to="/dashboard/events">
+    All events
+    <ArrowRight />
+  </Link>
+);
+
 /// Tanstack Query options
 
 export const memberEventsQueryOptions = (filter: "attended" | "planned") =>
   queryOptions({
     queryKey: ["members", "me", "events", filter],
     queryFn: async () => {
-      const { data } = await axios.get<FullEvents[]>(`${API_BASE_URL}/members/me/events`, {
+      const { data } = await client.get<FullEvents[]>("/members/me/events", {
         params: { [filter]: true },
       });
       return data;
@@ -91,7 +97,7 @@ export const eventsListQueryOptions = queryOptions({
   queryKey: ["events", "dashboard-list"],
   queryFn: async () => {
     const fetchPage = (page: number) =>
-      axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+      client.get<KanaePage<FullEvents>>("/events", {
         params: { page, size: EVENTS_PAGE_SIZE },
       });
     const first = await fetchPage(1);
@@ -111,7 +117,7 @@ export const eventsListQueryOptions = queryOptions({
 export const meQueryOptions = queryOptions({
   queryKey: ["members", "me"],
   queryFn: async () => {
-    const { data } = await axios.get<ClientMember>(`${API_BASE_URL}/members/me`);
+    const { data } = await client.get<ClientMember>("/members/me");
     return data;
   },
 });
@@ -123,9 +129,7 @@ const memberQueryOptions = (memberId: string) =>
   queryOptions({
     queryKey: ["members", memberId],
     queryFn: async () => {
-      const { data } = await axios.get<{ id: string; name: string }>(
-        `${API_BASE_URL}/members/${memberId}`,
-      );
+      const { data } = await client.get<{ id: string; name: string }>(`/members/${memberId}`);
       return data;
     },
   });
@@ -143,7 +147,7 @@ function heroEyebrowText(live: boolean, planned: boolean) {
 function DashboardHome() {
   const queryClient = useQueryClient();
 
-  const [now] = useState(() => new Date());
+  const { now } = Route.useRouteContext();
   const [detail, setDetail] = useState<DashboardEvent>();
   const [checkinEvent, setCheckinEvent] = useState<DashboardEvent>();
   const [roster, setRoster] = useState<DashboardEvent>();
@@ -159,7 +163,7 @@ function DashboardHome() {
 
   const { mutate: joinMutate } = useMutation({
     mutationFn: async (eventId: string) => {
-      await axios.post<{ message: string }>(`${API_BASE_URL}/events/${eventId}/join`);
+      await client.post<{ message: string }>(`/events/${eventId}/join`);
     },
     onSuccess: () => {
       toast.success("You're on the list! We'll see you there.");
@@ -221,14 +225,14 @@ function DashboardHome() {
         (event) => determineCheckIn(event, now) === "open" && !event.attended,
       );
       const heroEvent = live ?? upcoming.find((event) => event.planned) ?? upcoming.at(0);
-      const heroLive = heroEvent ? determineCheckIn(heroEvent, now) === "open" : false;
+      const isHeroLive = heroEvent ? determineCheckIn(heroEvent, now) === "open" : false;
       const planned = upcoming.filter((event) => event.planned);
       const plural = planned.length === 1 ? "" : "s";
       return {
         hero: heroEvent,
         heroDate: heroEvent ? monthDay(heroEvent.start_at, heroEvent.timezone) : undefined,
-        heroLive,
-        heroEyebrow: heroEyebrowText(heroLive, heroEvent?.planned ?? false),
+        heroLive: isHeroLive,
+        heroEyebrow: heroEyebrowText(isHeroLive, heroEvent?.planned ?? false),
         myUpcoming: planned,
         myRsvpsSub:
           planned.length > 0
@@ -439,12 +443,7 @@ function DashboardHome() {
               size="sm"
               nativeButton={false}
               className="hidden font-bold text-brand-text-sub lg:inline-flex"
-              render={
-                <Link to="/dashboard/events">
-                  All events
-                  <ArrowRight />
-                </Link>
-              }
+              render={ALL_EVENTS_LINK}
             />
             {rail.length > 1 && (
               <>
@@ -486,12 +485,7 @@ function DashboardHome() {
             size="sm"
             nativeButton={false}
             className="w-full font-bold text-brand-text-sub"
-            render={
-              <Link to="/dashboard/events">
-                All events
-                <ArrowRight />
-              </Link>
-            }
+            render={ALL_EVENTS_LINK}
           />
         </div>
       </Carousel>

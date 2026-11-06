@@ -99,8 +99,9 @@ const STATE_OPEN: StateMeta = { label: "Open", icon: Ticket, className: STATUS_T
 
 export const PILL_CLASS =
   "h-auto gap-1.5 rounded-full px-2.5 py-1 text-[11.5px] font-bold [&>svg]:size-3.5!";
-
 const ROW_ACTION_WIDTH = "w-20";
+
+const ACTIONS_TRIGGER = <Button variant="ghost" size="icon-sm" />;
 
 const TYPE_FILTER_OPTIONS: readonly { label: string; value: "all" | EventType }[] = [
   { value: "all", label: "All types" },
@@ -940,7 +941,7 @@ export function RosterRow({
   const status = ROSTER_STATUS[getRosterStatus(member)];
   const initials =
     member.name
-      .match(/\S+/g)
+      .match(/\S+/gu)
       ?.slice(0, 2)
       .map((part) => part[0])
       .join("")
@@ -968,7 +969,7 @@ export function RosterRow({
       {member.attended && (
         <DropdownMenu>
           <DropdownMenuTrigger
-            render={<Button variant="ghost" size="icon-sm" />}
+            render={ACTIONS_TRIGGER}
             title="Member actions"
             aria-label="Member actions"
           >

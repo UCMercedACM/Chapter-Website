@@ -1,13 +1,14 @@
-import { queryOptions, skipToken, useMutation, useQuery } from "@tanstack/react-query";
+import { noop, queryOptions, skipToken, useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import axios from "axios";
+import { isAxiosError } from "axios";
 import { ChevronLeft, Clock, MapPin, Ticket } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { toast } from "sonner";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { client } from "@/lib/client";
 import {
   type EventType,
   EVENT_TYPE_CLASSES,
@@ -22,8 +23,9 @@ import { type FullEvents } from "@/types/kanae.gen";
 
 export const Route = createFileRoute("/event/$eventId")({
   component: Event,
+  beforeLoad: () => ({ now: new Date() }),
   loader: async ({ context: { queryClient }, params: { eventId } }) => {
-    await queryClient.query(eventDetailQueryOptions(eventId)).catch(() => {});
+    await queryClient.query(eventDetailQueryOptions(eventId)).catch(noop);
   },
 });
 
@@ -63,9 +65,6 @@ const EVENT_STATUSES = {
 
 /// Module-scoped constants
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
-
 const LONG_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
   weekday: "long",
   month: "long",
@@ -94,7 +93,7 @@ const eventDetailQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ["events", eventId, "detail"],
     queryFn: async () => {
-      const { data } = await axios.get<FullEvents>(`${API_BASE_URL}/events/${eventId}`);
+      const { data } = await client.get<FullEvents>(`/events/${eventId}`);
       return data;
     },
   });
@@ -104,7 +103,7 @@ const eventOrganizerQueryOptions = (memberId: string | null | undefined) =>
     queryKey: ["members", memberId],
     queryFn: memberId
       ? async () => {
-          const { data } = await axios.get<EventOrganizer>(`${API_BASE_URL}/members/${memberId}`);
+          const { data } = await client.get<EventOrganizer>(`/members/${memberId}`);
           return data;
         }
       : skipToken,
@@ -127,20 +126,18 @@ function Event() {
   const { data: event, isPending, isError } = useQuery(eventDetailQueryOptions(eventId));
   const { data: organizer } = useQuery(eventOrganizerQueryOptions(event?.creator_id));
 
-  const [now] = useState(() => new Date());
+  const { now } = Route.useRouteContext();
 
   const { mutate: joinEvent, isPending: isJoining } = useMutation({
     mutationFn: async () => {
-      const { data } = await axios.post<{ message: string }>(
-        `${API_BASE_URL}/events/${eventId}/join`,
-      );
+      const { data } = await client.post<{ message: string }>(`/events/${eventId}/join`);
       return data;
     },
     onSuccess: () => {
       toast.success("You're on the list! We'll see you there.");
     },
     onError: (error) => {
-      const status = axios.isAxiosError(error) ? error.response?.status : undefined;
+      const status = isAxiosError(error) ? error.response?.status : undefined;
       toast.error(JOIN_ERRORS[status ?? 0] ?? "Could not join this event. Please try again.");
     },
   });

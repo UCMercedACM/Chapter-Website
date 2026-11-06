@@ -26,8 +26,8 @@ import {
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>): { flow?: string; return_to?: string } => ({
-    flow: search.flow as string | undefined,
-    return_to: search.return_to as string | undefined,
+    flow: typeof search.flow === "string" ? search.flow : undefined,
+    return_to: typeof search.return_to === "string" ? search.return_to : undefined,
   }),
   loaderDeps: ({ search }) => ({ flowId: search.flow, returnTo: search.return_to }),
   loader: ({ deps }) => oryInit("login", deps),
@@ -51,6 +51,7 @@ const BLANK_LOGIN_SEARCH = {};
 
 /// Constants - regular
 
+const LOGIN_FIELDS = ["email", "password"] as const;
 const FIELD_ERROR_CLASS = "text-[12px] font-semibold text-[#e13737] dark:text-[#ff6b6b]";
 const INPUT_CLASS = "h-11 border-muted-foreground/45";
 const BACKUP_INPUT_CLASS = "h-11 border-muted-foreground/45 text-center tracking-[0.3em]";
@@ -172,7 +173,8 @@ function Login() {
   const handleText = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = event.target;
-      form.setFieldValue(name as "email" | "password", value);
+      const field = LOGIN_FIELDS.find((item) => item === name);
+      if (field) form.setFieldValue(field, value);
     },
     [form],
   );

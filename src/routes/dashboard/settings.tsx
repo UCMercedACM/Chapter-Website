@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/settings")({
   validateSearch: (search: Record<string, unknown>): { flow?: string } => ({
-    flow: search.flow as string | undefined,
+    flow: typeof search.flow === "string" ? search.flow : undefined,
   }),
   beforeLoad: ({ search }) => {
     // For some reason Kratos sends a new recovery link to this route. There is literally

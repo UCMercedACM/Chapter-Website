@@ -1,6 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import {
   keepPreviousData,
+  noop,
   queryOptions,
   useMutation,
   useQuery,
@@ -73,6 +74,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { client } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import {
   JOIN_POLICY_META,
@@ -211,8 +213,19 @@ const EMPTY_MEMBERS: DirectoryMember[] = [];
 const EMPTY_PROJECTS: FullProjects[] = [];
 const EMPTY_META: Partial<ManageProjectsMeta> = {};
 
-const PROJECT_TYPES = Object.keys(SIG_META) as ProjectType[];
-const JOIN_POLICIES = Object.keys(JOIN_POLICY_META) as JoinPolicy[];
+const PROJECT_TYPES = [
+  "independent",
+  "sig_swe",
+  "sig_ai",
+  "sig_cyber",
+  "sig_data",
+  "sig_arch",
+  "sig_graph",
+] as const satisfies readonly ProjectType[];
+const JOIN_POLICIES = ["open", "request", "closed"] as const satisfies readonly JoinPolicy[];
+const DETAIL_TABS = ["details", "team"] as const satisfies readonly DetailTab[];
+const INVITE_ACTIONS = ["accept", "decline", "revoke"] as const satisfies readonly InviteAction[];
+const TEXT_FIELDS = ["description", "link", "name"] as const;
 
 /// Constants - Table Columns
 
@@ -370,8 +383,6 @@ const PROJECT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullProjects>[] = [
 
 /// Constants — regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const THUMBNAIL_ACCEPT = { "image/*": [] };
 const THUMBNAIL_MAX_BYTES = 32 * 1024 * 1024;
 const MANAGE_PAGE_SIZE = 25;
@@ -405,9 +416,9 @@ const projectFormSchema = z.object({
     .max(120, "Keep the name under 120 characters."),
   description: z.string().max(2000, "That description is a little too long."),
   link: z.string().max(300, "That link is too long."),
-  type: z.enum(PROJECT_TYPES as [ProjectType, ...ProjectType[]]),
+  type: z.enum(PROJECT_TYPES),
   active: z.boolean(),
-  join_policy: z.enum(JOIN_POLICIES as [JoinPolicy, ...JoinPolicy[]]),
+  join_policy: z.enum(JOIN_POLICIES),
   tags: z.array(z.string()),
   thumbnail: z
     .object({ hash: z.string(), url: z.string(), file: z.instanceof(File).optional() })
@@ -421,7 +432,7 @@ const manageProjectsQueryOptions = ({ active, name, page }: ProjectPageParams) =
   queryOptions({
     queryKey: [...MANAGE_PROJECTS_KEY, { active, name, page }],
     queryFn: async () => {
-      const { data } = await axios.get<KanaePage<FullProjects>>(`${API_BASE_URL}/projects`, {
+      const { data } = await client.get<KanaePage<FullProjects>>("/projects", {
         params: {
           page,
           size: MANAGE_PAGE_SIZE,
@@ -438,7 +449,7 @@ const memberDirectoryQueryOptions = (query: string) =>
   queryOptions({
     queryKey: ["members", "directory", { query: query.length >= 3 ? query : "" }],
     queryFn: async () => {
-      const { data } = await axios.get<KanaePage<DirectoryMember>>(`${API_BASE_URL}/members`, {
+      const { data } = await client.get<KanaePage<DirectoryMember>>("/members", {
         params: {
           page: 1,
           size: MEMBER_DIRECTORY_SIZE,
@@ -453,7 +464,7 @@ const memberDirectoryQueryOptions = (query: string) =>
 const manageInvitesQueryOptions = queryOptions({
   queryKey: ["projects", "invites", { scope: "manage" }],
   queryFn: async () => {
-    const { data } = await axios.get<ProjectInvite[]>(`${API_BASE_URL}/projects/invites`, {
+    const { data } = await client.get<ProjectInvite[]>("/projects/invites", {
       params: { status: "pending" },
     });
     return data;
@@ -469,7 +480,7 @@ function fmtMonthYear(iso: string) {
 function renderAvatar(member: ProjectMember, size = "size-8.5") {
   const initials =
     member.name
-      .match(/\S+/g)
+      .match(/\S+/gu)
       ?.slice(0, 2)
       .map((part) => part[0])
       .join("")
@@ -529,10 +540,10 @@ function ManageProjectsPage() {
   const findProject = useCallback(
     (id: string | undefined) => {
       if (!id) return;
-      for (const [, page] of queryClient.getQueriesData<KanaePage<FullProjects>>({
+      for (const [, cachedPage] of queryClient.getQueriesData<KanaePage<FullProjects>>({
         queryKey: MANAGE_PROJECTS_KEY,
       })) {
-        const hit = (page?.data ?? []).find((item) => item.id === id);
+        const hit = (cachedPage?.data ?? []).find((item) => item.id === id);
         if (hit) return hit;
       }
     },
@@ -551,17 +562,17 @@ function ManageProjectsPage() {
         link: project.link,
       };
       const { data: saved } = await (creating
-        ? axios.post<Pick<FullProjects, "id">>(`${API_BASE_URL}/projects/create`, {
+        ? client.post<Pick<FullProjects, "id">>("/projects/create", {
             ...details,
             type: project.type,
             tags: project.tags,
             active: project.active,
             founded_at: project.founded_at,
           })
-        : axios.put<Pick<FullProjects, "id">>(`${API_BASE_URL}/projects/${project.id}`, details));
+        : client.put<Pick<FullProjects, "id">>(`/projects/${project.id}`, details));
 
       if (!thumbnailFile) {
-        if (removeThumbnail) await axios.delete(`${API_BASE_URL}/projects/${saved.id}/thumbnail`);
+        if (removeThumbnail) await client.delete(`/projects/${saved.id}/thumbnail`);
         return;
       }
 
@@ -570,8 +581,8 @@ function ManageProjectsPage() {
         content_type: thumbnailFile.type,
         size: thumbnailFile.size,
       };
-      const { data: upload } = await axios.post<ThumbnailUpload>(
-        `${API_BASE_URL}/projects/${saved.id}/thumbnail/upload`,
+      const { data: upload } = await client.post<ThumbnailUpload>(
+        `/projects/${saved.id}/thumbnail/upload`,
         body,
       );
       if (!("hash" in upload))
@@ -579,7 +590,7 @@ function ManageProjectsPage() {
           headers: { "Content-Type": thumbnailFile.type },
           withCredentials: false,
         });
-      await axios.post(`${API_BASE_URL}/projects/${saved.id}/thumbnail/commit`, body);
+      await client.post(`/projects/${saved.id}/thumbnail/commit`, body);
     },
     onError: () => toast.error("Couldn't save the project. Please try again."),
     onSuccess: (_data, { creating }) =>
@@ -589,7 +600,7 @@ function ManageProjectsPage() {
 
   const { mutate: archiveProject } = useMutation({
     mutationFn: async (project: FullProjects) => {
-      await axios.put(`${API_BASE_URL}/projects/${project.id}/archive`, {
+      await client.put(`/projects/${project.id}/archive`, {
         active: !project.active,
       });
     },
@@ -601,7 +612,7 @@ function ManageProjectsPage() {
 
   const { mutate: deleteProject } = useMutation({
     mutationFn: async (project: FullProjects) => {
-      await axios.delete(`${API_BASE_URL}/projects/${project.id}`);
+      await client.delete(`/projects/${project.id}`);
     },
     onError: () => toast.error("Couldn't delete the project. Please try again."),
     onSuccess: () => toast.success("Project deleted."),
@@ -611,10 +622,8 @@ function ManageProjectsPage() {
   const { mutate: respondInvite } = useMutation({
     mutationFn: async ({ action, invite }: RespondVars) => {
       await (action === "revoke"
-        ? axios.delete(`${API_BASE_URL}/projects/${invite.project_id}/invites/${invite.id}/revoke`)
-        : axios.post(
-            `${API_BASE_URL}/projects/${invite.project_id}/invites/${invite.id}/${action}`,
-          ));
+        ? client.delete(`/projects/${invite.project_id}/invites/${invite.id}/revoke`)
+        : client.post(`/projects/${invite.project_id}/invites/${invite.id}/${action}`));
     },
     onMutate: async ({ invite }) => {
       await queryClient.cancelQueries({ queryKey: manageInvitesQueryOptions.queryKey });
@@ -642,10 +651,9 @@ function ManageProjectsPage() {
     variables: inviteVars,
   } = useMutation({
     mutationFn: async ({ member, projectId }: InviteVars) => {
-      const { data } = await axios.post<ProjectInvite>(
-        `${API_BASE_URL}/projects/${projectId}/invites`,
-        { member_id: member.id },
-      );
+      const { data } = await client.post<ProjectInvite>(`/projects/${projectId}/invites`, {
+        member_id: member.id,
+      });
       return data;
     },
     onMutate: async ({ member, projectId }) => {
@@ -707,11 +715,12 @@ function ManageProjectsPage() {
     maxSize: THUMBNAIL_MAX_BYTES,
     multiple: false,
     onDrop: (accepted, rejections) => {
-      if (accepted.length > 0)
+      const [file] = accepted;
+      if (file)
         form.setFieldValue("thumbnail", {
           hash: "local",
-          url: URL.createObjectURL(accepted[0]),
-          file: accepted[0],
+          url: URL.createObjectURL(file),
+          file,
         });
       else if (rejections.length > 0) toast.error("That file must be an image under 32 MB.");
     },
@@ -748,8 +757,8 @@ function ManageProjectsPage() {
     setSearch(event.target.value);
     setPage(1);
   }, []);
-  const handleStatus = useCallback((value: string) => {
-    setStatus(value as ManageStatus);
+  const handleStatus = useCallback((value: ManageStatus) => {
+    setStatus(value);
     setPage(1);
   }, []);
   const goToPage = useCallback((next: number) => {
@@ -760,12 +769,12 @@ function ManageProjectsPage() {
     (next: number) => {
       queryClient
         .query(manageProjectsQueryOptions({ active: activeFilter, name: search, page: next }))
-        .catch(() => {});
+        .catch(noop);
     },
     [queryClient, activeFilter, search],
   );
-  const changeTab = useCallback((value: string) => {
-    setTab(value as DetailTab);
+  const changeTab = useCallback((value: DetailTab) => {
+    setTab(value);
   }, []);
   const toggleAdd = useCallback(() => {
     setAddingMember((value) => !value);
@@ -797,7 +806,7 @@ function ManageProjectsPage() {
         { keepDefaultValues: true },
       );
       setTagText((project.tags ?? []).join(", "));
-      setTab(nextTab as DetailTab);
+      setTab(DETAIL_TABS.find((item) => item === nextTab) ?? "details");
       setAddingMember(false);
       setEditor({
         creating: false,
@@ -825,7 +834,7 @@ function ManageProjectsPage() {
         navigate({
           to: "/dashboard/manage/projects/$projectId/gallery",
           params: { projectId },
-        }).catch(() => {});
+        }).catch(noop);
     },
     [navigate],
   );
@@ -840,7 +849,8 @@ function ManageProjectsPage() {
     (event: MouseEvent<HTMLElement>) => {
       const { id, action } = event.currentTarget.dataset;
       const invite = invites?.find((item) => item.id === id);
-      if (invite) respondInvite({ action: action as InviteAction, invite });
+      const inviteAction = INVITE_ACTIONS.find((item) => item === action);
+      if (invite && inviteAction) respondInvite({ action: inviteAction, invite });
     },
     [invites, respondInvite],
   );
@@ -856,7 +866,7 @@ function ManageProjectsPage() {
     (event: MouseEvent<HTMLElement>) => {
       const { projectId, memberId } = event.currentTarget.dataset;
       if (!projectId || !memberId) return;
-      invalidateManage().catch(() => {});
+      void invalidateManage();
       toast.success("Member removed.");
     },
     [invalidateManage],
@@ -874,7 +884,8 @@ function ManageProjectsPage() {
   const handleText = useCallback(
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = event.target;
-      form.setFieldValue(name as "description" | "link" | "name", value);
+      const field = TEXT_FIELDS.find((item) => item === name);
+      if (field) form.setFieldValue(field, value);
     },
     [form],
   );

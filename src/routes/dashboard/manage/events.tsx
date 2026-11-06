@@ -68,6 +68,7 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
+import { client } from "@/lib/client";
 import {
   type EventType,
   EVENT_TYPE_CLASSES,
@@ -88,6 +89,7 @@ export const Route = createFileRoute("/dashboard/manage/events")({
     title: "Manage Events",
     sub: "Create, edit, and track attendance for chapter events",
   },
+  beforeLoad: () => ({ now: new Date() }),
   loader: async ({ context: { queryClient } }) => {
     await queryClient.query(manageEventsQueryOptions);
     await queryClient.query(meQueryOptions);
@@ -281,13 +283,12 @@ const EVENT_COLUMNS: ColumnDef<typeof dataTableFeatures, FullEvents>[] = [
 
 /// Constants — regular
 
-const API_BASE_URL =
-  (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:8000";
 const THUMBNAIL_ACCEPT = { "image/*": [] };
 const THUMBNAIL_MAX_BYTES = 32 * 1024 * 1024;
 const DEFAULT_TZ = "America/Los_Angeles";
 const EVENTS_PAGE_SIZE = 100;
 const TABLE_PAGE_SIZE = 10;
+const TEXT_FIELDS = ["description", "end", "location", "name", "start"] as const;
 const MANAGE_EVENTS_KEY = ["events", "manage"] as const;
 const EVENT_MANAGE_ROLES = new Set(["admin", "leads", "manager"]);
 const CARD_CLASS =
@@ -314,7 +315,7 @@ const eventFormSchema = z
       .trim()
       .min(1, "An event name is required.")
       .max(120, "Keep the name under 120 characters."),
-    type: z.enum(EVENT_TYPES as [EventType, ...EventType[]]),
+    type: z.enum(EVENT_TYPES),
     location: z
       .string()
       .trim()
@@ -339,13 +340,13 @@ const eventFormSchema = z
 const manageEventsQueryOptions = queryOptions({
   queryKey: MANAGE_EVENTS_KEY,
   queryFn: async () => {
-    const first = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+    const first = await client.get<KanaePage<FullEvents>>("/events", {
       params: { page: 1, size: EVENTS_PAGE_SIZE },
     });
     const events = [...(first.data.data ?? [])];
     const pageCount = Math.ceil(first.data.total / EVENTS_PAGE_SIZE);
     for (let page = 2; page <= pageCount; page++) {
-      const next = await axios.get<KanaePage<FullEvents>>(`${API_BASE_URL}/events`, {
+      const next = await client.get<KanaePage<FullEvents>>("/events", {
         params: { page, size: EVENTS_PAGE_SIZE },
       });
       events.push(...(next.data.data ?? []));
@@ -358,8 +359,8 @@ const eventAttendanceQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ["events", eventId, "attendance"],
     queryFn: async () => {
-      const { data } = await axios.get<KanaePage<AttendanceMember>>(
-        `${API_BASE_URL}/events/${eventId}/attendance`,
+      const { data } = await client.get<KanaePage<AttendanceMember>>(
+        `/events/${eventId}/attendance`,
         { params: { page: 1, size: 100 } },
       );
       return data;
@@ -407,7 +408,7 @@ function ManageEventsPage() {
 
   const topRef = useRef<HTMLDivElement>(null);
 
-  const [now] = useState(() => new Date());
+  const { now } = Route.useRouteContext();
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<"all" | EventType>("all");
   const [page, setPage] = useState(1);
@@ -436,12 +437,12 @@ function ManageEventsPage() {
         timezone: event.timezone,
       };
       await (creating
-        ? axios.post<FullEvents>(`${API_BASE_URL}/events/create`, {
+        ? client.post<FullEvents>("/events/create", {
             ...details,
             id: event.id,
             type: event.type,
           })
-        : axios.put<FullEvents>(`${API_BASE_URL}/events/${event.id}`, details));
+        : client.put<FullEvents>(`/events/${event.id}`, details));
 
       const eventId = event.id;
       if (thumbnailFile) {
@@ -450,8 +451,8 @@ function ManageEventsPage() {
           content_type: thumbnailFile.type,
           size: thumbnailFile.size,
         };
-        const { data: upload } = await axios.post<ThumbnailUpload>(
-          `${API_BASE_URL}/events/${eventId}/thumbnail/upload`,
+        const { data: upload } = await client.post<ThumbnailUpload>(
+          `/events/${eventId}/thumbnail/upload`,
           body,
         );
 
@@ -460,14 +461,14 @@ function ManageEventsPage() {
             headers: { "Content-Type": thumbnailFile.type },
             withCredentials: false,
           });
-        await axios.post(`${API_BASE_URL}/events/${eventId}/thumbnail/commit`, body);
+        await client.post(`/events/${eventId}/thumbnail/commit`, body);
       } else if (removeThumbnail) {
-        await axios.delete(`${API_BASE_URL}/events/${eventId}/thumbnail`);
+        await client.delete(`/events/${eventId}/thumbnail`);
       }
 
       const tags = event.tags ?? [];
-      if (tags.length > 0) await axios.put(`${API_BASE_URL}/events/${eventId}/tags`, { tags });
-      else if (!creating) await axios.delete(`${API_BASE_URL}/events/${eventId}/tags`);
+      if (tags.length > 0) await client.put(`/events/${eventId}/tags`, { tags });
+      else if (!creating) await client.delete(`/events/${eventId}/tags`);
     },
     onError: () => toast.error("Couldn't save the event. Please try again."),
     onSuccess: (_data, { creating }) =>
@@ -477,7 +478,7 @@ function ManageEventsPage() {
 
   const { mutate: deleteEvent } = useMutation({
     mutationFn: async (eventId: string) => {
-      await axios.delete(`${API_BASE_URL}/events/${eventId}`);
+      await client.delete(`/events/${eventId}`);
     },
     onError: () => toast.error("Couldn't delete the event. Please try again."),
     onSuccess: () => toast.success("Event deleted."),
@@ -518,11 +519,12 @@ function ManageEventsPage() {
     maxSize: THUMBNAIL_MAX_BYTES,
     multiple: false,
     onDrop: (accepted, rejections) => {
-      if (accepted.length > 0)
+      const [file] = accepted;
+      if (file)
         form.setFieldValue("thumbnail", {
           hash: "local",
-          url: URL.createObjectURL(accepted[0]),
-          file: accepted[0],
+          url: URL.createObjectURL(file),
+          file,
         });
       else if (rejections.length > 0) toast.error("That file must be an image under 32 MB.");
     },
@@ -637,7 +639,8 @@ function ManageEventsPage() {
   const handleText = useCallback(
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = event.target;
-      form.setFieldValue(name as "description" | "end" | "location" | "name" | "start", value);
+      const field = TEXT_FIELDS.find((item) => item === name);
+      if (field) form.setFieldValue(field, value);
     },
     [form],
   );
