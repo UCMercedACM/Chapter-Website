@@ -13,13 +13,13 @@ importers:
         specifier: ^1.9.0
         version: 1.9.0(@date-fns/tz@1.5.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(date-fns@4.4.0)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       '@dnd-kit/dom':
-        specifier: ^0.5.1
+        specifier: ^0.5.3
         version: 0.5.3
       '@dnd-kit/helpers':
-        specifier: ^0.5.1
+        specifier: ^0.5.3
         version: 0.5.3
       '@dnd-kit/react':
-        specifier: ^0.5.1
+        specifier: ^0.5.3
         version: 0.5.3(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       '@fontsource-variable/raleway':
         specifier: ^5.3.0
@@ -46,7 +46,7 @@ importers:
         specifier: ^1.33.5
         version: 1.33.5(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       '@tanstack/react-query':
-        specifier: ^5.104.5
+        specifier: ^5.106.1
         version: 5.106.1(@types/react@19.3.0)(react@19.3.1)
       '@tanstack/react-router':
         specifier: ^1.170.46
@@ -55,7 +55,7 @@ importers:
         specifier: ^9.3.1
         version: 9.3.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       axios:
-        specifier: ^1.20.0
+        specifier: ^1.21.0
         version: 1.21.0(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       class-variance-authority:
         specifier: ^0.7.1
@@ -73,7 +73,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)
       lucide-react:
-        specifier: ^1.61.0
+        specifier: ^1.69.0
         version: 1.69.0(@types/react@19.3.0)(react@19.3.1)
       next-themes:
         specifier: ^0.4.6
@@ -103,7 +103,7 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
       temporal-polyfill:
-        specifier: ^1.0.6
+        specifier: ^1.0.8
         version: 1.0.8
       zod:
         specifier: ^4.6.7
@@ -113,10 +113,10 @@ importers:
         specifier: 0.99.0
         version: 0.99.0(@typescript/typescript6@6.0.2)(magicast@0.5.5)
       '@tailwindcss/vite':
-        specifier: ^4.3.3
+        specifier: ^4.3.4
         version: 4.3.4(vite@8.3.6(@types/node@26.6.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@tanstack/eslint-plugin-query':
-        specifier: ^5.104.5
+        specifier: ^5.106.1
         version: 5.106.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
       '@tanstack/eslint-plugin-router':
         specifier: ^1.162.0
@@ -125,7 +125,7 @@ importers:
         specifier: ^1.168.48
         version: 1.168.48(@tanstack/react-router@1.170.46(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1))(rolldown@1.2.16)(rollup@4.67.5)(supports-color@7.2.0)(vite@8.3.6(@types/node@26.6.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@types/node':
-        specifier: ^26.6.5
+        specifier: ^26.6.6
         version: 26.6.6
       '@types/react':
         specifier: ^19.3.0
@@ -137,16 +137,16 @@ importers:
         specifier: npm:typescript@^7.0.2
         version: typescript@7.0.2
       '@vitejs/plugin-react':
-        specifier: ^6.1.2
+        specifier: ^6.2.1
         version: 6.2.1(oxc-transform-react@0.157.0)(vite@8.3.6(@types/node@26.6.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       eslint:
-        specifier: ^10.13.0
+        specifier: ^10.14.0
         version: 10.14.0(jiti@2.7.0)(supports-color@7.2.0)
       eslint-plugin-better-tailwindcss:
         specifier: ^4.10.0
         version: 4.10.0(@typescript/typescript6@6.0.2)(eslint@10.14.0(jiti@2.7.0)(supports-color@7.2.0))(oxlint@1.91.0(oxlint-tsgolint@7.0.2006))(tailwindcss@4.3.4)
       eslint-plugin-oxlint:
-        specifier: ^1.89.0
+        specifier: ^1.90.0
         version: 1.90.0(oxlint@1.91.0(oxlint-tsgolint@7.0.2006))
       eslint-plugin-perfectionist:
         specifier: ^5.13.0
@@ -167,7 +167,7 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(eslint@10.14.0(jiti@2.7.0)(supports-color@7.2.0))
       globals:
-        specifier: ^17.13.0
+        specifier: ^17.14.0
         version: 17.14.0
       oxc-transform-react:
         specifier: ^0.157.0
@@ -176,22 +176,22 @@ importers:
         specifier: ^0.76.0
         version: 0.76.0
       oxlint:
-        specifier: ^1.89.0
+        specifier: ^1.91.0
         version: 1.91.0(oxlint-tsgolint@7.0.2006)
       oxlint-plugin-react-doctor:
-        specifier: ^0.9.18
+        specifier: ^0.9.22
         version: 0.9.22
       oxlint-tsgolint:
-        specifier: ^7.0.2005
+        specifier: ^7.0.2006
         version: 7.0.2006
       react-scan:
         specifier: ^0.5.7
         version: 0.5.7(@opentelemetry/core@2.12.0(@opentelemetry/api@1.9.1))(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(eslint@10.14.0(jiti@2.7.0)(supports-color@7.2.0))(oxlint-tsgolint@7.0.2006)(react-dom@19.3.1(@types/react@19.3.0)(react@19.3.1))(react@19.3.1)(rolldown@1.2.16)(rollup@4.67.5)(supports-color@7.2.0)(vite@8.3.6(@types/node@26.6.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       shadcn:
-        specifier: ^4.22.1
+        specifier: ^4.23.0
         version: 4.23.0(supports-color@7.2.0)
       tailwindcss:
-        specifier: ^4.3.3
+        specifier: ^4.3.4
         version: 4.3.4
       tw-animate-css:
         specifier: ^1.4.0
@@ -200,10 +200,10 @@ importers:
         specifier: npm:@typescript/typescript6@^6.0.2
         version: '@typescript/typescript6@6.0.2'
       typescript-eslint:
-        specifier: ^8.72.0
+        specifier: ^8.72.1
         version: 8.72.1(@typescript/typescript6@6.0.2)(eslint@10.14.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
       vite:
-        specifier: ^8.3.5
+        specifier: ^8.3.6
         version: 8.3.6(@types/node@26.6.6)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
       vite-plugin-pwa:
         specifier: ^2.0.0
